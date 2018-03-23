@@ -58,12 +58,15 @@ open class BaseTest {
 
 
     protected fun  SignIn() {
+        val continueFacebook=uiDevice.findObject(UiSelector().resourceId("u_0_9"))
         val titleBox= UiCollection(UiSelector().resourceId("com.tubitv:id/empty_holder"))
         val castPopUp=uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/cast_featurehighlight_help_text_header_view"))
         uiDevice.findObject(UiSelector().packageName("com.tubitv").text("Sign In")).click()
         uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/custom_fb_login_button")).click()
+        if (continueFacebook.waitForExists(globalTimeout)){
+            continueFacebook.click()
+        }
        // uiDevice.findObject(UiSelector().resourceId("u_0_9")).click()
-
        // uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/email")).setText("tubitv@tubitv.tubitv")
        // uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/password")).setText("tubitv")
         //uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/sign_in_button")).click()

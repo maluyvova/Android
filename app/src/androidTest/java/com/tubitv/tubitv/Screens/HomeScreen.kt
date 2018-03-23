@@ -21,6 +21,7 @@ open class HomeScreen:BaseScreen(){
     private val featuredTitles=UiSelector().resourceId("com.tubitv:id/view_home_content_iv")
     private val featuredTitlesText=UiSelector().resourceId("com.tubitv:id/view_home_content_tv_title")
     private val sideCategoryMenu=uiDevice.findObject(UiSelector().className("android.widget.ImageButton"))
+    private val treeDotsSetingsButton=uiDevice.findObject(UiSelector().description("More options"))
 
 
 
@@ -67,6 +68,15 @@ public fun text():Objects{
     val text=getTextOfCategory()
     return text()
 }
+
+
+
+    public fun clickOnThreeDotsSetings():SettingSmallWindowInRightCorner{
+        treeDotsSetingsButton.click()
+        return SettingSmallWindowInRightCorner()
+    }
+
+
 
     public fun waitForExistsFirstCategoryText(text:String){
       uiDevice.findObject(getTextOfCategory().selector.text(text)).waitForExists(globalTimeout)
@@ -202,6 +212,24 @@ return AddToQueue()
         }
     }
 
+    class SettingSmallWindowInRightCorner():BaseScreen(){
+       private val boxWithSettingsItems=UiCollection(UiSelector().className("android.widget.ListView"))
+        private val boxWithSettingsForInit=uiDevice.findObject(UiSelector().className("android.widget.FrameLayout"))
+         private val SettingsAboutHelpCenter=UiSelector().resourceId("com.tubitv:id/title")
+    init {
+        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", boxWithSettingsForInit.waitForExists (moviesListTimeout))
+
+    }
+
+        fun clickOnSettings():SettingsScreen{
+            boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter,0).click()
+            return SettingsScreen()
+        }
+
+
+
+
+    }
 
 
 
