@@ -46,7 +46,7 @@ class MovieDatailScreen() :BaseScreen(){
     }
     fun simpleClickOnRemoveFromQueue():HomeScreen{
         addToQueue.click()
-        Thread.sleep(1000)
+        Thread.sleep(2000)
         uiDevice.pressBack()
         return HomeScreen()
     }
