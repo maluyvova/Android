@@ -23,4 +23,28 @@ private val createNewAcountButton=uiDevice.findObject(UiSelector().resourceId("c
         return SignInScreen()
     }
 
+
+    fun clickOnCreateAccount():SignInWithEmailOrFacebookScreen{
+        createNewAcountButton.click()
+        return SignInWithEmailOrFacebookScreen()
+    }
+
+
+
+    class SignInWithEmailOrFacebookScreen():BaseScreen(){
+        private val signInWithFacebook=uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/custom_fb_login_button"))
+        private val signInWithEmail=uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/sign_up_with_email"))
+        init {
+            Assert.assertTrue("Expected Sign In With Email button is not displayed ",signInWithEmail.waitForExists(globalTimeout))
+            Assert.assertTrue("Expected Sign In With Facebook button is not displayed",signInWithFacebook.waitForExists(globalTimeout))
+        }
+        public fun clickOnSighUpWithEmail():EmailSigUpScreen{
+            signInWithEmail.click()
+            return EmailSigUpScreen()
+        }
+
+
+
+    }
+
 }
