@@ -84,7 +84,7 @@ class LogInTest:BaseTest(){
         emailSignUpScreen.pastePassword("tubitv")
         emailSignUpScreen.clickOnRegisterExseption()
         val emailErrorMessage=EmailSigUpScreen.worningObjects().waitForEmailWorning()
-        Assert.assertEquals("Warning message should be $emailErrorMessage because test didn't provide password",emailErrorMessage.toLowerCase(),"Enter a valid email address".toLowerCase())
+        Assert.assertEquals ("Warning message should be $emailErrorMessage because test didn't provide password",emailErrorMessage.toLowerCase(),"Enter a valid email address".toLowerCase())
     }
     @Test
     fun passwordNotProvided(){
