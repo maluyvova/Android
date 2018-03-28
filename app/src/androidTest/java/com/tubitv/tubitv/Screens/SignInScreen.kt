@@ -13,6 +13,8 @@ public class SignInScreen:BaseScreen(){
     private val passwordField=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/password"))
     private val signInButton=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/sign_in_button"))
     private val forgotPassword=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/forgot_password"))
+    private val pleaseTryAgainOkButton=UiDeviceID("android:id/button1")
+    private val pleaseTryAgainText=UiDeviceID("android:id/message")
 
 
     init {
@@ -32,6 +34,21 @@ public class SignInScreen:BaseScreen(){
     fun clickOnSignInButton():HomeScreen{
         signInButton.click()
         return HomeScreen()
+    }
+    fun simpleClickOnSignInButton(){
+        signInButton.click()
+    }
+
+    fun emptyFieldsClickOnSignInButton():SignInScreen{
+        signInButton.click()
+        return SignInScreen()
+    }
+    val textFromTryAgain get() = pleaseTryAgainText.text
+
+    fun clickOnOkPleaseTryAgain():SignInScreen{
+        pleaseTryAgainOkButton.waitForExists(globalTimeout)
+        pleaseTryAgainOkButton.click()
+        return SignInScreen()
     }
 
 

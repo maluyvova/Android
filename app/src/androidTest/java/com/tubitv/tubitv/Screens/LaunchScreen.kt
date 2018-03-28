@@ -12,7 +12,7 @@ class LaunchScreen:BaseScreen(){
 
 private val textAnimation=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_login_adapter_text_view"))
 private val createNewAcountButton=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/activity_main_login_sign_up_tv"))
-    val signInButton=uiDevice.findObject(UiSelector().text("Sign In"))
+    private val signInButton=uiDevice.findObject(UiSelector().text("Sign In"))
 
     init {
         Assert.assertTrue("Expected text animation is not displayed in Launch Screen",textAnimation.waitForExists(globalTimeout))
@@ -33,6 +33,7 @@ private val createNewAcountButton=uiDevice.findObject(UiSelector().resourceId(ap
 
 
     class SignInWithEmailOrFacebookScreen():BaseScreen(){
+        val continueFacebook=uiDevice.findObject(UiSelector().resourceId("u_0_9"))
         private val signInWithFacebook=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/custom_fb_login_button"))
         private val signInWithEmail=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/sign_up_with_email"))
         init {
@@ -42,6 +43,15 @@ private val createNewAcountButton=uiDevice.findObject(UiSelector().resourceId(ap
         public fun clickOnSighUpWithEmail():EmailSigUpScreen{
             signInWithEmail.click()
             return EmailSigUpScreen()
+        }
+
+        fun clickOnSignUpWithFacebook():HomeScreen{
+            signInWithFacebook.waitForExists(globalTimeout)
+            signInWithFacebook.click()
+            if (continueFacebook.waitForExists(globalTimeout)){
+                continueFacebook.click()
+            }
+            return HomeScreen()
         }
 
 

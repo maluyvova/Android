@@ -5,6 +5,7 @@ import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.LaunchScreen
 import org.junit.Assert
 import org.junit.Test
+import java.util.*
 
 /**
  * Created by vburian on 3/23/18.
@@ -25,14 +26,6 @@ class LogInTest:BaseTest(){
 
 
 
-  @Test
-    fun logIn(){
-     val launchScreen=SignOut()
-      val signInScreen=launchScreen.clickOnSignIn()
-      signInScreen.sendTextToEmailField("tubitv@tubitv.tubitv")
-      signInScreen.sendTextToPasswordField("tubitv")
-      signInScreen.clickOnSignInButton()
-  }
 
     @Test
     fun createNewAcountWithEmail(){
@@ -40,8 +33,8 @@ class LogInTest:BaseTest(){
        val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
-        emailSignUpScreen.selectYear(2,1)   //field its year, and steps it's how many times swapdowm 1 time 1 year
-        emailSignUpScreen.selectGender(1) //1 is Female
+        emailSignUpScreen.selectYear(2,1,"1994")   //field its year, and steps it's how many times swapdowm 1 time 1 year
+        emailSignUpScreen.selectGender(Random().nextInt(3)) //1 is Female
         emailSignUpScreen.pasteEmail("vladb","@gmail.com")
         emailSignUpScreen.pastePassword("tubitv")
         emailSignUpScreen.clickOnRegister()
@@ -53,7 +46,7 @@ class LogInTest:BaseTest(){
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
         emailSignUpScreen.selectDefultYear()   //field its year, and steps it's how many times swapdowm 1 time 1 year
-        emailSignUpScreen.selectGender(1) //1 is Female
+        emailSignUpScreen.selectGender(Random().nextInt(3)) //1 is Female
         emailSignUpScreen.pasteEmail("vladb","@gmail.com")
         emailSignUpScreen.pastePassword("tubitv")
         emailSignUpScreen.clickOnRegisterExseption()
@@ -66,7 +59,7 @@ class LogInTest:BaseTest(){
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
-        emailSignUpScreen.selectYear(2,1)   //field its year, and steps it's how many times swapdowm 1 time 1 year
+        emailSignUpScreen.selectYear(2,1,"1994")   //field its year, and steps it's how many times swapdowm 1 time 1 year
         emailSignUpScreen.pasteEmail("vladb","@gmail.com")
         emailSignUpScreen.pastePassword("tubitv")
         emailSignUpScreen.clickOnRegisterExseption()
@@ -79,8 +72,8 @@ class LogInTest:BaseTest(){
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
-        emailSignUpScreen.selectYear(2,1)   //field its year, and steps it's how many times swapdowm 1 time 1 year
-        emailSignUpScreen.selectGender(1) //1 is Female
+        emailSignUpScreen.selectYear(2,1,"1994")   //field its year, and steps it's how many times swapdowm 1 time 1 year
+        emailSignUpScreen.selectGender(Random().nextInt(3)) //1 is Female
         emailSignUpScreen.pastePassword("tubitv")
         emailSignUpScreen.clickOnRegisterExseption()
         val emailErrorMessage=EmailSigUpScreen.worningObjects().waitForEmailWorning()
@@ -92,13 +85,55 @@ class LogInTest:BaseTest(){
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
-        emailSignUpScreen.selectYear(2,1)   //field its year, and steps it's how many times swapdowm 1 time 1 year
-        emailSignUpScreen.selectGender(1) //1 is Female
+        emailSignUpScreen.selectYear(2,1,"1994")   //field its year, and steps it's how many times swapdowm 1 time 1 year
+        emailSignUpScreen.selectGender(Random().nextInt(3)) //1 is Female
         emailSignUpScreen.pasteEmail("vladb","@gmail.com")
         emailSignUpScreen.clickOnRegisterExseption()
         val errorMessage=EmailSigUpScreen.worningObjects().waitForPasswordWorning()
         Assert.assertEquals("Warning message shoild be $errorMessage because test didn't provide password",errorMessage.toLowerCase(),"Please provide a password".toLowerCase())
     }
+    @Test
+    fun orlradyExistsEmail(){
+        val launchScreen=SignOut()
+        val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
+        val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
+        emailSignUpScreen.sendTextToNameField("Vova")
+        emailSignUpScreen.selectYear(2,1,"1994")   //field its year, and steps it's how many times swapdowm 1 time 1 year
+        emailSignUpScreen.selectGender(Random().nextInt(3)) //1 is Female
+        emailSignUpScreen.pasteEmailExists("vburian@tubi.tv")
+        emailSignUpScreen.pastePassword("tubitv")
+        emailSignUpScreen.clickOnRegisterExseption()
+        emailSignUpScreen.clickAndCheckOnOKButtonWhenEmailAlreadyExists()
+    }
+    @Test
+    fun mustBe13YearOld(){
+        val launchScreen=SignOut()
+        val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
+        val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
+        emailSignUpScreen.sendTextToNameField("Vova")
+        emailSignUpScreen.selectYear(2,1,"2009")   //field its year, and steps it's how many times swapdowm 1 time 1 year
+        emailSignUpScreen.selectGender(Random().nextInt(3)) //1 is Female
+        emailSignUpScreen.pasteEmail("vladb","@gmail.com")
+        emailSignUpScreen.pastePassword("tubitv")
+        emailSignUpScreen.clickOnRegisterExseption()
+        val warnigntext=EmailSigUpScreen.worningObjects().waitForYouMustBe13YearsOld()
+        Assert.assertEquals ("Warning message should be $warnigntext because test didn't correct year old",warnigntext.toLowerCase(),"You must be 13 or over".toLowerCase())
+    }
+    @Test
+    fun naviageteFromRegisterToSignIn(){
+        val launchScreen=SignOut()
+        val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
+        val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
+        val signInScreen=emailSignUpScreen.clickOnSignIn()
+    }
+    @Test
+    fun signUpWithFacebook(){
+        val launchScreen=SignOut()
+        val signInWithFacebookOrEmail=launchScreen.clickOnCreateAccount()
+        signInWithFacebookOrEmail.clickOnSignUpWithFacebook()
+    }
+
+
 
 
 

@@ -22,6 +22,8 @@ class EmailSigUpScreen:BaseScreen(){
     private val signInButton=uiDevice.findObject(UiSelector().packageName(appPackage).text("Sign In"))
     private val birthdayButton=UiDeviceID(appPackage+":id/birthday")
     private val genderButton=UiDeviceID(appPackage+":id/gender")
+    private val okButtonWhenEmailAlreadyexists=UiDeviceID("android:id/button1")
+    private val signInButtonInRegisterScreen=uiDevice.findObject(UiSelector().packageName(appPackage).text("Sign In"))
 
 
     init {
@@ -40,7 +42,7 @@ class EmailSigUpScreen:BaseScreen(){
     fun sendTextToNameField(name:String){
         firstNameField.setText(name)
     }
-    fun selectYear(field:Int,steps:Int){
+    fun selectYear(field:Int,steps:Int,years:String){
         birthdayButton.click()
        val box= UiCollection(UiSelector().resourceId("android:id/pickers"))
         val data=UiSelector().className("android.widget.NumberPicker")
@@ -48,7 +50,7 @@ class EmailSigUpScreen:BaseScreen(){
         fun textFromYear():UiObject {
          return   year.getChild(UiSelector().resourceId("android:id/numberpicker_input"))
         }
-        while (textFromYear().text!="1994")
+        while (textFromYear().text!=years)
         {
             year.swipeDown(31)
         }
@@ -57,6 +59,11 @@ class EmailSigUpScreen:BaseScreen(){
     fun selectDefultYear(){
         birthdayButton.click()
         UiDeviceID("android:id/button1").click()
+    }
+    fun clickOnSignIn():SignInScreen{
+        signInButtonInRegisterScreen.waitForExists(globalTimeout)
+        signInButtonInRegisterScreen.click()
+        return SignInScreen()
     }
 
     fun selectGender(nums:Int){
@@ -78,6 +85,12 @@ class EmailSigUpScreen:BaseScreen(){
     fun pasteEmail(name:String,gmail:String){
         emailField.setText(name+RandomEmail.randomemail()+RandomEmail.randomemail()+gmail)
     }
+    fun pasteEmailExists(email:String){
+       emailField.setText(email)
+    }
+
+
+
     fun pastePassword(text:String){
         passwordField.setText(text)
     }
@@ -89,12 +102,19 @@ class EmailSigUpScreen:BaseScreen(){
         registerButton.click()
     }
 
+    fun clickAndCheckOnOKButtonWhenEmailAlreadyExists():EmailSigUpScreen{
+     okButtonWhenEmailAlreadyexists.waitForExists(globalTimeout)
+        okButtonWhenEmailAlreadyexists.click()
+        return EmailSigUpScreen()
+    }
+
 
     class worningObjects():BaseScreen(){
         private val birhtdayobj=UiDeviceID(appPackage+":id/birthday_error_warning")
         private val genderwarningobj=UiDeviceID(appPackage+":id/gender_error_warning")
         private val emailWarningObj=UiDeviceID(appPackage+":id/email_error_warning")
         private val passwordWarnngObj=UiDeviceID(appPackage+":id/password_error_warning")
+        private val youMustBe13YearsOldError=UiDeviceID(appPackage+":id/birthday_error_warning")
         fun waitForBirthdayObj():String{
             birhtdayobj.waitForExists(globalTimeout)
             return birhtdayobj.text
@@ -111,6 +131,11 @@ class EmailSigUpScreen:BaseScreen(){
            val some= passwordWarnngObj.waitForExists(globalTimeout)
             return passwordWarnngObj.text
         }
+        fun waitForYouMustBe13YearsOld():String{
+            youMustBe13YearsOldError.waitForExists(globalTimeout)
+            return youMustBe13YearsOldError.text
+        }
+
 
 
 
