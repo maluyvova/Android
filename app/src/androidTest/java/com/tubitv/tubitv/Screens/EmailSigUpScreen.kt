@@ -75,8 +75,8 @@ class EmailSigUpScreen:BaseScreen(){
 
     }
 
-    fun pasteEmail(){
-        emailField.setText(RandomEmail.randomemail())
+    fun pasteEmail(name:String,gmail:String){
+        emailField.setText(name+RandomEmail.randomemail()+RandomEmail.randomemail()+gmail)
     }
     fun pastePassword(text:String){
         passwordField.setText(text)

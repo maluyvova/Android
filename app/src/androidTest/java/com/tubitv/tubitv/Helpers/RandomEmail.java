@@ -10,8 +10,7 @@ public class RandomEmail {
     public static String randomemail(){
         String ch = "abcdefghijklmnopqrstuvwxyz23456789";
         String randomString="";
-        String a="vladb";
-        String b="@rmail.com";
+
         Random rand = new Random();
         int lenght= rand.nextInt(10);
         char[] text = new char[lenght];
@@ -21,6 +20,6 @@ public class RandomEmail {
         for (int i=0; i<text.length;i++) {
             randomString+=text[i];
         }
-        return a+randomString+randomString+b;
+        return randomString;
 
     }}

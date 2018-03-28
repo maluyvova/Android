@@ -42,7 +42,7 @@ class LogInTest:BaseTest(){
         emailSignUpScreen.sendTextToNameField("Vova")
         emailSignUpScreen.selectYear(2,1)   //field its year, and steps it's how many times swapdowm 1 time 1 year
         emailSignUpScreen.selectGender(1) //1 is Female
-        emailSignUpScreen.pasteEmail()
+        emailSignUpScreen.pasteEmail("vladb","@gmail.com")
         emailSignUpScreen.pastePassword("tubitv")
         emailSignUpScreen.clickOnRegister()
     }
@@ -54,7 +54,7 @@ class LogInTest:BaseTest(){
         emailSignUpScreen.sendTextToNameField("Vova")
         emailSignUpScreen.selectDefultYear()   //field its year, and steps it's how many times swapdowm 1 time 1 year
         emailSignUpScreen.selectGender(1) //1 is Female
-        emailSignUpScreen.pasteEmail()
+        emailSignUpScreen.pasteEmail("vladb","@gmail.com")
         emailSignUpScreen.pastePassword("tubitv")
         emailSignUpScreen.clickOnRegisterExseption()
         val birthdayErrorMeassage=EmailSigUpScreen.worningObjects().waitForBirthdayObj()
@@ -67,7 +67,7 @@ class LogInTest:BaseTest(){
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
         emailSignUpScreen.selectYear(2,1)   //field its year, and steps it's how many times swapdowm 1 time 1 year
-        emailSignUpScreen.pasteEmail()
+        emailSignUpScreen.pasteEmail("vladb","@gmail.com")
         emailSignUpScreen.pastePassword("tubitv")
         emailSignUpScreen.clickOnRegisterExseption()
         val genderErrorMessage=EmailSigUpScreen.worningObjects().waitForGenderOj()
@@ -94,7 +94,7 @@ class LogInTest:BaseTest(){
         emailSignUpScreen.sendTextToNameField("Vova")
         emailSignUpScreen.selectYear(2,1)   //field its year, and steps it's how many times swapdowm 1 time 1 year
         emailSignUpScreen.selectGender(1) //1 is Female
-        emailSignUpScreen.pasteEmail()
+        emailSignUpScreen.pasteEmail("vladb","@gmail.com")
         emailSignUpScreen.clickOnRegisterExseption()
         val errorMessage=EmailSigUpScreen.worningObjects().waitForPasswordWorning()
         Assert.assertEquals("Warning message shoild be $errorMessage because test didn't provide password",errorMessage.toLowerCase(),"Please provide a password".toLowerCase())
