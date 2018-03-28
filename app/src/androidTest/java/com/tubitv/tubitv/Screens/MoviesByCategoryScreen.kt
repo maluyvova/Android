@@ -3,6 +3,7 @@ package com.tubitv.tubitv.Screens
 import android.support.test.uiautomator.UiCollection
 import android.support.test.uiautomator.UiObject
 import android.support.test.uiautomator.UiSelector
+import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import junit.framework.Assert
 import java.util.*
@@ -11,11 +12,11 @@ import java.util.*
  * Created by vburian on 2/23/18.
  */
 class MoviesByCategoryScreen:BaseScreen(){
-    private val boxOfTitles=UiCollection(UiSelector().resourceId("com.tubitv:id/view_grid_category_recycler"))
-    private val categoryName= uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/nav_app_bar_main_title"))
-    private val title =uiDevice.findObject( UiSelector().resourceId("com.tubitv:id/view_category_content_iv"))
-    private val title2 =UiSelector().resourceId("com.tubitv:id/view_category_content_iv")
-    private val textOfTitle= uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/view_category_content_tv_title"))
+    private val boxOfTitles=UiCollection(UiSelector().resourceId(appPackage +":id/view_grid_category_recycler"))
+    private val categoryName= uiDevice.findObject(UiSelector().resourceId(appPackage+":id/nav_app_bar_main_title"))
+    private val title =uiDevice.findObject( UiSelector().resourceId(appPackage+":id/view_category_content_iv"))
+    private val title2 =UiSelector().resourceId(appPackage+":id/view_category_content_iv")
+    private val textOfTitle= uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_category_content_tv_title"))
     public val categoryText get() = categoryName.text
     public val  titleText get()=textOfTitle.text
 

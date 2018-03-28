@@ -1,6 +1,7 @@
 package com.tubitv.tubitv.Screens
 
 import android.support.test.uiautomator.*
+import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import com.tubitv.tubitv.moviesListTimeout
 import junit.framework.Assert
@@ -11,15 +12,16 @@ import java.util.*
  * Created by vburian on 2/19/18.
  */
 open class HomeScreen:BaseScreen(){
-    protected val firstListOfAllObjects = UiCollection(UiSelector().resourceId("com.tubitv:id/view_category_recycler"))
-    public val scrollHomePage=UiScrollable(UiSelector().resourceId("com.tubitv:id/view_category_recycler"))
-    private val categoryList = UiSelector().resourceId("com.tubitv:id/view_content_recycler_ll")
-    private val textOfMovie = UiSelector().resourceId("com.tubitv:id/view_home_content_title_tv")
-    private val titleOfMovie =    UiSelector().resourceId("com.tubitv:id/view_home_content_iv")
-    public val textOFCategory =UiSelector().resourceId("com.tubitv:id/view_content_recycler_category_title")
-    private val headerLine=UiSelector().resourceId("com.tubitv:id/view_content_recycler_header")
-    private val featuredTitles=UiSelector().resourceId("com.tubitv:id/view_home_content_iv")
-    private val featuredTitlesText=UiSelector().resourceId("com.tubitv:id/view_home_content_tv_title")
+
+    protected val firstListOfAllObjects = UiCollection(UiSelector().resourceId(appPackage + ":id/view_category_recycler"))
+    public val scrollHomePage=UiScrollable(UiSelector().resourceId(appPackage+":id/view_category_recycler"))
+    private val categoryList = UiSelector().resourceId(appPackage+":id/view_content_recycler_ll")
+    private val textOfMovie = UiSelector().resourceId(appPackage+":id/view_home_content_title_tv")
+    private val titleOfMovie =    UiSelector().resourceId(appPackage+":id/view_home_content_iv")
+    public val textOFCategory =UiSelector().resourceId(appPackage+":id/view_content_recycler_category_title")
+    private val headerLine=UiSelector().resourceId(appPackage+":id/view_content_recycler_header")
+    private val featuredTitles=UiSelector().resourceId(appPackage+":id/view_home_content_iv")
+    private val featuredTitlesText=UiSelector().resourceId(appPackage+":id/view_home_content_tv_title")
     private val sideCategoryMenu=uiDevice.findObject(UiSelector().className("android.widget.ImageButton"))
     private val treeDotsSetingsButton=uiDevice.findObject(UiSelector().description("More options"))
 
@@ -127,7 +129,7 @@ return AddToQueue()
 
 
    open class HomeScreenWithContinueWatching():BaseScreen(){
-       private val titleInContinueWatching = uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/view_home_content_continue_iv"))
+       private val titleInContinueWatching = uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_home_content_continue_iv"))
 
         init{
             Assert.assertTrue("Title is not added to 'History' after watcing 30 sec and click Back",titleInContinueWatching.waitForExists(moviesListTimeout))
@@ -159,10 +161,10 @@ return AddToQueue()
     }
 
 
-    class QueueScreen(){
+    class QueueScreen():BaseScreen(){
         var homescreen=HomeScreen()
-        private val queueList=UiSelector().resourceId("com.tubitv:id/view_content_recycler_ll")
-        private val titlesInQueue=UiSelector().resourceId("com.tubitv:id/view_home_content_iv")
+        private val queueList=UiSelector().resourceId(appPackage+":id/view_content_recycler_ll")
+        private val titlesInQueue=UiSelector().resourceId(appPackage+":id/view_home_content_iv")
        init{Assert.assertTrue("Expected queue is not displayed",getQueuFromGrid().waitForExists(globalTimeout))}
         protected fun getGrid(number:Int) =
                 homescreen.firstListOfAllObjects.getChildByInstance(queueList,number) // it's object of all category moivies in
@@ -215,7 +217,7 @@ return AddToQueue()
     class SettingSmallWindowInRightCorner():BaseScreen(){
        private val boxWithSettingsItems=UiCollection(UiSelector().className("android.widget.ListView"))
         private val boxWithSettingsForInit=uiDevice.findObject(UiSelector().className("android.widget.FrameLayout"))
-         private val SettingsAboutHelpCenter=UiSelector().resourceId("com.tubitv:id/title")
+         private val SettingsAboutHelpCenter=UiSelector().resourceId(appPackage+":id/title")
     init {
         Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", boxWithSettingsForInit.waitForExists (moviesListTimeout))
 

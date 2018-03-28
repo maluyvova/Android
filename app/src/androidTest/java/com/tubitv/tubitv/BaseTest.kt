@@ -9,6 +9,7 @@ import android.support.test.InstrumentationRegistry
 import android.support.test.uiautomator.*
 import android.util.Log
 import android.support.test.uiautomator.BySelector
+import com.tubitv.tubitv.Screens.BaseScreen
 import org.hamcrest.CoreMatchers
 import org.junit.Assert.assertThat
 import org.junit.Before
@@ -59,10 +60,10 @@ open class BaseTest {
 
     protected fun  SignIn() {
         val continueFacebook=uiDevice.findObject(UiSelector().resourceId("u_0_9"))
-        val titleBox= UiCollection(UiSelector().resourceId("com.tubitv:id/empty_holder"))
-        val castPopUp=uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/cast_featurehighlight_help_text_header_view"))
-        uiDevice.findObject(UiSelector().packageName("com.tubitv").text("Sign In")).click()
-        uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/custom_fb_login_button")).click()
+        val titleBox= UiCollection(UiSelector().resourceId(appPackage+":id/empty_holder"))
+        val castPopUp=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/cast_featurehighlight_help_text_header_view"))
+        uiDevice.findObject(UiSelector().packageName(appPackage).text("Sign In")).click()
+        uiDevice.findObject(UiSelector().resourceId(appPackage+":id/custom_fb_login_button")).click()
         if (continueFacebook.waitForExists(globalTimeout)){
             continueFacebook.click()
         }
@@ -71,19 +72,18 @@ open class BaseTest {
        // uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/password")).setText("tubitv")
         //uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/sign_in_button")).click()
 
-        assertThat(uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/nav_app_bar_main_logo"))
+        assertThat(uiDevice.findObject(UiSelector().resourceId(appPackage+":id/nav_app_bar_main_logo"))
                 .waitForExists(facebookLogin), CoreMatchers.`is`(true))
 
     }
 
 
     protected fun casting(){
-
         val custButton=uiDevice.findObject(UiSelector().description("Cast button. Disconnected"))
         val castButton= uiDevice.findObject(UiSelector().className("android.view.View"))
        // val d=uiDevice.findObject(BySelector().descContains(""))
 
-        if(uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/cast_featurehighlight_help_text_header_view")).waitForExists(globalTimeout)){
+        if(uiDevice.findObject(UiSelector().resourceId(appPackage+":id/cast_featurehighlight_help_text_header_view")).waitForExists(globalTimeout)){
             custButton.click()
             uiDevice.pressBack()
 

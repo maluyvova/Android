@@ -5,6 +5,7 @@ import android.os.Parcelable
 import android.support.test.uiautomator.UiCollection
 import android.support.test.uiautomator.UiDevice
 import android.support.test.uiautomator.UiSelector
+import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import junit.framework.Assert
 import kotlin.concurrent.thread
@@ -14,10 +15,10 @@ import kotlin.concurrent.thread
  */
 class MovieDatailScreen() :BaseScreen(){
 
-    private val titleText = uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/textView_title"))
-    private val addToQueue = uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/imageView_add_from_queue"))
-    private val youMightAlsoLike=uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/view_content_recycler_category_title"))
-    private val playButton=uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/imageView_play"))
+    private val titleText = uiDevice.findObject(UiSelector().resourceId(appPackage+":id/textView_title"))
+    private val addToQueue = uiDevice.findObject(UiSelector().resourceId(appPackage+":id/imageView_add_from_queue"))
+    private val youMightAlsoLike=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_content_recycler_category_title"))
+    private val playButton=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/imageView_play"))
 
 
     init {
@@ -62,7 +63,7 @@ class MovieDatailScreen() :BaseScreen(){
 
 class GotIt():BaseScreen(){
 
-    private val gotItButton=uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/got_it_button"))
+    private val gotItButton=uiDevice.findObject(UiSelector().resourceId(appPackage +":id/got_it_button"))
 
     init{ Assert.assertTrue("Expected button 'got it' on yellow beckground is not displayed", gotItButton.waitForExists(globalTimeout))
 

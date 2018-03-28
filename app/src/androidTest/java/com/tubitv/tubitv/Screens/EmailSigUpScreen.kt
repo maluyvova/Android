@@ -4,6 +4,7 @@ import android.support.test.uiautomator.UiCollection
 import android.support.test.uiautomator.UiObject
 import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.Helpers.RandomEmail
+import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import com.tubitv.tubitv.moviesListTimeout
 import junit.framework.Assert
@@ -12,15 +13,15 @@ import junit.framework.Assert
  * Created by vburian on 3/26/18.
  */
 class EmailSigUpScreen:BaseScreen(){
-   private val firstNameField=UiDeviceID("com.tubitv:id/name")
-    private val emailField=UiDeviceID("com.tubitv:id/email")
-   private val passwordField=UiDeviceID("com.tubitv:id/password")
-    private val registerButton=UiDeviceID("com.tubitv:id/sign_up_button")
-    private val termOfUseButton=UiDeviceID("com.tubitv:id/term_of_use")
-    private val privacyPolice=UiDeviceID("com.tubitv:id/privacy_policy")
-    private val signInButton=uiDevice.findObject(UiSelector().packageName("com.tubitv").text("Sign In"))
-    private val birthdayButton=UiDeviceID("com.tubitv:id/birthday")
-    private val genderButton=UiDeviceID("com.tubitv:id/gender")
+   private val firstNameField=UiDeviceID(appPackage +":id/name")
+    private val emailField=UiDeviceID(appPackage+":id/email")
+   private val passwordField=UiDeviceID(appPackage+":id/password")
+    private val registerButton=UiDeviceID(appPackage+":id/sign_up_button")
+    private val termOfUseButton=UiDeviceID(appPackage+":id/term_of_use")
+    private val privacyPolice=UiDeviceID(appPackage+":id/privacy_policy")
+    private val signInButton=uiDevice.findObject(UiSelector().packageName(appPackage).text("Sign In"))
+    private val birthdayButton=UiDeviceID(appPackage+":id/birthday")
+    private val genderButton=UiDeviceID(appPackage+":id/gender")
 
 
     init {
@@ -60,16 +61,16 @@ class EmailSigUpScreen:BaseScreen(){
 
     fun selectGender(nums:Int){
         genderButton.click()
-        val doneButton=uiDevice.findObject(UiSelector().packageName("com.tubitv").text("DONE"))
+        val doneButton=uiDevice.findObject(UiSelector().packageName(appPackage).text("DONE"))
         if (nums==1){
-            uiDevice.findObject(UiSelector().packageName("com.tubitv").text("Female")).click()
+            uiDevice.findObject(UiSelector().packageName(appPackage).text("Female")).click()
             doneButton.click()
         }
        else if(nums==2){
-            uiDevice.findObject(UiSelector().packageName("com.tubitv").text("Male")).click()
+            uiDevice.findObject(UiSelector().packageName(appPackage).text("Male")).click()
             doneButton.click()
         }
-        else{ uiDevice.findObject(UiSelector().packageName("com.tubitv").text("Other")).click()
+        else{ uiDevice.findObject(UiSelector().packageName(appPackage).text("Other")).click()
         doneButton.click()}
 
     }
@@ -90,10 +91,10 @@ class EmailSigUpScreen:BaseScreen(){
 
 
     class worningObjects():BaseScreen(){
-        private val birhtdayobj=UiDeviceID("com.tubitv:id/birthday_error_warning")
-        private val genderwarningobj=UiDeviceID("com.tubitv:id/gender_error_warning")
-        private val emailWarningObj=UiDeviceID("com.tubitv:id/email_error_warning")
-        private val passwordWarnngObj=UiDeviceID("com.tubitv:id/password_error_warning")
+        private val birhtdayobj=UiDeviceID(appPackage+":id/birthday_error_warning")
+        private val genderwarningobj=UiDeviceID(appPackage+":id/gender_error_warning")
+        private val emailWarningObj=UiDeviceID(appPackage+":id/email_error_warning")
+        private val passwordWarnngObj=UiDeviceID(appPackage+":id/password_error_warning")
         fun waitForBirthdayObj():String{
             birhtdayobj.waitForExists(globalTimeout)
             return birhtdayobj.text

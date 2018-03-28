@@ -11,10 +11,9 @@ import android.support.test.uiautomator.UiSelector
 open class BaseScreen{
 
     protected val uiDevice:UiDevice=UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-
    public fun  UiDeviceID(id:String):UiObject{
       return uiDevice.findObject(UiSelector().resourceId(id))
-
    }
+
 
 }
