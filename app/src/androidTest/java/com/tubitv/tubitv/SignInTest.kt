@@ -33,7 +33,7 @@ class SignInTest:BaseTest(){
         LogInTest().SignOut()
         val signInScreen=LaunchScreen().clickOnSignIn()
         signInScreen.sendTextToEmailField( "tubitv@tubitv.tubitv")
-        signInScreen.sendTextToPasswordField(RandomEmail.randomemail())
+        signInScreen.sendTextToPasswordField("a"+RandomEmail.randomemail())
         signInScreen.simpleClickOnSignInButton()
         val textFromAgainPopUp= signInScreen.textFromTryAgain
         signInScreen.clickOnOkPleaseTryAgain()
