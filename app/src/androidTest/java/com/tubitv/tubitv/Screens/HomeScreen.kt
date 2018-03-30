@@ -24,7 +24,7 @@ open class HomeScreen:BaseScreen(){
     private val featuredTitlesText=UiSelector().resourceId(appPackage+":id/view_home_content_tv_title")
     private val sideCategoryMenu=uiDevice.findObject(UiSelector().className("android.widget.ImageButton"))
     private val treeDotsSetingsButton=uiDevice.findObject(UiSelector().description("More options"))
-
+    private val containerOfTitlesSmaller=UiSelector().resourceId(appPackage+":id/view_content_recycler")
 
 
     init{
@@ -38,6 +38,7 @@ open class HomeScreen:BaseScreen(){
     private fun getFirstTitleTextInFeatured()=
             getGrid(0).getChild(featuredTitlesText)
 
+
     public val textOfTitleInFeaturedCategor get() = getFirstTitleTextInFeatured().text
 
     public fun clickOnTitleInFeaturedCateg():GotIt{
@@ -47,11 +48,19 @@ open class HomeScreen:BaseScreen(){
 
     fun ScrollToSpecificCategory(s:String ){
         scrollHomePage.scrollTextIntoView("$s")
-
     }
 
-    private fun getTextOFMovie() =
-            getGrid(1).getChild(textOfMovie) //got a first element from the list of movies
+    fun horisontalScrollTitles(swipes:Int){
+        val scroll=UiScrollable(containerOfTitlesSmaller.index(1))
+        scroll.setAsHorizontalList().scrollToEnd(swipes)
+    }
+    fun getTextOfTitleWithIndex():String{
+      val text=  containerOfTitlesSmaller.index(1).resourceId(appPackage+":id/view_home_content_title_tv").index(1)
+      return uiDevice.findObject(text).text
+    }
+
+    public fun getTextOFMovie(numberOfView:Int) =
+            getGrid(numberOfView).getChild(textOfMovie) //got a first element from the list of movies
 
     private fun getHeaderLine()=
             getGrid(1).getChild(headerLine)
@@ -98,16 +107,16 @@ public fun text():Objects{
 
     public val textCategory=getTextOfCategory().text
 
-    public val title get() = getTextOFMovie().text //get text title form the home page
+    public val title get() = getTextOFMovie(0).text //get text title form the home page
 
     public fun clickOnTitleNoGotIt():MovieDatailScreen{
-        getTextOFMovie().click()
+        getTextOFMovie(0).click()
         return MovieDatailScreen()
     }
 
 
     public fun clickOnTitle():GotIt{
-        getTextOFMovie().click()
+        getTextOFMovie(0).click()
         return GotIt()
     }
     public fun clickBack(){

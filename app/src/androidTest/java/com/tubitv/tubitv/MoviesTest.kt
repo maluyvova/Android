@@ -146,16 +146,15 @@ class MoviesTest:BaseTest(){
         Assert.assertEquals("This test clicking on three dots,and test fail because  category text mismatch in HomePage and CategoryScreen",textOfCategorInHomePage.toLowerCase(),textOfCategoriInCaategotScreen.toLowerCase())
     }
 
-
-
-
-
-
-
-
-
-
-
+    @Test
+    fun scrollToSideAndVerifyIfTitleMissmatches(){
+        val homescreen =HomeScreen()
+        homescreen.ScrollToSpecificCategory("Action")
+        val textOfTitle=homescreen.getTextOfTitleWithIndex()
+        homescreen.horisontalScrollTitles(4)
+        val textOfTitle2=homescreen.getTextOfTitleWithIndex()
+        Assert.assertNotEquals("This test scrolling titles to side and comparing first title text with text in new view  ",textOfTitle,textOfTitle2)
+    }
 
 
 

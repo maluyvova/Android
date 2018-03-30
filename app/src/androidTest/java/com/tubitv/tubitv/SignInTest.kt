@@ -1,6 +1,7 @@
 package com.tubitv.tubitv
 
 import com.tubitv.tubitv.Helpers.RandomEmail
+import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.LaunchScreen
 import org.junit.Assert
 import org.junit.Test
@@ -9,6 +10,7 @@ import org.junit.Test
  * Created by vburian on 3/28/18.
  */
 class SignInTest:BaseTest(){
+
     @Test
     fun signInWithCorrectEmailAndPassword(){
        LogInTest().SignOut()
