@@ -113,7 +113,7 @@ class MoviesTest:BaseTest(){
  }
 
     @Test
-    fun selectFromYouMightAlsoLike(){
+    fun startPlaybackAndCheckingIfTitleInHistory(){
         val homePage=HomeScreen()
         val gotItScreen=homePage.clickOnTitle()
         val movieDatailScreen=gotItScreen.clickOnGotIt()

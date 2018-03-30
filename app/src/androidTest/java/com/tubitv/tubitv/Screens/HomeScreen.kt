@@ -107,16 +107,16 @@ public fun text():Objects{
 
     public val textCategory=getTextOfCategory().text
 
-    public val title get() = getTextOFMovie(0).text //get text title form the home page
+    public val title get() = getTextOFMovie(1).text //get text title form the home page
 
     public fun clickOnTitleNoGotIt():MovieDatailScreen{
-        getTextOFMovie(0).click()
+        getTextOFMovie(1).click()
         return MovieDatailScreen()
     }
 
 
     public fun clickOnTitle():GotIt{
-        getTextOFMovie(0).click()
+        getTextOFMovie(1).click()
         return GotIt()
     }
     public fun clickBack(){
