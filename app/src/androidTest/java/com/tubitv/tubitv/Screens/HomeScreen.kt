@@ -25,6 +25,8 @@ open class HomeScreen:BaseScreen(){
     private val sideCategoryMenu=uiDevice.findObject(UiSelector().className("android.widget.ImageButton"))
     private val treeDotsSetingsButton=uiDevice.findObject(UiSelector().description("More options"))
     private val containerOfTitlesSmaller=UiSelector().resourceId(appPackage+":id/view_content_recycler")
+    private val textOfTitleInContnueWatching=UiDeviceID(appPackage+":id/view_home_content_continue_title_tv")
+    private val playButtonForContinueWatching=UiDeviceID(appPackage+":id/view_home_content_continue_play_btn")
 
 
     init{
@@ -45,6 +47,7 @@ open class HomeScreen:BaseScreen(){
         getFirstTitleTextInFeatured().click()
         return GotIt()
     }
+    public val titleInContinueWatching get()=textOfTitleInContnueWatching.text
 
     fun ScrollToSpecificCategory(s:String ){
         scrollHomePage.scrollTextIntoView("$s")
@@ -131,11 +134,8 @@ return AddToQueue()
 
     public fun longPressToRemoveFromQueue():AddToQueue{
         getTitleFromGrid().dragTo(getTitleFromGrid(),10)
-
-
         return AddToQueue()
     }
-
 
    open class HomeScreenWithContinueWatching():BaseScreen(){
        private val titleInContinueWatching = uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_home_content_continue_iv"))
@@ -184,11 +184,6 @@ return AddToQueue()
         private fun getFirstTitleInQueu()=
             getGrid(1).getChild(homescreen.textOfMovie)
 
-
-
-
-
-
         public val textFromFirstTitleInQueue get()=getQueuFromGrid().text
 
 
@@ -236,12 +231,20 @@ return AddToQueue()
             boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter,0).click()
             return SettingsScreen()
         }
-
-
-
-
     }
+    class History():BaseScreen(){
+        private val removeFromHistory=uiDevice.findObject(UiSelector().text("Remove from history"))
+        private val addToQueue=uiDevice.findObject(UiSelector().text("Add to queue"))
+        init {
+            Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", removeFromHistory.waitForExists (moviesListTimeout))
+            Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", addToQueue.waitForExists (moviesListTimeout))
 
+        }
+
+        public fun clickOnRemoveFromHisory(){
+            removeFromHistory.click()
+        }
+    }
 
 
 
