@@ -53,6 +53,21 @@ open class HomeScreen:BaseScreen(){
         scrollHomePage.scrollTextIntoView("$s")
     }
 
+    fun scrollToTheEndAndClickOnSubCategory():SubCategoryScreen{
+        var number:Int=0
+        while(number!=18){
+            scrollHomePage.scrollToEnd(1)
+            number++
+        }
+        for (i in 1..6){
+           val box= getGrid(i).getChild(textOFCategory)
+            if( box.text=="Special Interest")
+                box.click()
+            break
+        }
+     return SubCategoryScreen()
+    }
+
     fun horisontalScrollTitles(swipes:Int){
         val scroll=UiScrollable(containerOfTitlesSmaller.index(1))
         scroll.setAsHorizontalList().scrollToEnd(swipes)
@@ -94,6 +109,9 @@ public fun text():Objects{
 
     public fun waitForExistsFirstCategoryText(text:String){
       uiDevice.findObject(getTextOfCategory().selector.text(text)).waitForExists(globalTimeout)
+    }
+    public fun clickOnCategoryWithText(text:String){
+      uiDevice.findObject(getTextOfCategory().selector.text(text)).click()
     }
 
    //private fun som(){
