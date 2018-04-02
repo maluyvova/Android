@@ -33,7 +33,7 @@ class LogInTest:BaseTest(){
        val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
-        emailSignUpScreen.selectYear(2,1,"1994")   //field its year, and steps it's how many times swapdowm 1 time 1 year
+        emailSignUpScreen.selectYear(2,1,"1994","1993","1992","1991")   //field its year, and steps it's how many times swapdowm 1 time 1 year
         emailSignUpScreen.selectGender(Random().nextInt(3)) //1 is Female
         emailSignUpScreen.pasteEmail("vladb","@gmail.com")
         emailSignUpScreen.pastePassword("tubitv")
@@ -59,7 +59,7 @@ class LogInTest:BaseTest(){
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
-        emailSignUpScreen.selectYear(2,1,"1994")   //field its year, and steps it's how many times swapdowm 1 time 1 year
+        emailSignUpScreen.selectYear(2,1,"1994","1993","1992","1991")   //field its year, and steps it's how many times swapdowm 1 time 1 year
         emailSignUpScreen.pasteEmail("vladb","@gmail.com")
         emailSignUpScreen.pastePassword("tubitv")
         emailSignUpScreen.clickOnRegisterExseption()
@@ -72,7 +72,7 @@ class LogInTest:BaseTest(){
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
-        emailSignUpScreen.selectYear(2,1,"1994")   //field its year, and steps it's how many times swapdowm 1 time 1 year
+        emailSignUpScreen.selectYear(2,1,"1994","1993","1992","1991")   //field its year, and steps it's how many times swapdowm 1 time 1 year
         emailSignUpScreen.selectGender(Random().nextInt(3)) //1 is Female
         emailSignUpScreen.pastePassword("tubitv")
         emailSignUpScreen.clickOnRegisterExseption()
@@ -85,7 +85,7 @@ class LogInTest:BaseTest(){
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
-        emailSignUpScreen.selectYear(2,1,"1994")   //field its year, and steps it's how many times swapdowm 1 time 1 year
+        emailSignUpScreen.selectYear(2,1,"1994","1993","1992","1991")   //field its year, and steps it's how many times swapdowm 1 time 1 year
         emailSignUpScreen.selectGender(Random().nextInt(3)) //1 is Female
         emailSignUpScreen.pasteEmail("vladb","@gmail.com")
         emailSignUpScreen.clickOnRegisterExseption()
@@ -98,7 +98,7 @@ class LogInTest:BaseTest(){
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
-        emailSignUpScreen.selectYear(2,1,"1994")   //field its year, and steps it's how many times swapdowm 1 time 1 year
+        emailSignUpScreen.selectYear(2,1,"1994","1993","1992","1991")   //field its year, and steps it's how many times swapdowm 1 time 1 year
         emailSignUpScreen.selectGender(Random().nextInt(3)) //1 is Female
         emailSignUpScreen.pasteEmailExists("vburian@tubi.tv")
         emailSignUpScreen.pastePassword("tubitv")
@@ -111,7 +111,7 @@ class LogInTest:BaseTest(){
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
-        emailSignUpScreen.selectYear(2,1,"2009")   //field its year, and steps it's how many times swapdowm 1 time 1 year
+        emailSignUpScreen.selectYear(2,1,"2009","2010","2011","2012")   //field its year, and steps it's how many times swapdowm 1 time 1 year
         emailSignUpScreen.selectGender(Random().nextInt(3)) //1 is Female
         emailSignUpScreen.pasteEmail("vladb","@gmail.com")
         emailSignUpScreen.pastePassword("tubitv")

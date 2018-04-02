@@ -42,7 +42,7 @@ class EmailSigUpScreen:BaseScreen(){
     fun sendTextToNameField(name:String){
         firstNameField.setText(name)
     }
-    fun selectYear(field:Int,steps:Int,years:String){
+    fun selectYear(field:Int,steps:Int,years:String,years1: String,years2:String,years3:String){
         birthdayButton.click()
        val box= UiCollection(UiSelector().resourceId("android:id/pickers"))
         val data=UiSelector().className("android.widget.NumberPicker")
@@ -50,7 +50,7 @@ class EmailSigUpScreen:BaseScreen(){
         fun textFromYear():UiObject {
          return   year.getChild(UiSelector().resourceId("android:id/numberpicker_input"))
         }
-        while (textFromYear().text!=years)
+        while (textFromYear().text!=years&&textFromYear().text!=years1 && textFromYear().text!=years2 &&textFromYear().text!=years3)
         {
             year.swipeDown(31)
         }
