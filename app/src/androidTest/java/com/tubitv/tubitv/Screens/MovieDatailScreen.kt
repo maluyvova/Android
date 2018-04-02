@@ -37,6 +37,10 @@ class MovieDatailScreen() :BaseScreen(){
             uiDevice.pressBack()
              return HomeScreen()
     }
+    fun waitUntillSelected(){
+        while (addToQueue.isSelected)
+            break
+    }
 
     fun clickOnRemoveFromQueue():HomeScreen {
         addToQueue.click()

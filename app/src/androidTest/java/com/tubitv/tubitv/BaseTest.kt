@@ -80,11 +80,16 @@ open class BaseTest {
 
     protected fun casting(){
         val custButton=uiDevice.findObject(UiSelector().description("Cast button. Disconnected"))
-        val castButton= uiDevice.findObject(UiSelector().className("android.view.View"))
-       // val d=uiDevice.findObject(BySelector().descContains(""))
+        val castButton=uiDevice.findObject(UiSelector().description("Cast button. Connected"))
+
+
 
         if(uiDevice.findObject(UiSelector().resourceId(appPackage+":id/cast_featurehighlight_help_text_header_view")).waitForExists(globalTimeout)){
-            custButton.click()
+            if (custButton.waitForExists(globalTimeout)){
+            custButton.click()}
+            else if (castButton.waitForExists(globalTimeout)){
+                castButton.click()
+            }
             uiDevice.pressBack()
 
         }

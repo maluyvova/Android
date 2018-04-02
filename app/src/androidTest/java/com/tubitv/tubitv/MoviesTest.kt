@@ -49,20 +49,21 @@ class MoviesTest:BaseTest(){
     }
      @Test
     fun longPressAndAddToQueue(){
+         val mostpoular="Most Popular"
          val homePage=HomeScreen()
          val TextInHomeScreen=homePage.title
          val titleInHomeScreen=homePage.longPress()
          val screenWithQueue=titleInHomeScreen.clickAddToQueueAfterLongClick()
-         Thread.sleep(2500)
+         homePage.waitForExistsFirstCategoryText("Queue")
+         //Thread.sleep(2500)
          val TextFromQueue=screenWithQueue.textFromFirstTitleInQueue
          if (TextInHomeScreen.toLowerCase().equals(TextFromQueue.toLowerCase())){
           val homeScreen= HomeScreen()
             val titlesInHomeScreen= homeScreen.longPressToRemoveFromQueue()
              titlesInHomeScreen.clickAddToQueueAfterLongClick()
-             val homesScreen=HomeScreen()
-                                  Thread.sleep(2500)
-           val textOfCategory=homesScreen.textCategory
-            val mostpoular="Most Popular"
+             homePage.waitForExistsFirstCategoryText(mostpoular)
+           val textOfCategory=homePage.textCategory
+
                 assertEquals("Orginal name $TextInHomeScreen should be same like $TextFromQueue",textOfCategory.toLowerCase(),mostpoular.toLowerCase())
             }
      else print("Title in queue not equal to title what test adds to queue")}
@@ -106,7 +107,8 @@ class MoviesTest:BaseTest(){
      val gotItScreen=homePage.clickOnTitle()
      val movieDatailScreen=gotItScreen.clickOnGotIt()
      movieDatailScreen.simpleClickOnAddToQueue()
-     Thread.sleep(1000)
+     movieDatailScreen.waitUntillSelected()
+     //Thread.sleep(1000)
      val homePage2=movieDatailScreen.simpleClickOnRemoveFromQueue()
      val textOfCategory=homePage2.textCategory
      assertEquals("Queue category still on home page after,click add and then remove from queue", textOfCategory.toLowerCase(),"most popular")
@@ -121,7 +123,6 @@ class MoviesTest:BaseTest(){
         Thread.sleep(45000)
         uiDevice.click(20,20)
         uiDevice.pressBack()
-        Thread.sleep(2000)
         uiDevice.pressBack()
         killApp()
         launchApp()

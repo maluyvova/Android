@@ -30,8 +30,8 @@ class SerialsTest:BaseTest(){
         uiDevice.pressBack()
 
         val homeScreenWithQueue=HomeScreen.QueueScreen()
+        homePage.waitForExistsFirstCategoryText("Queue")
         val titletext= homeScreenWithQueue.textFromFirstTitleInQueue
-        Thread.sleep(2000)
         val gotit= homePage.clickOnTitle()
         val moviedatailScreen=gotit.clickOnGotIt()
         val homeScreen2=moviedatailScreen.clickOnRemoveFromQueue()
