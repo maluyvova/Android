@@ -9,11 +9,11 @@ import org.junit.Test
 /**
  * Created by vburian on 3/28/18.
  */
-class SignInTest:BaseTest(){
+class SignInTest(){
 
     @Test
     fun signInWithCorrectEmailAndPassword(){
-       LogInTest().SignOut()
+         LogInTest().SignOut()
         val signInScreen=LaunchScreen().clickOnSignIn()
         signInScreen.sendTextToEmailField("tubitv@tubitv.tubitv")
         signInScreen.sendTextToPasswordField("tubitv")

@@ -70,7 +70,7 @@ open class BaseTest {
                 continueFacebook.click()
             }
         }
-        else (continueFacebook.click())
+
        // uiDevice.findObject(UiSelector().resourceId("u_0_9")).click()
        // uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/email")).setText("tubitv@tubitv.tubitv")
        // uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/password")).setText("tubitv")
