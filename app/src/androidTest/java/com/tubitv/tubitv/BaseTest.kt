@@ -88,15 +88,25 @@ open class BaseTest {
 
 
 
-        if(uiDevice.findObject(UiSelector().resourceId(appPackage+":id/cast_featurehighlight_help_text_header_view")).waitForExists(globalTimeout)){
-            if (custButton.waitForExists(globalTimeout)){
-            custButton.click()
-                uiDevice.pressBack()}
-            else if (castButton.waitForExists(globalTimeout)){
+        if(uiDevice.findObject(UiSelector().resourceId(appPackage+":id/cast_featurehighlight_help_text_header_view")).waitForExists(globalTimeout)) {
+            if (custButton.waitForExists(globalTimeout)) {
+                custButton.click()
+                uiDevice.pressBack()
+            } else if (castButton.waitForExists(globalTimeout)) {
                 castButton.click()
                 uiDevice.pressBack()
             }
         }
+        else if (custButton.waitForExists(globalTimeout)){
+            custButton.click()
+            uiDevice.pressBack()
+        }
+        else if (castButton.waitForExists(globalTimeout)){
+            castButton.click()
+            uiDevice.pressBack()
+        }
+
+
     }
 
 
