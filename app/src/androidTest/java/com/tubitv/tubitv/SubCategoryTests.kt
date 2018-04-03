@@ -14,7 +14,7 @@ class SubCategoryTests:BaseTest() {
 
 
   @Test
-    fun addToQueuSubCategory(){
+    fun addToQueuSubCategory() {
 
         val homeScreen=HomeScreen()
      val subCategoryScreen= homeScreen.scrollToTheEndAndClickOnSubCategory()
