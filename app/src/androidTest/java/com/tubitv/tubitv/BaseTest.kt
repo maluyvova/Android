@@ -66,7 +66,11 @@ open class BaseTest {
         uiDevice.findObject(UiSelector().resourceId(appPackage+":id/custom_fb_login_button")).click()
         if (continueFacebook.waitForExists(globalTimeout)){
             continueFacebook.click()
+            if (continueFacebook.waitForExists(globalTimeout)){
+                continueFacebook.click()
+            }
         }
+        else (continueFacebook.click())
        // uiDevice.findObject(UiSelector().resourceId("u_0_9")).click()
        // uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/email")).setText("tubitv@tubitv.tubitv")
        // uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/password")).setText("tubitv")
