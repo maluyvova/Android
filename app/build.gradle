@@ -104,7 +104,8 @@ fork {
     title = "Acceptance tests"
     testPackage = "com.tubitv.tubitv"
     fallbackToScreenshots = true
-    totalAllowedRetryQuota = 1
+    totalAllowedRetryQuota = 2
+    retryPerTestCaseQuota = 1
     testOutputTimeout=600000
     poolingStrategy {
         computed {
