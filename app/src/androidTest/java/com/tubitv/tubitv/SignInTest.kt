@@ -38,6 +38,7 @@ class SignInTest():SimpleLaunchApp(){
         signInScreen.clickOnOkPleaseTryAgain()
         Assert.assertEquals("This test provided not correct password in Sign In page,and text is not equal to",textFromAgainPopUp.toLowerCase(),"Cannot login the user by email, Incorrect password".toLowerCase())
     }
+
    @Test
     fun emptyFieldInSignInPage(){
        val signInScreen=LaunchScreen().clickOnSignIn()
