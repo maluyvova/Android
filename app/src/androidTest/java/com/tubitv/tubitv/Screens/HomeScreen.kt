@@ -1,6 +1,7 @@
 package com.tubitv.tubitv.Screens
 
 import android.support.test.uiautomator.*
+import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import com.tubitv.tubitv.moviesListTimeout

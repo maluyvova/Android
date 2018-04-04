@@ -10,7 +10,7 @@ import java.util.*
 /**
  * Created by vburian on 3/15/18.
  */
-class SerialsTest:BaseTest(){
+class SerialsTest:LaunchAppWithFacebook(){
 
 
 

@@ -17,7 +17,7 @@ import org.junit.After
  * Created by vburian on 2/20/18.
  */
 
-class MoviesTest:BaseTest() {
+class MoviesTest:LaunchAppWithFacebook() {
 
 
     @After

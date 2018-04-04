@@ -10,7 +10,7 @@ import java.util.*
 /**
  * Created by vburian on 3/14/18.
  */
-class SideCategoryTest:BaseTest(){
+class SideCategoryTest:LaunchAppWithFacebook(){
 
 
   @Test

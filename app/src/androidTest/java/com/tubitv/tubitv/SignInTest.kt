@@ -9,11 +9,10 @@ import org.junit.Test
 /**
  * Created by vburian on 3/28/18.
  */
-class SignInTest(){
+class SignInTest():SimpleLaunchApp(){
 
     @Test
     fun signInWithCorrectEmailAndPassword(){
-         LogInTest().SignOut()
         val signInScreen=LaunchScreen().clickOnSignIn()
         signInScreen.sendTextToEmailField("tubitv@tubitv.tubitv")
         signInScreen.sendTextToPasswordField("tubitv")
@@ -21,7 +20,6 @@ class SignInTest(){
     }
     @Test
     fun signInWithIncorrectEmail(){
-        LogInTest().SignOut()
         val signInScreen=LaunchScreen().clickOnSignIn()
         signInScreen.sendTextToEmailField( "vladb"+RandomEmail.randomemail()+ RandomEmail.randomemail()+"@gmail.com")
         signInScreen.sendTextToPasswordField("tubitv")
@@ -32,7 +30,6 @@ class SignInTest(){
     }
     @Test
     fun signInWithIncorrectPassword(){
-        LogInTest().SignOut()
         val signInScreen=LaunchScreen().clickOnSignIn()
         signInScreen.sendTextToEmailField( "tubitv@tubitv.tubitv")
         signInScreen.sendTextToPasswordField("a"+RandomEmail.randomemail())
@@ -43,7 +40,6 @@ class SignInTest(){
     }
    @Test
     fun emptyFieldInSignInPage(){
-       LogInTest().SignOut()
        val signInScreen=LaunchScreen().clickOnSignIn()
        signInScreen.emptyFieldsClickOnSignInButton()
 

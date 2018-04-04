@@ -1,16 +1,19 @@
 package com.tubitv.tubitv
 
+import android.support.test.InstrumentationRegistry
+import android.support.test.uiautomator.UiDevice
 import com.tubitv.tubitv.Screens.EmailSigUpScreen
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.LaunchScreen
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 import java.util.*
 
 /**
  * Created by vburian on 3/23/18.
  */
-class LogInTest:BaseTest(){
+class LogInTest:SimpleLaunchApp(){
 
     fun SignOut():LaunchScreen{
         val homepage=HomeScreen()
@@ -20,16 +23,9 @@ class LogInTest:BaseTest(){
         return LaunchScreen()
     }
 
-
-
-
-
-
-
-
     @Test
     fun createNewAcountWithEmail(){
-        val launchScreen=SignOut()
+        val launchScreen=LaunchScreen()
        val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
@@ -41,7 +37,7 @@ class LogInTest:BaseTest(){
     }
     @Test
     fun incorectYear(){
-        val launchScreen=SignOut()
+        val launchScreen=LaunchScreen()
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
@@ -55,7 +51,7 @@ class LogInTest:BaseTest(){
     }
     @Test
     fun genderNotSelected(){
-        val launchScreen=SignOut()
+        val launchScreen=LaunchScreen()
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
@@ -68,7 +64,7 @@ class LogInTest:BaseTest(){
     }
     @Test
     fun emailNotProvided(){
-        val launchScreen=SignOut()
+        val launchScreen=LaunchScreen()
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
@@ -81,7 +77,7 @@ class LogInTest:BaseTest(){
     }
     @Test
     fun passwordNotProvided(){
-        val launchScreen=SignOut()
+        val launchScreen=LaunchScreen()
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
@@ -94,7 +90,7 @@ class LogInTest:BaseTest(){
     }
     @Test
     fun orlradyExistsEmail(){
-        val launchScreen=SignOut()
+        val launchScreen=LaunchScreen()
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
@@ -107,7 +103,7 @@ class LogInTest:BaseTest(){
     }
     @Test
     fun mustBe13YearOld(){
-        val launchScreen=SignOut()
+        val launchScreen=LaunchScreen()
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         emailSignUpScreen.sendTextToNameField("Vova")
@@ -121,14 +117,14 @@ class LogInTest:BaseTest(){
     }
     @Test
     fun naviageteFromRegisterToSignIn(){
-        val launchScreen=SignOut()
+        val launchScreen=LaunchScreen()
         val signInWithFacebookOrEmail= launchScreen.clickOnCreateAccount()
         val emailSignUpScreen=signInWithFacebookOrEmail.clickOnSighUpWithEmail()
         val signInScreen=emailSignUpScreen.clickOnSignIn()
     }
     @Test
     fun signUpWithFacebook(){
-        val launchScreen=SignOut()
+        val launchScreen=LaunchScreen()
         val signInWithFacebookOrEmail=launchScreen.clickOnCreateAccount()
         signInWithFacebookOrEmail.clickOnSignUpWithFacebook()
     }

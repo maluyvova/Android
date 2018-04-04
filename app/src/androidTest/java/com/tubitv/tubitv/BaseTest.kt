@@ -24,15 +24,7 @@ import org.junit.Test
 open class BaseTest {
 
     protected lateinit var uiDevice: UiDevice
-    @Before
-    fun setUp() {
-        uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        killApp()
-        clearAppData()
-        launchApp()
-        SignIn()
-        casting()
-    }
+
     fun killApp() = executeShellCommand("am force-stop " + appPackage)
     fun executeShellCommand(command: String) {
         val stdOut = uiDevice.executeShellCommand(command)
