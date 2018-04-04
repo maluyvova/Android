@@ -20,7 +20,7 @@ class MovieDatailScreen() :BaseScreen(){
     private val addToQueue = uiDevice.findObject(UiSelector().resourceId(appPackage+":id/imageView_add_from_queue"))
     private val youMightAlsoLike=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_content_recycler_category_title"))
     private val playButton=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/imageView_play"))
-    private val scrollbleScreen=UiScrollable(UiSelector().resourceId(appPackage+":id/scrollView_main"))
+    private val scrollbleScreen=UiScrollable(UiSelector().resourceId(appPackage+":id/empty_holder"))
     init {
         Assert.assertTrue("Expected title text  is not displayed", titleText.waitForExists(globalTimeout))
         Assert.assertTrue("Expected button add to queue is not displayed", addToQueue.waitForExists(globalTimeout))
