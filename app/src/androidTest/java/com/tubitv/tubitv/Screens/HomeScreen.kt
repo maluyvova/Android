@@ -28,7 +28,8 @@ open class HomeScreen:BaseScreen(){
     private val containerOfTitlesSmaller=UiSelector().resourceId(appPackage+":id/view_content_recycler")
     private val textOfTitleInContnueWatching=UiDeviceID(appPackage+":id/view_home_content_continue_title_tv")
     private val playButtonForContinueWatching=UiDeviceID(appPackage+":id/view_home_content_continue_play_btn")
-
+    private val searchButton=uiDevice.findObject(UiSelector().description("Search"))
+    private val searchField=UiDeviceID(appPackage+":id/nav_app_bar_main_search")
 
     init{
 
@@ -41,7 +42,11 @@ open class HomeScreen:BaseScreen(){
     private fun getFirstTitleTextInFeatured()=
             getGrid(0).getChild(featuredTitlesText)
 
-
+    public fun clickAndSendTextToSearch(text:String):SearchScreen{
+      searchButton.click()
+        searchField.setText(text)
+        return SearchScreen()
+    }
     public val textOfTitleInFeaturedCategor get() = getFirstTitleTextInFeatured().text
 
     public fun clickOnTitleInFeaturedCateg():GotIt{
