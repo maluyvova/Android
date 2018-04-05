@@ -30,12 +30,12 @@ class SerialsTest:LaunchAppWithFacebook(){
         uiDevice.pressBack()
 
         val homeScreenWithQueue=HomeScreen.QueueScreen()
-        homePage.waitForExistsFirstCategoryText("Queue")
+        homePage.waitForExistsCategoryText("Queue")
         val titletext= homeScreenWithQueue.textFromFirstTitleInQueue
         val gotit= homePage.clickOnTitle()
         val moviedatailScreen=gotit.clickOnGotIt()
         val homeScreen2=moviedatailScreen.clickOnRemoveFromQueue()
-        homeScreen2.waitForExistsFirstCategoryText("Most Popular")
+        homeScreen2.waitForDisapearCategoryText("Queue")
         val text=homeScreen2.getTextOfCategory().text
        Assert.assertNotEquals("The first text of category is Queue",text,"Queue")
     }

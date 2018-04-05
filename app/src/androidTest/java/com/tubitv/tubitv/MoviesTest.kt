@@ -50,18 +50,18 @@ class MoviesTest:LaunchAppWithFacebook() {
 
     @Test
     fun longPressAndAddToQueue() {
-        val mostpoular = "Most Popular"
+        val mostpoular="Most Popular"
         val homePage = HomeScreen()
         val TextInHomeScreen = homePage.title
         val titleInHomeScreen = homePage.longPress()
         val screenWithQueue = titleInHomeScreen.clickAddToQueueAfterLongClick()
-        homePage.waitForExistsFirstCategoryText("Queue")
+        homePage.waitForExistsCategoryText("Queue")
         val TextFromQueue = screenWithQueue.textFromFirstTitleInQueue
         if (TextInHomeScreen.toLowerCase().equals(TextFromQueue.toLowerCase())) {
             val homeScreen = HomeScreen()
             val titlesInHomeScreen = homeScreen.longPressToRemoveFromQueue()
             titlesInHomeScreen.clickAddToQueueAfterLongClick()
-            homePage.waitForExistsFirstCategoryText(mostpoular)
+            homePage.waitForDisapearCategoryText("Queue")
             val textOfCategory = homePage.textCategory
 
             assertEquals("Orginal name $TextInHomeScreen should be same like $TextFromQueue", textOfCategory.toLowerCase(), mostpoular.toLowerCase())
@@ -91,17 +91,17 @@ class MoviesTest:LaunchAppWithFacebook() {
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         val textOfTitleInMovieDatailScreen = movieDatailScreen.titleDatailScreen
         val homePage2 = movieDatailScreen.clickOnAddToQueue()
-        homePage2.waitForExistsFirstCategoryText("Queue")
+        homePage2.waitForExistsCategoryText("Queue")
         val categoryInHomePage = homePage2.textCategory// should be Queue
         val textOfTitleInHomePage = homePage2.title
         val movieDatailScreen2 = homePage2.clickOnTitleNoGotIt()
         movieDatailScreen2.clickOnRemoveFromQueue()
         val homePage3 = HomeScreen()
         val quie=homePage3.getTextOfCategory().text
-        if (quie=="Queue"){
-            homePage3.getTextOfCategory().waitForExists(globalTimeout)
-        }
-        homePage3.waitForExistsFirstCategoryText("Most Popular")
+       // if (quie=="Queue"){
+        //    homePage3.getTextOfCategory().waitForExists(globalTimeout)
+        //}
+        homePage3.waitForDisapearCategoryText("Queue")
         val categoryInHomePage1 = homePage3.textCategory//should be most popular
         assertEquals("Category Queue is not on home page ", categoryInHomePage.toLowerCase(), "queue")
         assertEquals("Title text in Home Page not matches with title in Movie Datal Page ", textOfTitleInHomePage.toLowerCase(), textOfTitleInMovieDatailScreen.toLowerCase())
@@ -110,14 +110,13 @@ class MoviesTest:LaunchAppWithFacebook() {
 
     @Test
     fun addAndDelteFromQueue() {
-        val mostpoular = "Most Popular"
         val homePage = HomeScreen()
         val gotItScreen = homePage.clickOnTitle()
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         movieDatailScreen.simpleClickOnAddToQueue()
         movieDatailScreen.waitUntillSelected()
         val homePage2 = movieDatailScreen.simpleClickOnRemoveFromQueue()
-        homePage2.waitForExistsFirstCategoryText(mostpoular)
+        homePage2.waitForDisapearCategoryText("Queue")
         val textOfCategory = homePage2.textCategory
         assertEquals("Queue category still on home page after,click add and then remove from queue", textOfCategory.toLowerCase(), "most popular")
     }
