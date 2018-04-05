@@ -56,7 +56,6 @@ class MoviesTest:LaunchAppWithFacebook() {
         val titleInHomeScreen = homePage.longPress()
         val screenWithQueue = titleInHomeScreen.clickAddToQueueAfterLongClick()
         homePage.waitForExistsFirstCategoryText("Queue")
-        //Thread.sleep(2500)
         val TextFromQueue = screenWithQueue.textFromFirstTitleInQueue
         if (TextInHomeScreen.toLowerCase().equals(TextFromQueue.toLowerCase())) {
             val homeScreen = HomeScreen()
@@ -107,13 +106,14 @@ class MoviesTest:LaunchAppWithFacebook() {
 
     @Test
     fun addAndDelteFromQueue() {
+        val mostpoular = "Most Popular"
         val homePage = HomeScreen()
         val gotItScreen = homePage.clickOnTitle()
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         movieDatailScreen.simpleClickOnAddToQueue()
         movieDatailScreen.waitUntillSelected()
-        //Thread.sleep(1000)
         val homePage2 = movieDatailScreen.simpleClickOnRemoveFromQueue()
+        homePage2.waitForExistsFirstCategoryText(mostpoular)
         val textOfCategory = homePage2.textCategory
         assertEquals("Queue category still on home page after,click add and then remove from queue", textOfCategory.toLowerCase(), "most popular")
     }

@@ -113,9 +113,12 @@ public fun text():Objects{
 
 
 
-    public fun waitForExistsFirstCategoryText(text:String){
-      uiDevice.findObject(getTextOfCategory().selector.text(text)).waitForExists(globalTimeout)
+    public fun waitForExistsFirstCategoryText(text:String):UiObject2{
+     // uiDevice.findObject(getTextOfCategory().selector.text(text)).waitForExists(globalTimeout)
+       val botton:UiObject2= uiDevice.wait(Until.findObject(By.text(text)), globalTimeout)
+       return botton
     }
+
     public fun clickOnCategoryWithText(text:String){
       uiDevice.findObject(getTextOfCategory().selector.text(text)).click()
     }
