@@ -170,6 +170,8 @@ return AddToQueue()
         init{
             Assert.assertTrue("Title is not added to 'History' after watcing 30 sec and click Back",titleInContinueWatching.waitForExists(moviesListTimeout))
         }
+
+
         public fun removeFromHistory(){
             titleInContinueWatching.dragTo(titleInContinueWatching,10)
             uiDevice.findObject(UiSelector().resourceId("android:id/select_dialog_listview")).waitForExists(globalTimeout)

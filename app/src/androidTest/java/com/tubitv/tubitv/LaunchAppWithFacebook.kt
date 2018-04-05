@@ -2,6 +2,7 @@ package com.tubitv.tubitv
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.uiautomator.UiDevice
+import com.tubitv.tubitv.Helpers.InsuranceBeforeTests
 import org.junit.Before
 
 /**
@@ -17,5 +18,8 @@ open class LaunchAppWithFacebook:BaseTest() {
         launchApp()
         SignIn()
         casting()
+         InsuranceBeforeTests().deleteHistory()
+         InsuranceBeforeTests().deleteFromQueue()
+
     }
 }
