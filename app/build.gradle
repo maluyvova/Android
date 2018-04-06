@@ -37,7 +37,7 @@ dependencies {
 
 }
 
-def autPackageName = "com.tubitv"
+def autPackageName = "com.tubitv.debug"
 import com.android.ddmlib.AndroidDebugBridge
 import com.android.ddmlib.IDevice
 // From https://android.googlesource.com/platform/tools/build/+/925c0b5cf8730105dd5aa8c851141d5688d07789/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/TestFlavorTask.groovy
