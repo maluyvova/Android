@@ -65,7 +65,7 @@ task installAut {
     doLast {
         IDevice[] devices = waitConnectedDevices()
         devices.each { device ->
-            file('.').traverse(maxDepth: 0) { apk ->
+            file('./app/build/outputs/apk/staging/release').traverse(maxDepth: 0) { apk ->
                 if (apk.absolutePath.toLowerCase().endsWith('.apk')) {
                     println String.format(
                             "Device '%s': installing %s", device.serialNumber, apk.absolutePath)
