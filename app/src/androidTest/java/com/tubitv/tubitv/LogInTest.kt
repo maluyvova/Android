@@ -21,6 +21,7 @@ class LogInTest:SimpleLaunchApp(){
         val settingsScreen=smallWindowWithSetings.clickOnSettings()
         val launchScreen=settingsScreen.clickOnSignOut()
         return LaunchScreen()
+
     }
 
     @Test
