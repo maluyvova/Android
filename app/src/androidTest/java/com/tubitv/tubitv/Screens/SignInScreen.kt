@@ -1,7 +1,9 @@
 package com.tubitv.tubitv.Screens
 
+import android.support.test.uiautomator.By
 import android.support.test.uiautomator.UiDevice
 import android.support.test.uiautomator.UiSelector
+import android.support.test.uiautomator.Until
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import junit.framework.Assert
@@ -45,7 +47,10 @@ public class SignInScreen:BaseScreen(){
         signInButton.click()
         return SignInScreen()
     }
-    val textFromTryAgain get() = pleaseTryAgainText.text
+    fun textFromTryAgain():String{
+        pleaseTryAgainText.waitForExists(globalTimeout)
+       return pleaseTryAgainText.text
+    }
 
     fun clickOnOkPleaseTryAgain():SignInScreen{
         pleaseTryAgainOkButton.waitForExists(globalTimeout)

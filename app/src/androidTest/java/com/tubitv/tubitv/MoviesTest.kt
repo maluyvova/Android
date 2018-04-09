@@ -98,9 +98,6 @@ class MoviesTest:LaunchAppWithFacebook() {
         movieDatailScreen2.clickOnRemoveFromQueue()
         val homePage3 = HomeScreen()
         val quie=homePage3.getTextOfCategory().text
-       // if (quie=="Queue"){
-        //    homePage3.getTextOfCategory().waitForExists(globalTimeout)
-        //}
         homePage3.waitForDisapearCategoryText("Queue")
         val categoryInHomePage1 = homePage3.textCategory//should be most popular
         assertEquals("Category Queue is not on home page ", categoryInHomePage.toLowerCase(), "queue")
@@ -114,6 +111,7 @@ class MoviesTest:LaunchAppWithFacebook() {
         val gotItScreen = homePage.clickOnTitle()
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         movieDatailScreen.simpleClickOnAddToQueue()
+        Thread.sleep(2000)
         movieDatailScreen.waitUntillSelected()
         val homePage2 = movieDatailScreen.simpleClickOnRemoveFromQueue()
         homePage2.waitForDisapearCategoryText("Queue")

@@ -24,7 +24,7 @@ class SignInTest():SimpleLaunchApp(){
         signInScreen.sendTextToEmailField( "vladb"+RandomEmail.randomemail()+ RandomEmail.randomemail()+"@gmail.com")
         signInScreen.sendTextToPasswordField("tubitv")
         signInScreen.simpleClickOnSignInButton()
-        val textFromAgainPopUp= signInScreen.textFromTryAgain
+        val textFromAgainPopUp= signInScreen.textFromTryAgain()
         signInScreen.clickOnOkPleaseTryAgain()
         Assert.assertEquals("This test provided not exists email in Sign In page,and text is not equal to",textFromAgainPopUp.toLowerCase(),"Please try again.".toLowerCase())
     }
@@ -34,7 +34,7 @@ class SignInTest():SimpleLaunchApp(){
         signInScreen.sendTextToEmailField( "tubitv@tubitv.tubitv")
         signInScreen.sendTextToPasswordField("a"+RandomEmail.randomemail())
         signInScreen.simpleClickOnSignInButton()
-        val textFromAgainPopUp= signInScreen.textFromTryAgain
+        val textFromAgainPopUp= signInScreen.textFromTryAgain()
         signInScreen.clickOnOkPleaseTryAgain()
         Assert.assertEquals("This test provided not correct password in Sign In page,and text is not equal to",textFromAgainPopUp.toLowerCase(),"Cannot login the user by email, Incorrect password".toLowerCase())
     }
