@@ -79,10 +79,8 @@ class MovieDatailScreen() :BaseScreen(){
 class GotIt():BaseScreen(){
 
     private val gotItButton=uiDevice.findObject(UiSelector().resourceId(appPackage +":id/got_it_button"))
+    public val gotitButton get() = this.gotItButton
 
-    init{ Assert.assertTrue("Expected button 'got it' on yellow beckground is not displayed", gotItButton.waitForExists(globalTimeout))
-
-    }
     fun clickOnGotIt():MovieDatailScreen {
         gotItButton.click()
         return MovieDatailScreen()

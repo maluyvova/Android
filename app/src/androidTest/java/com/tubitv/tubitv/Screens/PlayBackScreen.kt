@@ -22,6 +22,7 @@ class PlayBackScreen:BaseScreen()
    private var leftTimer=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_tubi_controller_elapsed_time"))
 
     public fun textOfRightTimer(){
+
      leftTimer.text
     }
 

@@ -2,6 +2,7 @@ package com.tubitv.tubitv
 import android.support.test.InstrumentationRegistry
 import android.support.test.uiautomator.*
 import android.util.Log
+import com.tubitv.tubitv.Networking.Mockt
 import com.tubitv.tubitv.Networking.ServerManager
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -63,7 +64,6 @@ class MoviesTest:LaunchAppWithFacebook() {
             titlesInHomeScreen.clickAddToQueueAfterLongClick()
             homePage.waitForDisapearCategoryText("Queue")
             val textOfCategory = homePage.textCategory
-
             assertEquals("Orginal name $TextInHomeScreen should be same like $TextFromQueue", textOfCategory.toLowerCase(), mostpoular.toLowerCase())
         } else print("Title in queue not equal to title what test adds to queue")
     }
@@ -72,7 +72,7 @@ class MoviesTest:LaunchAppWithFacebook() {
     fun clickOnCategory() {
         val homePage = HomeScreen()
         val textOfCategory = homePage.textCategory
-        homePage.getTextOfCategory().click()
+        homePage.getTextOfCategory(0).click()
         val moviesByCategoryScreen = MoviesByCategoryScreen()
         val movieText = moviesByCategoryScreen.titleText
         val textOfCategoryInCategoryScreen = moviesByCategoryScreen.categoryText
@@ -97,16 +97,16 @@ class MoviesTest:LaunchAppWithFacebook() {
         val movieDatailScreen2 = homePage2.clickOnTitleNoGotIt()
         movieDatailScreen2.clickOnRemoveFromQueue()
         val homePage3 = HomeScreen()
-        val quie=homePage3.getTextOfCategory().text
+        val quie=homePage3.getTextOfCategory(1).text
         homePage3.waitForDisapearCategoryText("Queue")
         val categoryInHomePage1 = homePage3.textCategory//should be most popular
-        assertEquals("Category Queue is not on home page ", categoryInHomePage.toLowerCase(), "queue")
         assertEquals("Title text in Home Page not matches with title in Movie Datal Page ", textOfTitleInHomePage.toLowerCase(), textOfTitleInMovieDatailScreen.toLowerCase())
         assertEquals("Queue is still on Hme Page", categoryInHomePage1.toLowerCase(), "most popular")
     }
 
     @Test
     fun addAndDelteFromQueue() {
+        val nock= Mockt()
         val homePage = HomeScreen()
         val gotItScreen = homePage.clickOnTitle()
         val movieDatailScreen = gotItScreen.clickOnGotIt()
@@ -126,7 +126,6 @@ class MoviesTest:LaunchAppWithFacebook() {
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         var playBackScreen = movieDatailScreen.clickOnPlay()
         Thread.sleep(45000)
-        uiDevice.click(20, 20)
         uiDevice.pressBack()
         uiDevice.pressBack()
         killApp()
@@ -152,11 +151,35 @@ class MoviesTest:LaunchAppWithFacebook() {
 
     @Test
     fun scrollToSideAndVerifyIfTitleMissmatches() {
+        val category ="Action"
         val homescreen = HomeScreen()
-        homescreen.ScrollToSpecificCategory("Action")
-        val textOfTitle = homescreen.getTextOfTitleWithIndex()
-        homescreen.horisontalScrollTitles(4)
-        val textOfTitle2 = homescreen.getTextOfTitleWithIndex()
+        homescreen.ScrollToSpecificCategory(category)
+        val textOfTitle = homescreen.getTextOfTitleWithIndex(category)
+        homescreen.horisontalScrollTitles(2,category)
+        val textOfTitle2 = homescreen.getTextOfTitleWithIndex(category)
         Assert.assertNotEquals("This test scrolling titles to side and comparing first title text with text in new view  ", textOfTitle, textOfTitle2)
     }
+
+   // @Test
+    fun startPlaybackAndCheckingIfTitleInHistoryd() {
+        val homePage = HomeScreen()
+        val gotItScreen = homePage.clickOnTitle()
+        val movieDatailScreen = gotItScreen.clickOnGotIt()
+        var playBackScreen = movieDatailScreen.clickOnPlay()
+
+        Thread.sleep(4000)
+        uiDevice.pressEnter()
+        uiDevice.click(50, 40)
+        uiDevice.click(50, 40)
+        uiDevice.click(300, 400)
+        uiDevice.click(50, 40)
+        uiDevice.click(50, 40)
+        uiDevice.click(50, 40)
+        //Thread.sleep(4000)
+       uiDevice.findObject( UiSelector().resourceId(appPackage+":id/view_tubi_controller_subtitles_ib")).click()
+       // uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_tubi_controller_loading")).click()
+        //UiObject2()
+       // Assert.assertEquals("First Category should be 'Most popular' because test should delete title form 'Continue watching' with long press", firstCategor.toLowerCase(), "most popular")
+    }
+
 }

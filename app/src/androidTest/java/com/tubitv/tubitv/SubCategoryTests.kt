@@ -26,14 +26,9 @@ class SubCategoryTests:LaunchAppWithFacebook() {
      val first= MovieDatailScreen().titleDatailScreen
       killApp()
       launchApp()
-      val titlInQueie=homeScreen.getTextOfTitleWithIndex()
+      val titlInQueie=homeScreen.getText("Queue")             //getTextOfTitleWithIndex("Queue")
       val movieDatailScreen=homeScreen.clickOnTitleNoGotIt()
       movieDatailScreen.clickOnRemoveFromQueue()
       Assert.assertEquals(first,titlInQueie)
     }
-
-
-
-
-
 }

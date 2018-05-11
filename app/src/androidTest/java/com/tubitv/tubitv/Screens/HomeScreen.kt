@@ -20,9 +20,8 @@ open class HomeScreen:BaseScreen(){
     private val textOfMovie = UiSelector().resourceId(appPackage+":id/view_home_content_title_tv")
     private val titleOfMovie =    UiSelector().resourceId(appPackage+":id/view_home_content_iv")
     public val textOFCategory =UiSelector().resourceId(appPackage+":id/view_content_recycler_category_title")
-    private val headerLine=UiSelector().resourceId(appPackage+":id/view_content_recycler_header")
     private val featuredTitles=UiSelector().resourceId(appPackage+":id/view_home_content_iv")
-    private val featuredTitlesText=UiSelector().resourceId(appPackage+":id/view_home_content_tv_title")
+    private val featuredTitlesText=UiDeviceID(appPackage+":id/banner_title")
     private val sideCategoryMenu=uiDevice.findObject(UiSelector().className("android.widget.ImageButton"))
     private val treeDotsSetingsButton=uiDevice.findObject(UiSelector().description("More options"))
     private val containerOfTitlesSmaller=UiSelector().resourceId(appPackage+":id/view_content_recycler")
@@ -39,18 +38,16 @@ open class HomeScreen:BaseScreen(){
     protected fun getGrid(number:Int) =
             firstListOfAllObjects.getChildByInstance(categoryList,number) // it's object of all category moivies in homepage
 
-    private fun getFirstTitleTextInFeatured()=
-            getGrid(0).getChild(featuredTitlesText)
 
     public fun clickAndSendTextToSearch(text:String):SearchScreen{
       searchButton.click()
         searchField.setText(text)
         return SearchScreen()
     }
-    public val textOfTitleInFeaturedCategor get() = getFirstTitleTextInFeatured().text
+    public val textOfTitleInFeaturedCategor get() = featuredTitlesText.text
 
     public fun clickOnTitleInFeaturedCateg():GotIt{
-        getFirstTitleTextInFeatured().click()
+        featuredTitlesText.click()
         return GotIt()
     }
     public val titleInContinueWatching get()=textOfTitleInContnueWatching.text
@@ -65,43 +62,72 @@ open class HomeScreen:BaseScreen(){
             scrollHomePage.scrollToEnd(1)
             number++
         }
-        for (i in 1..6){
-           val box= getGrid(i).getChild(textOFCategory)
-            if( box.text=="Special Interest")
+        for (j in 0..6){
+           val box= getGrid(j).getChild(textOFCategory)
+            if (box.exists()){
+            if( box.text.equals("Special Interest")){
                 box.click()
-            break
-        }
+            break}
+        }}
      return SubCategoryScreen()
     }
 
-    fun horisontalScrollTitles(swipes:Int){
-        val scroll=UiScrollable(containerOfTitlesSmaller.index(1))
-        scroll.setAsHorizontalList().scrollToEnd(swipes)
+    fun horisontalScrollTitles(swipes:Int,category:String){
+        for (i in 1..6){
+            val box= getGrid(i).getChild(textOFCategory)
+            if( box.text=="$category"){
+                for(j in 1..6){
+                getGrid(i).getChild(containerOfTitlesSmaller).swipeLeft(swipes)}
+            break}
+        }
     }
-    fun getTextOfTitleWithIndex():String{
-      val text=  containerOfTitlesSmaller.index(1).resourceId(appPackage+":id/view_home_content_title_tv").index(1)
-      return uiDevice.findObject(text).text
-    }
+
+
+    fun getText(category: String):String{
+        var textOfMovies=""
+        for (i in 0..6){
+            if (getGrid(i).getChild(textOFCategory).exists()){
+                val box= getGrid(i).getChild(textOFCategory).text
+                if( box.equals("$category")){
+                    if (getGrid(i).getChild(containerOfTitlesSmaller).getChild(textOfMovie).exists()){
+                        textOfMovies= getGrid(i).getChild(containerOfTitlesSmaller).getChild(textOfMovie).text
+                        break }
+    }}}
+        return textOfMovies}
+
+    fun getTextOfTitleWithIndex(category: String):String{
+        var textOfMovies=""
+        for (i in 0..6){
+            if (getGrid(i).getChild(textOFCategory).exists()){
+            val box= getGrid(i).getChild(textOFCategory).text
+            if( box.equals("$category")){
+                if (getGrid(i).getChild(containerOfTitlesSmaller).getChild(textOfMovie).exists()){
+                textOfMovies= getGrid(i).getChild(containerOfTitlesSmaller).getChild(textOfMovie).text
+                    break }
+                else {scrollHomePage.setAsVerticalList().scrollToEnd(1)
+                  getTextOfTitleWithIndex("$category")
+                  }}}
+
+        }
+    return textOfMovies}
 
     public fun getTextOFMovie(numberOfView:Int) =
             getGrid(numberOfView).getChild(textOfMovie) //got a first element from the list of movies
 
-    private fun getHeaderLine()=
-            getGrid(1).getChild(headerLine)
 
     public fun clickOnThreeDots(){
-        getHeaderLine().getChild(UiSelector().className("android.widget.ImageView")).click()
+                getGrid(0).getChild(UiSelector().className("android.widget.ImageView")).click()
     }
 
     private fun getTitleFromGrid()=
-            getGrid(1).getChild(titleOfMovie)
+            getGrid(0).getChild(titleOfMovie)
 
-    public   fun getTextOfCategory()=
-            getGrid(1).getChild(textOFCategory)
+    public   fun getTextOfCategory(number:Int)=
+            getGrid(number).getChild(textOFCategory)
 
-public fun text():Objects{
-    val text=getTextOfCategory()
-    return text()
+public fun text(number: Int):Objects{
+    val text=getTextOfCategory(number)
+    return text(number)
 }
 
 
@@ -121,16 +147,10 @@ public fun text():Objects{
         uiDevice.wait(Until.findObject(By.text(text)), globalTimeout)
     }
 
-
-    public fun clickOnCategoryWithText(text:String){
-      uiDevice.findObject(getTextOfCategory().selector.text(text)).click()
+    public fun clickOnCategoryWithText(text:String,number: Int){
+      uiDevice.findObject(getTextOfCategory(number).selector.text(text)).click()
     }
 
-   //private fun som(){
-
-
-      // uiDevice.findObject(textOFCategory.text("fd")).waitForExists("fdf") CHECK THIS OUT
-  // }
 
     fun clickOnSidecategorButton():SideCategoryMenuScreen{
         sideCategoryMenu.click()
@@ -138,18 +158,18 @@ public fun text():Objects{
     }
 
 
-    public val textCategory=getTextOfCategory().text
+    public val textCategory=getTextOfCategory(0).text
 
-    public val title get() = getTextOFMovie(1).text //get text title form the home page
+    public val title get() = getTextOFMovie(0).text //get text title form the home page
 
     public fun clickOnTitleNoGotIt():MovieDatailScreen{
-        getTextOFMovie(1).click()
+        getTextOFMovie(0).click()
         return MovieDatailScreen()
     }
 
 
     public fun clickOnTitle():GotIt{
-        getTextOFMovie(1).click()
+        getTextOFMovie(0).click()
         return GotIt()
     }
     public fun clickBack(){
@@ -211,10 +231,10 @@ return AddToQueue()
                 homescreen.firstListOfAllObjects.getChildByInstance(queueList,number) // it's object of all category moivies in
 
         private fun getQueuFromGrid()=
-                getGrid(1).getChild(homescreen.textOfMovie)
+                getGrid(0).getChild(homescreen.textOfMovie)
 
         private fun getFirstTitleInQueu()=
-            getGrid(1).getChild(homescreen.textOfMovie)
+            getGrid(0).getChild(homescreen.textOfMovie)
 
         public val textFromFirstTitleInQueue get()=getQueuFromGrid().text
 
@@ -281,6 +301,8 @@ return AddToQueue()
 
 
     }
+
+
 
 
 

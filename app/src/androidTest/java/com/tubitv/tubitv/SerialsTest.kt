@@ -2,6 +2,7 @@ package com.tubitv.tubitv
 
 import com.tubitv.tubitv.Screens.GotIt
 import com.tubitv.tubitv.Screens.HomeScreen
+import com.tubitv.tubitv.Screens.MoviesByCategoryScreen
 import com.tubitv.tubitv.Screens.SerialsScreen
 import org.junit.Assert
 import org.junit.Test
@@ -12,8 +13,18 @@ import java.util.*
  */
 class SerialsTest:LaunchAppWithFacebook(){
 
-
-
+   fun selectRundomSerialTitle(){
+    val numbersOfTitles=MoviesByCategoryScreen().getCountOfTitles()
+    val randomNumber= Random().nextInt(numbersOfTitles)
+    val title =MoviesByCategoryScreen().gotkRandomTite(randomNumber) //randomNumber
+    title.click()
+       if(GotIt().gotitButton.exists())
+    GotIt().clickOnGotIt()
+    if (SerialsScreen().presentByHulu.exists()){
+        uiDevice.pressBack()
+        selectRundomSerialTitle()
+    }
+    val serialScreen=SerialsScreen()}
 
     @Test
     fun longClickOnSerial(){
@@ -28,7 +39,6 @@ class SerialsTest:LaunchAppWithFacebook(){
         val queScreen=HomeScreen.AddToQueue()
         queScreen.clickAddToQueueAfterLongClickWithoutReturn()
         uiDevice.pressBack()
-
         val homeScreenWithQueue=HomeScreen.QueueScreen()
         homePage.waitForExistsCategoryText("Queue")
         val titletext= homeScreenWithQueue.textFromFirstTitleInQueue
@@ -36,7 +46,7 @@ class SerialsTest:LaunchAppWithFacebook(){
         val moviedatailScreen=gotit.clickOnGotIt()
         val homeScreen2=moviedatailScreen.clickOnRemoveFromQueue()
         homeScreen2.waitForDisapearCategoryText("Queue")
-        val text=homeScreen2.getTextOfCategory().text
+        val text=homeScreen2.getTextOfCategory(1).text
        Assert.assertNotEquals("The first text of category is Queue",text,"Queue")
     }
 
@@ -46,11 +56,7 @@ class SerialsTest:LaunchAppWithFacebook(){
         homePage.ScrollToSpecificCategory("Most Popular TV Shows")
         val serials =HomeScreen.Serials()
         val moviesByCategoryScreen=serials.clickOnSerialCategory()
-        val numbersOfTitles=moviesByCategoryScreen.getCountOfTitles()
-        val randomNumber= Random().nextInt(numbersOfTitles)
-        val title =moviesByCategoryScreen.gotkRandomTite(randomNumber)
-        title.click()
-        GotIt().clickOnGotIt()
+        selectRundomSerialTitle()
         val serialScreen=SerialsScreen()
         serialScreen.scrollScreen(4)
         serialScreen.scrollEpisdoesList(4)

@@ -21,7 +21,7 @@ class InsuranceBeforeTests:BaseScreen() {
     }
     fun deleteFromQueue(){
        val homePage=HomeScreen()
-       if(homePage.getTextOfCategory().text=="Queue"){
+       if(homePage.getTextOfCategory(0).text.equals("Queue")){
           val remove= homePage.longPressToRemoveFromQueue()
            remove.clickAddToQueueAfterLongClickWithoutReturn()
        }
