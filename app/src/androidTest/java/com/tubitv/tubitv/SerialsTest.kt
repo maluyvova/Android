@@ -18,7 +18,7 @@ class SerialsTest:LaunchAppWithFacebook(){
     val randomNumber= Random().nextInt(numbersOfTitles)
     val title =MoviesByCategoryScreen().gotkRandomTite(randomNumber) //randomNumber
     title.click()
-       if(GotIt().gotitButton.exists())
+       if(GotIt().gotitButton.waitForExists(globalTimeout))
     GotIt().clickOnGotIt()
     if (SerialsScreen().presentByHulu.exists()){
         uiDevice.pressBack()

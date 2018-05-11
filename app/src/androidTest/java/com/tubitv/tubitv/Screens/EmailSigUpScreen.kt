@@ -27,15 +27,15 @@ class EmailSigUpScreen:BaseScreen(){
 
 
     init {
-        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", firstNameField.waitForExists (moviesListTimeout))
-        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", emailField.waitForExists (moviesListTimeout))
-        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", passwordField.waitForExists (moviesListTimeout))
-        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", registerButton.waitForExists (moviesListTimeout))
-        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", termOfUseButton.waitForExists (moviesListTimeout))
-        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", privacyPolice.waitForExists (moviesListTimeout))
-        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", signInButton.waitForExists (moviesListTimeout))
-        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", birthdayButton.waitForExists (moviesListTimeout))
-        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", genderButton.waitForExists (moviesListTimeout))
+        Assert.assertTrue("Expected first name field not showed up", firstNameField.waitForExists (moviesListTimeout))
+        Assert.assertTrue("Expected email field not showed up", emailField.waitForExists (moviesListTimeout))
+        Assert.assertTrue("Expected password field not showed up", passwordField.waitForExists (moviesListTimeout))
+        Assert.assertTrue("Expected register button not showed up", registerButton.waitForExists (moviesListTimeout))
+        Assert.assertTrue("Expected termOfUse button not showed up", termOfUseButton.waitForExists (moviesListTimeout))
+        Assert.assertTrue("Expected privacy police not showed up", privacyPolice.waitForExists (moviesListTimeout))
+        Assert.assertTrue("Expected signIn button not showed up", signInButton.waitForExists (moviesListTimeout))
+        Assert.assertTrue("Expected birthday button not showed up", birthdayButton.waitForExists (moviesListTimeout))
+        Assert.assertTrue("Expected gender button not showed up", genderButton.waitForExists (moviesListTimeout))
     }
 
 
