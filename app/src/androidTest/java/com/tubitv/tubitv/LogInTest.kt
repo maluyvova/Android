@@ -129,14 +129,4 @@ class LogInTest:SimpleLaunchApp(){
         val signInWithFacebookOrEmail=launchScreen.clickOnCreateAccount()
         signInWithFacebookOrEmail.clickOnSignUpWithFacebook()
     }
-
-
-
-
-
-
-
-
-
-
 }
