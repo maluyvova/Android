@@ -100,11 +100,12 @@ class ShareWithScreen():BaseScreen(){
 }
 class FacebookPageShareScreen():BaseScreen(){
     private val facebookPostButton=uiDevice.findObject(UiSelector().text("POST"))
-    init {
-        Assert.assertTrue(facebookPostButton.waitForExists(globalTimeout))
-    }
+    private val facebookPostButtonForTablets=uiDevice.findObject(UiSelector().text("Post"))
+
     fun clickOnFacebookPostButton():MovieDatailScreen{
-        facebookPostButton.click()
+        if (facebookPostButton.waitForExists(globalTimeout)){
+        facebookPostButton.click()}
+        else facebookPostButtonForTablets.click()
         return MovieDatailScreen()
     }
 }
