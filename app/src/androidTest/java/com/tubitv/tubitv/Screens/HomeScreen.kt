@@ -20,7 +20,7 @@ open class HomeScreen:BaseScreen(){
     private val textOfMovie = UiSelector().resourceId(appPackage+":id/view_home_content_title_tv")
     private val titleOfMovie =    UiSelector().resourceId(appPackage+":id/view_home_content_iv")
     public val textOFCategory =UiSelector().resourceId(appPackage+":id/view_content_recycler_category_title")
-    private val featuredTitles=UiSelector().resourceId(appPackage+":id/view_home_content_iv")
+    private val featuredContainer=UiScrollable(UiSelector().resourceId(appPackage+":id/bannerContainer"))
     private val featuredTitlesText=UiDeviceID(appPackage+":id/banner_title")
     private val sideCategoryMenu=uiDevice.findObject(UiSelector().className("android.widget.ImageButton"))
     private val treeDotsSetingsButton=uiDevice.findObject(UiSelector().description("More options"))
@@ -81,7 +81,9 @@ open class HomeScreen:BaseScreen(){
             break}
         }
     }
-
+    fun scrollFeaturetTitles(swipes: Int){
+        featuredContainer.setAsHorizontalList().scrollToEnd(swipes)
+    }
 
     fun getText(category: String):String{
         var textOfMovies=""

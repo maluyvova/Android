@@ -13,6 +13,6 @@ open class SimpleLaunchApp:BaseTest() {
         uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         killApp()
         clearAppData()
-        launchApp()
+        launchApp(appPackage)
     }
 }

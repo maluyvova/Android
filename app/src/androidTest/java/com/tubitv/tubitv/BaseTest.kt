@@ -32,7 +32,7 @@ open class BaseTest {
     }
     fun clearAppData() = executeShellCommand("pm clear " + appPackage)
 
-    protected fun launchApp() {
+    protected fun launchApp(appPackage:String) {
         uiDevice.pressHome()
         val launcherPackage = uiDevice.launcherPackageName
         assertThat(launcherPackage, CoreMatchers.notNullValue())

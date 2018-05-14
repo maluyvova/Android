@@ -18,19 +18,21 @@ class MovieDatailScreen() :BaseScreen(){
 
     private val titleText = uiDevice.findObject(UiSelector().resourceId(appPackage+":id/textView_title"))
     private val addToQueue = uiDevice.findObject(UiSelector().resourceId(appPackage+":id/imageView_add_from_queue"))
-    private val youMightAlsoLike=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_content_recycler_category_title"))
+    private val youMightAlsoLike=UiScrollable( UiSelector().resourceId(appPackage+":id/view_content_recycler_ll"))
     private val playButton=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/imageView_play"))
     private val scrollbleScreen=UiScrollable(UiSelector().resourceId(appPackage+":id/empty_holder"))
+    private val titleFromYouMightAlsoLike=UiDeviceID(appPackage+":id/view_home_content_iv")
+    private val shareWithButton=UiDeviceID(appPackage+":id/imageView_share")
     init {
         Assert.assertTrue("Expected title text  is not displayed", titleText.waitForExists(globalTimeout))
         Assert.assertTrue("Expected button add to queue is not displayed", addToQueue.waitForExists(globalTimeout))
-        //Assert.assertTrue("'You might also like' is not displayed", youMightAlsoLike.waitForExists(globalTimeout))
+        Assert.assertTrue("Expected share button is not displayed", shareWithButton.waitForExists(globalTimeout))
     }
 
     public val titleDatailScreen get() = titleText.text //get text from the datail page
+    public val scrollableScreen=this.scrollbleScreen
 
-    constructor(parcel: Parcel) : this() {
-    }
+    public val youMightaAlsoLike=this.youMightAlsoLike
 
     fun clickOnAddToQueue():HomeScreen {
         addToQueue.click()
@@ -72,9 +74,40 @@ class MovieDatailScreen() :BaseScreen(){
             number++}
 
     }
+    fun clickOnShareButton():ShareWithScreen{
+        shareWithButton.click()
+        return ShareWithScreen()
+    }
+    fun selectTitleFromMightAlsoLike():MovieDatailScreen{
+        scrollbleScreen.setAsVerticalList().scrollToEnd(2)
+        youMightAlsoLike.setAsHorizontalList().scrollToEnd(2)
+        titleFromYouMightAlsoLike.click()
+        return MovieDatailScreen()
+    }
 }
 
-
+class ShareWithScreen():BaseScreen(){
+ private val shareWithTitle=uiDevice.findObject(UiSelector().text("Share with"))
+ private val facebookIcon=uiDevice.findObject(UiSelector().text("Facebook"))
+   init {
+       Assert.assertTrue(shareWithTitle.waitForExists(globalTimeout))
+       Assert.assertTrue(facebookIcon.waitForExists(globalTimeout))
+   }
+  fun clickOnFacebookShareIcon():FacebookPageShareScreen{
+      facebookIcon.click()
+        return FacebookPageShareScreen()
+  }
+}
+class FacebookPageShareScreen():BaseScreen(){
+    private val facebookPostButton=uiDevice.findObject(UiSelector().text("POST"))
+    init {
+        Assert.assertTrue(facebookPostButton.waitForExists(globalTimeout))
+    }
+    fun clickOnFacebookPostButton():MovieDatailScreen{
+        facebookPostButton.click()
+        return MovieDatailScreen()
+    }
+}
 
 class GotIt():BaseScreen(){
 

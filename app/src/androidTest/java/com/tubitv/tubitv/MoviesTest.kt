@@ -12,6 +12,7 @@ import com.tubitv.tubitv.Screens.MovieDatailScreen
 import com.tubitv.tubitv.Screens.MoviesByCategoryScreen
 import org.junit.Assert
 import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertNotNull
 import org.junit.After
 
 /**
@@ -29,13 +30,20 @@ class MoviesTest:LaunchAppWithFacebook() {
 
     @Test
     fun selectTitleFromMostPopular() {
-
         val homePage = HomeScreen() //at this moment it's checking if test in coorect screen
         val titleInHomeScreen = homePage.title
         val gotitPage = homePage.clickOnTitle()
         val datailPage = gotitPage.clickOnGotIt()
         val titleInDatailScreen = datailPage.titleDatailScreen
         assertEquals("Orginal name $titleInHomeScreen should be same like $titleInDatailScreen", titleInHomeScreen.toLowerCase(), titleInDatailScreen.toLowerCase())
+    }
+    @Test
+    fun scrollFeaturedTitles(){
+        val homePage = HomeScreen() //at this moment it's checking if test in coorect screen
+        val text = homePage.textOfTitleInFeaturedCategor
+        homePage.scrollFeaturetTitles(2)
+        val titleInHomeScreen1=homePage.textOfTitleInFeaturedCategor
+        Assert.assertNotEquals(text,titleInHomeScreen1)
     }
 
     @Test
@@ -129,7 +137,7 @@ class MoviesTest:LaunchAppWithFacebook() {
         uiDevice.pressBack()
         uiDevice.pressBack()
         killApp()
-        launchApp()
+        launchApp(appPackage)
         val homePage2 = HomeScreen.HomeScreenWithContinueWatching()
         homePage2.removeFromHistory()
         val removeFromHistoryScreen = HomeScreen.RemoveFormHistoryScreen()
@@ -158,6 +166,16 @@ class MoviesTest:LaunchAppWithFacebook() {
         homescreen.horisontalScrollTitles(2,category)
         val textOfTitle2 = homescreen.getTextOfTitleWithIndex(category)
         Assert.assertNotEquals("This test scrolling titles to side and comparing first title text with text in new view  ", textOfTitle, textOfTitle2)
+    }
+    @Test
+        fun selectTitleFromYouMighAlsoLike(){
+        val homePage = HomeScreen()
+        val gotItScreen = homePage.clickOnTitle()
+        val movieDatailScreen = gotItScreen.clickOnGotIt()
+        val datailScreen=MovieDatailScreen().selectTitleFromMightAlsoLike()
+        datailScreen.scrollableScreen.setAsVerticalList().scrollToEnd(1)
+        Assert.assertFalse(datailScreen.youMightaAlsoLike.exists())
+
     }
 
    // @Test

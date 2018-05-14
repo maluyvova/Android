@@ -8,3 +8,4 @@ val appPackage="com.tubitv.debug"
 val globalTimeout=7000L
 val moviesListTimeout = 9000L
 val facebookLogin=17000L
+val appPackageFacebook="com.facebook.katana"

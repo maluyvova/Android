@@ -64,7 +64,7 @@ class SerialsTest:LaunchAppWithFacebook(){
         serialScreen.clickOnPlayInTheButtonNextEpisode()
         Thread.sleep(45000)
         killApp()
-        launchApp()
+        launchApp(appPackage)
         val tittle=homePage.titleInContinueWatching
         HomeScreen.HomeScreenWithContinueWatching().removeFromHistory()
         val history=HomeScreen.History().clickOnRemoveFromHisory()

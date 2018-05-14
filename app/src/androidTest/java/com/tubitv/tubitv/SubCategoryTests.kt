@@ -25,7 +25,7 @@ class SubCategoryTests:LaunchAppWithFacebook() {
       MovieDatailScreen().simpleClickOnAddToQueue()
      val first= MovieDatailScreen().titleDatailScreen
       killApp()
-      launchApp()
+      launchApp(appPackage)
       val titlInQueie=homeScreen.getText("Queue")             //getTextOfTitleWithIndex("Queue")
       val movieDatailScreen=homeScreen.clickOnTitleNoGotIt()
       movieDatailScreen.clickOnRemoveFromQueue()
