@@ -33,7 +33,7 @@ class EmailSigUpScreen:BaseScreen(){
         Assert.assertTrue("Expected register button not showed up", registerButton.waitForExists (moviesListTimeout))
         Assert.assertTrue("Expected termOfUse button not showed up", termOfUseButton.waitForExists (moviesListTimeout))
         Assert.assertTrue("Expected privacy police not showed up", privacyPolice.waitForExists (moviesListTimeout))
-        Assert.assertTrue("Expected signIn button not showed up", signInButton.waitForExists (moviesListTimeout))
+        //Assert.assertTrue("Expected signIn button not showed up", signInButton.waitForExists (moviesListTimeout))
         Assert.assertTrue("Expected birthday button not showed up", birthdayButton.waitForExists (moviesListTimeout))
         Assert.assertTrue("Expected gender button not showed up", genderButton.waitForExists (moviesListTimeout))
     }
