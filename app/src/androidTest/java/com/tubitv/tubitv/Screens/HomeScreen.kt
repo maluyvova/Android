@@ -29,7 +29,8 @@ open class HomeScreen:BaseScreen(){
     private val playButtonForContinueWatching=UiDeviceID(appPackage+":id/view_home_content_continue_play_btn")
     private val searchButton=uiDevice.findObject(UiSelector().description("Search"))
     private val searchField=UiDeviceID(appPackage+":id/nav_app_bar_main_search")
-
+    private val custButton=uiDevice.findObject(UiSelector().description("Cast button. Disconnected"))
+    private val castMenu=UiDeviceID(appPackage+":id/action_bar_root")
     init{
 
         Assert.assertTrue("Expected first List of All Objects is not displayed",firstListOfAllObjects.waitForExists(moviesListTimeout))
@@ -44,7 +45,16 @@ open class HomeScreen:BaseScreen(){
         searchField.setText(text)
         return SearchScreen()
     }
+    public fun clickOnCustButton(castDeviceName:String){
+     custButton.click()
+        castMenu.waitForExists(globalTimeout)
+        uiDevice.findObject(UiSelector().text(castDeviceName)).click()
+    }
     public val textOfTitleInFeaturedCategor get() = featuredTitlesText.text
+
+    public fun getCountOfMovies(i:Int):Int{
+        return getGrid(i).getChild(containerOfTitlesSmaller).childCount
+    }
 
     public fun clickOnTitleInFeaturedCateg():GotIt{
         featuredTitlesText.click()

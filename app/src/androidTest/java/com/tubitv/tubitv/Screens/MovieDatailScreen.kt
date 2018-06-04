@@ -23,6 +23,7 @@ class MovieDatailScreen() :BaseScreen(){
     private val scrollbleScreen=UiScrollable(UiSelector().resourceId(appPackage+":id/empty_holder"))
     private val titleFromYouMightAlsoLike=UiDeviceID(appPackage+":id/view_home_content_iv")
     private val shareWithButton=UiDeviceID(appPackage+":id/imageView_share")
+    private val captionicon=UiDeviceID(appPackage+":id/imageView_caption")
     init {
         Assert.assertTrue("Expected title text  is not displayed", titleText.waitForExists(globalTimeout))
         Assert.assertTrue("Expected button add to queue is not displayed", addToQueue.waitForExists(globalTimeout))
@@ -84,6 +85,11 @@ class MovieDatailScreen() :BaseScreen(){
         titleFromYouMightAlsoLike.click()
         return MovieDatailScreen()
     }
+    fun checkIfCCIconpresent():Boolean{
+        return captionicon.waitForExists(globalTimeout)
+    }
+
+
 }
 
 class ShareWithScreen():BaseScreen(){

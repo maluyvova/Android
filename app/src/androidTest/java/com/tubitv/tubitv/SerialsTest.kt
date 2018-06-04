@@ -12,6 +12,8 @@ import java.util.*
  * Created by vburian on 3/15/18.
  */
 class SerialsTest:LaunchAppWithFacebook(){
+    val textOfEpisodesForselectSerialWithFewSeasons = mutableListOf<String>()
+    val episodesForScrollToTheSide=mutableListOf<String>()
 
    fun selectRundomSerialTitle(){
     val numbersOfTitles=MoviesByCategoryScreen().getCountOfTitles()
@@ -25,6 +27,70 @@ class SerialsTest:LaunchAppWithFacebook(){
         selectRundomSerialTitle()
     }
     val serialScreen=SerialsScreen()}
+
+
+    fun selectSerialWithFewSeasons(){
+        val numbersOfTitles=MoviesByCategoryScreen().getCountOfTitles()
+            val randomNumber= Random().nextInt(numbersOfTitles)
+            val title =MoviesByCategoryScreen().gotkRandomTite(randomNumber) //randomNumber
+            title.click()
+            if(GotIt().gotitButton.waitForExists(globalTimeout))
+                GotIt().clickOnGotIt()
+        SerialsScreen().scrlbleScreen.scrollToEnd(2)
+        val seasonPicker=SerialsScreen().seasonPickers
+        val season2=SerialsScreen().sseason2
+            if (seasonPicker.waitForExists(globalTimeout)){
+                seasonPicker.click()
+                if(season2.waitForExists(globalTimeout)){
+                    uiDevice.pressBack()
+                    val titleForFirstSeason=SerialsScreen().getTextOfEpisode()
+                    textOfEpisodesForselectSerialWithFewSeasons.add(0,titleForFirstSeason)
+                    seasonPicker.click()
+                    season2.click()
+                    val titleForSecondSeason=SerialsScreen().getTextOfEpisode()
+                    textOfEpisodesForselectSerialWithFewSeasons.add(1,titleForSecondSeason)
+                }
+                else {
+                    uiDevice.pressBack()
+                    uiDevice.pressBack()
+                    selectSerialWithFewSeasons()
+                } }}
+
+    fun scrollToTheSide(){
+
+        val numbersOfTitles=MoviesByCategoryScreen().getCountOfTitles()
+        val randomNumber= Random().nextInt(numbersOfTitles)
+        val title =MoviesByCategoryScreen().gotkRandomTite(randomNumber) //randomNumber
+        title.click()
+        if(GotIt().gotitButton.waitForExists(globalTimeout))
+            GotIt().clickOnGotIt()
+        SerialsScreen().scrlbleScreen.scrollToEnd(2)
+        val seasonPicker=SerialsScreen().seasonPickers
+        val season2=SerialsScreen().sseason2
+        val textFoSeason=SerialsScreen().textofSeason
+        if (seasonPicker.waitForExists(globalTimeout)){
+            seasonPicker.click()
+            if(season2.waitForExists(globalTimeout)){
+                uiDevice.pressBack()
+                episodesForScrollToTheSide.add(textFoSeason.text)
+                val serialScreen=SerialsScreen()
+                for (i in 0..6){
+                serialScreen.scrollEpisdoesList(i)}
+                episodesForScrollToTheSide.add(textFoSeason.text)
+            }
+            else {
+                uiDevice.pressBack()
+                uiDevice.pressBack()
+                scrollToTheSide()
+            } }
+
+    }
+
+
+
+
+
+
 
     @Test
     fun longClickOnSerial(){
@@ -71,4 +137,28 @@ class SerialsTest:LaunchAppWithFacebook(){
         Assert.assertEquals("This test is selecting TVshow, then selects another episode,then starts playback,theb killing app,and then checking if correct episode in the History",firstTextOfNumber.substring(1,5),tittle.substring(1,5))
     }
 
-}
+    @Test
+    fun selectSeasonOfSerials(){
+        val homePage=HomeScreen()
+        homePage.ScrollToSpecificCategory("Most Popular TV Shows")
+        val serials =HomeScreen.Serials()
+        val moviesByCategoryScreen=serials.clickOnSerialCategory()
+        selectSerialWithFewSeasons()
+       Assert.assertNotEquals("This test is selecting season2 from drop down ",textOfEpisodesForselectSerialWithFewSeasons.get(0),textOfEpisodesForselectSerialWithFewSeasons.get(1))
+    }
+    @Test
+    fun checkIfTheTextInSeasonPickerIsChangedAfterScrollingSerrialsToTheSide(){
+        val homePage=HomeScreen()
+        homePage.ScrollToSpecificCategory("Most Popular TV Shows")
+        val serials =HomeScreen.Serials()
+        val moviesByCategoryScreen=serials.clickOnSerialCategory()
+        scrollToTheSide()
+        Assert.assertNotEquals(episodesForScrollToTheSide.get(0),episodesForScrollToTheSide.get(1))
+    }
+
+
+
+        }
+
+
+

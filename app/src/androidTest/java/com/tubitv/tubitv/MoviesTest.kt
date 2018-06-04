@@ -22,9 +22,9 @@ import org.junit.After
 class MoviesTest:LaunchAppWithFacebook() {
 
 
-    @After
+   // @After
     fun deleteQuie() {
-        ServerManager().deleteQueue()
+       // ServerManager().deleteQueue()
     }
 
 

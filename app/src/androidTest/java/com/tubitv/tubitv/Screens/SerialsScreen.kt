@@ -1,7 +1,6 @@
 package com.tubitv.tubitv.Screens
 
-import android.support.test.uiautomator.UiScrollable
-import android.support.test.uiautomator.UiSelector
+import android.support.test.uiautomator.*
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import junit.framework.Assert
@@ -11,6 +10,9 @@ import java.util.*
  * Created by vburian on 3/30/18.
  */
 class SerialsScreen():BaseScreen(){
+    private val season2=UiCollection(UiSelector().text("Season 2"))
+    private val seasonPicker=UiDeviceID(appPackage+":id/seasonSpinner")
+    private val textOfSeason=UiDeviceID(appPackage+":id/textview")
     private val scrollableScreen=UiScrollable(UiSelector().resourceId(appPackage+":id/scrollView_main"))
     private val playButton=UiDeviceID(appPackage+":id/imageView_play")
     private val scrollableNextEpisodes=UiScrollable(UiSelector().resourceId(appPackage+":id/episode_list_recyclerview"))
@@ -20,7 +22,7 @@ class SerialsScreen():BaseScreen(){
     private val presentedByHulu=UiDeviceID(appPackage+":id/vaudTextView_present_hulu")
 
     init {
-        Assert.assertTrue("Expected 'Play' button is not displayed ",playButton.waitForExists(globalTimeout))
+       // Assert.assertTrue("Expected 'Play' button is not displayed ",playButton.waitForExists(globalTimeout))
        // Assert.assertTrue("Episode number is not displayed ",episodeNumber.waitForExists(globalTimeout))
     }
 
@@ -28,6 +30,10 @@ class SerialsScreen():BaseScreen(){
        scrollableScreen.setAsVerticalList().scrollToEnd(number)
     }
     public val presentByHulu get() = this.presentedByHulu
+    public val seasonPickers get()=this.seasonPicker
+    public val sseason2 get()=this.season2
+    public val scrlbleScreen get()=this.scrollableScreen
+    public val textofSeason get() =this.textOfSeason
     fun getTextOfEpisode():String{
         return  titleOfEpsideInTheButton.text
     }
@@ -43,6 +49,11 @@ class SerialsScreen():BaseScreen(){
     fun clickOnPlayInTheButtonNextEpisode(){
         playButtonForNextEpisode.click()
     }
+
+
+
+
+
 
 
 

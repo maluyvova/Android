@@ -25,4 +25,12 @@ init{
   return LaunchScreen()
    }
 
+    public fun clickOnLockInLandscapeMode():HomeScreen{
+        portraitSwithcer.click()
+        return HomeScreen()
+    }
+    public fun clickOnCaption(){
+        captionsSwitcher.click()
+    }
+
 }
