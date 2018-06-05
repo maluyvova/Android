@@ -29,6 +29,9 @@ init{
         portraitSwithcer.click()
         return HomeScreen()
     }
+    public fun simpleClickOnLockInLandscapeMode(){
+        portraitSwithcer.click()
+    }
     public fun clickOnCaption(){
         captionsSwitcher.click()
     }

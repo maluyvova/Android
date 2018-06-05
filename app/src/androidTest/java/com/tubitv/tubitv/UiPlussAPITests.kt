@@ -1,5 +1,6 @@
 package com.tubitv.tubitv
 
+import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Networking.ServerManager
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.LaunchScreen
@@ -16,40 +17,45 @@ import org.junit.runners.MethodSorters
 class UiPlussAPITests:SimpleLaunchApp() {
 
     @Test
-    fun addTitlesToQueueAndVerifyWithUi(){
-        ServerManager().addToQueueTest()
-        val signInScreen= LaunchScreen().clickOnSignIn()
+    fun addTitlesToQueueAndVerifyWithUi() {
+          ServerManager().addToQueueTest()
+        val signInScreen = LaunchScreen().clickOnSignIn()
         signInScreen.sendTextToEmailField("testingnetwork@gmail.com")
         signInScreen.sendTextToPasswordField("tubitv")
         signInScreen.clickOnSignInButton()
         SimpleLaunchApp().castings()
-        val homescreen=HomeScreen()
-        homescreen.clickOnThreeDots()
-        val countOftitles=MoviesByCategoryScreen().getCountOfTitles()
-     Assert.assertTrue(countOftitles>6)
+        val homescreen = HomeScreen()
+        homescreen.waitForExistsCategoryText("Queue")
+        if (homescreen.textCategory.equals("Queue")) {
+
+            homescreen.clickOnThreeDots()
+            val countOftitles = MoviesByCategoryScreen().getCountOfTitles()
+            Assert.assertTrue(countOftitles > 6)
+        } else throw TestException("Queue didn't show up")
     }
 
+
+
+
     @Test
-    fun deleteFromQueue(){
+    fun deleteFromQueue() {
         val serverManager = ServerManager()
         serverManager.deleteFromQueueTest()
-        val signInScreen= LaunchScreen().clickOnSignIn()
+        val signInScreen = LaunchScreen().clickOnSignIn()
         signInScreen.sendTextToEmailField("testingnetwork@gmail.com")
         signInScreen.sendTextToPasswordField("tubitv")
         signInScreen.clickOnSignInButton()
         SimpleLaunchApp().castings()
-        val homescreen=HomeScreen()
+        val homescreen = HomeScreen()
         homescreen.waitForDisapearCategoryText("Queue")
         val textOfCategory = homescreen.textCategory
         Assert.assertEquals("Queue category still on home page after remove from queue with API", textOfCategory.toLowerCase(), "most popular")
     }
 
 
-
-
-
-
-
-
-
 }
+
+
+
+
+

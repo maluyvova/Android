@@ -28,8 +28,8 @@ class SettingTest:LaunchAppWithFacebook() {
         lockInLandscapeMode()
         val smallSettingsScreen=homePage.clickOnThreeDotsSetings()
         val settingsScreen=smallSettingsScreen.clickOnSettings()
-        val homeScreen=settingsScreen.clickOnLockInLandscapeMode()
-        val portraitModeCountOfmoviesAfterRotationBack=homeScreen.getCountOfMovies(0)
+        settingsScreen.simpleClickOnLockInLandscapeMode()
+        val portraitModeCountOfmoviesAfterRotationBack=homePage.getCountOfMovies(0)
         Assert.assertEquals("This test rotates device to landscape mode and then rotates device back to portrait mode checking if amount of movies after rotation back is the same",portraitModeContOfMovies,portraitModeCountOfmoviesAfterRotationBack)
     }
     @Test
