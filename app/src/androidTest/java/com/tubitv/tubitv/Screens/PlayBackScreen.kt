@@ -20,26 +20,37 @@ class PlayBackScreen:BaseScreen()
    // private var subtittles =UiSelector().resourceId(appPackage+":id/view_tubi_controller_subtitles_ib")
    private var quality=UiSelector().resourceId(appPackage+":id/view_tubi_controller_quality_ib")
    private var titleText=UiSelector().resourceId(appPackage+":id/view_tubi_controller_title")
+    private var scrollControlSeek=UiScrollable(UiSelector().resourceId(appPackage+":id/view_tubi_controller_seek_bar"))
     private var controllerSeek=UiSelector().resourceId(appPackage+":id/view_tubi_controller_seek_bar")
     private var rightTimer=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_tubi_controller_remaining_time"))
    private var leftTimer=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_tubi_controller_elapsed_time"))
 
-    public fun textOfRightTimer(){
+    public fun textOfRightTimer():String{
 
-     leftTimer.text
+    return rightTimer.text
     }
+
+
+    public fun scrollSeekBar(){
+        scrollControlSeek.setAsHorizontalList().scrollToEnd(1)
+    }
+
+    fun waitUntilAdsfinishes(){
+        uiDevice.swipe(385,317,1500,483,2)
+        while(!rightTimer.exists()){
+            Thread.sleep(1000)
+            uiDevice.swipe(385,317,1500,483,2)
+        }
+    }
+
+
 
     public fun clickPlay(){
         playButton.click()
     }
 
     public fun checkIfSubtitlesIsSelected():String{
-        Thread.sleep(15000)
-        uiDevice.swipe(385,317,1500,483,2)
       return subtittless.text
-
-        //s.click()
-
     }
 
 

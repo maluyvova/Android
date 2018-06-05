@@ -24,6 +24,7 @@ class MovieDatailScreen() :BaseScreen(){
     private val titleFromYouMightAlsoLike=UiDeviceID(appPackage+":id/view_home_content_iv")
     private val shareWithButton=UiDeviceID(appPackage+":id/imageView_share")
     private val captionicon=UiDeviceID(appPackage+":id/imageView_caption")
+    private val huluIcon=UiDeviceID(appPackage+":id/vaudTextView_present_hulu")
     init {
         Assert.assertTrue("Expected title text  is not displayed", titleText.waitForExists(globalTimeout))
         Assert.assertTrue("Expected button add to queue is not displayed", addToQueue.waitForExists(globalTimeout))
@@ -43,6 +44,14 @@ class MovieDatailScreen() :BaseScreen(){
     fun waitUntillSelected(){
         while (addToQueue.isSelected)
             break
+    }
+    fun dontSelectHuluTitle(){
+        val i=1;
+        while(huluIcon.exists()){
+            uiDevice.pressBack()
+            HomeScreen().clickOnTitle(i)
+            i+1
+        }
     }
 
     fun clickOnRemoveFromQueue():HomeScreen {

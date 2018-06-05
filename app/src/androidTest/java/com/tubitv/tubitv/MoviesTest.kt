@@ -32,7 +32,7 @@ class MoviesTest:LaunchAppWithFacebook() {
     fun selectTitleFromMostPopular() {
         val homePage = HomeScreen() //at this moment it's checking if test in coorect screen
         val titleInHomeScreen = homePage.title
-        val gotitPage = homePage.clickOnTitle()
+        val gotitPage = homePage.clickOnTitle(0)
         val datailPage = gotitPage.clickOnGotIt()
         val titleInDatailScreen = datailPage.titleDatailScreen
         assertEquals("Orginal name $titleInHomeScreen should be same like $titleInDatailScreen", titleInHomeScreen.toLowerCase(), titleInDatailScreen.toLowerCase())
@@ -95,7 +95,7 @@ class MoviesTest:LaunchAppWithFacebook() {
     @Test
     fun addToQueue() {
         val homePage = HomeScreen()
-        val gotItScreen = homePage.clickOnTitle()
+        val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         val textOfTitleInMovieDatailScreen = movieDatailScreen.titleDatailScreen
         val homePage2 = movieDatailScreen.clickOnAddToQueue()
@@ -116,7 +116,7 @@ class MoviesTest:LaunchAppWithFacebook() {
     fun addAndDelteFromQueue() {
         val nock= Mockt()
         val homePage = HomeScreen()
-        val gotItScreen = homePage.clickOnTitle()
+        val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         movieDatailScreen.simpleClickOnAddToQueue()
         Thread.sleep(2000)
@@ -130,9 +130,10 @@ class MoviesTest:LaunchAppWithFacebook() {
     @Test
     fun startPlaybackAndCheckingIfTitleInHistory() {
         val homePage = HomeScreen()
-        val gotItScreen = homePage.clickOnTitle()
+        val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         var playBackScreen = movieDatailScreen.clickOnPlay()
+        playBackScreen.waitUntilAdsfinishes()
         Thread.sleep(45000)
         uiDevice.pressBack()
         uiDevice.pressBack()
@@ -170,7 +171,7 @@ class MoviesTest:LaunchAppWithFacebook() {
     @Test
         fun selectTitleFromYouMighAlsoLike(){
         val homePage = HomeScreen()
-        val gotItScreen = homePage.clickOnTitle()
+        val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         val datailScreen=MovieDatailScreen().selectTitleFromMightAlsoLike()
         datailScreen.scrollableScreen.setAsVerticalList().scrollToEnd(1)
@@ -200,7 +201,7 @@ class MoviesTest:LaunchAppWithFacebook() {
    // @Test
     fun startPlaybackAndCheckingIfTitleInHistoryd() {
         val homePage = HomeScreen()
-        val gotItScreen = homePage.clickOnTitle()
+        val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         var playBackScreen = movieDatailScreen.clickOnPlay()
 

@@ -19,7 +19,7 @@ class ShareWithTest:LaunchAppWithFacebook() {
     @Test
     fun movieShareWithFacebook(){
         val homePage = HomeScreen()
-        val gotItScreen = homePage.clickOnTitle()
+        val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         val shareScreen=movieDatailScreen.clickOnShareButton()
         val facebookPage=shareScreen.clickOnFacebookShareIcon()

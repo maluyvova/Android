@@ -108,7 +108,7 @@ class SerialsTest:LaunchAppWithFacebook(){
         val homeScreenWithQueue=HomeScreen.QueueScreen()
         homePage.waitForExistsCategoryText("Queue")
         val titletext= homeScreenWithQueue.textFromFirstTitleInQueue
-        val gotit= homePage.clickOnTitle()
+        val gotit= homePage.clickOnTitle(0)
         val moviedatailScreen=gotit.clickOnGotIt()
         val homeScreen2=moviedatailScreen.clickOnRemoveFromQueue()
         homeScreen2.waitForDisapearCategoryText("Queue")

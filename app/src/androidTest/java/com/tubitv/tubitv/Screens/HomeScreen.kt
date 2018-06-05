@@ -186,8 +186,8 @@ public fun text(number: Int):Objects{
     }
 
 
-    public fun clickOnTitle():GotIt{
-        getTextOFMovie(0).click()
+    public fun clickOnTitle(num:Int):GotIt{
+        getTextOFMovie(num).click()
         return GotIt()
     }
     public fun clickBack(){
