@@ -22,6 +22,7 @@ open class HomeScreen:BaseScreen(){
     public val textOFCategory =UiSelector().resourceId(appPackage+":id/view_content_recycler_category_title")
     private val featuredContainer=UiScrollable(UiSelector().resourceId(appPackage+":id/bannerContainer"))
     private val featuredTitlesText=UiDeviceID(appPackage+":id/banner_title")
+    private val counterOfTitlesInFeaturedContainer=UiDeviceID(appPackage+":id/numIndicator")
     private val sideCategoryMenu=uiDevice.findObject(UiSelector().className("android.widget.ImageButton"))
     private val treeDotsSetingsButton=uiDevice.findObject(UiSelector().description("More options"))
     private val containerOfTitlesSmaller=UiSelector().resourceId(appPackage+":id/view_content_recycler")
@@ -32,9 +33,12 @@ open class HomeScreen:BaseScreen(){
     private val custButton=uiDevice.findObject(UiSelector().description("Cast button. Disconnected"))
     private val castMenu=UiDeviceID(appPackage+":id/action_bar_root")
     init{
-
-        Assert.assertTrue("Expected first List of All Objects is not displayed",firstListOfAllObjects.waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected titles is not displayed",getTitleFromGrid().waitForExists(moviesListTimeout))
+        Assert.assertTrue("Counter for Featured titles is not displayed on HomeScreen",counterOfTitlesInFeaturedContainer.waitForExists(globalTimeout))
+        Assert.assertTrue("Expected first List of All Objects is not displayed on HomeScreen",firstListOfAllObjects.waitForExists(moviesListTimeout))
+        Assert.assertTrue("Expected titles is not displayed on HomeScreen",getTitleFromGrid().waitForExists(moviesListTimeout))
+        Assert.assertTrue("SearchField is not displayed on HomeScreen",searchButton.waitForExists(globalTimeout))
+        Assert.assertTrue("Settings button is not displayed on HomeScreen",treeDotsSetingsButton.waitForExists(globalTimeout))
+        Assert.assertTrue("Side category button is not displayed on HomeScreen",sideCategoryMenu.waitForExists(globalTimeout))
     }
     protected fun getGrid(number:Int) =
             firstListOfAllObjects.getChildByInstance(categoryList,number) // it's object of all category moivies in homepage
@@ -126,7 +130,9 @@ open class HomeScreen:BaseScreen(){
     public fun getTextOFMovie(numberOfView:Int) =
             getGrid(numberOfView).getChild(textOfMovie) //got a first element from the list of movies
 
-
+    public fun getTextFromFeaturedTitlesCounter():String{
+       return counterOfTitlesInFeaturedContainer.text
+    }
     public fun clickOnThreeDots(){
                 getGrid(0).getChild(UiSelector().className("android.widget.ImageView")).click()
     }

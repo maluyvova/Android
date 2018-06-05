@@ -177,7 +177,26 @@ class MoviesTest:LaunchAppWithFacebook() {
         Assert.assertFalse(datailScreen.youMightaAlsoLike.exists())
 
     }
+    @Test
+            fun counterForFeaturedTitles(){
+        val homePage=HomeScreen()
+        val beforeScrollingNumber=homePage.getTextFromFeaturedTitlesCounter()
+        homePage.scrollFeaturetTitles(beforeScrollingNumber.substring(4,5).toInt()-1)
+        val afterScrollingNumber=homePage.getTextFromFeaturedTitlesCounter()
+        Assert.assertEquals("This test is scrolling Featured titles and then checking if the counter has been changed",beforeScrollingNumber.substring(4,5),afterScrollingNumber.substring(0,1))
+    }
+    @Test
+            fun makeACircleForFeaturedTitles(){
+        val homePage=HomeScreen()
+        val beforeScrollingNumber=homePage.getTextFromFeaturedTitlesCounter()
+        val textOfTitleBeforeScrolling= homePage.textOfTitleInFeaturedCategor
+        homePage.scrollFeaturetTitles(beforeScrollingNumber.substring(4,5).toInt())
+        val afterScrollingNumber=homePage.getTextFromFeaturedTitlesCounter()
+        val textOfTitleAfterScrolling=homePage.textOfTitleInFeaturedCategor
+        Assert.assertEquals("This test is scrolling Featured titles till got circle and then checking if the number the that was in the beginning",beforeScrollingNumber.substring(0,1),afterScrollingNumber.substring(0,1))
+        Assert.assertEquals("This test is scrolling Featured titles till got circle and then checking if the text of the title is the same that was in the beginning",textOfTitleBeforeScrolling,textOfTitleAfterScrolling)
 
+    }
    // @Test
     fun startPlaybackAndCheckingIfTitleInHistoryd() {
         val homePage = HomeScreen()
