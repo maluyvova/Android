@@ -9,6 +9,7 @@ import android.support.test.InstrumentationRegistry
 import android.support.test.uiautomator.*
 import android.util.Log
 import android.support.test.uiautomator.BySelector
+import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Screens.BaseScreen
 import org.hamcrest.CoreMatchers
 import org.junit.Assert.assertThat
@@ -32,7 +33,7 @@ open class BaseTest {
     }
     fun clearAppData() = executeShellCommand("pm clear " + appPackage)
 
-    protected fun launchApp(appPackage:String) {
+    protected fun launchApp(appPackage:String,luanchAppFromSameScreen:Boolean) {
         uiDevice.pressHome()
         val launcherPackage = uiDevice.launcherPackageName
         assertThat(launcherPackage, CoreMatchers.notNullValue())
@@ -43,10 +44,25 @@ open class BaseTest {
         val intent = context.packageManager
                 .getLaunchIntentForPackage(appPackage)
         assertThat("Application is not installed or disabled (Package not found or cannot be launched)", intent, CoreMatchers.notNullValue())
+        // Clear out any previous instances
+        if(luanchAppFromSameScreen==false){
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        context.startActivity(intent)
+        context.startActivity(intent)}
+        else {
+            context.startActivity(intent)
+        }
+
         uiDevice.wait(Until.hasObject(By.pkg(appPackage).depth(0)),
                 globalTimeout)
+    }
+    protected fun minimizeAndOpenAppFromSameScreen(){
+        uiDevice.pressHome()
+        uiDevice.pressRecentApps()
+       val app= uiDevice.findObject(UiSelector().resourceId("com.android.systemui:id/title"))
+        if (app.text.contains("Tubi")){
+            app.click()
+        }
+        else throw TestException("app is not in minimaze screen")
     }
 
 

@@ -38,7 +38,7 @@ class SettingTest:LaunchAppWithFacebook() {
         val homePage= HomeScreen()
         val beforeKill=homePage.getCountOfMovies(0)
         killApp()
-        launchApp(appPackage)
+        launchApp(appPackage,false)
         val afterKill=homePage.getCountOfMovies(0)
         Assert.assertEquals(beforeKill,afterKill)
     }

@@ -138,7 +138,7 @@ class MoviesTest:LaunchAppWithFacebook() {
         uiDevice.pressBack()
         uiDevice.pressBack()
         killApp()
-        launchApp(appPackage)
+        launchApp(appPackage,false)
         val homePage2 = HomeScreen.HomeScreenWithContinueWatching()
         homePage2.removeFromHistory()
         val removeFromHistoryScreen = HomeScreen.RemoveFormHistoryScreen()

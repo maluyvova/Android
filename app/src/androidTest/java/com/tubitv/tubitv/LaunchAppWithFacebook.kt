@@ -15,7 +15,7 @@ open class LaunchAppWithFacebook:BaseTest() {
         uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         killApp()
         clearAppData()
-        launchApp(appPackage)
+        launchApp(appPackage,false)
         SignIn()
         casting()
          InsuranceBeforeTests().deleteHistory()

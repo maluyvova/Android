@@ -21,7 +21,7 @@ class PlayBackTest:LaunchAppWithFacebook() {
     playBackScreen.scrollSeekBar()
     val afterScrolling=playBackScreen.textOfRightTimer()
     killApp()
-    launchApp(appPackage)
+    launchApp(appPackage,false)
     val homePage2 = HomeScreen.HomeScreenWithContinueWatching()
     homePage2.removeFromHistory()
     val removeFromHistoryScreen = HomeScreen.RemoveFormHistoryScreen()
