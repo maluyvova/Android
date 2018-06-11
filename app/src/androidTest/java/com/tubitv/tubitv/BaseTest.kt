@@ -55,15 +55,30 @@ open class BaseTest {
         uiDevice.wait(Until.hasObject(By.pkg(appPackage).depth(0)),
                 globalTimeout)
     }
-    protected fun minimizeAndOpenAppFromSameScreen(){
+    protected fun checkConfigForDevce():UiObject{
         uiDevice.pressHome()
         uiDevice.pressRecentApps()
-       val app= uiDevice.findObject(UiSelector().resourceId("com.android.systemui:id/title"))
+        val app= uiDevice.findObject(UiSelector().resourceId("com.android.systemui:id/title"))
+        val appForAnotherDevices=uiDevice.findObject(UiSelector().resourceId("com.android.systemui:id/activity_description"))
+        if (app.waitForExists(globalTimeout)){
+            return app
+        }
+        else if (appForAnotherDevices.waitForExists(globalTimeout))
+            return appForAnotherDevices
+        else throw TestException("Some another config for device (Check which device and id for overview")
+    }
+
+
+    protected fun minimizeAndOpenAppFromSameScreen(app:UiObject){
         if (app.text.contains("Tubi")){
             app.click()
         }
-        else throw TestException("app is not in minimaze screen")
+        else throw TestException("app is not in overview menu")
     }
+
+
+
+
 
 
     protected fun  SignIn() {

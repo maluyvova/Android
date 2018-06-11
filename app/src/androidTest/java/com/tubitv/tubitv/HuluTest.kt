@@ -34,7 +34,7 @@ class HuluTest:LaunchAppWithFacebook() {
                 huluPlaybackScreen.selectYear()
                 huluPlaybackScreen.clickOnSubmit()
                  warningMessage=huluPlaybackScreen.getextFromWorningMessage()
-               minimizeAndOpenAppFromSameScreen()
+               minimizeAndOpenAppFromSameScreen(checkConfigForDevce())
                 warningMeassageAfterClose=huluPlaybackScreen.getextFromWorningMessage()
             }
             else throw

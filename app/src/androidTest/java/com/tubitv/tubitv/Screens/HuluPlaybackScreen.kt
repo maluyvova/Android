@@ -20,7 +20,7 @@ class HuluPlaybackScreen:BaseScreen() {
     private val forAgeLimitationYear=uiDevice.findObject(UiSelector().text("Year"))
     private val forAgeLimitationMonthPicker=uiDevice.findObject(UiSelector().text("February"))
     private val forAgeLimitationDayPicker=uiDevice.findObject(UiSelector().text("4"))
-    private val forAgeLimitationYearPicker=uiDevice.findObject(UiSelector().textContains("1"))
+    private val forAgeLimitationYearPicker=uiDevice.findObject(UiSelector().textContains("19"))
     private val forAgeLimitationSubmitButton=allElements.getChild(UiSelector().index(2)).
             getChild(UiSelector().index(0))
             .getChild(UiSelector().index(2))
@@ -57,17 +57,23 @@ class HuluPlaybackScreen:BaseScreen() {
         forAgeLimitationYear.click()
     }
     fun selectMonth(){
-        forAgeLimitationMonthPicker.waitForExists(globalTimeout)
+       if( forAgeLimitationMonthPicker.waitForExists(globalTimeout))
         forAgeLimitationMonthPicker.click()
+        else uiDevice.click(540,440)
     }
     fun selectDay(){
-        forAgeLimitationDayPicker.waitForExists(globalTimeout)
+       if(forAgeLimitationDayPicker.waitForExists(globalTimeout))
         forAgeLimitationDayPicker.click()
+        else uiDevice.click(855,440)
+
     }
     fun selectYear(){
-        forAgeLimitationYearPicker.waitForExists(globalTimeout)
-        forAgeLimitationYearPicker.click()
-    }
+     if (forAgeLimitationYearPicker.waitForExists(globalTimeout))
+       forAgeLimitationYearPicker.click()
+       else {
+        uiDevice.click(1076,480)
+
+    }}
     fun clickOnSubmit(){
      forAgeLimitationSubmitButton.click()
     }
@@ -77,11 +83,18 @@ class HuluPlaybackScreen:BaseScreen() {
     }
     fun scrollYaers(){
         var i =0
+        if (scroll.waitForExists(globalTimeout)){
         while(i<4){
+            if(scroll.waitForExists(globalTimeout))
         scroll.setAsVerticalList().scrollToEnd(i)
-            i++
-        }
+            i++ } }
+    else
+            while(i<4){
+            //uiDevice.swipe(1076,669,1076,250,i)
+             uiDevice.drag(1076,669,1076,250,i)
+                i++}
     }
+
     fun waitUntilAddsGone(){
         if (adscounter.waitForExists(facebookLogin)){
             adscounter.waitUntilGone(347000L)

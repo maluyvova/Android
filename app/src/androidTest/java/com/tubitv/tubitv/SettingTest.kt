@@ -12,7 +12,11 @@ class SettingTest:LaunchAppWithFacebook() {
     @Test
     fun lockInLandscapeMode(){
         val homePage= HomeScreen()
-        val portraitModeContOfMovies=homePage.getCountOfMovies(1)
+        var portraitModeContOfMovies=homePage.getCountOfMovies(1)
+        if (portraitModeContOfMovies>6){
+            uiDevice.setOrientationLeft()
+            portraitModeContOfMovies=homePage.getCountOfMovies(1)
+        }
         val smallSettingsScreen=homePage.clickOnThreeDotsSetings()
         val settingsScreen=smallSettingsScreen.clickOnSettings()
         val homeScreen=settingsScreen.clickOnLockInLandscapeMode() //click on Landscape mode return user to homePage
@@ -24,7 +28,11 @@ class SettingTest:LaunchAppWithFacebook() {
     @Test
     fun uncheckLandscapeMode(){
         val homePage= HomeScreen()
-        val portraitModeContOfMovies=homePage.getCountOfMovies(1)
+        var portraitModeContOfMovies=homePage.getCountOfMovies(1)
+        if (portraitModeContOfMovies>6){
+            uiDevice.setOrientationLeft()
+            portraitModeContOfMovies=homePage.getCountOfMovies(1)
+        }
         lockInLandscapeMode()
         val smallSettingsScreen=homePage.clickOnThreeDotsSetings()
         val settingsScreen=smallSettingsScreen.clickOnSettings()
@@ -33,7 +41,7 @@ class SettingTest:LaunchAppWithFacebook() {
         Assert.assertEquals("This test rotates device to landscape mode and then rotates device back to portrait mode checking if amount of movies after rotation back is the same",portraitModeContOfMovies,portraitModeCountOfmoviesAfterRotationBack)
     }
     @Test
-    fun checkLandscapeModeafterKillingApp(){
+    fun checkLandscapeModeAfterKillingApp(){
         lockInLandscapeMode()
         val homePage= HomeScreen()
         val beforeKill=homePage.getCountOfMovies(0)
