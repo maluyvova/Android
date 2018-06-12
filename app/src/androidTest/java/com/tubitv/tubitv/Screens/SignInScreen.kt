@@ -49,7 +49,14 @@ public class SignInScreen:BaseScreen(){
     }
     fun textFromTryAgain():String{
         pleaseTryAgainText.waitForExists(globalTimeout)
+        for (j in 1..10){
+        if (pleaseTryAgainText.text.contains("Cannot")||pleaseTryAgainText.text.contains("Try") ) {
+           break
+        }
+         Thread.sleep(1000)
+        }
        return pleaseTryAgainText.text
+
     }
 
     fun clickOnOkPleaseTryAgain():SignInScreen{
