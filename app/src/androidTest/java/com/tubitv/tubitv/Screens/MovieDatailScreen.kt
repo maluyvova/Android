@@ -102,14 +102,20 @@ class MovieDatailScreen() :BaseScreen(){
 }
 
 class ShareWithScreen():BaseScreen(){
+    private val slide=UiScrollable(UiSelector().resourceId("android:id/sem_resolver_pagemode_page_list"))
  private val shareWithTitle=uiDevice.findObject(UiSelector().text("Share with"))
  private val facebookIcon=uiDevice.findObject(UiSelector().text("Facebook"))
    init {
        Assert.assertTrue(shareWithTitle.waitForExists(globalTimeout))
-       Assert.assertTrue(facebookIcon.waitForExists(globalTimeout))
+       //Assert.assertTrue(facebookIcon.waitForExists(globalTimeout))
    }
   fun clickOnFacebookShareIcon():FacebookPageShareScreen{
-      facebookIcon.click()
+
+     if( facebookIcon.waitForExists(globalTimeout)){
+         facebookIcon.click()}
+      else{
+         slide.setAsHorizontalList().scrollToEnd(1)
+          facebookIcon.click()}
         return FacebookPageShareScreen()
   }
 }
