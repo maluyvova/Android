@@ -18,6 +18,7 @@ open class LaunchAppWithFacebook:BaseTest() {
         launchApp(appPackage,false)
         SignIn()
         casting()
+         uiDevice.setOrientationNatural()
          InsuranceBeforeTests().deleteHistory()
          InsuranceBeforeTests().deleteFromQueue()
 
