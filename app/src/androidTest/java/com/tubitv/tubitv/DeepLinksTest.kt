@@ -26,7 +26,7 @@ class DeepLinksTest:BaseTest() {
         if (uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_login_adapter_text_view")).waitForExists(globalTimeout)){
             SignInTest().signInWithCorrectEmailAndPassword() }
         killApp()
-        Thread.sleep(1000)
+        Thread.sleep(2000)
     }
 
    fun ifFirstTime(){
@@ -36,8 +36,8 @@ class DeepLinksTest:BaseTest() {
 
     else if( uiDevice.findObject(UiSelector().textContains("Tubi TV Staging")).exists()){
        uiDevice.findObject(UiSelector().textContains("Tubi TV Staging")).click()
-       if (uiDevice.findObject(UiSelector().textContains("OK")).waitForExists(globalTimeout)){
-           uiDevice.findObject(UiSelector().textContains("OK")).click()
+       if (uiDevice.findObject(UiSelector().resourceId("android:id/button1")).waitForExists(globalTimeout)){
+           uiDevice.findObject(UiSelector().resourceId("android:id/button1")).click()
        }
    }
    }
