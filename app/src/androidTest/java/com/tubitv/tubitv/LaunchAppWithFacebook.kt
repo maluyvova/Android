@@ -12,7 +12,7 @@ open class LaunchAppWithFacebook:BaseTest() {
 
      @Before
     fun setUps() {
-        uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+       getInstrum()
         killApp()
         clearAppData()
         launchApp(appPackage,false)

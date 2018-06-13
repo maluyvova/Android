@@ -32,6 +32,10 @@ open class BaseTest {
         Log.i("Test", command + ": " + stdOut)
     }
     fun clearAppData() = executeShellCommand("pm clear " + appPackage)
+    fun getInstrum():UiDevice{
+        uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        return uiDevice
+    }
 
     protected fun launchApp(appPackage:String,luanchAppFromSameScreen:Boolean) {
         uiDevice.pressHome()

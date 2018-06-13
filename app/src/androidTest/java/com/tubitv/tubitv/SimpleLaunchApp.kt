@@ -11,7 +11,7 @@ import org.junit.Before
 open class SimpleLaunchApp:BaseTest() {
 
     fun castings(){
-        uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        getInstrum()
         val custButton=uiDevice.findObject(UiSelector().description("Cast button. Disconnected"))
         val castButton=uiDevice.findObject(UiSelector().description("Cast button. Connected"))
         if(uiDevice.findObject(UiSelector().resourceId(appPackage+":id/cast_featurehighlight_help_text_header_view")).waitForExists(globalTimeout)) {
@@ -33,7 +33,7 @@ open class SimpleLaunchApp:BaseTest() {
 
     @Before
     fun luanchApp(){
-        uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        getInstrum()
         killApp()
         clearAppData()
         launchApp(appPackage,false)
