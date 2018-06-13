@@ -14,17 +14,16 @@ class PlayBackScreen:BaseScreen()
     private var playButton = uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_tubi_controller_play_toggle_ib"))
     private var seek=UiSelector().resourceId(appPackage+":id/view_tubi_controller_rewind_ib")
     private val s= uiDevice.findObject(By.res(appPackage+":id/view_tubi_controller_subtitles_ib"))
-    private val sub=uiDevice.wait(Until.findObject(By.text("Fire With Fire")), globalTimeout)
-    private val nameOfTile=uiDevice.findObject(By.text("Fire With Fire"))
+  //  private val sub=uiDevice.wait(Until.findObject(By.text("Fire With Fire")), globalTimeout)
+  //  private val nameOfTile=uiDevice.findObject(By.text("Fire With Fire"))
     private var subtittless=UiDeviceID(appPackage+":id/view_tubi_controller_subtitles_ib")
    // private var subtittles =UiSelector().resourceId(appPackage+":id/view_tubi_controller_subtitles_ib")
    private var quality=UiSelector().resourceId(appPackage+":id/view_tubi_controller_quality_ib")
-   private var titleText=UiSelector().resourceId(appPackage+":id/view_tubi_controller_title")
+   private var titleText=UiDeviceID(appPackage+":id/view_tubi_controller_title")
     private var scrollControlSeek=UiScrollable(UiSelector().resourceId(appPackage+":id/view_tubi_controller_seek_bar"))
     private var controllerSeek=UiSelector().resourceId(appPackage+":id/view_tubi_controller_seek_bar")
     private var rightTimer=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_tubi_controller_remaining_time"))
    private var leftTimer=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_tubi_controller_elapsed_time"))
-
     public fun textOfRightTimer():String{
 
     return rightTimer.text
@@ -43,7 +42,13 @@ class PlayBackScreen:BaseScreen()
         }
     }
 
+    public fun waitForPlayBack():String{
+       if( playButton.waitForExists(globalTimeout))
+          return titleText.text
+        else {uiDevice.swipe(385,317,1500,483,2)
+        return titleText.text}
 
+    }
 
     public fun clickPlay(){
         playButton.click()
