@@ -23,9 +23,10 @@ class DeepLinksTest:BaseTest() {
 
     fun ifNotRegistred(){
         launchApp(appPackage,false)
-        if (uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_login_adapter_text_view")).exists()){
+        if (uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_login_adapter_text_view")).waitForExists(globalTimeout)){
             SignInTest().signInWithCorrectEmailAndPassword() }
         killApp()
+        Thread.sleep(1000)
     }
 
    fun ifFirstTime(){

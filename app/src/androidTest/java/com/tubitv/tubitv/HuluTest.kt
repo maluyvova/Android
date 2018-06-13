@@ -49,7 +49,7 @@ class HuluTest:LaunchAppWithFacebook() {
 
 
 
-@Test
+//@Test
 fun huluTitleWithYearsLimitations(){
     val huluPlaybackScreen=HuluPlaybackScreen()
     val homeScreen= HomeScreen()
