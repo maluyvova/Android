@@ -13,7 +13,7 @@ import org.junit.runners.MethodSorters
 /**
  * Created by vburian on 6/4/18.
  */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class UiPlussAPITests:SimpleLaunchApp() {
 
     @Test
