@@ -86,7 +86,7 @@ class DeepLinksTest:BaseTest() {
         ifFirstTime()
         Assert.assertEquals(MovieDatailScreen().titleDatailScreen,"Oldboy")
     }
-   // @Test
+   /* @Test
     fun playbackDeepLink(){
         getInstrum()
         ifNotRegistred()
@@ -94,7 +94,7 @@ class DeepLinksTest:BaseTest() {
         ifFirstTime()
        val title= PlayBackScreen().waitForPlayBack()
         Assert.assertEquals(title,"Oldboy")
-    }
+    }*/
 
 
 }
