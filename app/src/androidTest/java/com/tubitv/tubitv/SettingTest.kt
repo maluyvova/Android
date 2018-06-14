@@ -50,6 +50,19 @@ class SettingTest:LaunchAppWithFacebook() {
         val afterKill=homePage.getCountOfMovies(0)
         Assert.assertEquals(beforeKill,afterKill)
     }
+    @Test
+    fun privacy(){
+        val originalText="Escape the claws of subscription fees! Tubi TV, the free Internet TV network," +
+                " is working on your behalf to unlock Hollywood so entertainment is free, without the burden of credit cards. Check out the largest collection of premium and unique movies and TV shows. For free, forever, since advertisers pay so you never have to.\n" +
+                "\n" +
+                " Updated weekly; find out more at tubitv.com.\n" +
+                "\n"
+        val homePage= HomeScreen()
+       val settingMenu= homePage.clickOnThreeDotsSetings()
+       val privatePolicyScreen= settingMenu.clickOnAbout()
+       val text= privatePolicyScreen.textOfPriVatePolicy
+       Assert.assertEquals(originalText,text)
+    }
 
 
 

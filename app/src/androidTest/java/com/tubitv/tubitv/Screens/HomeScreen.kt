@@ -301,6 +301,15 @@ return AddToQueue()
             boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter,0).click()
             return SettingsScreen()
         }
+
+        fun clickOnAbout():PrivatePolicyScreen{
+            boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter,1).click()
+            return PrivatePolicyScreen()
+        }
+        fun clickOnHelpCenter():SettingsScreen{
+            boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter,2).click()
+            return SettingsScreen()
+        }
     }
     class History():BaseScreen(){
         private val removeFromHistory=uiDevice.findObject(UiSelector().text("Remove from history"))

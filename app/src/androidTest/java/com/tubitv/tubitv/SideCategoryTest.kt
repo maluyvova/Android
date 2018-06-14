@@ -28,6 +28,26 @@ class SideCategoryTest:LaunchAppWithFacebook(){
       val textOfCategory=movieDatailScreen.categoryText
       Assert.assertEquals("This text select random category from the categoryList and checking if text from the list equals to Text in category Screen",textOfRandomCategory.toLowerCase(),textOfCategory.toLowerCase())
   }
+  @Test
+  fun checkIfEmailIsIncluddedInHamburgerMenu(){
+    val homeScreen=HomeScreen()
+    val sideCategory=homeScreen.clickOnSidecategorButton()
+    val email=sideCategory.getUserEmail()
+     Assert.assertTrue(email.contains("@"))
+  }
+
+  @Test
+  fun checkIfWeShowCorrectUserId(){
+    LogInTest().SignOut()
+    SignInTest().signInWithCorrectEmailAndPassword()
+    LogInTest().SignOut()
+    setUps()
+    val homeScreen=HomeScreen()
+    val sideCategory=homeScreen.clickOnSidecategorButton()
+    val userName=sideCategory.getUserName()
+     Assert.assertTrue(textFromFacebookButton.contains(userName))
+
+  }
 
 
 

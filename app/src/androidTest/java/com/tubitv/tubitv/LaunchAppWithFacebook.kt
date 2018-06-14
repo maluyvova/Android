@@ -9,14 +9,14 @@ import org.junit.Before
  * Created by vburian on 4/3/18.
  */
 open class LaunchAppWithFacebook:BaseTest() {
-
+      var textFromFacebookButton=""
      @Before
     fun setUps() {
        getInstrum()
         killApp()
         clearAppData()
         launchApp(appPackage,false)
-        SignIn()
+       textFromFacebookButton= SignIn()
         casting()
          uiDevice.setOrientationNatural()
          InsuranceBeforeTests().deleteHistory()
