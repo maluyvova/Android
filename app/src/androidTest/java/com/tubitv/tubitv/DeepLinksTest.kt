@@ -43,6 +43,8 @@ class DeepLinksTest:BaseTest() {
        if (uiDevice.findObject(UiSelector().resourceId("android:id/button1")).waitForExists(globalTimeout)){
            uiDevice.findObject(UiSelector().resourceId("android:id/button1")).click()
        }
+       else if ((uiDevice.findObject(UiSelector().text("OK")).exists())){
+           uiDevice.findObject(UiSelector().text("OK")).click()}
    }
    }
 
