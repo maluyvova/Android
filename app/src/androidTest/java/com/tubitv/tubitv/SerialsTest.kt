@@ -15,18 +15,7 @@ class SerialsTest:LaunchAppWithFacebook(){
     val textOfEpisodesForselectSerialWithFewSeasons = mutableListOf<String>()
     val episodesForScrollToTheSide=mutableListOf<String>()
 
-   fun selectRundomSerialTitle(){
-    val numbersOfTitles=MoviesByCategoryScreen().getCountOfTitles()
-    val randomNumber= Random().nextInt(numbersOfTitles)
-    val title =MoviesByCategoryScreen().gotkRandomTite(randomNumber) //randomNumber
-    title.click()
-       if(GotIt().gotitButton.waitForExists(globalTimeout))
-    GotIt().clickOnGotIt()
-    if (SerialsScreen().presentByHulu.exists()){
-        uiDevice.pressBack()
-        selectRundomSerialTitle()
-    }
-    val serialScreen=SerialsScreen()}
+
 
 
     fun selectSerialWithFewSeasons(){
@@ -88,10 +77,6 @@ class SerialsTest:LaunchAppWithFacebook(){
 
 
 
-
-
-
-
     @Test
     fun longClickOnSerial(){
         val homePage=HomeScreen()
@@ -122,8 +107,8 @@ class SerialsTest:LaunchAppWithFacebook(){
         homePage.ScrollToSpecificCategory("Most Popular TV Shows")
         val serials =HomeScreen.Serials()
         val moviesByCategoryScreen=serials.clickOnSerialCategory()
-        selectRundomSerialTitle()
         val serialScreen=SerialsScreen()
+        serialScreen.selectRundomSerialTitle()
         serialScreen.scrollScreen(4)
         serialScreen.scrollEpisdoesList(4)
         val firstTextOfNumber=serialScreen.getTextOfEpisode()
@@ -156,9 +141,7 @@ class SerialsTest:LaunchAppWithFacebook(){
         Assert.assertNotEquals(episodesForScrollToTheSide.get(0),episodesForScrollToTheSide.get(1))
     }
 
-
-
-        }
+}
 
 
 

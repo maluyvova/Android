@@ -11,55 +11,58 @@ import junit.framework.Assert
 /**
  * Created by vburian on 3/23/18.
  */
-public class SignInScreen:BaseScreen(){
+public class SignInScreen : BaseScreen() {
 
-    private val emailField=uiDevice.findObject(UiSelector().resourceId(appPackage +":id/email"))
-    private val passwordField=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/password"))
-    private val signInButton=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/sign_in_button"))
-    private val forgotPassword=uiDevice.findObject(UiSelector().resourceId(appPackage+":id/forgot_password"))
-    private val pleaseTryAgainOkButton=UiDeviceID("android:id/button1")
-    private val pleaseTryAgainText=UiDeviceID("android:id/message")
+    private val emailField = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/email"))
+    private val passwordField = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/password"))
+    private val signInButton = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/sign_in_button"))
+    private val forgotPassword = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/forgot_password"))
+    private val pleaseTryAgainOkButton = UiDeviceID("android:id/button1")
+    private val pleaseTryAgainText = UiDeviceID("android:id/message")
 
 
     init {
-        Assert.assertTrue("Expected Email field is not displayed in Sign in Page",emailField.waitForExists(globalTimeout))
-        Assert.assertTrue("Expected Password field is not displayed in Sign In Page",passwordField.waitForExists(globalTimeout))
-        Assert.assertTrue("Expected Sign In button is not displayed in Sign In Page",signInButton.waitForExists(globalTimeout))
-        Assert.assertTrue("Expected forgot password  is not displayed in Sign In Page ",forgotPassword.waitForExists(globalTimeout))
+        Assert.assertTrue("Expected Email field is not displayed in Sign in Page", emailField.waitForExists(globalTimeout))
+        Assert.assertTrue("Expected Password field is not displayed in Sign In Page", passwordField.waitForExists(globalTimeout))
+        Assert.assertTrue("Expected Sign In button is not displayed in Sign In Page", signInButton.waitForExists(globalTimeout))
+        Assert.assertTrue("Expected forgot password  is not displayed in Sign In Page ", forgotPassword.waitForExists(globalTimeout))
     }
 
-   fun sendTextToEmailField( text:String){
-       emailField.setText(text)
-   }
+    fun sendTextToEmailField(text: String) {
+        emailField.setText(text)
+    }
 
-    fun sendTextToPasswordField(text:String){
+    fun sendTextToPasswordField(text: String) {
         passwordField.setText(text)
     }
-    fun clickOnSignInButton():HomeScreen{
+
+    fun clickOnSignInButton(): HomeScreen {
         signInButton.click()
         return HomeScreen()
     }
-    fun simpleClickOnSignInButton(){
+
+    fun simpleClickOnSignInButton() {
         signInButton.click()
     }
 
-    fun emptyFieldsClickOnSignInButton():SignInScreen{
+    fun emptyFieldsClickOnSignInButton(): SignInScreen {
         signInButton.click()
         return SignInScreen()
     }
-    fun textFromTryAgain():String{
+
+    fun textFromTryAgain(): String {
         pleaseTryAgainText.waitForExists(globalTimeout)
-        for (j in 1..10){
-        if (pleaseTryAgainText.text.contains("Cannot")||pleaseTryAgainText.text.contains("Try") ) {
-           break
+        for (j in 1..10) {
+            if (pleaseTryAgainText.text.contains("Cannot") || pleaseTryAgainText.text.contains("Try")) {
+                break
+            }
+            Thread.sleep(1000)
         }
-         Thread.sleep(1000)
-        }
-       return pleaseTryAgainText.text
+        return pleaseTryAgainText.text
 
     }
 
-    fun clickOnOkPleaseTryAgain():SignInScreen{
+    fun clickOnOkPleaseTryAgain(): SignInScreen {
         pleaseTryAgainOkButton.waitForExists(globalTimeout)
         pleaseTryAgainOkButton.click()
         return SignInScreen()

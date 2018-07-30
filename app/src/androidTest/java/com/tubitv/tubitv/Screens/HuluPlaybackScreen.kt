@@ -11,100 +11,103 @@ import com.tubitv.tubitv.globalTimeout
 /**
  * Created by vburian on 6/6/18.
  */
-class HuluPlaybackScreen:BaseScreen() {
+class HuluPlaybackScreen : BaseScreen() {
 
-    private val forAgeLimitationworningMessage=uiDevice.findObject(UiSelector().textContains("sorry"))
-    private val allElements=UiCollection(UiSelector().resourceId("mobile-player"))
-    private val forAgeLimitationMonth=uiDevice.findObject(UiSelector().text("Month"))
-    private val forAgeLimitationDay=uiDevice.findObject(UiSelector().text("Day"))
-    private val forAgeLimitationYear=uiDevice.findObject(UiSelector().text("Year"))
-    private val forAgeLimitationMonthPicker=uiDevice.findObject(UiSelector().text("February"))
-    private val forAgeLimitationDayPicker=uiDevice.findObject(UiSelector().text("4"))
-    private val forAgeLimitationYearPicker=uiDevice.findObject(UiSelector().textContains("19"))
-    private val forAgeLimitationSubmitButton=allElements.getChild(UiSelector().index(2)).
+    private val forAgeLimitationworningMessage = uiDevice.findObject(UiSelector().textContains("sorry"))
+    private val allElements = UiCollection(UiSelector().resourceId("mobile-player"))
+    private val forAgeLimitationMonth = uiDevice.findObject(UiSelector().text("Month"))
+    private val forAgeLimitationDay = uiDevice.findObject(UiSelector().text("Day"))
+    private val forAgeLimitationYear = uiDevice.findObject(UiSelector().text("Year"))
+    private val forAgeLimitationMonthPicker = uiDevice.findObject(UiSelector().text("February"))
+    private val forAgeLimitationDayPicker = uiDevice.findObject(UiSelector().text("4"))
+    private val forAgeLimitationYearPicker = uiDevice.findObject(UiSelector().textContains("19"))
+    private val forAgeLimitationSubmitButton = allElements.getChild(UiSelector().index(2)).
             getChild(UiSelector().index(0))
             .getChild(UiSelector().index(2))
             .getChild(UiSelector().index(5))
-    private val forAgeLimitationYearScrollable=UiCollection(UiSelector().resourceId("android:id/custom")).getChild(UiSelector().index(0))
-    private val scroll= UiScrollable(UiSelector().resourceId("android:id/custom"))
-    private val adscounter=uiDevice.findObject(UiSelector().textContains("of"))
+    private val forAgeLimitationYearScrollable = UiCollection(UiSelector().resourceId("android:id/custom")).getChild(UiSelector().index(0))
+    private val scroll = UiScrollable(UiSelector().resourceId("android:id/custom"))
+    private val adscounter = uiDevice.findObject(UiSelector().textContains("of"))
 
 
-
-
-
-
-
-
-
-    fun  waitForAgeLimitation():Boolean{
-    if( forAgeLimitationDay.waitForExists(globalTimeout)&&
-        forAgeLimitationMonth.waitForExists(globalTimeout)&&
-        forAgeLimitationYear.waitForExists(globalTimeout) ){
-        return true
+    fun waitForAgeLimitation(): Boolean {
+        if (forAgeLimitationDay.waitForExists(globalTimeout) &&
+                forAgeLimitationMonth.waitForExists(globalTimeout) &&
+                forAgeLimitationYear.waitForExists(globalTimeout)) {
+            return true
+        } else return false
     }
-        else return false }
 
-    fun clickOnMonth(){
+    fun clickOnMonth() {
         forAgeLimitationMonth.click()
     }
-    fun clickOnDay(){
+
+    fun clickOnDay() {
         forAgeLimitationDay.waitForExists(globalTimeout)
         forAgeLimitationDay.click()
     }
-    fun clickOnYear(){
+
+    fun clickOnYear() {
         forAgeLimitationYear.waitForExists(globalTimeout)
         forAgeLimitationYear.click()
     }
-    fun selectMonth(){
-       if( forAgeLimitationMonthPicker.waitForExists(globalTimeout))
-        forAgeLimitationMonthPicker.click()
-        else uiDevice.click(540,440)
-    }
-    fun selectDay(){
-       if(forAgeLimitationDayPicker.waitForExists(globalTimeout))
-        forAgeLimitationDayPicker.click()
-        else uiDevice.click(855,440)
 
-    }
-    fun selectYear(){
-     if (forAgeLimitationYearPicker.waitForExists(globalTimeout))
-       forAgeLimitationYearPicker.click()
-       else {
-        uiDevice.click(1076,480)
-
-    }}
-    fun clickOnSubmit(){
-     forAgeLimitationSubmitButton.click()
-    }
-    fun getextFromWorningMessage():String{
-        forAgeLimitationworningMessage.waitForExists(globalTimeout)
-       return forAgeLimitationworningMessage.text
-    }
-    fun scrollYaers(){
-        var i =0
-        if (scroll.waitForExists(globalTimeout)){
-        while(i<4){
-            if(scroll.waitForExists(globalTimeout))
-        scroll.setAsVerticalList().scrollToEnd(i)
-            i++ } }
-    else
-            while(i<4){
-            //uiDevice.swipe(1076,669,1076,250,i)
-             uiDevice.drag(1076,669,1076,250,i)
-                i++}
+    fun selectMonth() {
+        if (forAgeLimitationMonthPicker.waitForExists(globalTimeout))
+            forAgeLimitationMonthPicker.click()
+        else uiDevice.click(540, 440)
     }
 
-    fun waitUntilAddsGone(){
-        if (adscounter.waitForExists(facebookLogin)){
-            adscounter.waitUntilGone(347000L)
+    fun selectDay() {
+        if (forAgeLimitationDayPicker.waitForExists(globalTimeout))
+            forAgeLimitationDayPicker.click()
+        else uiDevice.click(855, 440)
+
+    }
+
+    fun selectYear() {
+        if (forAgeLimitationYearPicker.waitForExists(globalTimeout))
+            forAgeLimitationYearPicker.click()
+        else {
+            uiDevice.click(1076, 480)
+
         }
-        else throw TestException("No ads")
-    }
-    fun verifyIfPlaybackOpenened():Boolean{
-       return uiDevice.findObject(UiSelector().textContains("Evil Bong 777 ")).waitForExists(globalTimeout)
     }
 
+    fun clickOnSubmit() {
+        forAgeLimitationSubmitButton.click()
+    }
+
+    fun getextFromWorningMessage(): String {
+        forAgeLimitationworningMessage.waitForExists(globalTimeout)
+        return forAgeLimitationworningMessage.text
+    }
+
+    fun scrollYaers() {
+        var i = 0
+        if (scroll.waitForExists(globalTimeout)) {
+            while (i < 4) {
+                if (scroll.waitForExists(globalTimeout))
+                    scroll.setAsVerticalList().scrollToEnd(i)
+                i++
+            }
+        } else
+            while (i < 4) {
+                //uiDevice.swipe(1076,669,1076,250,i)
+                uiDevice.drag(1076, 669, 1076, 250, i)
+                i++
+            }
+    }
+
+    fun waitUntilAddsGone() {
+        if (adscounter.waitForExists(facebookLogin)) {
+            adscounter.waitUntilGone(347000L)
+        } else throw TestException("No ads")
+    }
+
+    fun verifyIfPlaybackOpenened(): Boolean {
+        return uiDevice.findObject(UiSelector().textContains("Evil Bong 777 ")).waitForExists(globalTimeout)
+    }
 
 
 }

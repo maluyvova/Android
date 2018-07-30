@@ -9,16 +9,17 @@ import junit.framework.Assert
 /**
  * Created by vburian on 4/4/18.
  */
-class SearchScreen:BaseScreen() {
-    private val boxWithTitles=UiCollection(UiSelector().resourceId(appPackage+":id/recycler_view"))
-    private val titleInSearchScreen=UiSelector().resourceId(appPackage+":id/poster")
-     init{
-         Assert.assertTrue("Expected Category name in TOP is not displayed",boxWithTitles.waitForExists(globalTimeout))}
+class SearchScreen : BaseScreen() {
+    private val boxWithTitles = UiCollection(UiSelector().resourceId(appPackage + ":id/recycler_view"))
+    private val titleInSearchScreen = UiSelector().resourceId(appPackage + ":id/poster")
+
+    init {
+        Assert.assertTrue("Expected Category name in TOP is not displayed", boxWithTitles.waitForExists(globalTimeout))
+    }
 
 
-
-
-fun clickOnTitleByInstatnce(number:Int):GotIt{
-    boxWithTitles.getChildByInstance(titleInSearchScreen,number).click()
-    return GotIt()
-}}
+    fun clickOnTitleByInstatnce(number: Int): GotIt {
+        boxWithTitles.getChildByInstance(titleInSearchScreen, number).click()
+        return GotIt()
+    }
+}

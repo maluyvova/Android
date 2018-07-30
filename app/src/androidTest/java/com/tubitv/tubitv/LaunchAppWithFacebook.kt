@@ -17,10 +17,9 @@ open class LaunchAppWithFacebook:BaseTest() {
         clearAppData()
         launchApp(appPackage,false)
        textFromFacebookButton= SignIn()
-        casting()
+         casting()
          uiDevice.setOrientationNatural()
          InsuranceBeforeTests().deleteHistory()
          InsuranceBeforeTests().deleteFromQueue()
-
-    }
+ }
 }

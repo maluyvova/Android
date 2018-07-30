@@ -14,7 +14,7 @@ class InsuranceBeforeTests:BaseScreen() {
 
 
     fun deleteHistory() {
-        if (titleInContinueWatching.exists()) {
+        while (titleInContinueWatching.exists()) {
             titleInContinueWatching.dragTo(titleInContinueWatching, 20)
             removeFromHistory.click()
         }
