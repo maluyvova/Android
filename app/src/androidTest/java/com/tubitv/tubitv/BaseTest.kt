@@ -91,11 +91,10 @@ open class BaseTest {
         if (continueFacebook.waitForExists(globalTimeout)) {
             textFromButton = continueFacebook.text
             continueFacebook.click()
-            if (continueFacebook.waitForExists(globalTimeout)) {
-                textFromButton = continueFacebook.text
-                continueFacebook.click()
-            }
-
+        }
+        if (continueFacebook.waitForExists(globalTimeout)) {
+            textFromButton = continueFacebook.text
+            continueFacebook.click()
         }
         return textFromButton
 

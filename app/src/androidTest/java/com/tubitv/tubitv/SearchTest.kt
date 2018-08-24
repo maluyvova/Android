@@ -17,7 +17,7 @@ class SearchTest:LaunchAppWithFacebook() {
       val searchSreen=homeScreen.clickAndSendTextToSearch(textWhatTestIsLookingFor)
       val gotIt=searchSreen.clickOnTitleByInstatnce(0)
       val titleDatailScreen=gotIt.clickOnGotIt()
-      val textOfTitle=titleDatailScreen.titleDatailScreen.toLowerCase()
+      val textOfTitle = titleDatailScreen.titleDatailScreen.toLowerCase()
       Assert.assertTrue("Title name not contain text which test provided in search field",textOfTitle.contains(textWhatTestIsLookingFor))
   }
 

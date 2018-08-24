@@ -14,11 +14,11 @@ import org.junit.runners.MethodSorters
  * Created by vburian on 6/4/18.
  */
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class UiPlussAPITests:SimpleLaunchApp() {
+class UiPlussAPITests : SimpleLaunchApp() {
 
     @Test
     fun addTitlesToQueueAndVerifyWithUi() {
-          ServerManager().addToQueueTest()
+        ServerManager().addToQueueTest()
         val signInScreen = LaunchScreen().clickOnSignIn()
         signInScreen.sendTextToEmailField("testingnetwork@gmail.com")
         signInScreen.sendTextToPasswordField("tubitv")
@@ -33,8 +33,6 @@ class UiPlussAPITests:SimpleLaunchApp() {
             Assert.assertTrue(countOftitles > 6)
         } else throw TestException("Queue didn't show up")
     }
-
-
 
 
     @Test

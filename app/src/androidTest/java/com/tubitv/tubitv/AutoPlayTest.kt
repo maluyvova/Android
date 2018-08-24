@@ -213,7 +213,7 @@ class AutoPlayTest:LaunchAppWithFacebook(){//SimpleLaunchApp() {
         val autoplayScreen= playBackScreen.seekToAutoPlay("Movie")
         val timer = autoplayScreen.textFromAutoplayTimer.substring(12,14).toInt()
         minimizeAndOpenAppFromSameScreen(checkConfigForDevce())
-        PlayBackScreen.AutoPlay()   }
+        PlayBackScreen.AutoPlay() }
 
 
 
@@ -285,8 +285,6 @@ class AutoPlayTest:LaunchAppWithFacebook(){//SimpleLaunchApp() {
         autoplayScreen.hideAutoplay()
         val timerAfterWiat=autoplayScreen.textFromAutoplayTimer.substring(12,14).toInt()
         Assert.assertTrue("",timerAfterWiat-timer<=4)
-
-
     }
 
 

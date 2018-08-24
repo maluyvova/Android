@@ -11,18 +11,16 @@ import org.junit.Test
 /**
  * Created by vburian on 5/14/18.
  */
-class ShareWithTest:LaunchAppWithFacebook() {
-
-
+class ShareWithTest : LaunchAppWithFacebook() {
 
 
     @Test
-    fun movieShareWithFacebook(){
+    fun movieShareWithFacebook() {
         val homePage = HomeScreen()
         val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
-        val shareScreen=movieDatailScreen.clickOnShareButton()
-        val facebookPage=shareScreen.clickOnFacebookShareIcon()
+        val shareScreen = movieDatailScreen.clickOnShareButton()
+        val facebookPage = shareScreen.clickOnFacebookShareIcon()
         facebookPage.clickOnFacebookPostButton()
     }
 

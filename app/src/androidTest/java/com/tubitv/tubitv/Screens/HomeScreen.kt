@@ -34,6 +34,10 @@ open class HomeScreen : BaseScreen() {
     private val castMenu = UiDeviceID(appPackage + ":id/action_bar_root")
 
     init {
+        if(!counterOfTitlesInFeaturedContainer.waitForExists(globalTimeout)){
+            for(i in 0..2){
+            scrollHomePage.scrollToBeginning(1)}
+        }
         Assert.assertTrue("Counter for Featured titles is not displayed on HomeScreen", counterOfTitlesInFeaturedContainer.waitForExists(globalTimeout))
         Assert.assertTrue("Expected first List of All Objects is not displayed on HomeScreen", firstListOfAllObjects.waitForExists(moviesListTimeout))
         Assert.assertTrue("Expected titles is not displayed on HomeScreen", getTitleFromGrid().waitForExists(moviesListTimeout))
@@ -112,7 +116,7 @@ open class HomeScreen : BaseScreen() {
     fun getText(category: String): String {
         var textOfMovies = ""
         for (i in 0..6) {
-            if (getGrid(i).getChild(textOFCategory).exists()) {
+            if (getGrid(i).getChild(textOFCategory).waitForExists(globalTimeout)) {
                 val box = getGrid(i).getChild(textOFCategory).text
                 if (box.equals("$category")) {
                     if (getGrid(i).getChild(containerOfTitlesSmaller).getChild(textOfMovie).exists()) {
@@ -267,7 +271,6 @@ open class HomeScreen : BaseScreen() {
         init {
             Assert.assertTrue("Expected queue is not displayed", getQueuFromGrid().waitForExists(globalTimeout))
         }
-
         protected fun getGrid(number: Int) =
                 homescreen.firstListOfAllObjects.getChildByInstance(queueList, number) // it's object of all category moivies in
 

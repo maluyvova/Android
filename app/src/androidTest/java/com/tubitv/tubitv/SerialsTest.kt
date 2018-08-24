@@ -46,7 +46,7 @@ class SerialsTest:LaunchAppWithFacebook(){
                 } }}
 
     fun scrollToTheSide(){
-
+        var i =1;
         val numbersOfTitles=MoviesByCategoryScreen().getCountOfTitles()
         val randomNumber= Random().nextInt(numbersOfTitles)
         val title =MoviesByCategoryScreen().gotkRandomTite(randomNumber) //randomNumber
@@ -63,8 +63,9 @@ class SerialsTest:LaunchAppWithFacebook(){
                 uiDevice.pressBack()
                 episodesForScrollToTheSide.add(textFoSeason.text)
                 val serialScreen=SerialsScreen()
-                for (i in 0..6){
-                serialScreen.scrollEpisdoesList(i)}
+               while(!textFoSeason.text.contains("Season 2")) {
+                serialScreen.scrollEpisdoesList(i)
+                i++}
                 episodesForScrollToTheSide.add(textFoSeason.text)
             }
             else {

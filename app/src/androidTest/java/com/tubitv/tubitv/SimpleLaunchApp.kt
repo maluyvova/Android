@@ -8,13 +8,13 @@ import org.junit.Before
 /**
  * Created by vburian on 4/3/18.
  */
-open class SimpleLaunchApp:BaseTest() {
+open class SimpleLaunchApp : BaseTest() {
 
-    fun castings(){
+    fun castings() {
         getInstrum()
-        val custButton=uiDevice.findObject(UiSelector().description("Cast button. Disconnected"))
-        val castButton=uiDevice.findObject(UiSelector().description("Cast button. Connected"))
-        if(uiDevice.findObject(UiSelector().resourceId(appPackage+":id/cast_featurehighlight_help_text_header_view")).waitForExists(globalTimeout)) {
+        val custButton = uiDevice.findObject(UiSelector().description("Cast button. Disconnected"))
+        val castButton = uiDevice.findObject(UiSelector().description("Cast button. Connected"))
+        if (uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/cast_featurehighlight_help_text_header_view")).waitForExists(globalTimeout)) {
             if (custButton.waitForExists(globalTimeout)) {
                 custButton.click()
                 uiDevice.pressBack()
@@ -22,8 +22,7 @@ open class SimpleLaunchApp:BaseTest() {
                 castButton.click()
                 uiDevice.pressBack()
             }
-        }
-        else if (custButton.waitForExists(globalTimeout)){
+        } else if (custButton.waitForExists(globalTimeout)) {
             custButton.click()
             uiDevice.pressBack()
         }
@@ -32,10 +31,10 @@ open class SimpleLaunchApp:BaseTest() {
 
 
     @Before
-    fun luanchApp(){
+    fun luanchApp() {
         getInstrum()
         killApp()
         clearAppData()
-        launchApp(appPackage,false)
+        launchApp(appPackage, false)
     }
 }

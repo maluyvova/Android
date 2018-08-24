@@ -17,7 +17,7 @@ class PlayBackScreen : BaseScreen() {
     //  private val nameOfTile=uiDevice.findObject(By.text("Fire With Fire"))
     private var subtittless = UiDeviceID(appPackage + ":id/view_tubi_controller_subtitles_ib")
     // private var subtittles =UiSelector().resourceId(appPackage+":id/view_tubi_controller_subtitles_ib")
-    private var quality = UiSelector().resourceId(appPackage + ":id/view_tubi_controller_quality_ib")
+    private var quality = UiDeviceID(appPackage + ":id/view_tubi_controller_quality_ib")
     private var titleText = UiDeviceID(appPackage + ":id/view_tubi_controller_title")
     private var scrollControlSeek = UiScrollable(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_seek_bar"))
     private var controllerSeek = UiSelector().resourceId(appPackage + ":id/view_tubi_controller_seek_bar")
@@ -36,6 +36,14 @@ class PlayBackScreen : BaseScreen() {
             time = rightTimer.text
         }
         return time
+    }
+
+    public fun clickOnQuality(){
+        if(quality.waitForExists(globalTimeout)){
+            quality.click() }
+        else {
+            wakeUpScreen()
+            quality.click() }
     }
 
 

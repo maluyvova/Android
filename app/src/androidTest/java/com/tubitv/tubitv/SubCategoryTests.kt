@@ -10,25 +10,25 @@ import java.util.*
 /**
  * Created by vburian on 4/2/18.
  */
-class SubCategoryTests:LaunchAppWithFacebook() {
+class SubCategoryTests : LaunchAppWithFacebook() {
 
 
-  @Test
-    fun addToQueuSubCategory() {
+    @Test
+    fun addToQueueSubCategory() {
 
-        val homeScreen=HomeScreen()
-     val subCategoryScreen= homeScreen.scrollToTheEndAndClickOnSubCategory()
-      subCategoryScreen.swipeScreen(1)
-      val randomNumber= Random().nextInt(subCategoryScreen.countOfMovies())
-      subCategoryScreen.clickOnTitle(randomNumber)
-      GotIt().clickOnGotIt()
-      MovieDatailScreen().simpleClickOnAddToQueue()
-     val first= MovieDatailScreen().titleDatailScreen
-      killApp()
-      launchApp(appPackage,false)
-      val titlInQueie=homeScreen.getText("Queue")             //getTextOfTitleWithIndex("Queue")
-      val movieDatailScreen=homeScreen.clickOnTitleNoGotIt()
-      movieDatailScreen.clickOnRemoveFromQueue()
-      Assert.assertEquals(first,titlInQueie)
+        val homeScreen = HomeScreen()
+        val subCategoryScreen = homeScreen.scrollToTheEndAndClickOnSubCategory()
+        subCategoryScreen.swipeScreen(1)
+        val randomNumber = Random().nextInt(subCategoryScreen.countOfMovies())
+        subCategoryScreen.clickOnTitle(randomNumber)
+        GotIt().clickOnGotIt()
+        MovieDatailScreen().simpleClickOnAddToQueue()
+        val first = MovieDatailScreen().titleDatailScreen
+        killApp()
+        launchApp(appPackage, false)
+        val titlInQueie = homeScreen.getText("Queue")             //getTextOfTitleWithIndex("Queue")
+        val movieDatailScreen = homeScreen.clickOnTitleNoGotIt()
+        movieDatailScreen.clickOnRemoveFromQueue()
+        Assert.assertEquals(first, titlInQueie)
     }
 }

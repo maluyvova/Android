@@ -6,11 +6,11 @@ import org.junit.Test
 /**
  * Created by vburian on 5/14/18.
  */
-class CastingTests:LaunchAppWithFacebook() {
+class CastingTests : LaunchAppWithFacebook() {
 
-   // @Test
-    fun castingPlaybackBar(){
-    val homeScreen=HomeScreen()
+    // @Test
+    fun castingPlaybackBar() {
+        val homeScreen = HomeScreen()
         homeScreen.clickOnCustButton("SHIELD2")
         val titleInHomeScreen = homeScreen.title
         val gotitPage = homeScreen.clickOnTitle(0)
