@@ -5,10 +5,11 @@ package com.tubitv.tubitv
  */
 
 //val appPackage="com.tubitv.fire"
-val appPackage="com.tubitv.debug"
-//val appPackage = "com.tubitv"
+//val appPackage="com.tubitv.debug"
+val appPackage = "com.tubitv"
 val globalTimeout = 7000L
 val shortWaitTime = 2000L
+val mediumWaitTime = 4000L
 val moviesListTimeout = 9000L
 val facebookLogin = 17000L
 val waitForAutoplay = 20000L

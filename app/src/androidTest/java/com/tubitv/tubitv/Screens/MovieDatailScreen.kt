@@ -1,15 +1,11 @@
 package com.tubitv.tubitv.Screens
 
-import android.os.Parcel
-import android.os.Parcelable
-import android.support.test.uiautomator.UiCollection
-import android.support.test.uiautomator.UiDevice
 import android.support.test.uiautomator.UiScrollable
 import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
+import com.tubitv.tubitv.shortWaitTime
 import junit.framework.Assert
-import kotlin.concurrent.thread
 
 /**
  * Created by vburian on 2/20/18.
@@ -21,16 +17,21 @@ class MovieDatailScreen() : BaseScreen() {
     private val youMightAlsoLike = UiScrollable(UiSelector().resourceId(appPackage + ":id/view_content_recycler_ll"))
     private val playButton = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/imageView_play"))
     private val scrollbleScreen = UiScrollable(UiSelector().resourceId(appPackage + ":id/empty_holder"))
-    private val titleFromYouMightAlsoLike = UiDeviceID(appPackage + ":id/view_home_content_iv")
-    private val shareWithButton = UiDeviceID(appPackage + ":id/imageView_share")
-    private val captionicon = UiDeviceID(appPackage + ":id/imageView_caption")
-    private val huluIcon = UiDeviceID(appPackage + ":id/vaudTextView_present_hulu")
+    private val titleFromYouMightAlsoLike = findObjectById(appPackage + ":id/view_home_content_iv")
+    private val shareWithButton = findObjectById(appPackage + ":id/imageView_share")
+    private val captionicon = findObjectById(appPackage + ":id/imageView_caption")
+    private val huluIcon = findObjectById(appPackage + ":id/vaudTextView_present_hulu")
+    private val categoryNameOnTopBar = findObjectById(appPackage + ":id/nav_app_bar_main_title")
+    private val signInPopUp = findObjectById(appPackage+":id/prompt_image_background")
 
-    init {
-        Assert.assertTrue("Expected title text  is not displayed", titleText.waitForExists(globalTimeout))
-        Assert.assertTrue("Expected button add to queue is not displayed", addToQueue.waitForExists(globalTimeout))
-        Assert.assertTrue("Expected share button is not displayed", shareWithButton.waitForExists(globalTimeout))
-    }
+            init {
+                if(signInPopUp.waitForExists(shortWaitTime)){
+
+                }
+                Assert.assertTrue("Expected title text  is not displayed", titleText.waitForExists(globalTimeout))
+                Assert.assertTrue("Expected button add to queue is not displayed", addToQueue.waitForExists(globalTimeout))
+                Assert.assertTrue("Expected share button is not displayed", shareWithButton.waitForExists(globalTimeout))
+            }
 
     public val titleDatailScreen get() = titleText.text //get text from the datail page
     public val scrollableScreen = this.scrollbleScreen
@@ -62,7 +63,13 @@ class MovieDatailScreen() : BaseScreen() {
         return HomeScreen()
     }
 
+    fun checkIfStillOnThisPage(): Boolean {
+        val s = categoryNameOnTopBar.waitForExists(shortWaitTime)
+        return s
+    }
+
     fun simpleClickOnAddToQueue() {
+
         addToQueue.click()
     }
 
@@ -139,11 +146,16 @@ class ShareWithScreen() : BaseScreen() {
 class FacebookPageShareScreen() : BaseScreen() {
     private val facebookPostButton = uiDevice.findObject(UiSelector().text("POST"))
     private val facebookPostButtonForTablets = uiDevice.findObject(UiSelector().text("Post"))
+    private val facebookShareButton = uiDevice.findObject(UiSelector().text("SHARE"))
 
     fun clickOnFacebookPostButton(): MovieDatailScreen {
         if (facebookPostButton.waitForExists(globalTimeout)) {
             facebookPostButton.click()
-        } else facebookPostButtonForTablets.click()
+        } else if (facebookPostButtonForTablets.exists()) {
+            facebookPostButtonForTablets.click()
+        } else
+            facebookShareButton.click()
+
         return MovieDatailScreen()
     }
 }

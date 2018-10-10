@@ -15,17 +15,17 @@ class PlayBackScreen : BaseScreen() {
     private val s = uiDevice.findObject(By.res(appPackage + ":id/view_tubi_controller_subtitles_ib"))
     //  private val sub=uiDevice.wait(Until.findObject(By.text("Fire With Fire")), globalTimeout)
     //  private val nameOfTile=uiDevice.findObject(By.text("Fire With Fire"))
-    private var subtittless = UiDeviceID(appPackage + ":id/view_tubi_controller_subtitles_ib")
+    private var subtittless = findObjectById(appPackage + ":id/view_tubi_controller_subtitles_ib")
     // private var subtittles =UiSelector().resourceId(appPackage+":id/view_tubi_controller_subtitles_ib")
-    private var quality = UiDeviceID(appPackage + ":id/view_tubi_controller_quality_ib")
-    private var titleText = UiDeviceID(appPackage + ":id/view_tubi_controller_title")
+    private var quality = findObjectById(appPackage + ":id/view_tubi_controller_quality_ib")
+    private var titleText = findObjectById(appPackage + ":id/view_tubi_controller_title")
     private var scrollControlSeek = UiScrollable(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_seek_bar"))
     private var controllerSeek = UiSelector().resourceId(appPackage + ":id/view_tubi_controller_seek_bar")
     private var rightTimer = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_remaining_time"))
     private var leftTimer = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_elapsed_time"))
     private var fifteenMinForwardButton = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_forward_ib"))
     private var fifteenMinBackButton = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_rewind_ib"))
-    private val autoplay = UiDeviceID(appPackage + ":id/play_next_container")
+    private val autoplay = findObjectById(appPackage + ":id/play_next_container")
 
     public fun textOfRightTimer(): String {
         var time = ""
@@ -157,19 +157,19 @@ class PlayBackScreen : BaseScreen() {
     }
     class AutoPlay() : BaseScreen() {
         private val autoplayScrollable = UiScrollable(UiSelector().resourceId(appPackage + ":id/play_next_container"))
-        private val autoplay = UiDeviceID(appPackage + ":id/play_next_container")
+        private val autoplay = findObjectById(appPackage + ":id/play_next_container")
         private val autoplayUiSelector = UiSelector().resourceId(appPackage + ":id/play_next_container")
-        private val nameOfNextTitle = UiDeviceID(appPackage + ":id/title")
+        private val nameOfNextTitle = findObjectById(appPackage + ":id/title")
         private val nameOfNextTitleUiSelector = UiSelector().resourceId(appPackage + ":id/title")
-        private val yearAndDurationOfNextTitle = UiDeviceID(appPackage + ":id/vaudTextView_duration")
-        private val captionIconOfNextTtile = UiDeviceID(appPackage + ":id/imageView_caption")
-        private val playButtonForTitle = UiDeviceID(appPackage + ":id/continue_play_btn")
-        private val togleButton = UiDeviceID(appPackage + ":id/button_toggle")
-        private val timer = UiDeviceID(appPackage + ":id/timer_text")
-        private val nextNextAvailableTitle = UiDeviceID(appPackage + ":id/poster")
+        private val yearAndDurationOfNextTitle = findObjectById(appPackage + ":id/vaudTextView_duration")
+        private val captionIconOfNextTtile = findObjectById(appPackage + ":id/imageView_caption")
+        private val playButtonForTitle = findObjectById(appPackage + ":id/continue_play_btn")
+        private val togleButton = findObjectById(appPackage + ":id/button_toggle")
+        private val timer = findObjectById(appPackage + ":id/timer_text")
+        private val nextNextAvailableTitle = findObjectById(appPackage + ":id/poster")
         private val autoplayBox = UiCollection(UiSelector().resourceId(appPackage + ":id/autoplay_drawer"))
         private val containerOfNextTitle = autoplayBox.getChildByInstance(autoplayUiSelector, 1)
-        private val titleOnLefSideWhenAutoplayIsHoden = UiDeviceID(appPackage + ":id/next_item")
+        private val titleOnLefSideWhenAutoplayIsHoden = findObjectById(appPackage + ":id/next_item")
 
         //Name,Duration,caption have same id but they inside containerOfNextTitle
         init {

@@ -1,9 +1,6 @@
 package com.tubitv.tubitv.Screens
 
-import android.support.test.uiautomator.By
-import android.support.test.uiautomator.UiDevice
 import android.support.test.uiautomator.UiSelector
-import android.support.test.uiautomator.Until
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import junit.framework.Assert
@@ -17,8 +14,8 @@ public class SignInScreen : BaseScreen() {
     private val passwordField = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/password"))
     private val signInButton = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/sign_in_button"))
     private val forgotPassword = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/forgot_password"))
-    private val pleaseTryAgainOkButton = UiDeviceID("android:id/button1")
-    private val pleaseTryAgainText = UiDeviceID("android:id/message")
+    private val pleaseTryAgainOkButton = findObjectById("android:id/button1")
+    private val pleaseTryAgainText = findObjectById("android:id/message")
 
 
     init {
@@ -66,6 +63,16 @@ public class SignInScreen : BaseScreen() {
         pleaseTryAgainOkButton.waitForExists(globalTimeout)
         pleaseTryAgainOkButton.click()
         return SignInScreen()
+    }
+
+    inner class SignInAfterAddToQueue{
+
+        //Todo signIn but not first lunch
+
+
+
+
+
     }
 
 

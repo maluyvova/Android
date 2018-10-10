@@ -13,18 +13,18 @@ import junit.framework.Assert
  * Created by vburian on 3/26/18.
  */
 class EmailSigUpScreen : BaseScreen() {
-    private val firstNameField = UiDeviceID(appPackage + ":id/name")
-    private val emailField = UiDeviceID(appPackage + ":id/email")
-    private val passwordField = UiDeviceID(appPackage + ":id/password")
-    private val registerButton = UiDeviceID(appPackage + ":id/sign_up_button")
-    private val termOfUseButton = UiDeviceID(appPackage + ":id/term_of_use")
-    private val privacyPolice = UiDeviceID(appPackage + ":id/privacy_policy")
+    private val firstNameField = findObjectById(appPackage + ":id/name")
+    private val emailField = findObjectById(appPackage + ":id/email")
+    private val passwordField = findObjectById(appPackage + ":id/password")
+    private val registerButton = findObjectById(appPackage + ":id/sign_up_button")
+    private val termOfUseButton = findObjectById(appPackage + ":id/term_of_use")
+    private val privacyPolice = findObjectById(appPackage + ":id/privacy_policy")
     private val signInButton = uiDevice.findObject(UiSelector().packageName(appPackage).text("Sign In"))
-    private val birthdayButton = UiDeviceID(appPackage + ":id/birthday")
-    private val genderButton = UiDeviceID(appPackage + ":id/gender")
-    private val okButtonWhenEmailAlreadyexists = UiDeviceID("android:id/button1")
+    private val birthdayButton = findObjectById(appPackage + ":id/birthday")
+    private val genderButton = findObjectById(appPackage + ":id/gender")
+    private val okButtonWhenEmailAlreadyexists = findObjectById("android:id/button1")
     private val signInButtonInRegisterScreen = uiDevice.findObject(UiSelector().packageName(appPackage).text("Sign In"))
-    private val unvisablePasswordToggle =UiDeviceID(appPackage+":id/text_input_password_toggle")
+    private val unvisablePasswordToggle = findObjectById(appPackage+":id/text_input_password_toggle")
 
 
     init {
@@ -55,12 +55,12 @@ class EmailSigUpScreen : BaseScreen() {
         while (textFromYear().text != years && textFromYear().text != years1 && textFromYear().text != years2 && textFromYear().text != years3) {
             year.swipeDown(31)
         }
-        UiDeviceID("android:id/button1").click()
+        findObjectById("android:id/button1").click()
     }
 
     fun selectDefultYear() {
         birthdayButton.click()
-        UiDeviceID("android:id/button1").click()
+        findObjectById("android:id/button1").click()
     }
 
     fun clickOnSignIn(): SignInScreen {
@@ -129,11 +129,11 @@ class EmailSigUpScreen : BaseScreen() {
 
 
     class worningObjects() : BaseScreen() {
-        private val birhtdayobj = UiDeviceID(appPackage + ":id/birthday_error_warning")
-        private val genderwarningobj = UiDeviceID(appPackage + ":id/gender_error_warning")
-        private val emailWarningObj = UiDeviceID(appPackage + ":id/email_error_warning")
-        private val passwordWarnngObj = UiDeviceID(appPackage + ":id/password_error_warning")
-        private val youMustBe13YearsOldError = UiDeviceID(appPackage + ":id/birthday_error_warning")
+        private val birhtdayobj = findObjectById(appPackage + ":id/birthday_error_warning")
+        private val genderwarningobj = findObjectById(appPackage + ":id/gender_error_warning")
+        private val emailWarningObj = findObjectById(appPackage + ":id/email_error_warning")
+        private val passwordWarnngObj = findObjectById(appPackage + ":id/password_error_warning")
+        private val youMustBe13YearsOldError = findObjectById(appPackage + ":id/birthday_error_warning")
         fun waitForBirthdayObj(): String {
             birhtdayobj.waitForExists(globalTimeout)
             return birhtdayobj.text

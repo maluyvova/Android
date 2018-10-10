@@ -3,7 +3,6 @@ package com.tubitv.tubitv.Screens
 import android.support.test.uiautomator.*
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
-import junit.framework.Assert
 import java.util.*
 
 /**
@@ -11,15 +10,15 @@ import java.util.*
  */
 class SerialsScreen() : BaseScreen() {
     private val season2 = UiCollection(UiSelector().text("Season 2"))
-    private val seasonPicker = UiDeviceID(appPackage + ":id/seasonSpinner")
-    private val textOfSeason = UiDeviceID(appPackage + ":id/textview")
+    private val seasonPicker = findObjectById(appPackage + ":id/seasonSpinner")
+    private val textOfSeason = findObjectById(appPackage + ":id/textview")
     private val scrollableScreen = UiScrollable(UiSelector().resourceId(appPackage + ":id/scrollView_main"))
-    private val playButton = UiDeviceID(appPackage + ":id/imageView_play")
+    private val playButton = findObjectById(appPackage + ":id/imageView_play")
     private val scrollableNextEpisodes = UiScrollable(UiSelector().resourceId(appPackage + ":id/episode_list_recyclerview"))
-    private val titleOfEpsideInTheButton = UiDeviceID(appPackage + ":id/title")
-    private val playButtonForNextEpisode = UiDeviceID(appPackage + ":id/play_button")
-    private val episodeNumber = UiDeviceID(appPackage + ":id/vaudTextView_episode_title")//:id/vaudTextView_episdoe_title
-    private val presentedByHulu = UiDeviceID(appPackage + ":id/vaudTextView_present_hulu")
+    private val titleOfEpsideInTheButton = findObjectById(appPackage + ":id/title")
+    private val playButtonForNextEpisode = findObjectById(appPackage + ":id/play_button")
+    private val episodeNumber = findObjectById(appPackage + ":id/vaudTextView_episode_title")//:id/vaudTextView_episdoe_title
+    private val presentedByHulu = findObjectById(appPackage + ":id/vaudTextView_present_hulu")
 
     init {
         // Assert.assertTrue("Expected 'Play' button is not displayed ",playButton.waitForExists(globalTimeout))

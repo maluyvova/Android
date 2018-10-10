@@ -45,7 +45,8 @@ class SideCategoryTest : LaunchAppWithFacebook() {
         setUps()
         val homeScreen = HomeScreen()
         val sideCategory = homeScreen.clickOnSidecategorButton()
-        val userName = sideCategory.getUserName()
+        val userName = sideCategory.getUserName().split(" ").get(0)
+        val some = textFromFacebookButton
         Assert.assertTrue(textFromFacebookButton.contains(userName))
 
     }

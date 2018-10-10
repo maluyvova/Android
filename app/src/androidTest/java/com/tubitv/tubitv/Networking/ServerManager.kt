@@ -52,7 +52,7 @@ class ServerManager{
     }
 
     private fun  getAccesTokenAndId() {
-            val formData = listOf("type" to "email", "device_id" to "12345", "platform" to "android", "credentials" to "{\"email\":\"testingnetwork@gmail.com\",\"password\":\"tubitv\"}")
+            val formData = listOf("type" to "email", "device_id" to "12345", "platform" to "android", "credentials" to "{\"email\":\"testingnetwork@gmail.com\",\"password\":\"tubitvtubitv\"}")
             val (request, response, result) = Fuel.upload("https://uapi.adrise.tv/user_device/login", parameters = formData).dataParts { request, url -> listOf<DataPart>() }.responseJson()
             result.fold(success = { json ->
                 val token: String = json.obj().getString("access_token")

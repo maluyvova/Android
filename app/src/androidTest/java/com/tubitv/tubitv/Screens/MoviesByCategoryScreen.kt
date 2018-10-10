@@ -31,6 +31,11 @@ class MoviesByCategoryScreen : BaseScreen() {
         return GotIt()
     }
 
+    public fun clickOnTitleNoGotIt():MovieDatailScreen {
+        title.click()
+        return MovieDatailScreen()
+    }
+
     public fun getCountOfTitles(): Int {
         val numbersOfTitles = boxOfTitles.getChildCount()
         return numbersOfTitles

@@ -1,7 +1,9 @@
 package com.tubitv.tubitv
+
 import android.support.test.InstrumentationRegistry
 import android.support.test.uiautomator.*
 import android.util.Log
+import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Networking.Mockt
 import com.tubitv.tubitv.Networking.ServerManager
 import org.junit.Test
@@ -19,12 +21,12 @@ import org.junit.After
  * Created by vburian on 2/20/18.
  */
 
-class MoviesTest:LaunchAppWithFacebook() {
+class MoviesTest : LaunchAppWithFacebook() {
 
 
-   // @After
+    // @After
     fun deleteQuie() {
-       // ServerManager().deleteQueue()
+        // ServerManager().deleteQueue()
     }
 
 
@@ -37,13 +39,14 @@ class MoviesTest:LaunchAppWithFacebook() {
         val titleInDatailScreen = datailPage.titleDatailScreen
         assertEquals("Orginal name $titleInHomeScreen should be same like $titleInDatailScreen", titleInHomeScreen.toLowerCase(), titleInDatailScreen.toLowerCase())
     }
+
     @Test
-    fun scrollFeaturedTitles(){
+    fun scrollFeaturedTitles() {
         val homePage = HomeScreen() //at this moment it's checking if test in coorect screen
         val text = homePage.textOfTitleInFeaturedCategor
         homePage.scrollFeaturetTitles(2)
-        val titleInHomeScreen1=homePage.textOfTitleInFeaturedCategor
-        Assert.assertNotEquals(text,titleInHomeScreen1)
+        val titleInHomeScreen1 = homePage.textOfTitleInFeaturedCategor
+        Assert.assertNotEquals(text, titleInHomeScreen1)
     }
 
     @Test
@@ -59,21 +62,23 @@ class MoviesTest:LaunchAppWithFacebook() {
 
     @Test
     fun longPressAndAddToQueue() {
-        val mostpoular="Most Popular"
+        val mostpoular = "Most Popular"
         val homePage = HomeScreen()
         val TextInHomeScreen = homePage.title
         val titleInHomeScreen = homePage.longPress()
-        val screenWithQueue = titleInHomeScreen.clickAddToQueueAfterLongClick()
-        homePage.waitForExistsCategoryText("Queue")
-        val TextFromQueue = screenWithQueue.textFromFirstTitleInQueue
-        if (TextInHomeScreen.toLowerCase().equals(TextFromQueue.toLowerCase())) {
-            val homeScreen = HomeScreen()
-            val titlesInHomeScreen = homeScreen.longPressToRemoveFromQueue()
-            titlesInHomeScreen.clickAddToQueueAfterLongClick()
-            homePage.waitForDisapearCategoryText("Queue")
+        titleInHomeScreen.clickAddToQueueAfterLongClick()
+        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+        val subCategoryScreen = sideCategoryScreen.scrollToSpecificCategory("Queue")
+        val gotItScreen = subCategoryScreen.clickOnTitleForQueue(0)
+        val movieDatailsScreen = gotItScreen.clickOnGotIt()
+        val textFromQueue = movieDatailsScreen.titleDatailScreen
+
+        if (TextInHomeScreen.toLowerCase().equals(textFromQueue.toLowerCase())) {
+            movieDatailsScreen.clickOnAddToQueue()
             val textOfCategory = homePage.textCategory
-            assertEquals("Orginal name $TextInHomeScreen should be same like $TextFromQueue", textOfCategory.toLowerCase(), mostpoular.toLowerCase())
-        } else print("Title in queue not equal to title what test adds to queue")
+            assertEquals("Orginal name $TextInHomeScreen should be same like $textFromQueue", textOfCategory.toLowerCase(), mostpoular.toLowerCase())
+        } else
+            assertEquals("Title that added to queue doesn't match with title that realy in queue", 5, 4)
     }
 
     @Test
@@ -95,41 +100,54 @@ class MoviesTest:LaunchAppWithFacebook() {
     @Test
     fun addToQueue() {
         val homePage = HomeScreen()
+        val textOfCategory = homePage.getTextOfCategory(0).text
+        val textOfTitleInHomePage = homePage.getText(textOfCategory)
         val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         val textOfTitleInMovieDatailScreen = movieDatailScreen.titleDatailScreen
-        val homePage2 = movieDatailScreen.clickOnAddToQueue()
-        homePage2.waitForExistsCategoryText("Queue")
-        val categoryInHomePage = homePage2.textCategory// should be Queue
-        val textOfTitleInHomePage = homePage2.title
-        val movieDatailScreen2 = homePage2.clickOnTitleNoGotIt()
-        movieDatailScreen2.clickOnRemoveFromQueue()
+        movieDatailScreen.clickOnAddToQueue()
+        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+        val subCategoryScreen = sideCategoryScreen.scrollToSpecificCategory("Queue")
+        val movieDatailScreen2 = subCategoryScreen.clickOnTitleForQueueNoGotIt(0)
+        movieDatailScreen2.simpleClickOnRemoveFromQueue()
+        if (movieDatailScreen2.checkIfStillOnThisPage()) {
+            uiDevice.pressBack() //check this conditions
+        }
         val homePage3 = HomeScreen()
-        val quie=homePage3.getTextOfCategory(1).text
-        homePage3.waitForDisapearCategoryText("Queue")
+        homePage3.getTextOfCategory(1).text
         val categoryInHomePage1 = homePage3.textCategory//should be most popular
-        assertEquals("Title text in Home Page not matches with title in Movie Datal Page ", textOfTitleInHomePage.toLowerCase(), textOfTitleInMovieDatailScreen.toLowerCase())
+        //  assertEquals("Title text in Home Page not matches with title in Movie Details Page ", textOfTitleInHomePage.toLowerCase(), textOfTitleInMovieDatailScreen.toLowerCase())
         assertEquals("Queue is still on Hme Page", categoryInHomePage1.toLowerCase(), "most popular")
     }
 
     @Test
     fun addAndDelteFromQueue() {
-        val nock= Mockt()
+        //val nock = Mockt()
+        var mark: Boolean = true
         val homePage = HomeScreen()
         val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         movieDatailScreen.simpleClickOnAddToQueue()
-        Thread.sleep(2000)
         movieDatailScreen.waitUntillSelected()
         val homePage2 = movieDatailScreen.simpleClickOnRemoveFromQueue()
-        homePage2.waitForDisapearCategoryText("Queue")
-        val textOfCategory = homePage2.textCategory
-        assertEquals("Queue category still on home page after,click add and then remove from queue", textOfCategory.toLowerCase(), "most popular")
+        val sideCategory = homePage2.clickOnSidecategorButton()
+        try {
+            sideCategory.scrollToSpecificCategoryWithoutReturn("Queue")
+        } catch (e: TestException) {
+            assertEquals("Queue category still on home page after,click add and then remove from queue", "most popular", "most popular")
+            mark = false
+        }
+        if (mark) {
+            assertEquals("Title still in Queue but test should remove it", 1, 2)
+        }
     }
+    //assertEquals("Queue category still on home page after,click add and then remove from queue", textOfCategory.toLowerCase(), "most popular") }
 
     @Test
     fun startPlaybackAndCheckingIfTitleInHistory() {
         val homePage = HomeScreen()
+        val textOfCategory = homePage.getTextOfCategory(0).text
+        val textOfTitleInHomePage = homePage.getText(textOfCategory)
         val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         var playBackScreen = movieDatailScreen.clickOnPlay()
@@ -138,13 +156,13 @@ class MoviesTest:LaunchAppWithFacebook() {
         uiDevice.pressBack()
         uiDevice.pressBack()
         killApp()
-        launchApp(appPackage,false)
-        val homePage2 = HomeScreen.HomeScreenWithContinueWatching()
-        homePage2.removeFromHistory()
-        val removeFromHistoryScreen = HomeScreen.RemoveFormHistoryScreen()
-        removeFromHistoryScreen.clickOnRemoveFromHistory()
-        val firstCategor = homePage.textCategory
-        Assert.assertEquals("First Category should be 'Most popular' because test should delete title form 'Continue watching' with long press", firstCategor.toLowerCase(), "most popular")
+        launchApp(appPackage, false)
+        val sideCategoryScreen = HomeScreen().clickOnSidecategorButton()
+        val subCategoryScreen = sideCategoryScreen.scrollToSpecificCategory("Continue Watching")
+        val titleInHistory=subCategoryScreen.textOFTitle
+        val smallWindowAddToQueueOrHistory=subCategoryScreen.longClickOnTitle(0)
+        smallWindowAddToQueueOrHistory.clickRemoveFromHistory()
+        Assert.assertEquals("First Category should be 'Most popular' because test should delete title form 'Continue watching' with long press",textOfTitleInHomePage , titleInHistory)
     }
 
 
@@ -160,45 +178,49 @@ class MoviesTest:LaunchAppWithFacebook() {
 
     @Test
     fun scrollToSideAndVerifyIfTitleMissmatches() {
-        val category ="Action"
+        val category = "Action"
         val homescreen = HomeScreen()
         homescreen.ScrollToSpecificCategory(category)
         val textOfTitle = homescreen.getTextOfTitleWithIndex(category)
-        homescreen.horisontalScrollTitles(2,category)
+        homescreen.horisontalScrollTitles(2, category)
         val textOfTitle2 = homescreen.getTextOfTitleWithIndex(category)
         Assert.assertNotEquals("This test scrolling titles to side and comparing first title text with text in new view  ", textOfTitle, textOfTitle2)
     }
+
     @Test
-        fun selectTitleFromYouMighAlsoLike(){
+    fun selectTitleFromYouMighAlsoLike() {
         val homePage = HomeScreen()
         val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
-        val datailScreen=MovieDatailScreen().selectTitleFromMightAlsoLike()
+        val datailScreen = MovieDatailScreen().selectTitleFromMightAlsoLike()
         datailScreen.scrollableScreen.setAsVerticalList().scrollToEnd(1)
         Assert.assertFalse(datailScreen.youMightaAlsoLike.exists())
 
     }
+
     @Test
-            fun counterForFeaturedTitles(){
-        val homePage=HomeScreen()
-        val beforeScrollingNumber=homePage.getTextFromFeaturedTitlesCounter()
-        homePage.scrollFeaturetTitles(beforeScrollingNumber.substring(4,5).toInt()-1)
-        val afterScrollingNumber=homePage.getTextFromFeaturedTitlesCounter()
-        Assert.assertEquals("This test is scrolling Featured titles and then checking if the counter has been changed",beforeScrollingNumber.substring(4,5),afterScrollingNumber.substring(0,1))
+    fun counterForFeaturedTitles() {
+        val homePage = HomeScreen()
+        val beforeScrollingNumber = homePage.getTextFromFeaturedTitlesCounter()
+        homePage.scrollFeaturetTitles(beforeScrollingNumber.substring(4, 5).toInt() - 1)
+        val afterScrollingNumber = homePage.getTextFromFeaturedTitlesCounter()
+        Assert.assertEquals("This test is scrolling Featured titles and then checking if the counter has been changed", beforeScrollingNumber.substring(4, 5), afterScrollingNumber.substring(0, 1))
     }
+
     @Test
-            fun makeACircleForFeaturedTitles(){
-        val homePage=HomeScreen()
-        val beforeScrollingNumber=homePage.getTextFromFeaturedTitlesCounter()
-        val textOfTitleBeforeScrolling= homePage.textOfTitleInFeaturedCategor
-        homePage.scrollFeaturetTitles(beforeScrollingNumber.substring(4,5).toInt())
-        val afterScrollingNumber=homePage.getTextFromFeaturedTitlesCounter()
-        val textOfTitleAfterScrolling=homePage.textOfTitleInFeaturedCategor
-        Assert.assertEquals("This test is scrolling Featured titles till got circle and then checking if the number the that was in the beginning",beforeScrollingNumber.substring(0,1),afterScrollingNumber.substring(0,1))
-        Assert.assertEquals("This test is scrolling Featured titles till got circle and then checking if the text of the title is the same that was in the beginning",textOfTitleBeforeScrolling,textOfTitleAfterScrolling)
+    fun makeACircleForFeaturedTitles() {
+        val homePage = HomeScreen()
+        val beforeScrollingNumber = homePage.getTextFromFeaturedTitlesCounter()
+        val textOfTitleBeforeScrolling = homePage.textOfTitleInFeaturedCategor
+        homePage.scrollFeaturetTitles(beforeScrollingNumber.substring(4, 5).toInt())
+        val afterScrollingNumber = homePage.getTextFromFeaturedTitlesCounter()
+        val textOfTitleAfterScrolling = homePage.textOfTitleInFeaturedCategor
+        Assert.assertEquals("This test is scrolling Featured titles till got circle and then checking if the number the that was in the beginning", beforeScrollingNumber.substring(0, 1), afterScrollingNumber.substring(0, 1))
+        Assert.assertEquals("This test is scrolling Featured titles till got circle and then checking if the text of the title is the same that was in the beginning", textOfTitleBeforeScrolling, textOfTitleAfterScrolling)
 
     }
-   // @Test
+
+    // @Test
     fun startPlaybackAndCheckingIfTitleInHistoryd() {
         val homePage = HomeScreen()
         val gotItScreen = homePage.clickOnTitle(0)
@@ -214,10 +236,10 @@ class MoviesTest:LaunchAppWithFacebook() {
         uiDevice.click(50, 40)
         uiDevice.click(50, 40)
         //Thread.sleep(4000)
-       uiDevice.findObject( UiSelector().resourceId(appPackage+":id/view_tubi_controller_subtitles_ib")).click()
-       // uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_tubi_controller_loading")).click()
+        uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_subtitles_ib")).click()
+        // uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_tubi_controller_loading")).click()
         //UiObject2()
-       // Assert.assertEquals("First Category should be 'Most popular' because test should delete title form 'Continue watching' with long press", firstCategor.toLowerCase(), "most popular")
+        // Assert.assertEquals("First Category should be 'Most popular' because test should delete title form 'Continue watching' with long press", firstCategor.toLowerCase(), "most popular")
     }
 
 }

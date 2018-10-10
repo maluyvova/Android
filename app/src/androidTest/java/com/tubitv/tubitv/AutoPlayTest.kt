@@ -10,16 +10,11 @@ import org.junit.Test
 class AutoPlayTest:LaunchAppWithFacebook(){//SimpleLaunchApp() {
 //Change this for Facebook
 
-
+    val tvCategory="Reality TV"
 
     @Test
     fun selectNextTitleForAutoplayMovies(){
-      //  val signInScreen= LaunchScreen().clickOnSignIn()
-      //  signInScreen.sendTextToEmailField("vvburian@tubi.tv")
-      //  signInScreen.sendTextToPasswordField("tubitv")
-      //  signInScreen.clickOnSignInButton()
         val homePage = HomeScreen()
-      //  castings()
         val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         movieDatailScreen.dontSelectHuluTitle()
@@ -118,10 +113,6 @@ class AutoPlayTest:LaunchAppWithFacebook(){//SimpleLaunchApp() {
 
     @Test
     fun wait20SecForNextTitleMovies(){
-     //   val signInScreen= LaunchScreen().clickOnSignIn()
-     //   signInScreen.sendTextToEmailField("vvburian@tubi.tv")
-    //    signInScreen.sendTextToPasswordField("tubitv")
-   //     signInScreen.clickOnSignInButton()
         val homePage = HomeScreen()
        // castings()
         val gotItScreen = homePage.clickOnTitle(0)
@@ -140,10 +131,6 @@ class AutoPlayTest:LaunchAppWithFacebook(){//SimpleLaunchApp() {
 
     @Test
     fun scrollToNextTitleAndVerifyIfTimerDisaperdMovies(){
-    //    val signInScreen= LaunchScreen().clickOnSignIn()
-    //    signInScreen.sendTextToEmailField("vvburian@tubi.tv")
-    //    signInScreen.sendTextToPasswordField("tubitv")
-   //     signInScreen.clickOnSignInButton()
         val homePage = HomeScreen()
       //  castings()
         val gotItScreen = homePage.clickOnTitle(0)
@@ -232,8 +219,8 @@ class AutoPlayTest:LaunchAppWithFacebook(){//SimpleLaunchApp() {
     @Test
     fun selectNextEpisodeForSerial(){
         val homePage=HomeScreen()
-        homePage.ScrollToSpecificCategory("Most Popular TV Shows")
-        val serials =HomeScreen.Serials()
+        homePage.ScrollToSpecificCategory(tvCategory)
+        val serials =HomeScreen.Serials(tvCategory)
         val moviesByCategoryScreen=serials.clickOnSerialCategory()
         val serialScreen=SerialsScreen()
         serialScreen.selectRundomSerialTitle()
@@ -251,8 +238,8 @@ class AutoPlayTest:LaunchAppWithFacebook(){//SimpleLaunchApp() {
     @Test
     fun hideAutoplayAndSelectTitleFromLowerLeftCornerForSerials(){
         val homePage=HomeScreen()
-        homePage.ScrollToSpecificCategory("Most Popular TV Shows")
-        val serials =HomeScreen.Serials()
+        homePage.ScrollToSpecificCategory(tvCategory)
+        val serials =HomeScreen.Serials(tvCategory)
         val moviesByCategoryScreen=serials.clickOnSerialCategory()
         val serialScreen=SerialsScreen()
         serialScreen.selectRundomSerialTitle()
@@ -270,8 +257,8 @@ class AutoPlayTest:LaunchAppWithFacebook(){//SimpleLaunchApp() {
     @Test
     fun hideAutoplayAndCheckIfTimerIsStoppedWhenAutoplayIsHiddenForSerial(){
         val homePage=HomeScreen()
-        homePage.ScrollToSpecificCategory("Most Popular TV Shows")
-        val serials =HomeScreen.Serials()
+        homePage.ScrollToSpecificCategory(tvCategory)
+        val serials =HomeScreen.Serials(tvCategory)
         val moviesByCategoryScreen=serials.clickOnSerialCategory()
         val serialScreen=SerialsScreen()
         serialScreen.selectRundomSerialTitle()

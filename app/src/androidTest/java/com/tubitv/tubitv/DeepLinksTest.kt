@@ -53,7 +53,7 @@ class DeepLinksTest : BaseTest() {
     @Test
     fun deepLinkForAction() {
         getInstrum()
-        ifNotRegistred()
+       // ifNotRegistred()
         uiDevice.executeShellCommand(comandForDeepLink + deepLinkForActionCategory + appPackage)
         ifFirstTime()
         Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen().categoryText, "Action")

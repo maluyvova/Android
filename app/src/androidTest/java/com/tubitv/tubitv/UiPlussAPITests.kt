@@ -16,6 +16,7 @@ import org.junit.runners.MethodSorters
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class UiPlussAPITests : SimpleLaunchApp() {
 
+
     @Test
     fun addTitlesToQueueAndVerifyWithUi() {
         ServerManager().addToQueueTest()

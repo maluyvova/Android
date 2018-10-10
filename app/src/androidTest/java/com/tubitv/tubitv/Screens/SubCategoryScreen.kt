@@ -14,13 +14,22 @@ class SubCategoryScreen : BaseScreen() {
     private val screen = UiScrollable(UiSelector().resourceId(appPackage + ":id/view_grid_category_recycler"))
     private val boxWithTitles = UiCollection(UiSelector().resourceId(appPackage + ":id/fragment_category_recycler"))
     private val title = UiSelector().className("android.widget.LinearLayout")
+    private val textOfTitle = findObjectById(appPackage+":id/view_category_content_tv_title")
 
     init {
         Assert.assertTrue("Expected screen with subtitles is not displayed ", screen.waitForExists(globalTimeout))
     }
 
+
+    public val textOFTitle get() = textOfTitle.text
+
     fun swipeScreen(number: Int) {
         screen.setAsHorizontalList().scrollToEnd(number)
+    }
+
+    fun longClickOnTitle(number:Int):HomeScreen.AddToQueue{
+        screen.getChildByInstance(title,number).dragTo(screen.getChildByInstance(title,number),3)
+        return HomeScreen.AddToQueue()
     }
 
     fun countOfMovies(): Int {
@@ -28,9 +37,17 @@ class SubCategoryScreen : BaseScreen() {
     }
 
     fun clickOnTitle(number: Int) {
-
         boxWithTitles.getChildByInstance(title, number).click()
+    }
 
+    fun clickOnTitleForQueue(number:Int):GotIt{
+        screen.getChildByInstance(title,number).click()
+        return GotIt()
+    }
+
+    fun clickOnTitleForQueueNoGotIt(number: Int):MovieDatailScreen{
+        screen.getChildByInstance(title,number).click()
+        return MovieDatailScreen()
     }
 
 
