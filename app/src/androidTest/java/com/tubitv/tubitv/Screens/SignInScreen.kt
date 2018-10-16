@@ -10,58 +10,57 @@ import junit.framework.Assert
  */
 public class SignInScreen : BaseScreen() {
 
-    private val emailField = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/email"))
-    private val passwordField = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/password"))
-    private val signInButton = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/sign_in_button"))
-    private val forgotPassword = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/forgot_password"))
-    private val pleaseTryAgainOkButton = findObjectById("android:id/button1")
-    private val pleaseTryAgainText = findObjectById("android:id/message")
+    private val emailField = appPackage + ":id/email"
+    private val passwordField = appPackage + ":id/password"
+    private val signInButton = appPackage + ":id/sign_in_button"
+    private val forgotPassword = appPackage + ":id/forgot_password"
+    private val pleaseTryAgainOkButton = "android:id/button1"
+    private val pleaseTryAgainText = "android:id/message"
 
 
     init {
-        Assert.assertTrue("Expected Email field is not displayed in Sign in Page", emailField.waitForExists(globalTimeout))
-        Assert.assertTrue("Expected Password field is not displayed in Sign In Page", passwordField.waitForExists(globalTimeout))
-        Assert.assertTrue("Expected Sign In button is not displayed in Sign In Page", signInButton.waitForExists(globalTimeout))
-        Assert.assertTrue("Expected forgot password  is not displayed in Sign In Page ", forgotPassword.waitForExists(globalTimeout))
+        Assert.assertTrue("Expected Email field is not displayed in Sign in Page", findElementById(emailField,false).waitForExists(globalTimeout))
+        Assert.assertTrue("Expected Password field is not displayed in Sign In Page", findElementById(passwordField,false).waitForExists(globalTimeout))
+        Assert.assertTrue("Expected Sign In button is not displayed in Sign In Page", findElementById(signInButton,false).waitForExists(globalTimeout))
+        Assert.assertTrue("Expected forgot password  is not displayed in Sign In Page ", findElementById(forgotPassword,false).waitForExists(globalTimeout))
     }
 
     fun sendTextToEmailField(text: String) {
-        emailField.setText(text)
+        findObjectById(emailField,false).setText(text)
     }
 
     fun sendTextToPasswordField(text: String) {
-        passwordField.setText(text)
+        findObjectById(passwordField,false).setText(text)
     }
 
     fun clickOnSignInButton(): HomeScreen {
-        signInButton.click()
+        findObjectById(signInButton,false).click()
         return HomeScreen()
     }
 
     fun simpleClickOnSignInButton() {
-        signInButton.click()
+        findObjectById(signInButton,false).click()
     }
 
     fun emptyFieldsClickOnSignInButton(): SignInScreen {
-        signInButton.click()
+        findObjectById(signInButton,false).click()
         return SignInScreen()
     }
 
     fun textFromTryAgain(): String {
-        pleaseTryAgainText.waitForExists(globalTimeout)
+        findObjectById(pleaseTryAgainText,true)
         for (j in 1..10) {
-            if (pleaseTryAgainText.text.contains("Cannot") || pleaseTryAgainText.text.contains("Try")) {
+            if (findElementById(pleaseTryAgainText,false).text.contains("Cannot") || findElementById(pleaseTryAgainText,false).text.contains("Try")) {
                 break
             }
             Thread.sleep(1000)
         }
-        return pleaseTryAgainText.text
+        return findElementById(pleaseTryAgainText,false).text
 
     }
 
     fun clickOnOkPleaseTryAgain(): SignInScreen {
-        pleaseTryAgainOkButton.waitForExists(globalTimeout)
-        pleaseTryAgainOkButton.click()
+        findObjectById(pleaseTryAgainOkButton,true).click()
         return SignInScreen()
     }
 

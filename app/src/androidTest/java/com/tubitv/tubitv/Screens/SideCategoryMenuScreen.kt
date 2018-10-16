@@ -17,15 +17,15 @@ class SideCategoryMenuScreen : BaseScreen() {
     private val wrapperBoxWithListOfCategories = UiCollection(boxWithListOfCategories)
     private val scrollableScreen = UiScrollable(boxWithListOfCategories)
     private val category = UiSelector().resourceId(appPackage + ":id/design_menu_item_text")
-    private val userAcountPicture = findObjectById(appPackage + ":id/nav_menu_header_user_avatar")
-    private val userAcountName = findObjectById(appPackage + ":id/nav_menu_header_user_name")
-    private val userEmail = findObjectById(appPackage + ":id/nav_menu_header_user_email_address")
+    private val userAcountPicture = appPackage + ":id/nav_menu_header_user_avatar"
+    private val userAcountName = appPackage + ":id/nav_menu_header_user_name"
+    private val userEmail = appPackage + ":id/nav_menu_header_user_email_address"
 
     init {
         scrollableScreen.flingToBeginning(2)
         Assert.assertTrue("Expected Category name in TOP is not displayed", wrapperBoxWithListOfCategories.waitForExists(globalTimeout))
-        Assert.assertTrue("Expected picture of user account is not displayed", userAcountPicture.waitForExists(globalTimeout))
-        Assert.assertTrue("Expected name of user account is not displayed", userAcountName.waitForExists(globalTimeout))
+        Assert.assertTrue("Expected picture of user account is not displayed", findElementById(userAcountPicture,false).waitForExists(globalTimeout))
+        Assert.assertTrue("Expected name of user account is not displayed", findElementById(userAcountName,false).waitForExists(globalTimeout))
     }
 
     fun numberOftitles(): Int {
@@ -64,11 +64,11 @@ class SideCategoryMenuScreen : BaseScreen() {
     }
 
     fun getUserEmail(): String {
-        return userEmail.text
+        return findElementById(userEmail,false).text
     }
 
     fun getUserName(): String {
-        return userAcountName.text
+        return findElementById(userAcountName,false).text
     }
 
 

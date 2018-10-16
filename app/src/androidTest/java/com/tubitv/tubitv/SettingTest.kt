@@ -3,6 +3,7 @@ package com.tubitv.tubitv
 import com.tubitv.tubitv.Screens.HomeScreen
 import org.junit.Assert
 import org.junit.Test
+import java.lang.Thread.sleep
 
 /**
  * Created by vburian on 5/30/18.
@@ -12,17 +13,23 @@ class SettingTest : LaunchAppWithFacebook() {
     @Test
     fun lockInLandscapeMode() {
         val homePage = HomeScreen()
+        homePage.scrolDownLittleBit()
         var portraitModeContOfMovies = homePage.getCountOfMovies(1)
         if (portraitModeContOfMovies > 6) {
             uiDevice.setOrientationLeft()
             portraitModeContOfMovies = homePage.getCountOfMovies(1)
         }
+        HomeScreen()
         val smallSettingsScreen = homePage.clickOnThreeDotsSetings()
         val settingsScreen = smallSettingsScreen.clickOnSettings()
-        val homeScreen = settingsScreen.clickOnLockInLandscapeMode() //click on Landscape mode return user to homePage
-        val landscapeModeCountOfMovies = homeScreen.getCountOfMovies(0)
-        Assert.assertNotEquals("This test rotate device to landscape mode and checking if amount of movies for landscape mode different than portrait mode", portraitModeContOfMovies, landscapeModeCountOfMovies)
-
+         settingsScreen.clickOnLockInLandscapeMode()
+        sleep(1000)
+        uiDevice.pressBack()
+        val homeScreen = HomeScreen()
+        homeScreen.scrolDownLittleBit()
+        val landscapeModeCountOfMovies = homeScreen.getCountOfMovies(1)
+        Assert.assertNotEquals("This test rotates device to landscape mode and checking if amount of movies for landscape mode different than portrait mode", portraitModeContOfMovies, landscapeModeCountOfMovies)
+      //fix it
     }
 
     @Test

@@ -17,6 +17,7 @@ class SerialsTest : LaunchAppWithFacebook() {
     val textOfEpisodesForselectSerialWithFewSeasons = mutableListOf<String>()
     val episodesForScrollToTheSide = mutableListOf<String>()
     val tvCategory = "Reality TV"
+    val continueWatching = "Continue Watching"
 
 
     fun selectSerialWithFewSeasons() {
@@ -105,7 +106,7 @@ class SerialsTest : LaunchAppWithFacebook() {
             mark = false
         }
         if (mark) {
-           assertEquals("Title still in Queue but test should remove it", 1, 2)
+            assertEquals("Title still in Queue but test should remove it", 1, 2)
         }
 
 
@@ -115,9 +116,8 @@ class SerialsTest : LaunchAppWithFacebook() {
     @Test
     fun serialSelectNextEpisode() {
         val homePage = HomeScreen()
-        homePage.ScrollToSpecificCategory(tvCategory)
-        val serials = HomeScreen.Serials(tvCategory)
-        val moviesByCategoryScreen = serials.clickOnSerialCategory()
+        val sideCategory = homePage.clickOnSidecategorButton()
+        sideCategory.scrollToSpecificCategory(tvCategory)
         val serialScreen = SerialsScreen()
         serialScreen.selectRundomSerialTitle()
         serialScreen.scrollScreen(4)
@@ -126,23 +126,30 @@ class SerialsTest : LaunchAppWithFacebook() {
         serialScreen.clickOnPlayInTheButtonNextEpisode()
         Thread.sleep(45000)
         killApp()
-        uiDevice.executeShellCommand("adb")
         launchApp(appPackage, false)
-        val tittle = homePage.titleInContinueWatching
-        //  HomeScreen.HomeScreenWithContinueWatching().removeFromHistory()
-        val history = HomeScreen.History().clickOnRemoveFromHisory()
-        Assert.assertEquals("This test is selecting TVshow, then selects another episode,then starts playback,theb killing app,and then checking if correct episode in the History", firstTextOfNumber.substring(1, 5), tittle.substring(1, 5))
+        val homePage2 = HomeScreen()
+        val sideCategory2 = homePage2.clickOnSidecategorButton()
+        val subCategoryScreen = sideCategory2.scrollToSpecificCategory(continueWatching)
+        subCategoryScreen.clickOnTitleForQueueNoGotIt(0)
+        val serialScreen2 = SerialsScreen()
+        val title = serialScreen2.getNumberOfEpisode()
+        uiDevice.pressBack()
+        val smallWindow = subCategoryScreen.longClickOnTitle(0)
+        smallWindow.clickRemoveFromHistory()
+        Assert.assertEquals("This test is selecting TVshow, then selects another episode,then starts playback,theb killing app,and then checking if correct episode in the History", firstTextOfNumber.substring(1, 5), title.substring(1, 5))
     }
 
     @Test
     fun selectSeasonOfSerials() {
         val homePage = HomeScreen()
-        homePage.ScrollToSpecificCategory(tvCategory)
-        val serials = HomeScreen.Serials(tvCategory)
-        val moviesByCategoryScreen = serials.clickOnSerialCategory()
+        val sideCategory = homePage.clickOnSidecategorButton()
+        val subCategoryScreen = sideCategory.scrollToSpecificCategory(tvCategory)
+        subCategoryScreen.clickOnTitle(Random().nextInt(5))
         selectSerialWithFewSeasons()
         Assert.assertNotEquals("This test is selecting season2 from drop down ", textOfEpisodesForselectSerialWithFewSeasons.get(0), textOfEpisodesForselectSerialWithFewSeasons.get(1))
     }
+
+    //make it works^^^^
 
     @Test
     fun checkIfTheTextInSeasonPickerIsChangedAfterScrollingSerrialsToTheSide() {

@@ -56,16 +56,5 @@ class PlayBackTest : LaunchAppWithFacebook() {
     }
 
 
-    fun changeQuality() {
-        val homePage = HomeScreen()
-        val gotItScreen = homePage.clickOnTitle(0)
-        val movieDatailScreen = gotItScreen.clickOnGotIt()
-        movieDatailScreen.dontSelectHuluTitle()
-        var playBackScreen = movieDatailScreen.clickOnPlay()
-        playBackScreen.waitUntilAdsfinishes()
-        playBackScreen.clickOnQuality()
-
-    }
-
 
 }

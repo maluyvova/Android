@@ -19,37 +19,37 @@ open class HomeScreen : BaseScreen() {
 
     private val firstListOfAllObjectsString = appPackage + ":id/view_category_recycler"
     protected val firstListOfAllObjects = UiCollection(UiSelector().resourceId(firstListOfAllObjectsString))
-    public val scrollHomePage = UiScrollable(UiSelector().resourceId(appPackage + ":id/view_category_recycler"))
+    private val scrollHomePage = appPackage + ":id/view_category_recycler"
     private val categoryList = UiSelector().resourceId(appPackage + ":id/view_content_recycler_ll")
     private val textOfMovie = UiSelector().resourceId(appPackage + ":id/view_home_content_title_tv")
     private val titleOfMovie = UiSelector().resourceId(appPackage + ":id/view_home_content_iv")
     public val textOFCategory = UiSelector().resourceId(appPackage + ":id/view_content_recycler_category_title")
-    private val featuredContainer = UiScrollable(UiSelector().resourceId(appPackage + ":id/bannerContainer"))
-    private val featuredTitlesText = findObjectById(appPackage + ":id/banner_title")
-    private val counterOfTitlesInFeaturedContainer = findObjectById(appPackage + ":id/numIndicator")
-    private val sideCategoryMenu = uiDevice.findObject(UiSelector().className("android.widget.ImageButton"))
-    private val treeDotsSetingsButton = uiDevice.findObject(UiSelector().description("More options"))
+    private val featuredContainer = appPackage + ":id/bannerContainer"
+    private val featuredTitlesText = appPackage + ":id/banner_title"
+    private val counterOfTitlesInFeaturedContainer = appPackage + ":id/numIndicator"
+    private val sideCategoryMenu = "android.widget.ImageButton"
+    private val treeDotsSetingsButton = "More options"
     private val containerOfTitlesSmaller = UiSelector().resourceId(appPackage + ":id/view_content_recycler")
-    private val textOfTitleInContnueWatching = findObjectById(appPackage + ":id/view_home_content_continue_title_tv")
-    private val playButtonForContinueWatching = findObjectById(appPackage + ":id/view_home_content_continue_play_btn")
+    private val textOfTitleInContnueWatching = appPackage + ":id/view_home_content_continue_title_tv"
     private val searchButton = "Search"
     private val searchField = appPackage + ":id/nav_app_bar_main_search"
     private val castButton = "Cast button. Disconnected"
-    private val castMenu = findObjectById(appPackage + ":id/action_bar_root")
+    private val castMenu = appPackage + ":id/action_bar_root"
 
     init {
-        if (!counterOfTitlesInFeaturedContainer.waitForExists(globalTimeout)) {
+        if (!findElementById(counterOfTitlesInFeaturedContainer, false).waitForExists(globalTimeout)) {
             for (i in 0..2) {
-                scrollHomePage.scrollToBeginning(i)
-                scrollHomePage.flingBackward()
+                 //scrollableScreenById(scrollHomePage).setAsVerticalList().scrollToBeginning(i)
+                scrollableScreenById(scrollHomePage).setAsVerticalList().scrollToBeginning(i)
+                 scrollableScreenById(scrollHomePage).setAsVerticalList().flingBackward()
             }
         }
-        assertTrue("Counter for Featured titles is not displayed on HomeScreen", counterOfTitlesInFeaturedContainer.waitForExists(globalTimeout))
+        assertTrue("Counter for Featured titles is not displayed on HomeScreen", findElementById(counterOfTitlesInFeaturedContainer, false).waitForExists(globalTimeout))
         assertTrue("Expected first List of All Objects is not displayed on HomeScreen", firstListOfAllObjects.waitForExists(moviesListTimeout))
         assertTrue("Expected titles is not displayed on HomeScreen", getTitleFromGrid().waitForExists(moviesListTimeout))
-        assertTrue("SearchField is not displayed on HomeScreen", findElementByDescription(searchButton).waitForExists(globalTimeout))
-        assertTrue("Settings button is not displayed on HomeScreen", treeDotsSetingsButton.waitForExists(globalTimeout))
-        assertTrue("Side category button is not displayed on HomeScreen", sideCategoryMenu.waitForExists(globalTimeout))
+        assertTrue("SearchField is not displayed on HomeScreen", findElementByDescription(searchButton, false).waitForExists(globalTimeout))
+        assertTrue("Settings button is not displayed on HomeScreen", findElementByDescription(treeDotsSetingsButton, false).waitForExists(globalTimeout))
+        assertTrue("Side category button is not displayed on HomeScreen", findObjectByClass(sideCategoryMenu, false).waitForExists(globalTimeout))
     }
 
     protected fun getGrid(number: Int) =
@@ -57,32 +57,31 @@ open class HomeScreen : BaseScreen() {
 
 
     public fun clickAndSendTextToSearch(text: String): SearchScreen {
-        findElementByDescription(searchButton).click()
-        findObjectById(searchField).setText(text)
+        findElementByDescription(searchButton, false).click()
+        findObjectById(searchField, false).setText(text)
         return SearchScreen()
     }
 
     public fun clickOnCustButton(castDeviceName: String) {
-        findElementByDescription(castButton).click()
-        castMenu.waitForExists(globalTimeout)
-        uiDevice.findObject(UiSelector().text(castDeviceName)).click()
+        findElementByDescription(castButton, false).click()
+        findObjectById(castMenu, true)
+        findElementByText(castDeviceName, false).click()
     }
 
-    public val textOfTitleInFeaturedCategor get() = featuredTitlesText.text
+    public val textOfTitleInFeaturedCategor get() = findObjectById(featuredTitlesText, false).text
 
     public fun getCountOfMovies(i: Int): Int {
         return getGrid(i).getChild(containerOfTitlesSmaller).childCount
     }
 
-    public fun clickOnTitleInFeaturedCateg(): GotIt {
-        featuredTitlesText.click()
+    public fun clickOnTitleInFeaturedCategory(): GotIt {
+        findObjectById(featuredTitlesText, false).click()
         return GotIt()
     }
 
-    public val titleInContinueWatching get() = textOfTitleInContnueWatching.text
+    public val titleInContinueWatching get() = findObjectById(textOfTitleInContnueWatching, false).text
 
     fun ScrollToSpecificCategory(category: String) {
-
         var i = 0
         var ii = 0
         while (i < 10) {
@@ -94,7 +93,7 @@ open class HomeScreen : BaseScreen() {
                     }
                 }
             } else if (i > 6) {
-                scrollHomePage.scrollForward()
+                scrollableScreenById(scrollHomePage).scrollForward()
                 i = 0
             }
             i++
@@ -104,25 +103,11 @@ open class HomeScreen : BaseScreen() {
                 return
             }
         }
-        scrollHomePage.scrollTextIntoView("$category")
+        scrollableScreenById(scrollHomePage).scrollTextIntoView("$category")
     }
 
-    fun scrollToTheEndAndClickOnSubCategory(): SubCategoryScreen {
-        var number: Int = 0
-        while (number != 18) {
-            scrollHomePage.scrollToEnd(1)
-            number++
-        }
-        for (j in 0..6) {
-            val box = getGrid(j).getChild(textOFCategory)
-            if (box.exists()) {
-                if (box.text.equals("Special Interest")) {
-                    box.click()
-                    break
-                }
-            }
-        }
-        return SubCategoryScreen()
+    fun scrolDownLittleBit(){
+        scrollableScreenById(scrollHomePage).setAsVerticalList().scrollToEnd(1)
     }
 
     fun horisontalScrollTitles(swipes: Int, category: String) {
@@ -138,7 +123,7 @@ open class HomeScreen : BaseScreen() {
     }
 
     fun scrollFeaturetTitles(swipes: Int) {
-        featuredContainer.setAsHorizontalList().scrollToEnd(swipes)
+        scrollableScreenById(featuredContainer).setAsHorizontalList().scrollToEnd(swipes)
     }
 
     fun getText(category: String): String {
@@ -154,7 +139,7 @@ open class HomeScreen : BaseScreen() {
                     }
                 }
             } else if (i > 6) {
-                scrollHomePage.scrollForward()
+                scrollableScreenById(scrollHomePage).scrollForward()
                 i = 0
             }
             i++
@@ -172,7 +157,7 @@ open class HomeScreen : BaseScreen() {
                         textOfMovies = getGrid(i).getChild(containerOfTitlesSmaller).getChild(textOfMovie).text
                         break
                     } else {
-                        scrollHomePage.setAsVerticalList().scrollToEnd(1)
+                        scrollableScreenById(scrollHomePage).setAsVerticalList().scrollToEnd(1)
                         getTextOfTitleWithIndex("$category")
                     }
                 }
@@ -182,31 +167,31 @@ open class HomeScreen : BaseScreen() {
         return textOfMovies
     }
 
-    public fun getTextOFMovie(numberOfView: Int) =
+    fun getTextOFMovie(numberOfView: Int) =
             getGrid(numberOfView).getChild(textOfMovie) //got a first element from the list of movies
 
-    public fun getTextFromFeaturedTitlesCounter(): String {
-        return counterOfTitlesInFeaturedContainer.text
+    fun getTextFromFeaturedTitlesCounter(): String {
+        return findElementById(counterOfTitlesInFeaturedContainer, false).text
     }
 
-    public fun clickOnThreeDots() {
+    fun clickOnThreeDots() {
         getGrid(0).getChild(UiSelector().className("android.widget.ImageView")).click()
     }
 
     private fun getTitleFromGrid() =
             getGrid(0).getChild(titleOfMovie)
 
-    public fun getTextOfCategory(number: Int) =
+    fun getTextOfCategory(number: Int) =
             getGrid(number).getChild(textOFCategory)
 
-    public fun text(number: Int): Objects {
+    fun text(number: Int): Objects {
         val text = getTextOfCategory(number)
         return text(number)
     }
 
 
     public fun clickOnThreeDotsSetings(): SettingSmallWindowInRightCorner {
-        treeDotsSetingsButton.click()
+        findElementByDescription(treeDotsSetingsButton, false).click()
         return SettingSmallWindowInRightCorner()
     }
 
@@ -215,18 +200,14 @@ open class HomeScreen : BaseScreen() {
         uiDevice.wait(Until.gone(By.text(text)), globalTimeout)
     }
 
-    public fun waitForExistsCategoryText(text: String) {
-        scrollHomePage.scrollTextIntoView(text)
+    public fun waitForExistsCategoryText(text: String) {     //change it
+        scrollableScreenById(scrollHomePage).scrollTextIntoView(text)
         Assert.assertTrue("I added title to my queue, problem that queue container is not found on home page", uiDevice.wait(Until.findObject(By.text(text)), globalTimeout).text.equals(text))
-    }
-
-    public fun clickOnCategoryWithText(text: String, number: Int) {
-        uiDevice.findObject(getTextOfCategory(number).selector.text(text)).click()
     }
 
 
     fun clickOnSidecategorButton(): SideCategoryMenuScreen {
-        sideCategoryMenu.click()
+        findObjectByClass(sideCategoryMenu, false).click()
         return SideCategoryMenuScreen()
     }
 
@@ -234,11 +215,6 @@ open class HomeScreen : BaseScreen() {
     public val textCategory = getTextOfCategory(0).text
 
     public val title get() = getTextOFMovie(0).text //get text title form the home page
-
-    public fun clickOnTitleNoGotIt(): MovieDatailScreen {
-        getTextOFMovie(0).click()
-        return MovieDatailScreen()
-    }
 
     public fun clickOnTitle(num: Int): GotIt {
         getTextOFMovie(num).click()
@@ -249,40 +225,11 @@ open class HomeScreen : BaseScreen() {
         uiDevice.findObject(UiSelector().text(text)).click()
     }
 
-    public fun clickBack() {
-        val pressBack = uiDevice.pressBack()
-    }
-
     public fun longPress(): AddToQueue {
         getTitleFromGrid().dragTo(getTitleFromGrid(), 10)
 
         return AddToQueue()
     }
-
-    public fun longPressToRemoveFromQueue(obj: UiObject): AddToQueue {
-        obj.dragTo(obj, 10)
-//        for (i in 1..4) {
-//            val category = findElmentByidAnd3LevelsDeeper(firstListOfAllObjectsString, i, 0, 0, false).text
-//            if (category.equals("Queue")) {
-//                val titleFromQueue = findElmentByidAnd5LevelsDeeper(firstListOfAllObjectsString, i, 0, 0, 2, 0, false)
-//                titleFromQueue.dragTo(titleFromQueue, 10)
-        return AddToQueue()
-    }
-
-
-//    open class HomeScreenWithContinueWatching() : BaseScreen() {
-//        private val titleInContinueWatching = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_home_content_continue_iv"))
-//
-//        init {
-//            Assert.assertTrue("Title is not added to 'History' after watcing 30 sec and click Back", titleInContinueWatching.waitForExists(moviesListTimeout))
-//        }
-//
-//
-//        public fun removeFromHistory() {
-//            titleInContinueWatching.dragTo(titleInContinueWatching, 10)
-//            uiDevice.findObject(UiSelector().resourceId("android:id/select_dialog_listview")).waitForExists(globalTimeout)
-//        }
-//    }
 
 
     class RemoveFormHistoryScreen() : BaseScreen() {
@@ -350,27 +297,27 @@ open class HomeScreen : BaseScreen() {
 
 
     class AddToQueue() : BaseScreen() {
-        private val addToQueueLongClick = uiDevice.findObject(UiSelector().resourceId("android:id/text1"))
+        private val addToQueueLongClick = "android:id/text1"
         private val addToQueueLongClickUiSlector = UiSelector().resourceId("android:id/text1")
         private val smallWindow = UiCollection(UiSelector().resourceId("android:id/select_dialog_listview"))
-        private val facebookSignIn = findObjectById(appPackage + ":id/prompt_image_background")
+        private val facebookSignIn = appPackage + ":id/prompt_image_background"
 
         init {
-            assertTrue("Expected small window with add to queue is not displayed", addToQueueLongClick.waitForExists(moviesListTimeout))
+            assertTrue("Expected small window with add to queue is not displayed", findElementById(addToQueueLongClick, false).waitForExists(moviesListTimeout))
 
         }
 
         public fun clickAddToQueueAfterLongClickWithoutReturn() {
-            addToQueueLongClick.click()
-            if (facebookSignIn.exists()) {
+            findObjectById(addToQueueLongClick, false).click()
+            if (findElementById(facebookSignIn, false).exists()) {
                 FacebookSignInForNonRegisterUser().signUpWithFacebookButton
-                addToQueueLongClick.click()
+                findObjectById(addToQueueLongClick, false).click()
             }
         }
 
         public fun clickRemoveFromHistory() {
             smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0).dragTo(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0), 3)
-            if (facebookSignIn.exists()) {
+            if (findElementById(facebookSignIn, false).exists()) {
                 FacebookSignInForNonRegisterUser().signUpWithFacebookButton
                 smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0).dragTo(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0), 3)
             }
@@ -378,31 +325,31 @@ open class HomeScreen : BaseScreen() {
 
 
         public fun clickAddToQueueAfterLongClick(): QueueScreen {
-            addToQueueLongClick.click()
-            if (facebookSignIn.exists()) {
+            findObjectById(addToQueueLongClick, false).click()
+            if (findElementById(facebookSignIn, false).exists()) {
                 FacebookSignInForNonRegisterUser().signUpWithFacebookButton
-                addToQueueLongClick.click()
+                findObjectById(addToQueueLongClick, false).click()
             }
             return QueueScreen()
         }
 
         inner class FacebookSignInForNonRegisterUser() {
-            val headerText = findObjectById(appPackage + ":id/prompt_free_text")
-            val textBody = findObjectById(appPackage + ":id/prompt_register_text")
-            val signUpWithFacebookButton = uiDevice.findObject(UiSelector().text("Sign Up with Facebook"))
-            val signInOrRegisterButton = uiDevice.findObject(UiSelector().text("Sign In or Register"))
-            val closeButton = findObjectById(appPackage + ":id/prompt_image_close")
+            val headerText = appPackage + ":id/prompt_free_text"
+            val textBody = appPackage + ":id/prompt_register_text"
+            val signUpWithFacebookButton = "Sign Up with Facebook"
+            val signInOrRegisterButton = "Sign In or Register"
+            val closeButton = appPackage + ":id/prompt_image_close"
 
             init {
-                assertTrue("Sign In or Register button is not present on facebook screen for when not register user wants add title to Queue", signInOrRegisterButton.waitForExists(globalTimeout))
-                assertEquals("Header of text is not correspond requirements on facebook screen for when not register user wants add title to Queue", headerText.text, "Free TV, [free movies, ]free registration")
-                assertEquals(textBody.text, "Register now to build your queue, continue")
-                assertTrue("SignUp with Facebook button is not present on facebook screen for when not register user wants add title to Queue", signUpWithFacebookButton.exists())
-                assertTrue("Close button button is not present on facebook screen for when not register user wants add title to Queue", closeButton.exists())
+                assertTrue("Sign In or Register button is not present on facebook screen for when not register user wants add title to Queue", findElementByText(signInOrRegisterButton, false).waitForExists(globalTimeout))
+                assertEquals("Header of text is not correspond requirements on facebook screen for when not register user wants add title to Queue", findObjectById(headerText, false).text, "Free TV, [free movies, ]free registration")
+                assertEquals(findObjectById(textBody, false).text, "Register now to build your queue, continue")
+                assertTrue("SignUp with Facebook button is not present on facebook screen for when not register user wants add title to Queue", findElementByText(signUpWithFacebookButton, false).exists())
+                assertTrue("Close button button is not present on facebook screen for when not register user wants add title to Queue", findElementById(closeButton, false).exists())
             }
 
             fun clickOnSignUpWithFacebook() {
-                signUpWithFacebookButton.click()
+                findElementByText(signUpWithFacebookButton, false).click()
             }
 
         }
@@ -410,7 +357,7 @@ open class HomeScreen : BaseScreen() {
 
 
     class Serials(category: String) : BaseScreen() {
-        private val titleWithSerial = uiDevice.findObject(UiSelector().text(category))
+        private val titleWithSerial = findElementByText(category, false)
 
         public fun clickOnSerialCategory(): MoviesByCategoryScreen {
             titleWithSerial.click()
@@ -420,11 +367,11 @@ open class HomeScreen : BaseScreen() {
 
     class SettingSmallWindowInRightCorner() : BaseScreen() {
         private val boxWithSettingsItems = UiCollection(UiSelector().className("android.widget.ListView"))
-        private val boxWithSettingsForInit = uiDevice.findObject(UiSelector().className("android.widget.FrameLayout"))
+        private val boxWithSettingsForInit = "android.widget.FrameLayout"
         private val SettingsAboutHelpCenter = UiSelector().resourceId(appPackage + ":id/title")
 
         init {
-            Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", boxWithSettingsForInit.waitForExists(moviesListTimeout))
+            Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", findObjectByClass(boxWithSettingsForInit, false).waitForExists(moviesListTimeout))
 
         }
 
@@ -445,17 +392,17 @@ open class HomeScreen : BaseScreen() {
     }
 
     class History() : BaseScreen() {
-        private val removeFromHistory = uiDevice.findObject(UiSelector().text("Remove from history"))
+        private val removeFromHistory = "Remove from history"
         private val addToQueue = uiDevice.findObject(UiSelector().text("Add to queue"))
 
         init {
-            Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", removeFromHistory.waitForExists(moviesListTimeout))
+            Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", findElementById(removeFromHistory, false).waitForExists(moviesListTimeout))
             Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", addToQueue.waitForExists(moviesListTimeout))
 
         }
 
         public fun clickOnRemoveFromHisory() {
-            removeFromHistory.click()
+            findElementByText(removeFromHistory, false).click()
         }
     }
 

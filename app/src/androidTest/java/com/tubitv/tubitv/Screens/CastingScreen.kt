@@ -7,7 +7,7 @@ import com.tubitv.tubitv.globalTimeout
  * Created by vburian on 5/14/18.
  */
 class CastingScreen : BaseScreen() {
-    private val castingBar = findObjectById(appPackage + ":id/container_current")
+    private val castingBar = findObjectById(appPackage + ":id/container_current",false)
 
     init {
         castingBar.waitForExists(globalTimeout)

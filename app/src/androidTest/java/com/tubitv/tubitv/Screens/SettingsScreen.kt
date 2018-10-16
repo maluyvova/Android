@@ -27,9 +27,8 @@ class SettingsScreen : BaseScreen() {
         return LaunchScreen()
     }
 
-    public fun clickOnLockInLandscapeMode(): HomeScreen {
+    public fun clickOnLockInLandscapeMode() {
         portraitSwithcer.click()
-        return HomeScreen()
     }
 
     public fun simpleClickOnLockInLandscapeMode() {

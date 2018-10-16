@@ -1,33 +1,19 @@
 package com.tubitv.tubitv
 
-import android.support.test.InstrumentationRegistry
 import android.support.test.uiautomator.*
-import android.util.Log
 import com.tubitv.tubitv.Helpers.TestException
-import com.tubitv.tubitv.Networking.Mockt
-import com.tubitv.tubitv.Networking.ServerManager
 import org.junit.Test
-import org.junit.runner.RunWith
-import java.util.*
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.MovieDatailScreen
 import com.tubitv.tubitv.Screens.MoviesByCategoryScreen
 import org.junit.Assert
 import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertNotNull
-import org.junit.After
 
 /**
  * Created by vburian on 2/20/18.
  */
 
 class MoviesTest : LaunchAppWithFacebook() {
-
-
-    // @After
-    fun deleteQuie() {
-        // ServerManager().deleteQueue()
-    }
 
 
     @Test
@@ -53,7 +39,7 @@ class MoviesTest : LaunchAppWithFacebook() {
     fun selectTitleFromFeatured() {
         val homePage = HomeScreen()
         val text = homePage.textOfTitleInFeaturedCategor
-        val gotit = homePage.clickOnTitleInFeaturedCateg()
+        val gotit = homePage.clickOnTitleInFeaturedCategory()
         val moviedatail = gotit.clickOnGotIt()
         val titleInDatailScreen = moviedatail.titleDatailScreen
         assertEquals("Orginal name $text should be same like $titleInDatailScreen", text.toLowerCase(), titleInDatailScreen.toLowerCase())
@@ -159,10 +145,10 @@ class MoviesTest : LaunchAppWithFacebook() {
         launchApp(appPackage, false)
         val sideCategoryScreen = HomeScreen().clickOnSidecategorButton()
         val subCategoryScreen = sideCategoryScreen.scrollToSpecificCategory("Continue Watching")
-        val titleInHistory=subCategoryScreen.textOFTitle
-        val smallWindowAddToQueueOrHistory=subCategoryScreen.longClickOnTitle(0)
+        val titleInHistory = subCategoryScreen.textOFTitle
+        val smallWindowAddToQueueOrHistory = subCategoryScreen.longClickOnTitle(0)
         smallWindowAddToQueueOrHistory.clickRemoveFromHistory()
-        Assert.assertEquals("First Category should be 'Most popular' because test should delete title form 'Continue watching' with long press",textOfTitleInHomePage , titleInHistory)
+        Assert.assertEquals("First Category should be 'Most popular' because test should delete title form 'Continue watching' with long press", textOfTitleInHomePage, titleInHistory)
     }
 
 

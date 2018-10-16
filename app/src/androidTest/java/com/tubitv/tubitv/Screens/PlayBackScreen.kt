@@ -9,43 +9,26 @@ import junit.framework.Assert
  * Created by vburian on 2/26/18.
  */
 class PlayBackScreen : BaseScreen() {
-    private var playBackWindow = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/controller_panel"))
-    private var playButton = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_play_toggle_ib"))
-    private var seek = UiSelector().resourceId(appPackage + ":id/view_tubi_controller_rewind_ib")
-    private val s = uiDevice.findObject(By.res(appPackage + ":id/view_tubi_controller_subtitles_ib"))
-    //  private val sub=uiDevice.wait(Until.findObject(By.text("Fire With Fire")), globalTimeout)
-    //  private val nameOfTile=uiDevice.findObject(By.text("Fire With Fire"))
-    private var subtittless = findObjectById(appPackage + ":id/view_tubi_controller_subtitles_ib")
-    // private var subtittles =UiSelector().resourceId(appPackage+":id/view_tubi_controller_subtitles_ib")
-    private var quality = findObjectById(appPackage + ":id/view_tubi_controller_quality_ib")
-    private var titleText = findObjectById(appPackage + ":id/view_tubi_controller_title")
+    private var playButton = appPackage + ":id/view_tubi_controller_play_toggle_ib"
+    private var subtittless = appPackage + ":id/view_tubi_controller_subtitles_ib"
+    private var titleText = appPackage + ":id/view_tubi_controller_title"
     private var scrollControlSeek = UiScrollable(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_seek_bar"))
-    private var controllerSeek = UiSelector().resourceId(appPackage + ":id/view_tubi_controller_seek_bar")
-    private var rightTimer = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_remaining_time"))
+    private var rightTimer = appPackage + ":id/view_tubi_controller_remaining_time"
     private var leftTimer = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_elapsed_time"))
-    private var fifteenMinForwardButton = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_forward_ib"))
-    private var fifteenMinBackButton = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_rewind_ib"))
-    private val autoplay = findObjectById(appPackage + ":id/play_next_container")
+    private var fifteenMinForwardButton = appPackage + ":id/view_tubi_controller_forward_ib"
+    private var fifteenMinBackButton = appPackage + ":id/view_tubi_controller_rewind_ib"
+    private val autoplay = appPackage + ":id/play_next_container"
 
     public fun textOfRightTimer(): String {
         var time = ""
         try {
-            time = rightTimer.text
+            time = findElementById(rightTimer, false).text
         } catch (e: UiObjectNotFoundException) {
             wakeUpScreen()
-            time = rightTimer.text
+            time = findElementById(rightTimer, false).text
         }
         return time
     }
-
-    public fun clickOnQuality(){
-        if(quality.waitForExists(globalTimeout)){
-            quality.click() }
-        else {
-            wakeUpScreen()
-            quality.click() }
-    }
-
 
     public fun wakeUpScreen() {
         uiDevice.swipe(385, 317, 1500, 483, 2)
@@ -68,25 +51,25 @@ class PlayBackScreen : BaseScreen() {
         var i = 0
         var k = 0
         var time = textOfRightTimer()
-        scrollControlSeek.dragTo(rightTimer, 1)
+        scrollControlSeek.dragTo(findObjectById(rightTimer, false), 1)
         var times = textOfRightTimer();
-        if (!rightTimer.waitForExists(globalTimeout)) {
+        if (!findElementById(rightTimer, false).waitForExists(globalTimeout)) {
             scrollControlSeek.setAsHorizontalList().scrollBackward(1)
         } else if (times.equals("00:00") || times.equals("-00:00")) {
-            if (fifteenMinBackButton.exists()) {
+            if (findElementById(fifteenMinBackButton, false).exists()) {
                 for (j in 0..4) {
                     try {
-                        fifteenMinBackButton.click()
-                        if (autoplay.exists()) {
+                        findObjectById(fifteenMinBackButton, false).click()
+                        if (findElementById(autoplay, false).exists()) {
                             return AutoPlay()
                         }
                     } catch (e: UiObjectNotFoundException) {
-                        if (autoplay.waitForExists(globalTimeout)) {
+                        if (findElementById(autoplay, false).waitForExists(globalTimeout)) {
                             return AutoPlay()
                         }
                     }
                 }
-            } else if (!rightTimer.exists()) {
+            } else if (!findElementById(rightTimer, false).exists()) {
                 wakeUpScreen()
                 scrollControlSeek.setAsHorizontalList().scrollBackward(1)
             } else scrollControlSeek.setAsHorizontalList().scrollBackward(1)
@@ -96,100 +79,98 @@ class PlayBackScreen : BaseScreen() {
                 scrollControlSeek.setAsHorizontalList().scrollBackward(1)
                 i = 0
             }
-            if (!fifteenMinBackButton.exists()) {
-                if (!fifteenMinBackButton.waitForExists(globalTimeout)) {
+            if (!findElementById(fifteenMinBackButton, false).exists()) {
+                if (!findElementById(fifteenMinBackButton, false).waitForExists(globalTimeout)) {
                     wakeUpScreen()
                 }
             }
             try {
-                fifteenMinForwardButton.click()
+                findObjectById(fifteenMinForwardButton, false).click()
             } catch (e: UiObjectNotFoundException) {
                 wakeUpScreen()
                 i++
             }
-            if (!rightTimer.exists()) {
+            if (!findElementById(rightTimer, false).exists()) {
                 wakeUpScreen()
             }
             time = textOfRightTimer()
             k++
         }
         if (movieOrSerial.equals("Serial")) {
-            fifteenMinForwardButton.click()
-            fifteenMinForwardButton.click()
+            findObjectById(fifteenMinForwardButton, false).click()
+            findObjectById(fifteenMinForwardButton, false).click()
         }
         return AutoPlay()
     }
 
     fun getNameOfTitleFromPlayback(): String {
         var textTtitle = ""
-        if (titleText.waitForExists(globalTimeout)) {
-            textTtitle = titleText.text
+        if (findElementById(titleText, false).waitForExists(globalTimeout)) {
+            textTtitle = findElementById(titleText, false).text
         } else {
             wakeUpScreen()
-            textTtitle = titleText.text
+            textTtitle = findElementById(titleText, false).text
         }
         return textTtitle
     }
 
     fun waitUntilAdsfinishes() {
         wakeUpScreen()
-        while (!rightTimer.exists()) {
+        while (!findElementById(rightTimer, false).exists()) {
             Thread.sleep(1000)
             wakeUpScreen()
         }
     }
 
     public fun waitForPlayBack(): String {
-        if (playButton.waitForExists(globalTimeout))
-            return titleText.text
+        if (findElementById(playButton, false).waitForExists(globalTimeout))
+            return findElementById(titleText, false).text
         else {
             wakeUpScreen()
-            return titleText.text
+            return findElementById(titleText, false).text
         }
     }
 
     public fun clickPlay() {
-        playButton.click()
+        findObjectById(playButton, false).click()
     }
 
     public fun checkIfSubtitlesIsSelected(): String {
-        return subtittless.text
+        return findElementById(subtittless, false).text
     }
+
     class AutoPlay() : BaseScreen() {
         private val autoplayScrollable = UiScrollable(UiSelector().resourceId(appPackage + ":id/play_next_container"))
-        private val autoplay = findObjectById(appPackage + ":id/play_next_container")
+        private val autoplay = appPackage + ":id/play_next_container"
         private val autoplayUiSelector = UiSelector().resourceId(appPackage + ":id/play_next_container")
-        private val nameOfNextTitle = findObjectById(appPackage + ":id/title")
+        private val nameOfNextTitle = appPackage + ":id/title"
         private val nameOfNextTitleUiSelector = UiSelector().resourceId(appPackage + ":id/title")
-        private val yearAndDurationOfNextTitle = findObjectById(appPackage + ":id/vaudTextView_duration")
-        private val captionIconOfNextTtile = findObjectById(appPackage + ":id/imageView_caption")
-        private val playButtonForTitle = findObjectById(appPackage + ":id/continue_play_btn")
-        private val togleButton = findObjectById(appPackage + ":id/button_toggle")
-        private val timer = findObjectById(appPackage + ":id/timer_text")
-        private val nextNextAvailableTitle = findObjectById(appPackage + ":id/poster")
+        private val playButtonForTitle = appPackage + ":id/continue_play_btn"
+        private val togleButton = appPackage + ":id/button_toggle"
+        private val timer = appPackage + ":id/timer_text"
         private val autoplayBox = UiCollection(UiSelector().resourceId(appPackage + ":id/autoplay_drawer"))
         private val containerOfNextTitle = autoplayBox.getChildByInstance(autoplayUiSelector, 1)
-        private val titleOnLefSideWhenAutoplayIsHoden = findObjectById(appPackage + ":id/next_item")
+        private val titleOnLefSideWhenAutoplayIsHoden = appPackage + ":id/next_item"
 
         //Name,Duration,caption have same id but they inside containerOfNextTitle
         init {
-            if (autoplay.waitForExists(waitForAutoplay)) {
+            if (findElementById(autoplay, false).waitForExists(waitForAutoplay)) {
                 Assert.assertTrue("Autoplay didn't pop-up, possible something wrong with seekToAutoplay ", 2 > 1)
-            } else if (togleButton.waitForExists(globalTimeout)) {
-                if (!autoplay.exists()) {
-                    togleButton.click()
+            } else if (findElementById(togleButton, false).waitForExists(globalTimeout)) {
+                if (!findElementById(autoplay, false).exists()) {
+                    findElementById(togleButton, false).click()
                 }
                 Assert.assertTrue("Autoplay didn't pop-up, possible something wrong with seekToAutoplay ", 2 > 1)
             } else Assert.assertEquals("Autoplay didn't pop-up, possible something wrong with seekToAutoplay ", 2, 5)
         }
 
-        public val titleOnLefSideWhenAutoplayIsHodens get() = this.titleOnLefSideWhenAutoplayIsHoden
-        public val textFromFirstTitleAutoplay get() = nameOfNextTitle.text
+        public val titleOnLefSideWhenAutoplayIsHodens get() = this.findObjectById(titleOnLefSideWhenAutoplayIsHoden, false)
+        public val textFromFirstTitleAutoplay get() = findObjectById(nameOfNextTitle, false).text
         public val textFromNextTitleAutoplay get() = containerOfNextTitle.getChild(nameOfNextTitleUiSelector).text
-        public val textFromAutoplayTimer get() = timer.text
+        public val textFromAutoplayTimer get() = findObjectById(timer, false).text
         fun playTitleFromAutoplay() {
-            if (playButtonForTitle.waitForExists(globalTimeout)) {
-                playButtonForTitle.click()
+            if (findElementById(playButtonForTitle, false).waitForExists(globalTimeout)) {
+                findObjectById(playButtonForTitle, false).click()
             } else throw TestException("Play button is not present on first title for autoplay")
         }
 
@@ -214,23 +195,21 @@ class PlayBackScreen : BaseScreen() {
         }
 
         fun hideAutoplay() {
-            togleButton.waitForExists(globalTimeout)
-            togleButton.click()
+            findObjectById(togleButton, true).click()
         }
 
         fun selectTitleNextTitleFromHiddenAutoplay() {
-            titleOnLefSideWhenAutoplayIsHoden.waitForExists(globalTimeout)
-            titleOnLefSideWhenAutoplayIsHoden.click()
+            findObjectById(titleOnLefSideWhenAutoplayIsHoden, true).click()
         }
 
         fun wait20secForNextTitle(): Boolean {
-            return timer.waitUntilGone(28000)
+            return findElementById(timer, false).waitUntilGone(28000)
         }
 
         fun verifyThatTheTimerIsNotExists(): Boolean {
             var exist = false
             try {
-                timer.click()
+                findObjectById(timer, false).click()
                 exist = true
             } catch (e: UiObjectNotFoundException) {
                 exist = false

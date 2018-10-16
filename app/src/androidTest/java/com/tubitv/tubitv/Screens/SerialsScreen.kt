@@ -10,15 +10,15 @@ import java.util.*
  */
 class SerialsScreen() : BaseScreen() {
     private val season2 = UiCollection(UiSelector().text("Season 2"))
-    private val seasonPicker = findObjectById(appPackage + ":id/seasonSpinner")
-    private val textOfSeason = findObjectById(appPackage + ":id/textview")
+    private val seasonPicker =appPackage + ":id/seasonSpinner"
+    private val textOfSeason = appPackage + ":id/textview"
     private val scrollableScreen = UiScrollable(UiSelector().resourceId(appPackage + ":id/scrollView_main"))
-    private val playButton = findObjectById(appPackage + ":id/imageView_play")
+    private val playButton = appPackage + ":id/imageView_play"
     private val scrollableNextEpisodes = UiScrollable(UiSelector().resourceId(appPackage + ":id/episode_list_recyclerview"))
-    private val titleOfEpsideInTheButton = findObjectById(appPackage + ":id/title")
-    private val playButtonForNextEpisode = findObjectById(appPackage + ":id/play_button")
-    private val episodeNumber = findObjectById(appPackage + ":id/vaudTextView_episode_title")//:id/vaudTextView_episdoe_title
-    private val presentedByHulu = findObjectById(appPackage + ":id/vaudTextView_present_hulu")
+    private val titleOfEpsideInTheButton = appPackage + ":id/title"
+    private val playButtonForNextEpisode = appPackage + ":id/play_button"
+    private val episodeNumber = appPackage + ":id/vaudTextView_episode_title"//:id/vaudTextView_episdoe_title
+    private val presentedByHulu = appPackage + ":id/vaudTextView_present_hulu"
 
     init {
         // Assert.assertTrue("Expected 'Play' button is not displayed ",playButton.waitForExists(globalTimeout))
@@ -29,17 +29,17 @@ class SerialsScreen() : BaseScreen() {
         scrollableScreen.setAsVerticalList().scrollToEnd(number)
     }
 
-    public val presentByHulu get() = this.presentedByHulu
-    public val seasonPickers get() = this.seasonPicker
+    public val presentByHulu get() = this.findObjectById(presentedByHulu,false)
+    public val seasonPickers get() = this.findObjectById(seasonPicker,false)
     public val sseason2 get() = this.season2
     public val scrlbleScreen get() = this.scrollableScreen
-    public val textofSeason get() = this.textOfSeason
+    public val textofSeason get() = this.findObjectById(textOfSeason,false)
     fun getTextOfEpisode(): String {
-        return titleOfEpsideInTheButton.text
+        return findElementById(titleOfEpsideInTheButton,false).text
     }
 
     fun getNumberOfEpisode(): String {
-        return episodeNumber.text
+        return findElementById(episodeNumber,false).text
     }
 
     fun scrollEpisdoesList(number: Int) {
@@ -47,12 +47,11 @@ class SerialsScreen() : BaseScreen() {
     }
 
     fun clickOnPlayInTheButtonNextEpisode() {
-        playButtonForNextEpisode.click()
+        findObjectById(playButtonForNextEpisode,false).click()
     }
 
     fun clickOnPlayButton(): PlayBackScreen {
-        playButton.waitForExists(globalTimeout)
-        playButton.click()
+        findObjectById(playButton,true).click()
         return PlayBackScreen()
     }
 

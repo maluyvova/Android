@@ -14,14 +14,14 @@ class SubCategoryScreen : BaseScreen() {
     private val screen = UiScrollable(UiSelector().resourceId(appPackage + ":id/view_grid_category_recycler"))
     private val boxWithTitles = UiCollection(UiSelector().resourceId(appPackage + ":id/fragment_category_recycler"))
     private val title = UiSelector().className("android.widget.LinearLayout")
-    private val textOfTitle = findObjectById(appPackage+":id/view_category_content_tv_title")
+    private val textOfTitle = appPackage+":id/view_category_content_tv_title"
 
     init {
         Assert.assertTrue("Expected screen with subtitles is not displayed ", screen.waitForExists(globalTimeout))
     }
 
 
-    public val textOFTitle get() = textOfTitle.text
+    public val textOFTitle get() = findObjectById(textOfTitle, false).text
 
     fun swipeScreen(number: Int) {
         screen.setAsHorizontalList().scrollToEnd(number)

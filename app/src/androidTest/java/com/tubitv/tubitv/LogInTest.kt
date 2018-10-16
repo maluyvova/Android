@@ -1,12 +1,9 @@
 package com.tubitv.tubitv
 
-import android.support.test.InstrumentationRegistry
-import android.support.test.uiautomator.UiDevice
 import com.tubitv.tubitv.Screens.EmailSigUpScreen
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.LaunchScreen
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 import java.util.*
 
@@ -69,7 +66,7 @@ class LogInTest : SimpleLaunchApp() {
         emailSignUpScreen.pasteEmail(nameForEmail, gmail)
         emailSignUpScreen.pastePassword(password)
         emailSignUpScreen.clickOnRegisterExseption()
-        val genderErrorMessage = EmailSigUpScreen.worningObjects().waitForGenderOj()
+        val genderErrorMessage = EmailSigUpScreen.worningObjects().waitForGenderObj()
         Assert.assertEquals("Warning message shoild be $genderErrorMessage because test didn't provide password", genderErrorMessage.toLowerCase(), "Please pick a gender".toLowerCase())
     }
 

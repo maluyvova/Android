@@ -12,46 +12,46 @@ import junit.framework.Assert
  */
 class MovieDatailScreen() : BaseScreen() {
 
-    private val titleText = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/textView_title"))
-    private val addToQueue = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/imageView_add_from_queue"))
+    private val titleText = appPackage + ":id/textView_title"
+    private val addToQueue = appPackage + ":id/imageView_add_from_queue"
     private val youMightAlsoLike = UiScrollable(UiSelector().resourceId(appPackage + ":id/view_content_recycler_ll"))
-    private val playButton = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/imageView_play"))
+    private val playButton = appPackage + ":id/imageView_play"
     private val scrollbleScreen = UiScrollable(UiSelector().resourceId(appPackage + ":id/empty_holder"))
-    private val titleFromYouMightAlsoLike = findObjectById(appPackage + ":id/view_home_content_iv")
-    private val shareWithButton = findObjectById(appPackage + ":id/imageView_share")
-    private val captionicon = findObjectById(appPackage + ":id/imageView_caption")
-    private val huluIcon = findObjectById(appPackage + ":id/vaudTextView_present_hulu")
-    private val categoryNameOnTopBar = findObjectById(appPackage + ":id/nav_app_bar_main_title")
-    private val signInPopUp = findObjectById(appPackage+":id/prompt_image_background")
+    private val titleFromYouMightAlsoLike = appPackage + ":id/view_home_content_iv"
+    private val shareWithButton = appPackage + ":id/imageView_share"
+    private val captionIcon = appPackage + ":id/imageView_caption"
+    private val huluIcon = appPackage + ":id/vaudTextView_present_hulu"
+    private val categoryNameOnTopBar = appPackage + ":id/nav_app_bar_main_title"
+    private val signInPopUp = appPackage + ":id/prompt_image_background"
 
-            init {
-                if(signInPopUp.waitForExists(shortWaitTime)){
+    init {
+        if (findElementById(signInPopUp, false).waitForExists(shortWaitTime)) {
 
-                }
-                Assert.assertTrue("Expected title text  is not displayed", titleText.waitForExists(globalTimeout))
-                Assert.assertTrue("Expected button add to queue is not displayed", addToQueue.waitForExists(globalTimeout))
-                Assert.assertTrue("Expected share button is not displayed", shareWithButton.waitForExists(globalTimeout))
-            }
+        }
+        Assert.assertTrue("Expected title text  is not displayed", findElementById(titleText, false).waitForExists(globalTimeout))
+        Assert.assertTrue("Expected button add to queue is not displayed", findElementById(addToQueue, false).waitForExists(globalTimeout))
+        Assert.assertTrue("Expected share button is not displayed", findElementById(shareWithButton, false).waitForExists(globalTimeout))
+    }
 
-    public val titleDatailScreen get() = titleText.text //get text from the datail page
+    public val titleDatailScreen get() = findObjectById(titleText, false).text //get text from the datail page
     public val scrollableScreen = this.scrollbleScreen
 
     public val youMightaAlsoLike = this.youMightAlsoLike
 
     fun clickOnAddToQueue(): HomeScreen {
-        addToQueue.click()
+        findObjectById(addToQueue, false).click()
         uiDevice.pressBack()
         return HomeScreen()
     }
 
     fun waitUntillSelected() {
-        while (addToQueue.isSelected)
+        while (findElementById(addToQueue, false).isSelected)
             break
     }
 
     fun dontSelectHuluTitle() {
         val i = 1;
-        while (huluIcon.exists()) {
+        while (findElementById(huluIcon, false).exists()) {
             uiDevice.pressBack()
             HomeScreen().clickOnTitle(i)
             i + 1
@@ -59,29 +59,29 @@ class MovieDatailScreen() : BaseScreen() {
     }
 
     fun clickOnRemoveFromQueue(): HomeScreen {
-        addToQueue.click()
+        findObjectById(addToQueue, false).click()
         return HomeScreen()
     }
 
     fun checkIfStillOnThisPage(): Boolean {
-        val s = categoryNameOnTopBar.waitForExists(shortWaitTime)
+        val s = findElementById(categoryNameOnTopBar, false).waitForExists(shortWaitTime)
         return s
     }
 
     fun simpleClickOnAddToQueue() {
 
-        addToQueue.click()
+        findObjectById(addToQueue, false).click()
     }
 
     fun simpleClickOnRemoveFromQueue(): HomeScreen {
-        addToQueue.click()
+        findObjectById(addToQueue, false).click()
         Thread.sleep(2000)
         uiDevice.pressBack()
         return HomeScreen()
     }
 
     fun clickOnPlay(): PlayBackScreen {
-        playButton.click()
+        findObjectById(playButton, false).click()
         return PlayBackScreen()
     }
 
@@ -103,19 +103,19 @@ class MovieDatailScreen() : BaseScreen() {
     }
 
     fun clickOnShareButton(): ShareWithScreen {
-        shareWithButton.click()
+        findObjectById(shareWithButton, false).click()
         return ShareWithScreen()
     }
 
     fun selectTitleFromMightAlsoLike(): MovieDatailScreen {
         scrollbleScreen.setAsVerticalList().scrollToEnd(2)
         youMightAlsoLike.setAsHorizontalList().scrollToEnd(2)
-        titleFromYouMightAlsoLike.click()
+        findObjectById(titleFromYouMightAlsoLike, false).click()
         return MovieDatailScreen()
     }
 
     fun checkIfCCIconpresent(): Boolean {
-        return captionicon.waitForExists(globalTimeout)
+        return findElementById(captionIcon, false).waitForExists(globalTimeout)
     }
 
 
@@ -162,11 +162,11 @@ class FacebookPageShareScreen() : BaseScreen() {
 
 class GotIt() : BaseScreen() {
 
-    private val gotItButton = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/got_it_button"))
-    public val gotitButton get() = this.gotItButton
+    private val gotItButton = appPackage + ":id/got_it_button"
+    public val gotitButton get() = this.findObjectById(gotItButton,false)
 
     fun clickOnGotIt(): MovieDatailScreen {
-        gotItButton.click()
+        findObjectById(gotItButton,false).click()
         return MovieDatailScreen()
     }
 

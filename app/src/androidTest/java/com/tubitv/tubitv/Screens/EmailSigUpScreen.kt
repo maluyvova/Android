@@ -13,39 +13,39 @@ import junit.framework.Assert
  * Created by vburian on 3/26/18.
  */
 class EmailSigUpScreen : BaseScreen() {
-    private val firstNameField = findObjectById(appPackage + ":id/name")
-    private val emailField = findObjectById(appPackage + ":id/email")
-    private val passwordField = findObjectById(appPackage + ":id/password")
-    private val registerButton = findObjectById(appPackage + ":id/sign_up_button")
-    private val termOfUseButton = findObjectById(appPackage + ":id/term_of_use")
-    private val privacyPolice = findObjectById(appPackage + ":id/privacy_policy")
-    private val signInButton = uiDevice.findObject(UiSelector().packageName(appPackage).text("Sign In"))
-    private val birthdayButton = findObjectById(appPackage + ":id/birthday")
-    private val genderButton = findObjectById(appPackage + ":id/gender")
-    private val okButtonWhenEmailAlreadyexists = findObjectById("android:id/button1")
-    private val signInButtonInRegisterScreen = uiDevice.findObject(UiSelector().packageName(appPackage).text("Sign In"))
-    private val unvisablePasswordToggle = findObjectById(appPackage+":id/text_input_password_toggle")
+    private val firstNameField = appPackage + ":id/name"
+    private val emailField = appPackage + ":id/email"
+    private val passwordField = appPackage + ":id/password"
+    private val registerButton = appPackage + ":id/sign_up_button"
+    private val termOfUseButton = appPackage + ":id/term_of_use"
+    private val privacyPolice = appPackage + ":id/privacy_policy"
+    private val birthdayButton = appPackage + ":id/birthday"
+    private val genderButton = appPackage + ":id/gender"
+    private val okButtonWhenEmailAlreadyexists = "android:id/button1"
+    private val signInButtonInRegisterScreen = "Sign In"
+    private val unvisablePasswordToggle = appPackage + ":id/text_input_password_toggle"
+    private val androidButton = "android:id/button1"
 
 
     init {
-        Assert.assertTrue("Expected first name field not showed up", firstNameField.waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected email field not showed up", emailField.waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected password field not showed up", passwordField.waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected register button not showed up", registerButton.waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected termOfUse button not showed up", termOfUseButton.waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected privacy police not showed up", privacyPolice.waitForExists(moviesListTimeout))
+        Assert.assertTrue("Expected first name field not showed up", findElementById(firstNameField, false).waitForExists(moviesListTimeout))
+        Assert.assertTrue("Expected email field not showed up", findElementById(emailField, false).waitForExists(moviesListTimeout))
+        Assert.assertTrue("Expected password field not showed up", findElementById(passwordField, false).waitForExists(moviesListTimeout))
+        Assert.assertTrue("Expected register button not showed up", findElementById(registerButton, false).waitForExists(moviesListTimeout))
+        Assert.assertTrue("Expected termOfUse button not showed up", findElementById(termOfUseButton, false).waitForExists(moviesListTimeout))
+        Assert.assertTrue("Expected privacy police not showed up", findElementById(privacyPolice, false).waitForExists(moviesListTimeout))
         //Assert.assertTrue("Expected signIn button not showed up", signInButton.waitForExists (moviesListTimeout))
-        Assert.assertTrue("Expected birthday button not showed up", birthdayButton.waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected gender button not showed up", genderButton.waitForExists(moviesListTimeout))
+        Assert.assertTrue("Expected birthday button not showed up", findElementById(birthdayButton, false).waitForExists(moviesListTimeout))
+        Assert.assertTrue("Expected gender button not showed up", findElementById(genderButton, false).waitForExists(moviesListTimeout))
     }
 
 
     fun sendTextToNameField(name: String) {
-        firstNameField.setText(name)
+        findObjectById(firstNameField, false).setText(name)
     }
 
     fun selectYear(field: Int, steps: Int, years: String, years1: String, years2: String, years3: String) {
-        birthdayButton.click()
+        findObjectById(birthdayButton, false).click()
         val box = UiCollection(UiSelector().resourceId("android:id/pickers"))
         val data = UiSelector().className("android.widget.NumberPicker")
         val year = box.getChildByInstance(data, field)
@@ -55,22 +55,21 @@ class EmailSigUpScreen : BaseScreen() {
         while (textFromYear().text != years && textFromYear().text != years1 && textFromYear().text != years2 && textFromYear().text != years3) {
             year.swipeDown(31)
         }
-        findObjectById("android:id/button1").click()
+        findObjectById(androidButton, false).click()
     }
 
     fun selectDefultYear() {
-        birthdayButton.click()
-        findObjectById("android:id/button1").click()
+        findObjectById(birthdayButton, false).click()
+        findObjectById(androidButton, false).click()
     }
 
     fun clickOnSignIn(): SignInScreen {
-        signInButtonInRegisterScreen.waitForExists(globalTimeout)
-        signInButtonInRegisterScreen.click()
+        findElementByText(signInButtonInRegisterScreen, true).click()
         return SignInScreen()
     }
 
     fun selectGender(nums: Int) {
-        genderButton.click()
+        findObjectById(genderButton, false).click()
         val doneButton = uiDevice.findObject(UiSelector().packageName(appPackage).text("DONE"))
         if (nums == 1) {
             uiDevice.findObject(UiSelector().packageName(appPackage).text("Female")).click()
@@ -86,77 +85,75 @@ class EmailSigUpScreen : BaseScreen() {
     }
 
     fun pasteEmail(name: String, gmail: String) {
-        emailField.setText(name + RandomEmail.randomemail() + RandomEmail.randomemail() + gmail)
+        findObjectById(emailField, false).setText(name + RandomEmail.randomemail() + RandomEmail.randomemail() + gmail)
     }
 
     fun pasteEmailExists(email: String) {
-        emailField.setText(email)
+        findObjectById(emailField, false).setText(email)
     }
 
 
     fun pastePassword(text: String) {
-        passwordField.setText(text)
+        findObjectById(passwordField, false).setText(text)
     }
 
     fun clickOnRegister(): HomeScreen {
-        registerButton.click()
+        findObjectById(registerButton, false).click()
         return HomeScreen()
     }
 
     fun clickOnRegisterExseption() {
-        registerButton.click()
+        findObjectById(registerButton, false).click()
     }
 
     fun clickAndCheckOnOKButtonWhenEmailAlreadyExists(): EmailSigUpScreen {
-        okButtonWhenEmailAlreadyexists.waitForExists(globalTimeout)
-        okButtonWhenEmailAlreadyexists.click()
+        findObjectById(okButtonWhenEmailAlreadyexists, true).click()
         return EmailSigUpScreen()
     }
 
     fun clickOnTermOfUse(): TermOfUseScreen {
-        termOfUseButton.click()
+        findObjectById(termOfUseButton, false).click()
         return TermOfUseScreen()
     }
 
-    fun getTextFromFields():MutableList<String>{
-       return mutableListOf<String>(firstNameField.text,emailField.text,passwordField.text)
+    fun getTextFromFields(): MutableList<String> {
+        return mutableListOf<String>(findObjectById(firstNameField, false).text, findObjectById(emailField, false).text, findObjectById(passwordField, false).text)
     }
 
-    fun makeUnvisablePassword(){
-        if(unvisablePasswordToggle.exists())
-        unvisablePasswordToggle.click()
+    fun makeUnvisablePassword() {
+        if (findElementById(unvisablePasswordToggle, false).exists())
+            findObjectById(unvisablePasswordToggle, false).click()
     }
 
 
     class worningObjects() : BaseScreen() {
-        private val birhtdayobj = findObjectById(appPackage + ":id/birthday_error_warning")
-        private val genderwarningobj = findObjectById(appPackage + ":id/gender_error_warning")
-        private val emailWarningObj = findObjectById(appPackage + ":id/email_error_warning")
-        private val passwordWarnngObj = findObjectById(appPackage + ":id/password_error_warning")
-        private val youMustBe13YearsOldError = findObjectById(appPackage + ":id/birthday_error_warning")
+        private val birhtdayobj = appPackage + ":id/birthday_error_warning"
+        private val genderWarningObj = appPackage + ":id/gender_error_warning"
+        private val emailWarningObj = appPackage + ":id/email_error_warning"
+        private val passwordWarnngObj = appPackage + ":id/password_error_warning"
+        private val youMustBe13YearsOldError = appPackage + ":id/birthday_error_warning"
+
         fun waitForBirthdayObj(): String {
-            birhtdayobj.waitForExists(globalTimeout)
-            return birhtdayobj.text
+            return findObjectById(birhtdayobj, true).text
         }
 
-        fun waitForGenderOj(): String {
-            genderwarningobj.waitForExists(globalTimeout)
-            return genderwarningobj.text
+        fun waitForGenderObj(): String {
+            return findObjectById(genderWarningObj, true).text
+
         }
 
         fun waitForEmailWorning(): String {
-            emailWarningObj.waitForExists(globalTimeout)
-            return emailWarningObj.text
+            return findObjectById(emailWarningObj, true).text
+
         }
 
         fun waitForPasswordWorning(): String {
-            val some = passwordWarnngObj.waitForExists(globalTimeout)
-            return passwordWarnngObj.text
+            return findElementById(passwordWarnngObj, true).text
+
         }
 
         fun waitForYouMustBe13YearsOld(): String {
-            youMustBe13YearsOldError.waitForExists(globalTimeout)
-            return youMustBe13YearsOldError.text
+            return findObjectById(youMustBe13YearsOldError, true).text
         }
 
 
