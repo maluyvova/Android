@@ -1,7 +1,10 @@
 package com.tubitv.tubitv.Screens
 
+import android.support.test.uiautomator.UiObjectNotFoundException
 import android.support.test.uiautomator.UiScrollable
 import android.support.test.uiautomator.UiSelector
+import com.tubitv.tubitv.Helpers.TestException
+import com.tubitv.tubitv.Helpers.TextExceptionWithError
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import com.tubitv.tubitv.shortWaitTime
@@ -108,69 +111,73 @@ class MovieDatailScreen() : BaseScreen() {
     }
 
     fun selectTitleFromMightAlsoLike(): MovieDatailScreen {
-        scrollbleScreen.setAsVerticalList().scrollToEnd(2)
-        youMightAlsoLike.setAsHorizontalList().scrollToEnd(2)
-        findObjectById(titleFromYouMightAlsoLike, false).click()
-        return MovieDatailScreen()
-    }
-
-    fun checkIfCCIconpresent(): Boolean {
-        return findElementById(captionIcon, false).waitForExists(globalTimeout)
-    }
-
-
-}
-
-class ShareWithScreen() : BaseScreen() {
-    private val slide = UiScrollable(UiSelector().resourceId("android:id/sem_resolver_pagemode_page_list"))
-    private val shareWithTitle = uiDevice.findObject(UiSelector().text("Share with"))
-    private val facebookIcon = uiDevice.findObject(UiSelector().text("Facebook"))
-
-    init {
-        Assert.assertTrue(shareWithTitle.waitForExists(globalTimeout))
-        //Assert.assertTrue(facebookIcon.waitForExists(globalTimeout))
-    }
-
-    fun clickOnFacebookShareIcon(): FacebookPageShareScreen {
-
-        if (facebookIcon.waitForExists(globalTimeout)) {
-            facebookIcon.click()
-        } else {
-            slide.setAsHorizontalList().scrollToEnd(1)
-            facebookIcon.click()
+        try {
+            scrollbleScreen.setAsVerticalList().scrollToEnd(2)
+            youMightAlsoLike.setAsHorizontalList().scrollToEnd(2)
+            findObjectById(titleFromYouMightAlsoLike, false).click()}
+        catch (e: UiObjectNotFoundException){
+            TextExceptionWithError("Probably 'You might also like' container is not present",e)
         }
-        return FacebookPageShareScreen()
-    }
-}
+            return MovieDatailScreen()
+        }
 
-class FacebookPageShareScreen() : BaseScreen() {
-    private val facebookPostButton = uiDevice.findObject(UiSelector().text("POST"))
-    private val facebookPostButtonForTablets = uiDevice.findObject(UiSelector().text("Post"))
-    private val facebookShareButton = uiDevice.findObject(UiSelector().text("SHARE"))
+        fun checkIfCCIconpresent(): Boolean {
+            return findElementById(captionIcon, false).waitForExists(globalTimeout)
+        }
 
-    fun clickOnFacebookPostButton(): MovieDatailScreen {
-        if (facebookPostButton.waitForExists(globalTimeout)) {
-            facebookPostButton.click()
-        } else if (facebookPostButtonForTablets.exists()) {
-            facebookPostButtonForTablets.click()
-        } else
-            facebookShareButton.click()
 
-        return MovieDatailScreen()
-    }
-}
-
-class GotIt() : BaseScreen() {
-
-    private val gotItButton = appPackage + ":id/got_it_button"
-    public val gotitButton get() = this.findObjectById(gotItButton,false)
-
-    fun clickOnGotIt(): MovieDatailScreen {
-        findObjectById(gotItButton,false).click()
-        return MovieDatailScreen()
     }
 
-}
+    class ShareWithScreen() : BaseScreen() {
+        private val slide = UiScrollable(UiSelector().resourceId("android:id/sem_resolver_pagemode_page_list"))
+        private val shareWithTitle = uiDevice.findObject(UiSelector().text("Share with"))
+        private val facebookIcon = uiDevice.findObject(UiSelector().text("Facebook"))
+
+        init {
+            Assert.assertTrue(shareWithTitle.waitForExists(globalTimeout))
+            //Assert.assertTrue(facebookIcon.waitForExists(globalTimeout))
+        }
+
+        fun clickOnFacebookShareIcon(): FacebookPageShareScreen {
+
+            if (facebookIcon.waitForExists(globalTimeout)) {
+                facebookIcon.click()
+            } else {
+                slide.setAsHorizontalList().scrollToEnd(1)
+                facebookIcon.click()
+            }
+            return FacebookPageShareScreen()
+        }
+    }
+
+    class FacebookPageShareScreen() : BaseScreen() {
+        private val facebookPostButton = uiDevice.findObject(UiSelector().text("POST"))
+        private val facebookPostButtonForTablets = uiDevice.findObject(UiSelector().text("Post"))
+        private val facebookShareButton = uiDevice.findObject(UiSelector().text("SHARE"))
+
+        fun clickOnFacebookPostButton(): MovieDatailScreen {
+            if (facebookPostButton.waitForExists(globalTimeout)) {
+                facebookPostButton.click()
+            } else if (facebookPostButtonForTablets.exists()) {
+                facebookPostButtonForTablets.click()
+            } else
+                facebookShareButton.click()
+
+            return MovieDatailScreen()
+        }
+    }
+
+    class GotIt() : BaseScreen() {
+
+        private val gotItButton = appPackage + ":id/got_it_button"
+        public val gotitButton get() = this.findObjectById(gotItButton, false)
+
+        fun clickOnGotIt(): MovieDatailScreen {
+            findObjectById(gotItButton, false).click()
+            return MovieDatailScreen()
+        }
+
+    }
 
 
 

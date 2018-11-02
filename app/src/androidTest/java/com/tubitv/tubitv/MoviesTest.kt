@@ -48,11 +48,19 @@ class MoviesTest : LaunchAppWithFacebook() {
 
     @Test
     fun longPressAndAddToQueue() {
-        val mostpoular = "Most Popular"
         val homePage = HomeScreen()
+        val firstCategoryName = homePage.textCategory()
         val TextInHomeScreen = homePage.title
         val titleInHomeScreen = homePage.longPress()
-        titleInHomeScreen.clickAddToQueueAfterLongClick()
+        if (!titleInHomeScreen.clickAddToQueueAfterLongClickWithoutReturn()) {
+            try {
+                homePage.longPressWithoutReturn()
+                titleInHomeScreen.clickAddToQueueAfterLongClick()
+            } catch (e: UiObjectNotFoundException) {
+                homePage.longPressWithoutReturn()
+                titleInHomeScreen.clickAddToQueueAfterLongClick()
+            }
+        }
         val sideCategoryScreen = homePage.clickOnSidecategorButton()
         val subCategoryScreen = sideCategoryScreen.scrollToSpecificCategory("Queue")
         val gotItScreen = subCategoryScreen.clickOnTitleForQueue(0)
@@ -61,8 +69,8 @@ class MoviesTest : LaunchAppWithFacebook() {
 
         if (TextInHomeScreen.toLowerCase().equals(textFromQueue.toLowerCase())) {
             movieDatailsScreen.clickOnAddToQueue()
-            val textOfCategory = homePage.textCategory
-            assertEquals("Orginal name $TextInHomeScreen should be same like $textFromQueue", textOfCategory.toLowerCase(), mostpoular.toLowerCase())
+            val textOfCategory = homePage.textCategory()
+            assertEquals("Orginal name $TextInHomeScreen should be same like $textFromQueue", textOfCategory.toLowerCase(), firstCategoryName.toLowerCase())
         } else
             assertEquals("Title that added to queue doesn't match with title that realy in queue", 5, 4)
     }
@@ -70,7 +78,7 @@ class MoviesTest : LaunchAppWithFacebook() {
     @Test
     fun clickOnCategory() {
         val homePage = HomeScreen()
-        val textOfCategory = homePage.textCategory
+        val textOfCategory = homePage.textCategory()
         homePage.getTextOfCategory(0).click()
         val moviesByCategoryScreen = MoviesByCategoryScreen()
         val movieText = moviesByCategoryScreen.titleText
@@ -86,6 +94,7 @@ class MoviesTest : LaunchAppWithFacebook() {
     @Test
     fun addToQueue() {
         val homePage = HomeScreen()
+        val firstCategoryName = homePage.textCategory()
         val textOfCategory = homePage.getTextOfCategory(0).text
         val textOfTitleInHomePage = homePage.getText(textOfCategory)
         val gotItScreen = homePage.clickOnTitle(0)
@@ -101,9 +110,9 @@ class MoviesTest : LaunchAppWithFacebook() {
         }
         val homePage3 = HomeScreen()
         homePage3.getTextOfCategory(1).text
-        val categoryInHomePage1 = homePage3.textCategory//should be most popular
+        val categoryInHomePage1 = homePage3.textCategory()//should be most popular
         //  assertEquals("Title text in Home Page not matches with title in Movie Details Page ", textOfTitleInHomePage.toLowerCase(), textOfTitleInMovieDatailScreen.toLowerCase())
-        assertEquals("Queue is still on Hme Page", categoryInHomePage1.toLowerCase(), "most popular")
+        assertEquals("Queue is still on Hme Page", categoryInHomePage1.toLowerCase(), firstCategoryName.toLowerCase())
     }
 
     @Test
@@ -155,7 +164,7 @@ class MoviesTest : LaunchAppWithFacebook() {
     @Test
     fun clickOnThreeDots() {
         val homePage = HomeScreen()
-        val textOfCategorInHomePage = homePage.textCategory
+        val textOfCategorInHomePage = homePage.textCategory()
         homePage.clickOnThreeDots()
         val moviesbycategoryscreen = MoviesByCategoryScreen()
         val textOfCategoriInCaategotScreen = moviesbycategoryscreen.categoryText
@@ -181,7 +190,6 @@ class MoviesTest : LaunchAppWithFacebook() {
         val datailScreen = MovieDatailScreen().selectTitleFromMightAlsoLike()
         datailScreen.scrollableScreen.setAsVerticalList().scrollToEnd(1)
         Assert.assertFalse(datailScreen.youMightaAlsoLike.exists())
-
     }
 
     @Test

@@ -27,7 +27,7 @@ class UiPlussAPITests : SimpleLaunchApp() {
         SimpleLaunchApp().castings()
         val homescreen = HomeScreen()
         homescreen.waitForExistsCategoryText("Queue")
-        if (homescreen.textCategory.equals("Queue")) {
+        if (homescreen.textCategory().equals("Queue")) {
 
             homescreen.clickOnThreeDots()
             val countOftitles = MoviesByCategoryScreen().getCountOfTitles()
@@ -47,7 +47,7 @@ class UiPlussAPITests : SimpleLaunchApp() {
         SimpleLaunchApp().castings()
         val homescreen = HomeScreen()
         homescreen.waitForDisapearCategoryText("Queue")
-        val textOfCategory = homescreen.textCategory
+        val textOfCategory = homescreen.textCategory()
         Assert.assertEquals("Queue category still on home page after remove from queue with API", textOfCategory.toLowerCase(), "most popular")
     }
 

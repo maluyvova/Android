@@ -34,7 +34,7 @@ class HuluTest : LaunchAppWithFacebook() {
                 huluPlaybackScreen.selectYear()
                 huluPlaybackScreen.clickOnSubmit()
                 warningMessage = huluPlaybackScreen.getextFromWorningMessage()
-                minimizeAndOpenAppFromSameScreen(checkConfigForDevce())
+                minimizeAndOpenAppFromSameScreen()
                 warningMeassageAfterClose = huluPlaybackScreen.getextFromWorningMessage()
             } else throw
             TestException("Fields for age limitation didn't appear ")

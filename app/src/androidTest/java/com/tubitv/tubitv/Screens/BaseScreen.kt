@@ -9,6 +9,7 @@ import android.support.test.uiautomator.UiSelector
 import android.support.v7.app.AppCompatActivity
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
+import com.tubitv.tubitv.shortWaitTime
 
 /**
  * Created by vburian on 2/20/18.
@@ -61,6 +62,15 @@ open class BaseScreen {
         }
         return objectt
     }
+
+    protected fun findElementByIdShortTimeOut(id: String, waitFoObject: Boolean): UiObject {
+        val objectt = uiDevice.findObject(UiSelector().resourceId(id))
+        if (waitFoObject) {
+            objectt.waitForExists(shortWaitTime)
+        }
+        return objectt
+    }
+
 
     protected fun findElementByIdAnd1LevelDeeper(id: String, level: Int, waitFoObject: Boolean): UiObject {
         val objectt = uiDevice.findObject(UiSelector().resourceId(id).

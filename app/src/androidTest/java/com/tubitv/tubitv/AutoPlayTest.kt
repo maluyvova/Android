@@ -199,7 +199,7 @@ class AutoPlayTest:LaunchAppWithFacebook(){//SimpleLaunchApp() {
         val selectedTitle=playBackScreen.getNameOfTitleFromPlayback()
         val autoplayScreen= playBackScreen.seekToAutoPlay("Movie")
         val timer = autoplayScreen.textFromAutoplayTimer.substring(12,14).toInt()
-        minimizeAndOpenAppFromSameScreen(checkConfigForDevce())
+        minimizeAndOpenAppFromSameScreen()
         PlayBackScreen.AutoPlay() }
 
 

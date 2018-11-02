@@ -15,6 +15,7 @@ import org.hamcrest.CoreMatchers
 import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
+import java.lang.Thread.sleep
 
 
 /**
@@ -27,10 +28,18 @@ open class BaseTest {
     protected lateinit var uiDevice: UiDevice
 
     fun killApp() = executeShellCommand("am force-stop " + appPackage)
-    fun executeShellCommand(command: String) {
+    fun executeShellCommand(command: String): String {
         val stdOut = uiDevice.executeShellCommand(command)
         Log.i("Test", command + ": " + stdOut)
+        return stdOut
     }
+
+    fun putInPortraitMode() {
+        executeShellCommand("content insert --uri content://settings/system --bind name:s:accelerometer_rotation --bind value:i:0")
+        executeShellCommand("content insert --uri content://settings/system --bind name:s:user_rotation --bind value:i:0")
+
+    }
+
 
     fun clearAppData() = executeShellCommand("pm clear " + appPackage)
     fun getInstrum(): UiDevice {
@@ -74,65 +83,69 @@ open class BaseTest {
     }
 
 
-    protected fun minimizeAndOpenAppFromSameScreen(app: UiObject) {
-        if (app.text.contains("Tubi")) {
-            app.click()
-        } else throw TestException("app is not in overview menu")
+    protected fun minimizeAndOpenAppFromSameScreen() {
+        try {
+            uiDevice.pressRecentApps()
+            sleep(2000)
+            uiDevice.pressRecentApps()
+            while (!uiDevice.currentPackageName.equals(appPackage)) {
+                uiDevice.pressRecentApps()
+            }
+        } catch (e: UiObjectNotFoundException) {
+            TestException("cannot get app from overview")
+        }
     }
 
 
     protected fun SignIn(): String {
 
-            var textFromButton = ""
-            val continueFacebook = uiDevice.findObject(UiSelector().resourceId("u_0_9"))
-            val titleBox = UiCollection(UiSelector().resourceId(appPackage + ":id/empty_holder"))
-            val castPopUp = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/cast_featurehighlight_help_text_header_view"))
-        try {  uiDevice.findObject(UiSelector().packageName(appPackage).text("Sign In")).click()}
-        catch (e:UiObjectNotFoundException){
-            return " "
+        var textFromButton = ""
+        val continueFacebook = uiDevice.findObject(UiSelector().resourceId("u_0_9"))
+        val titleBox = UiCollection(UiSelector().resourceId(appPackage + ":id/empty_holder"))
+        val castPopUp = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/cast_featurehighlight_help_text_header_view"))
+        try {
+            uiDevice.findObject(UiSelector().packageName(appPackage).text("Sign In")).click()
+        } catch (e: UiObjectNotFoundException) {
+            return ""
         }
-            uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/custom_fb_login_button")).click()
-            if (continueFacebook.waitForExists(globalTimeout)) {
-                textFromButton = continueFacebook.text
-                continueFacebook.click()
-            }
-            if (continueFacebook.waitForExists(globalTimeout)) {
-                textFromButton = continueFacebook.text
-                continueFacebook.click()
-            }
-            return textFromButton
-
-            // uiDevice.findObject(UiSelector().resourceId("u_0_9")).click()
-            // uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/email")).setText("tubitv@tubitv.tubitv")
-            // uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/password")).setText("tubitv")
-            //uiDevice.findObject(UiSelector().resourceId("com.tubitv:id/sign_in_button")).click()
-
-            assertThat(uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/nav_app_bar_main_logo"))
-                    .waitForExists(facebookLogin), CoreMatchers.`is`(true))
-
+        uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/custom_fb_login_button")).click()
+        if (continueFacebook.waitForExists(globalTimeout)) {
+            textFromButton = continueFacebook.text
+            continueFacebook.click()
         }
-
-
-        protected fun casting() {
-            val custButton = uiDevice.findObject(UiSelector().description("Cast button. Disconnected"))
-            val castButton = uiDevice.findObject(UiSelector().description("Cast button. Connected"))
-            if (uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/cast_featurehighlight_help_text_header_view")).waitForExists(globalTimeout)) {
-                if (custButton.waitForExists(globalTimeout)) {
-                    custButton.click()
-                    uiDevice.pressBack()
-                } else if (castButton.waitForExists(globalTimeout)) {
-                    castButton.click()
-                    uiDevice.pressBack()
-                }
-            } else if (custButton.waitForExists(globalTimeout)) {
-                custButton.click()
-                uiDevice.pressBack()
-            }
-
+        if (continueFacebook.waitForExists(globalTimeout)) {
+            textFromButton = continueFacebook.text
+            continueFacebook.click()
         }
+        return textFromButton
 
+        assertThat(uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/nav_app_bar_main_logo"))
+                .waitForExists(facebookLogin), CoreMatchers.`is`(true))
 
     }
+
+
+    protected fun casting() {
+
+//        val custButton = uiDevice.findObject(UiSelector().description("Cast button. Disconnected"))
+//        val castButton = uiDevice.findObject(UiSelector().description("Cast button. Connected"))
+//        if (uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/cast_featurehighlight_help_text_header_view")).waitForExists(globalTimeout)) {
+//            if (custButton.waitForExists(globalTimeout)) {
+//                custButton.click()
+//                uiDevice.pressBack()
+//            } else if (castButton.waitForExists(globalTimeout)) {
+//                castButton.click()
+//                uiDevice.pressBack()
+//            }
+//        } else if (custButton.waitForExists(globalTimeout)) {
+//            custButton.click()
+//            uiDevice.pressBack()
+//        }
+
+    }
+
+
+}
 
 
 

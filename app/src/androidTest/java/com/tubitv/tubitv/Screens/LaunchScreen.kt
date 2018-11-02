@@ -3,6 +3,7 @@ package com.tubitv.tubitv.Screens
 import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
+import com.tubitv.tubitv.shortWaitTime
 import junit.framework.Assert
 
 /**
@@ -14,7 +15,19 @@ class LaunchScreen : BaseScreen() {
     private val createNewAcountButton = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/activity_main_login_sign_up_tv"))
     private val signInButton = uiDevice.findObject(UiSelector().text("Sign In"))
 
+
     init {
+        if (!textAnimation.waitForExists(shortWaitTime)) {
+
+            val homePage = HomeScreen()
+            homePage.dismissCasting()
+            Thread.sleep(4000)
+            //fix it ^^^^
+            val titleInHomeScreen=homePage.longPress()
+            val signInScreen=titleInHomeScreen.clickAddToQueueAfterLongClickForSignIn()
+            signInScreen.clickOnSignIn()
+            LaunchScreen()
+        }
         Assert.assertTrue("Expected text animation is not displayed in Launch Screen", textAnimation.waitForExists(globalTimeout))
         Assert.assertTrue("Expected create new account button is not displayed in Launch Screen", createNewAcountButton.waitForExists(globalTimeout))
         Assert.assertTrue("Expected Sign In buttom is not displayed", signInButton.waitForExists(globalTimeout))

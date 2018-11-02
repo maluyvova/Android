@@ -8,6 +8,8 @@ import junit.framework.Assert
 
 import java.util.*
 import android.support.test.uiautomator.UiSelector
+import com.tubitv.tubitv.Helpers.TestException
+import com.tubitv.tubitv.mediumWaitTime
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
 
@@ -36,20 +38,22 @@ open class HomeScreen : BaseScreen() {
     private val castButton = "Cast button. Disconnected"
     private val castMenu = appPackage + ":id/action_bar_root"
 
+
     init {
-        if (!findElementById(counterOfTitlesInFeaturedContainer, false).waitForExists(globalTimeout)) {
+        if (!findElementById(counterOfTitlesInFeaturedContainer, false).waitForExists(mediumWaitTime)) {
             for (i in 0..2) {
-                 //scrollableScreenById(scrollHomePage).setAsVerticalList().scrollToBeginning(i)
                 scrollableScreenById(scrollHomePage).setAsVerticalList().scrollToBeginning(i)
-                 scrollableScreenById(scrollHomePage).setAsVerticalList().flingBackward()
+                scrollableScreenById(scrollHomePage).setAsVerticalList().flingBackward()
             }
         }
-        assertTrue("Counter for Featured titles is not displayed on HomeScreen", findElementById(counterOfTitlesInFeaturedContainer, false).waitForExists(globalTimeout))
-        assertTrue("Expected first List of All Objects is not displayed on HomeScreen", firstListOfAllObjects.waitForExists(moviesListTimeout))
-        assertTrue("Expected titles is not displayed on HomeScreen", getTitleFromGrid().waitForExists(moviesListTimeout))
-        assertTrue("SearchField is not displayed on HomeScreen", findElementByDescription(searchButton, false).waitForExists(globalTimeout))
-        assertTrue("Settings button is not displayed on HomeScreen", findElementByDescription(treeDotsSetingsButton, false).waitForExists(globalTimeout))
-        assertTrue("Side category button is not displayed on HomeScreen", findObjectByClass(sideCategoryMenu, false).waitForExists(globalTimeout))
+        if (uiDevice.findObject(UiSelector().resourceId(counterOfTitlesInFeaturedContainer)).exists()) {
+            assertTrue("Counter for Featured titles is not displayed on HomeScreen", findElementById(counterOfTitlesInFeaturedContainer, false).waitForExists(globalTimeout))
+            assertTrue("Expected first List of All Objects is not displayed on HomeScreen", firstListOfAllObjects.waitForExists(moviesListTimeout))
+            assertTrue("Expected titles is not displayed on HomeScreen", getTitleFromGrid().waitForExists(moviesListTimeout))
+            assertTrue("SearchField is not displayed on HomeScreen", findElementByDescription(searchButton, false).waitForExists(globalTimeout))
+            assertTrue("Settings button is not displayed on HomeScreen", findElementByDescription(treeDotsSetingsButton, false).waitForExists(globalTimeout))
+            assertTrue("Side category button is not displayed on HomeScreen", findObjectByClass(sideCategoryMenu, false).waitForExists(globalTimeout))
+        }
     }
 
     protected fun getGrid(number: Int) =
@@ -106,7 +110,7 @@ open class HomeScreen : BaseScreen() {
         scrollableScreenById(scrollHomePage).scrollTextIntoView("$category")
     }
 
-    fun scrolDownLittleBit(){
+    fun scrolDownLittleBit() {
         scrollableScreenById(scrollHomePage).setAsVerticalList().scrollToEnd(1)
     }
 
@@ -212,7 +216,9 @@ open class HomeScreen : BaseScreen() {
     }
 
 
-    public val textCategory = getTextOfCategory(0).text
+    fun textCategory(): String {
+        return getTextOfCategory(0).text
+    }
 
     public val title get() = getTextOFMovie(0).text //get text title form the home page
 
@@ -227,8 +233,15 @@ open class HomeScreen : BaseScreen() {
 
     public fun longPress(): AddToQueue {
         getTitleFromGrid().dragTo(getTitleFromGrid(), 10)
-
         return AddToQueue()
+    }
+
+    public fun longPressWithoutReturn() {
+        getTitleFromGrid().dragTo(getTitleFromGrid(), 10)
+    }
+
+    fun dismissCasting() {
+        getTitleFromGrid().dragTo(getTitleFromGrid(), 10)
     }
 
 
@@ -307,18 +320,20 @@ open class HomeScreen : BaseScreen() {
 
         }
 
-        public fun clickAddToQueueAfterLongClickWithoutReturn() {
+        public fun clickAddToQueueAfterLongClickWithoutReturn(): Boolean {
+            val facebook = false
             findObjectById(addToQueueLongClick, false).click()
             if (findElementById(facebookSignIn, false).exists()) {
-                FacebookSignInForNonRegisterUser().signUpWithFacebookButton
-                findObjectById(addToQueueLongClick, false).click()
+                FacebookSignInForNonRegisterUser().clickOnSignUpWithFacebook()
+                return facebook
             }
+            return true
         }
 
         public fun clickRemoveFromHistory() {
             smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0).dragTo(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0), 3)
             if (findElementById(facebookSignIn, false).exists()) {
-                FacebookSignInForNonRegisterUser().signUpWithFacebookButton
+                FacebookSignInForNonRegisterUser().clickOnSignUpWithFacebook()
                 smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0).dragTo(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0), 3)
             }
         }
@@ -327,29 +342,42 @@ open class HomeScreen : BaseScreen() {
         public fun clickAddToQueueAfterLongClick(): QueueScreen {
             findObjectById(addToQueueLongClick, false).click()
             if (findElementById(facebookSignIn, false).exists()) {
-                FacebookSignInForNonRegisterUser().signUpWithFacebookButton
+                FacebookSignInForNonRegisterUser().clickOnSignUpWithFacebook()
                 findObjectById(addToQueueLongClick, false).click()
             }
             return QueueScreen()
         }
 
+        fun clickAddToQueueAfterLongClickForSignIn(): FacebookSignInForNonRegisterUser {
+            findObjectById(addToQueueLongClick, false).click()
+            return FacebookSignInForNonRegisterUser()
+        }
+
         inner class FacebookSignInForNonRegisterUser() {
-            val headerText = appPackage + ":id/prompt_free_text"
-            val textBody = appPackage + ":id/prompt_register_text"
-            val signUpWithFacebookButton = "Sign Up with Facebook"
-            val signInOrRegisterButton = "Sign In or Register"
-            val closeButton = appPackage + ":id/prompt_image_close"
+            private val headerText = appPackage + ":id/prompt_free_text"
+            private val textBody = appPackage + ":id/prompt_register_text"
+            private val signUpWithFacebookButton = "Sign Up with Facebook"
+            private val signInOrRegisterButton = "Sign In or Register"
+            private val closeButton = appPackage + ":id/prompt_image_close"
 
             init {
                 assertTrue("Sign In or Register button is not present on facebook screen for when not register user wants add title to Queue", findElementByText(signInOrRegisterButton, false).waitForExists(globalTimeout))
-                assertEquals("Header of text is not correspond requirements on facebook screen for when not register user wants add title to Queue", findObjectById(headerText, false).text, "Free TV, [free movies, ]free registration")
-                assertEquals(findObjectById(textBody, false).text, "Register now to build your queue, continue")
+                //assertEquals("Header of text is not correspond requirements on facebook screen for when not register user wants add title to Queue", findObjectById(headerText, false).text, "Free TV,"+"\n"+"free movies, "+"\n"+"free registration")
+                // assertEquals(findObjectById(textBody, false).text, "Register now to build your queue, continue")
                 assertTrue("SignUp with Facebook button is not present on facebook screen for when not register user wants add title to Queue", findElementByText(signUpWithFacebookButton, false).exists())
                 assertTrue("Close button button is not present on facebook screen for when not register user wants add title to Queue", findElementById(closeButton, false).exists())
             }
 
             fun clickOnSignUpWithFacebook() {
                 findElementByText(signUpWithFacebookButton, false).click()
+            }
+
+            fun clickOnSignIn() {
+                try {
+                    findElementByText(signInOrRegisterButton, false).click()
+                } catch (e: UiObjectNotFoundException) {
+                    TestException("Sign In or Register button doesn't exist on 'Sign in' screen after add to queue for not register user")
+                }
             }
 
         }

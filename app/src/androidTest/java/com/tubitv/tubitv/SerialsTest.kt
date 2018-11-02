@@ -1,5 +1,6 @@
 package com.tubitv.tubitv
 
+import android.support.test.uiautomator.UiObjectNotFoundException
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Screens.GotIt
 import com.tubitv.tubitv.Screens.HomeScreen
@@ -90,7 +91,15 @@ class SerialsTest : LaunchAppWithFacebook() {
         val title = MoviesByCategoryScreen().gotkRandomTite(Random().nextInt(5))
         title.dragTo(title, 3)
         val queScreen = HomeScreen.AddToQueue()
-        queScreen.clickAddToQueueAfterLongClickWithoutReturn()
+        if (!queScreen.clickAddToQueueAfterLongClickWithoutReturn()) {
+            title.dragTo(title, 3)
+            try {
+                queScreen.clickAddToQueueAfterLongClickWithoutReturn()
+            } catch (e: UiObjectNotFoundException) {
+                title.dragTo(title, 3)
+                queScreen.clickAddToQueueAfterLongClickWithoutReturn()
+            }
+        }
         uiDevice.pressBack()
         val sideCategory2 = homePage.clickOnSidecategorButton()
         val subCategoryScreen = sideCategory.scrollToSpecificCategory("Queue")
@@ -144,12 +153,9 @@ class SerialsTest : LaunchAppWithFacebook() {
         val homePage = HomeScreen()
         val sideCategory = homePage.clickOnSidecategorButton()
         val subCategoryScreen = sideCategory.scrollToSpecificCategory(tvCategory)
-        subCategoryScreen.clickOnTitle(Random().nextInt(5))
         selectSerialWithFewSeasons()
         Assert.assertNotEquals("This test is selecting season2 from drop down ", textOfEpisodesForselectSerialWithFewSeasons.get(0), textOfEpisodesForselectSerialWithFewSeasons.get(1))
     }
-
-    //make it works^^^^
 
     @Test
     fun checkIfTheTextInSeasonPickerIsChangedAfterScrollingSerrialsToTheSide() {
