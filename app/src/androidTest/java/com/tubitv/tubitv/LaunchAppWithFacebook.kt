@@ -1,23 +1,11 @@
 package com.tubitv.tubitv
 
-
-import android.app.Activity
-import android.content.Context
-import android.provider.Settings
-import android.support.v7.app.AppCompatActivity
 import com.tubitv.tubitv.Helpers.InsuranceBeforeTests
 import org.junit.Before
-import java.security.AccessController.getContext
-import android.content.Context.TELEPHONY_SERVICE
-import android.telephony.TelephonyManager
-import android.telephony.TelephonyManager.*
-import android.net.wifi.WifiManager
 import com.tubitv.tubitv.Screens.UpdateScreen
 import java.net.NetworkInterface
 import java.util.*
-import android.app.ActivityManager.RunningTaskInfo
-import android.app.ActivityManager
-import android.util.Log
+import com.tubitv.tubitv.Screens.HomeScreen
 
 
 /**
@@ -35,7 +23,8 @@ open class LaunchAppWithFacebook : BaseTest() {
         launchApp(appPackage, false)
         textFromFacebookButton = SignIn()
         UpdateScreen().clickOnMaybeLatter()
-        casting()
+        //casting()
+        HomeScreen(false).dismissCasting()
         uiDevice.setOrientationNatural()
         InsuranceBeforeTests().deleteHistory()
         InsuranceBeforeTests().deleteFromQueue()

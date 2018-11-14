@@ -10,7 +10,7 @@ import java.util.*
  */
 class SerialsScreen() : BaseScreen() {
     private val season2 = UiCollection(UiSelector().text("Season 2"))
-    private val seasonPicker =appPackage + ":id/seasonSpinner"
+    private val seasonPicker = appPackage + ":id/seasonSpinner"
     private val textOfSeason = appPackage + ":id/textview"
     private val scrollableScreen = UiScrollable(UiSelector().resourceId(appPackage + ":id/scrollView_main"))
     private val playButton = appPackage + ":id/imageView_play"
@@ -29,29 +29,31 @@ class SerialsScreen() : BaseScreen() {
         scrollableScreen.setAsVerticalList().scrollToEnd(number)
     }
 
-    public val presentByHulu get() = this.findObjectById(presentedByHulu,false)
-    public val seasonPickers get() = this.findObjectById(seasonPicker,false)
+    public val presentByHulu get() = this.findObjectById(presentedByHulu, false)
+    public val seasonPickers get() = this.findObjectById(seasonPicker, false)
     public val sseason2 get() = this.season2
     public val scrlbleScreen get() = this.scrollableScreen
-    public val textofSeason get() = this.findObjectById(textOfSeason,false)
+    public val textofSeason get() = this.findObjectById(textOfSeason, false)
     fun getTextOfEpisode(): String {
-        return findElementById(titleOfEpsideInTheButton,false).text
+        return findElementById(titleOfEpsideInTheButton, false).text
     }
 
     fun getNumberOfEpisode(): String {
-        return findElementById(episodeNumber,false).text
+        return findElementById(episodeNumber, false).text
     }
 
     fun scrollEpisdoesList(number: Int) {
-        scrollableNextEpisodes.setAsHorizontalList().scrollToEnd(number)
+        for (n in 0..number) {
+            scrollableNextEpisodes.setAsHorizontalList().scrollToEnd(number)
+        }
     }
 
     fun clickOnPlayInTheButtonNextEpisode() {
-        findObjectById(playButtonForNextEpisode,false).click()
+        findObjectById(playButtonForNextEpisode, false).click()
     }
 
     fun clickOnPlayButton(): PlayBackScreen {
-        findObjectById(playButton,true).click()
+        findObjectById(playButton, true).click()
         return PlayBackScreen()
     }
 

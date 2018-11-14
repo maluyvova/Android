@@ -1,7 +1,6 @@
 package com.tubitv.tubitv
 
 import com.tubitv.tubitv.Helpers.RandomEmail
-import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.LaunchScreen
 import org.junit.Assert
 import org.junit.Test
@@ -16,7 +15,7 @@ class SignInTest() : SimpleLaunchApp() {
         val signInScreen = LaunchScreen().clickOnSignIn()
         signInScreen.sendTextToEmailField("tubitv@tubitv.tubitv")
         signInScreen.sendTextToPasswordField("tubitv")
-        signInScreen.clickOnSignInButton()
+        signInScreen.clickOnSignInButton(true)
     }
 
     @Test

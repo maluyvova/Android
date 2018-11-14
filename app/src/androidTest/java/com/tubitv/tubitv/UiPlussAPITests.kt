@@ -6,9 +6,7 @@ import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.LaunchScreen
 import com.tubitv.tubitv.Screens.MoviesByCategoryScreen
 import junit.framework.Assert
-import org.junit.FixMethodOrder
 import org.junit.Test
-import org.junit.runners.MethodSorters
 
 /**
  * Created by vburian on 6/4/18.
@@ -23,9 +21,9 @@ class UiPlussAPITests : SimpleLaunchApp() {
         val signInScreen = LaunchScreen().clickOnSignIn()
         signInScreen.sendTextToEmailField("testingnetwork@gmail.com")
         signInScreen.sendTextToPasswordField("tubitv")
-        signInScreen.clickOnSignInButton()
+        signInScreen.clickOnSignInButton(true)
         SimpleLaunchApp().castings()
-        val homescreen = HomeScreen()
+        val homescreen = HomeScreen(true)
         homescreen.waitForExistsCategoryText("Queue")
         if (homescreen.textCategory().equals("Queue")) {
 
@@ -43,9 +41,9 @@ class UiPlussAPITests : SimpleLaunchApp() {
         val signInScreen = LaunchScreen().clickOnSignIn()
         signInScreen.sendTextToEmailField("testingnetwork@gmail.com")
         signInScreen.sendTextToPasswordField("tubitv")
-        signInScreen.clickOnSignInButton()
+        signInScreen.clickOnSignInButton(true)
         SimpleLaunchApp().castings()
-        val homescreen = HomeScreen()
+        val homescreen = HomeScreen(true)
         homescreen.waitForDisapearCategoryText("Queue")
         val textOfCategory = homescreen.textCategory()
         Assert.assertEquals("Queue category still on home page after remove from queue with API", textOfCategory.toLowerCase(), "most popular")

@@ -19,7 +19,7 @@ class LaunchScreen : BaseScreen() {
     init {
         if (!textAnimation.waitForExists(shortWaitTime)) {
 
-            val homePage = HomeScreen()
+            val homePage = HomeScreen(true)
             homePage.dismissCasting()
             Thread.sleep(4000)
             //fix it ^^^^
@@ -66,7 +66,7 @@ class LaunchScreen : BaseScreen() {
             if (continueFacebook.waitForExists(globalTimeout)) {
                 continueFacebook.click()
             }
-            return HomeScreen()
+            return HomeScreen(true)
         }
 
 

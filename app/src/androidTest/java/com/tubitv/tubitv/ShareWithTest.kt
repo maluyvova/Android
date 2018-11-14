@@ -1,11 +1,6 @@
 package com.tubitv.tubitv
 
-import android.support.test.uiautomator.UiDevice
-import android.support.test.uiautomator.UiSelector
-import com.tubitv.tubitv.Networking.Mockt
-import com.tubitv.tubitv.Screens.FacebookAppScreen
 import com.tubitv.tubitv.Screens.HomeScreen
-import org.junit.Assert
 import org.junit.Test
 
 /**
@@ -16,7 +11,7 @@ class ShareWithTest : LaunchAppWithFacebook() {
 
     @Test
     fun movieShareWithFacebook() {
-        val homePage = HomeScreen()
+        val homePage = HomeScreen(true)
         val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         val shareScreen = movieDatailScreen.clickOnShareButton()

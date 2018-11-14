@@ -21,7 +21,7 @@ class InsuranceBeforeTests:BaseScreen() {
         }
     }
     fun deleteFromQueue(){
-       val homePage=HomeScreen()
+       val homePage=HomeScreen(true)
    //     scrollHomePage.setMaxSearchSwipes(3)
  //      val QuoueOnScreen= scrollHomePage.scrollDescriptionIntoView("Queue")
        if(homePage.getTextOfCategory(0).text.equals("Queue")){

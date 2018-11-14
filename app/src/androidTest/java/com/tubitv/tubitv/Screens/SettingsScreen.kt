@@ -23,7 +23,6 @@ class SettingsScreen : BaseScreen() {
 
     public fun clickOnSignOut(): LaunchScreen {
         signOutButton.click()
-        //areYouSureOk.click()
         return LaunchScreen()
     }
 

@@ -3,7 +3,6 @@ package com.tubitv.tubitv
 import com.tubitv.tubitv.Screens.*
 import org.junit.Assert
 import org.junit.Test
-import java.util.*
 
 /**
  * Created by vburian on 6/5/18.
@@ -12,7 +11,7 @@ class PlayBackTest : LaunchAppWithFacebook() {
 
     @Test
     fun timerForMovie() {
-        val homePage = HomeScreen()
+        val homePage = HomeScreen(true)
         val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         movieDatailScreen.dontSelectHuluTitle()
@@ -33,9 +32,9 @@ class PlayBackTest : LaunchAppWithFacebook() {
     @Test
     fun timerForSerial() {
         val category = "Reality TV"
-        val homePage = HomeScreen()
+        val homePage = HomeScreen(true)
         homePage.ScrollToSpecificCategory(category)
-        val serials = HomeScreen.Serials(category)
+        val serials = Serials(category)
         val moviesByCategoryScreen = serials.clickOnSerialCategory()
         val serialScreen = SerialsScreen()
         serialScreen.selectRundomSerialTitle()

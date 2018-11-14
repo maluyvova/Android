@@ -1,9 +1,8 @@
 package com.tubitv.tubitv
 
 import com.tubitv.tubitv.Screens.HomeScreen
-import com.tubitv.tubitv.Screens.MovieDatailScreen
+import com.tubitv.tubitv.Screens.LaunchScreen
 import com.tubitv.tubitv.Screens.MoviesByCategoryScreen
-import junit.framework.Assert.assertTrue
 import org.hamcrest.CoreMatchers
 import org.junit.Assert
 import org.junit.Test
@@ -17,7 +16,7 @@ class SideCategoryTest : LaunchAppWithFacebook() {
 
     @Test
     fun selectSideCategory() {
-        val homeScreen = HomeScreen()
+        val homeScreen = HomeScreen(true)
         val sideCategory = homeScreen.clickOnSidecategorButton()
         val numberOfCategories = sideCategory.numberOftitles()
         print("Number of categories is $numberOfCategories")
@@ -33,23 +32,29 @@ class SideCategoryTest : LaunchAppWithFacebook() {
 
     @Test
     fun checkIfEmailIsIncluddedInHamburgerMenu() {
-        val homeScreen = HomeScreen()
+        val homeScreen = HomeScreen(true)
+        val titleInHomeScreen =homeScreen.longPress()
+        titleInHomeScreen.clickAddToQueueAfterLongClickWithoutReturn()
         val sideCategory = homeScreen.clickOnSidecategorButton()
         val email = sideCategory.getUserEmail()
         Assert.assertTrue(email.contains("@"))
     }
 
-    @Test
+    //@Test
     fun checkIfWeShowCorrectUserId() {
         LogInTest().SignOut()
-        SignInTest().signInWithCorrectEmailAndPassword()
+        val signInScreen = LaunchScreen().clickOnSignIn()
+        signInScreen.sendTextToEmailField("tubitv@tubitv.tubitv")
+        signInScreen.sendTextToPasswordField("tubitv")
+        signInScreen.clickOnSignInButton(false)
+        uiDevice.pressBack()
         LogInTest().SignOut()
         setUps()
-        val homeScreen = HomeScreen()
+        val homeScreen = HomeScreen(true)
         val sideCategory = homeScreen.clickOnSidecategorButton()
         val userName = sideCategory.getUserName().split(" ").get(0)
         val some = textFromFacebookButton
-        Assert.assertThat(textFromFacebookButton,CoreMatchers.containsString(userName))
+        Assert.assertThat(textFromFacebookButton, CoreMatchers.containsString(userName))
 
     }
 

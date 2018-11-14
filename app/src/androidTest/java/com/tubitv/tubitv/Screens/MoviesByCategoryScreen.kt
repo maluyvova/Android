@@ -6,6 +6,7 @@ import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import junit.framework.Assert
+import junit.framework.Assert.assertTrue
 import java.util.*
 
 /**
@@ -22,7 +23,7 @@ class MoviesByCategoryScreen : BaseScreen() {
 
     init {
 
-        Assert.assertTrue("Expected Category name in TOP is not displayed", categoryName.waitForExists(globalTimeout))
+   assertTrue("Expected Category name in TOP is not displayed", categoryName.waitForExists(globalTimeout))
 
     }
 

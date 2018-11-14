@@ -27,9 +27,9 @@ class SubCategoryScreen : BaseScreen() {
         screen.setAsHorizontalList().scrollToEnd(number)
     }
 
-    fun longClickOnTitle(number:Int):HomeScreen.AddToQueue{
+    fun longClickOnTitle(number:Int):AddToQueue{
         screen.getChildByInstance(title,number).dragTo(screen.getChildByInstance(title,number),3)
-        return HomeScreen.AddToQueue()
+        return AddToQueue(true)
     }
 
     fun countOfMovies(): Int {

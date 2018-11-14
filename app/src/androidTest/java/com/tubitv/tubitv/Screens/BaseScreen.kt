@@ -2,10 +2,7 @@ package com.tubitv.tubitv.Screens
 
 import android.provider.Contacts
 import android.support.test.InstrumentationRegistry
-import android.support.test.uiautomator.UiDevice
-import android.support.test.uiautomator.UiObject
-import android.support.test.uiautomator.UiScrollable
-import android.support.test.uiautomator.UiSelector
+import android.support.test.uiautomator.*
 import android.support.v7.app.AppCompatActivity
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
@@ -16,14 +13,20 @@ import com.tubitv.tubitv.shortWaitTime
  */
 open class BaseScreen {
 
+    val facebookSignIn = appPackage + ":id/prompt_image_background"
+
     protected val uiDevice: UiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
-    public fun findObjectById(id: String, waitFoObject: Boolean): UiObject {
+    protected fun findObjectById(id: String, waitFoObject: Boolean): UiObject {
         val objectt = uiDevice.findObject(UiSelector().resourceId(id))
         if (waitFoObject) {
             objectt.waitForExists(globalTimeout)
         }
         return objectt
+    }
+
+    protected fun getChildCount(parentId:String,childId:String):Int{
+     return   UiCollection(UiSelector().resourceId(parentId)).getChildCount(UiSelector().resourceId(childId))
     }
 
     protected fun findElementByDescription(description: String, waitFoObject: Boolean): UiObject {

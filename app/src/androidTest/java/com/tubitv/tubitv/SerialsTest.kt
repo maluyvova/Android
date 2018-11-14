@@ -2,10 +2,7 @@ package com.tubitv.tubitv
 
 import android.support.test.uiautomator.UiObjectNotFoundException
 import com.tubitv.tubitv.Helpers.TestException
-import com.tubitv.tubitv.Screens.GotIt
-import com.tubitv.tubitv.Screens.HomeScreen
-import com.tubitv.tubitv.Screens.MoviesByCategoryScreen
-import com.tubitv.tubitv.Screens.SerialsScreen
+import com.tubitv.tubitv.Screens.*
 import junit.framework.Assert.assertEquals
 import org.junit.Assert
 import org.junit.Test
@@ -17,7 +14,7 @@ import java.util.*
 class SerialsTest : LaunchAppWithFacebook() {
     val textOfEpisodesForselectSerialWithFewSeasons = mutableListOf<String>()
     val episodesForScrollToTheSide = mutableListOf<String>()
-    val tvCategory = "Reality TV"
+    val tvCategory = "TV Comedies"
     val continueWatching = "Continue Watching"
 
 
@@ -85,12 +82,12 @@ class SerialsTest : LaunchAppWithFacebook() {
     @Test
     fun longClickOnSerial() {
         var mark = true
-        val homePage = HomeScreen()
+        val homePage = HomeScreen(true)
         val sideCategory = homePage.clickOnSidecategorButton()
         sideCategory.scrollToSpecificCategory(tvCategory)
         val title = MoviesByCategoryScreen().gotkRandomTite(Random().nextInt(5))
         title.dragTo(title, 3)
-        val queScreen = HomeScreen.AddToQueue()
+        val queScreen = AddToQueue(true)
         if (!queScreen.clickAddToQueueAfterLongClickWithoutReturn()) {
             title.dragTo(title, 3)
             try {
@@ -102,7 +99,7 @@ class SerialsTest : LaunchAppWithFacebook() {
         }
         uiDevice.pressBack()
         val sideCategory2 = homePage.clickOnSidecategorButton()
-        val subCategoryScreen = sideCategory.scrollToSpecificCategory("Queue")
+        val subCategoryScreen = sideCategory2.scrollToSpecificCategory("Queue")
         val gotit = subCategoryScreen.clickOnTitleForQueue(0)
         val moviedatailScreen = gotit.clickOnGotIt()
         moviedatailScreen.simpleClickOnAddToQueue()
@@ -124,7 +121,7 @@ class SerialsTest : LaunchAppWithFacebook() {
 
     @Test
     fun serialSelectNextEpisode() {
-        val homePage = HomeScreen()
+        val homePage = HomeScreen(true)
         val sideCategory = homePage.clickOnSidecategorButton()
         sideCategory.scrollToSpecificCategory(tvCategory)
         val serialScreen = SerialsScreen()
@@ -136,7 +133,7 @@ class SerialsTest : LaunchAppWithFacebook() {
         Thread.sleep(45000)
         killApp()
         launchApp(appPackage, false)
-        val homePage2 = HomeScreen()
+        val homePage2 = HomeScreen(true)
         val sideCategory2 = homePage2.clickOnSidecategorButton()
         val subCategoryScreen = sideCategory2.scrollToSpecificCategory(continueWatching)
         subCategoryScreen.clickOnTitleForQueueNoGotIt(0)
@@ -150,7 +147,7 @@ class SerialsTest : LaunchAppWithFacebook() {
 
     @Test
     fun selectSeasonOfSerials() {
-        val homePage = HomeScreen()
+        val homePage = HomeScreen(true)
         val sideCategory = homePage.clickOnSidecategorButton()
         val subCategoryScreen = sideCategory.scrollToSpecificCategory(tvCategory)
         selectSerialWithFewSeasons()
@@ -159,9 +156,9 @@ class SerialsTest : LaunchAppWithFacebook() {
 
     @Test
     fun checkIfTheTextInSeasonPickerIsChangedAfterScrollingSerrialsToTheSide() {
-        val homePage = HomeScreen()
+        val homePage = HomeScreen(true)
         homePage.ScrollToSpecificCategory(tvCategory)
-        val serials = HomeScreen.Serials(tvCategory)
+        val serials = Serials(tvCategory)
         val moviesByCategoryScreen = serials.clickOnSerialCategory()
         scrollToTheSide()
         Assert.assertNotEquals(episodesForScrollToTheSide.get(0), episodesForScrollToTheSide.get(1))

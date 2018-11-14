@@ -5,7 +5,6 @@ import android.support.test.uiautomator.UiObject
 import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.Helpers.RandomEmail
 import com.tubitv.tubitv.appPackage
-import com.tubitv.tubitv.globalTimeout
 import com.tubitv.tubitv.moviesListTimeout
 import junit.framework.Assert
 
@@ -99,7 +98,7 @@ class EmailSigUpScreen : BaseScreen() {
 
     fun clickOnRegister(): HomeScreen {
         findObjectById(registerButton, false).click()
-        return HomeScreen()
+        return HomeScreen(true)
     }
 
     fun clickOnRegisterExseption() {

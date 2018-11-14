@@ -13,11 +13,11 @@ class HuluTest : LaunchAppWithFacebook() {
     val textWhatTestIsLookingFor = "Evil Bong 777"
 
 
-    @Test
+   // @Test
     fun huluTitleWithYearsLimitationsErrorMessageValidation() {
         var warningMessage = ""
         var warningMeassageAfterClose = ""
-        val homeScreen = HomeScreen()
+        val homeScreen = HomeScreen(true)
         val searchSreen = homeScreen.clickAndSendTextToSearch(textWhatTestIsLookingFor)
         val gotIt = searchSreen.clickOnTitleByInstatnce(0)
         val titleDatailScreen = gotIt.clickOnGotIt()
@@ -49,7 +49,7 @@ class HuluTest : LaunchAppWithFacebook() {
     //@Test
     fun huluTitleWithYearsLimitations() {
         val huluPlaybackScreen = HuluPlaybackScreen()
-        val homeScreen = HomeScreen()
+        val homeScreen = HomeScreen(true)
         val searchSreen = homeScreen.clickAndSendTextToSearch(textWhatTestIsLookingFor)
         val gotIt = searchSreen.clickOnTitleByInstatnce(0)
         val titleDatailScreen = gotIt.clickOnGotIt()

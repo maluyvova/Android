@@ -20,7 +20,7 @@ class LogInTest : SimpleLaunchApp() {
 
 
     fun SignOut(): LaunchScreen {
-        val homepage = HomeScreen()
+        val homepage = HomeScreen(true)
         val smallWindowWithSetings = homepage.clickOnThreeDotsSetings()
         val settingsScreen = smallWindowWithSetings.clickOnSettings()
         val launchScreen = settingsScreen.clickOnSignOut()

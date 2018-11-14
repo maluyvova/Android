@@ -3,8 +3,6 @@ package com.tubitv.tubitv.Screens
 import android.support.test.uiautomator.UiObjectNotFoundException
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.appPackage
-import com.tubitv.tubitv.globalTimeout
-import junit.framework.Assert
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
 
@@ -32,11 +30,11 @@ class UpdateScreen : BaseScreen() {
 
     fun clickOnMaybeLatter(): HomeScreen {
         if (!isScreenExists) {
-            return HomeScreen()
+            return HomeScreen(true)
         }
         try {
             findObjectById(maybeLater, false).click()
-            return HomeScreen()
+            return HomeScreen(true)
         } catch (e: UiObjectNotFoundException) {
             throw TestException("'Maybe later' button is not found in update screen")
         }

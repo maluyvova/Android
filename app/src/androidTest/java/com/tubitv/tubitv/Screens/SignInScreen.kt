@@ -1,6 +1,5 @@
 package com.tubitv.tubitv.Screens
 
-import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import junit.framework.Assert
@@ -33,9 +32,9 @@ public class SignInScreen : BaseScreen() {
         findObjectById(passwordField,false).setText(text)
     }
 
-    fun clickOnSignInButton(): HomeScreen {
+    fun clickOnSignInButton(checkForObjects: Boolean): HomeScreen {
         findObjectById(signInButton,false).click()
-        return HomeScreen()
+        return HomeScreen(checkForObjects)
     }
 
     fun simpleClickOnSignInButton() {

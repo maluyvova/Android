@@ -2,7 +2,6 @@ package com.tubitv.tubitv
 
 import com.tubitv.tubitv.Screens.*
 import org.junit.Assert
-import org.junit.Test
 
 /**
  * Created by vburian on 5/31/18.
@@ -12,7 +11,7 @@ class CaptionTest : LaunchAppWithFacebook() {
 
     // @Test
     fun turnOnGlobalCaption() {
-        val homepage = HomeScreen()
+        val homepage = HomeScreen(true)
         val smalSettingScreen = homepage.clickOnThreeDotsSetings()
         val settingsScreen = smalSettingScreen.clickOnSettings()
         settingsScreen.clickOnCaption()

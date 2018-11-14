@@ -12,7 +12,7 @@ class SettingTest : LaunchAppWithFacebook() {
 
     @Test
     fun lockInLandscapeMode() {
-        val homePage = HomeScreen()
+        val homePage = HomeScreen(true)
         homePage.scrolDownLittleBit()
         var portraitModeContOfMovies = homePage.getCountOfMovies(1)
         if (portraitModeContOfMovies > 6) {
@@ -24,14 +24,14 @@ class SettingTest : LaunchAppWithFacebook() {
          settingsScreen.clickOnLockInLandscapeMode()
         sleep(1000)
         uiDevice.pressBack()
-        val homeScreen = HomeScreen()
+        val homeScreen = HomeScreen(true)
         val landscapeModeCountOfMovies = homeScreen.getCountOfMovies(1)
         Assert.assertNotEquals("This test rotates device to landscape mode and checking if amount of movies for landscape mode different than portrait mode", portraitModeContOfMovies, landscapeModeCountOfMovies)
     }
 
     @Test
     fun uncheckLandscapeMode() {
-        val homePage = HomeScreen()
+        val homePage = HomeScreen(true)
         var portraitModeContOfMovies = homePage.getCountOfMovies(1)
         if (portraitModeContOfMovies > 6) {
             uiDevice.setOrientationLeft()
@@ -49,7 +49,7 @@ class SettingTest : LaunchAppWithFacebook() {
     @Test
     fun checkLandscapeModeAfterKillingApp() {
         lockInLandscapeMode()
-        val homePage = HomeScreen()
+        val homePage = HomeScreen(true)
         val beforeKill = homePage.getCountOfMovies(0)
         killApp()
         launchApp(appPackage, false)
@@ -64,7 +64,7 @@ class SettingTest : LaunchAppWithFacebook() {
                 "\n" +
                 " Updated weekly; find out more at tubitv.com.\n" +
                 "\n"
-        val homePage = HomeScreen()
+        val homePage = HomeScreen(true)
         val settingMenu = homePage.clickOnThreeDotsSetings()
         val privatePolicyScreen = settingMenu.clickOnAbout()
         val text = privatePolicyScreen.textOfPriVatePolicy

@@ -35,6 +35,8 @@ open class SimpleLaunchApp : BaseTest() {
         getInstrum()
         killApp()
         clearAppData()
+        putInPortraitMode()
+        uiDevice.setOrientationNatural()
         launchApp(appPackage, false)
     }
 }

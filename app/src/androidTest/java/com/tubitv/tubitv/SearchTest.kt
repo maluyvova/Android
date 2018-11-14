@@ -1,7 +1,6 @@
 package com.tubitv.tubitv
 
 import com.tubitv.tubitv.Screens.HomeScreen
-import dalvik.annotation.TestTarget
 import org.junit.Assert
 import org.junit.Test
 
@@ -13,7 +12,7 @@ class SearchTest:LaunchAppWithFacebook() {
   @Test
     fun verifyIfTitleAfterSearchContainText(){
       val textWhatTestIsLookingFor="zombie"
-      val homeScreen=HomeScreen()
+      val homeScreen=HomeScreen(true)
       val searchSreen=homeScreen.clickAndSendTextToSearch(textWhatTestIsLookingFor)
       val gotIt=searchSreen.clickOnTitleByInstatnce(0)
       val titleDatailScreen=gotIt.clickOnGotIt()
@@ -25,7 +24,7 @@ class SearchTest:LaunchAppWithFacebook() {
     @Test
     fun slideTitleOnTheSide(){
         val textWhatTestIsLookingFor="zombie"
-        val homeScreen=HomeScreen()
+        val homeScreen=HomeScreen(true)
         val searchSreen=homeScreen.clickAndSendTextToSearch(textWhatTestIsLookingFor)
         val gotIt=searchSreen.clickOnTitleByInstatnce(0)
         val titleDatailScreen=gotIt.clickOnGotIt()

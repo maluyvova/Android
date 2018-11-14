@@ -37,6 +37,7 @@ open class BaseTest {
     fun putInPortraitMode() {
         executeShellCommand("content insert --uri content://settings/system --bind name:s:accelerometer_rotation --bind value:i:0")
         executeShellCommand("content insert --uri content://settings/system --bind name:s:user_rotation --bind value:i:0")
+        uiDevice.setOrientationNatural()
 
     }
 

@@ -4,9 +4,7 @@ import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Screens.GotIt
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.MovieDatailScreen
-import com.tubitv.tubitv.Screens.MoviesByCategoryScreen
 import junit.framework.Assert.assertEquals
-import org.junit.Assert
 import org.junit.Test
 import java.util.*
 
@@ -20,7 +18,7 @@ class SubCategoryTests : LaunchAppWithFacebook() {
     fun addToQueueSubCategory() {
         var mark = true
         val category = "Queue"
-        val homeScreen = HomeScreen()
+        val homeScreen = HomeScreen(true)
         val sideCategoryScreen = homeScreen.clickOnSidecategorButton()
         val subCategoryScreen = sideCategoryScreen.scrollToSpecificCategory("Special Interest")
         val randomNumber = Random().nextInt(subCategoryScreen.countOfMovies())
