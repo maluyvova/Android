@@ -3,7 +3,9 @@ package com.tubitv.tubitv
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.LaunchScreen
 import com.tubitv.tubitv.Screens.MoviesByCategoryScreen
+import junit.framework.Assert.assertEquals
 import org.hamcrest.CoreMatchers
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert
 import org.junit.Test
 import java.util.*
@@ -27,7 +29,7 @@ class SideCategoryTest : LaunchAppWithFacebook() {
         val randomCategory = sideCategory.selectRandomcategory(randomNumber)
         val movieDatailScreen = MoviesByCategoryScreen()
         val textOfCategory = movieDatailScreen.categoryText
-        Assert.assertEquals("This text select random category from the categoryList and checking if text from the list equals to Text in category Screen", textOfRandomCategory.toLowerCase(), textOfCategory.toLowerCase())
+        assertEquals("This text select random category from the categoryList and checking if text from the list equals to Text in category Screen", textOfRandomCategory.toLowerCase(), textOfCategory.toLowerCase())
     }
 
     @Test
@@ -54,7 +56,7 @@ class SideCategoryTest : LaunchAppWithFacebook() {
         val sideCategory = homeScreen.clickOnSidecategorButton()
         val userName = sideCategory.getUserName().split(" ").get(0)
         val some = textFromFacebookButton
-        Assert.assertThat(textFromFacebookButton, CoreMatchers.containsString(userName))
+        assertThat(textFromFacebookButton, CoreMatchers.containsString(userName))
 
     }
 

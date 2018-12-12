@@ -8,6 +8,7 @@ import org.junit.Test
  * Created by vburian on 6/5/18.
  */
 class PlayBackTest : LaunchAppWithFacebook() {
+    val tvCategory = "TV Comedies"
 
     @Test
     fun timerForMovie() {
@@ -54,6 +55,58 @@ class PlayBackTest : LaunchAppWithFacebook() {
         Assert.assertNotEquals(beforeScrolling, afterScrolling)
     }
 
+    @Test
+    fun scrollForwardBackForMovies() {
+        val homeScreen = HomeScreen(true)
+        val textOfCategory = homeScreen.getTextOfCategory(0).text
+        val textOfTitle = homeScreen.getText(textOfCategory)
+        val gotItScreen = homeScreen.clickOnTitle(0)
+        val movieDatailScreen = gotItScreen.clickOnGotIt()
+        var playBackScreen = movieDatailScreen.clickOnPlay()
+        playBackScreen.waitUntilAdsfinishes()
+        playBackScreen.seekMiddleOfPlayback()
+        Thread.sleep(2000)
+        playBackScreen.seekToTheBegining()
+        Thread.sleep(2000)
+        playBackScreen.seekToTheEnd()
+        Thread.sleep(2000)
+        playBackScreen.seekMiddleOfPlayback()
+        BaseScreen().navigateBackToHomeScreen()
+        homeScreen.clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .longClickOnTitle(textOfTitle)
+                .clickRemoveFromHistory()
+    }
 
+    @Test
+    fun scrollForwardBackForSerial() {
+        val homeScreen = HomeScreen(true)
+        val movieDatailScreen = HomeScreen(true)
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(tvCategory)
+                .clickOnTitleForQueue(0)
+                .clickOnGotIt()
+        val textOfTitle = movieDatailScreen.titleDatailScreen
+        var playBackScreen = movieDatailScreen.clickOnPlay()
+        playBackScreen.waitUntilAdsfinishes()
+        playBackScreen.seekMiddleOfPlayback()
+        Thread.sleep(2000)
+        playBackScreen.seekToTheBegining()
+        Thread.sleep(2000)
+        playBackScreen.seekToTheEnd()
+        Thread.sleep(2000)
+        playBackScreen.seekMiddleOfPlayback()
+        Thread.sleep(6000)
+        playBackScreen.seekToTheEnd()
+        Thread.sleep(6000)
+        playBackScreen.seekToTheBegining()
+        Thread.sleep(6000)
+        playBackScreen.seekMiddleOfPlayback()
+        BaseScreen().navigateBackToHomeScreen()
+        homeScreen.clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .longClickOnTitle(textOfTitle)
+                .clickRemoveFromHistory()
+    }
 
 }

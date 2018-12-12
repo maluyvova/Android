@@ -12,6 +12,7 @@ import com.tubitv.tubitv.Screens.HomeScreen
  * Created by vburian on 4/3/18.
  */
 open class LaunchAppWithFacebook : BaseTest() {
+    val deviceName =getDeviceNameBasedOnId(getDeviceId())
     var textFromFacebookButton = ""
     private val updateAppButton = appPackage + ":id/update_button"
     @Before
@@ -30,20 +31,4 @@ open class LaunchAppWithFacebook : BaseTest() {
         InsuranceBeforeTests().deleteFromQueue()
     }
 
-}
-
-
-class ID {
-
-    fun getId() {
-        val interfacesList = Collections.list(NetworkInterface.getNetworkInterfaces());
-
-        for (interfaces: NetworkInterface in interfacesList) {
-            // This will give you the interface MAC ADDRESS
-            val sm = interfaces.getHardwareAddress();
-        }
-
-
-        // val deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-    }
 }

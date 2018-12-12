@@ -24,7 +24,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:26.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
@@ -44,6 +44,7 @@ dependencies {
 def autPackageName = "com.tubitv.debug"
 import com.android.ddmlib.AndroidDebugBridge
 import com.android.ddmlib.IDevice
+
 // From https://android.googlesource.com/platform/tools/build/+/925c0b5cf8730105dd5aa8c851141d5688d07789/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/TestFlavorTask.groovy
 private IDevice[] waitConnectedDevices() {
     AndroidDebugBridge.initIfNeeded(false /*clientSupport*/)
@@ -65,11 +66,15 @@ private IDevice[] waitConnectedDevices() {
     devices
 }
 
+task giveParam {
+    "word1"
+}
+
 task installAut {
     doLast {
         IDevice[] devices = waitConnectedDevices()
         devices.each { device ->
-           // file('./app/build/outputs/apk/staging/release').traverse(maxDepth: 0) { apk ->
+            // file('./app/build/outputs/apk/staging/release').traverse(maxDepth: 0) { apk ->
             file('./').traverse(maxDepth: 0) { apk ->
                 if (apk.absolutePath.toLowerCase().endsWith('.apk')) {
                     println String.format(
@@ -102,6 +107,8 @@ task uninstallAut {
 afterEvaluate {
     installDebug.dependsOn installAut
     uninstallDebug.dependsOn uninstallAut
+
+
 }
 
 // Execute `./gradlew --stop` to fix "com.shazam.fork.pooling.NoDevicesForPoolException: No devices found." error
@@ -111,7 +118,7 @@ fork {
     fallbackToScreenshots = true
     totalAllowedRetryQuota = 2
     retryPerTestCaseQuota = 1
-    testOutputTimeout=600000
+    testOutputTimeout = 650000
     poolingStrategy {
         computed {
             characteristic = "sw"

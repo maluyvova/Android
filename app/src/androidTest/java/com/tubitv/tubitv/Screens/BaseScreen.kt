@@ -4,6 +4,8 @@ import android.provider.Contacts
 import android.support.test.InstrumentationRegistry
 import android.support.test.uiautomator.*
 import android.support.v7.app.AppCompatActivity
+import com.tubitv.tubitv.BaseTest
+import com.tubitv.tubitv.Helpers.TextExceptionWithError
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import com.tubitv.tubitv.shortWaitTime
@@ -13,7 +15,8 @@ import com.tubitv.tubitv.shortWaitTime
  */
 open class BaseScreen {
 
-    val facebookSignIn = appPackage + ":id/prompt_image_background"
+    protected val facebookSignIn = appPackage + ":id/prompt_image_background"
+    private val homeScreen = appPackage + ":id/fragment_home_list_category_recycler"
 
     protected val uiDevice: UiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
@@ -25,8 +28,8 @@ open class BaseScreen {
         return objectt
     }
 
-    protected fun getChildCount(parentId:String,childId:String):Int{
-     return   UiCollection(UiSelector().resourceId(parentId)).getChildCount(UiSelector().resourceId(childId))
+    protected fun getChildCount(parentId: String, childId: String): Int {
+        return UiCollection(UiSelector().resourceId(parentId)).getChildCount(UiSelector().resourceId(childId))
     }
 
     protected fun findElementByDescription(description: String, waitFoObject: Boolean): UiObject {
@@ -50,12 +53,20 @@ open class BaseScreen {
 
     }
 
-    protected fun findObjectByClass(classs: String,waitFoObject: Boolean):UiObject {
-    val objectt=uiDevice.findObject(UiSelector().className(classs))
-        if (waitFoObject){
+    protected fun findObjectByClass(classs: String, waitFoObject: Boolean): UiObject {
+        val objectt = uiDevice.findObject(UiSelector().className(classs))
+        if (waitFoObject) {
             objectt.waitForExists(globalTimeout)
         }
         return objectt
+    }
+
+    protected fun findByContentDesc(description: String, waitFoObject: Boolean): UiObject {
+        val obbject = uiDevice.findObject(UiSelector().description(description))
+        if (waitFoObject) {
+            obbject.waitForExists(globalTimeout)
+        }
+        return obbject
     }
 
     protected fun findElementById(id: String, waitFoObject: Boolean): UiObject {
@@ -142,6 +153,25 @@ open class BaseScreen {
             objects.waitForExists(globalTimeout)
         }
         return objects
+    }
+
+    protected fun waitForObjectShortTime(id: String): Boolean {
+        var bool = false
+        try {
+            bool = uiDevice.findObject(UiSelector().resourceId(id)).waitForExists(shortWaitTime)
+        } catch (e: UiObjectNotFoundException) {
+            throw TextExceptionWithError("Can't find object for waiting", e)
+        }
+        return bool
+    }
+
+    fun navigateBackToHomeScreen(): HomeScreen {
+        var i = 0
+        while (!waitForObjectShortTime(homeScreen) && i < 7) {
+            uiDevice.pressBack()
+            i++
+        }
+        return HomeScreen(true)
     }
 
 

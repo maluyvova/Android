@@ -1,13 +1,13 @@
 package com.tubitv.tubitv
 
 import android.support.test.uiautomator.*
+import com.tubitv.tubitv.Enomus.TypeOfContent
 import com.tubitv.tubitv.Helpers.TestException
+import com.tubitv.tubitv.Screens.*
+import junit.framework.Assert.*
 import org.junit.Test
-import com.tubitv.tubitv.Screens.HomeScreen
-import com.tubitv.tubitv.Screens.MovieDatailScreen
-import com.tubitv.tubitv.Screens.MoviesByCategoryScreen
 import org.junit.Assert
-import junit.framework.Assert.assertEquals
+import java.util.*
 
 /**
  * Created by vburian on 2/20/18.
@@ -15,7 +15,9 @@ import junit.framework.Assert.assertEquals
 
 class MoviesTest : LaunchAppWithFacebook() {
 
-
+    private val category = "Horror"
+    private val nameOfMovie = LinkedList<String>()
+    private var selectFirstTime = true
     @Test
     fun selectTitleFromMostPopular() {
         val homePage = HomeScreen(true) //at this moment it's checking if test in coorect screen
@@ -224,26 +226,351 @@ class MoviesTest : LaunchAppWithFacebook() {
 
     }
 
-    // @Test
-    fun startPlaybackAndCheckingIfTitleInHistoryd() {
+    @Test
+    fun selectPlaybackNavigateBackToHome5TimesSerials() {
+        var firsTime = true
+        fun selectMovie() {
+            val homePage = HomeScreen(true)
+            val sideCategoryScreen = homePage.clickOnSidecategorButton()
+            val subcategory = sideCategoryScreen.scrollToSpecificCategory(category)
+            subcategory.clickOnTitle(0)
+            if (firsTime) {
+                GotIt().clickOnGotIt()
+            }
+            val playBack = MovieDatailScreen().clickOnPlay()
+            playBack.waitUntilAdsfinishes()
+            BaseScreen().navigateBackToHomeScreen()
+            firsTime = false
+        }
+        selectMovie()
+        selectMovie()
+        selectMovie()
+        selectMovie()
+        selectMovie()
+        val homeScreen = HomeScreen(true)
+        homeScreen.clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .longClickOnTitle(0)
+                .clickRemoveFromHistory()
+
+    }
+
+    fun seekToMiddle(numberOfTitle: Int) {
+
         val homePage = HomeScreen(true)
-        val gotItScreen = homePage.clickOnTitle(0)
+        homePage.clickOnSidecategorButton()
+                .scrollToSpecificCategory(category)
+                .clickOnTitle(numberOfTitle)
+        if (selectFirstTime) {
+            GotIt().clickOnGotIt()
+        }
+        selectFirstTime = false
+        val movieDatailScreen = MovieDatailScreen()
+        movieDatailScreen.dontSelectHuluTitle()
+        nameOfMovie.add(movieDatailScreen.titleDatailScreen)
+        var playBackScreen = movieDatailScreen.clickOnPlay()
+        playBackScreen.seekMiddleOfPlayback()
+    }
+
+
+    @Test
+    fun startPlaybackAndCheckingIfTitleAddedToHistoryForGuest() {
+        seekToMiddle(0)
+        BaseScreen().navigateBackToHomeScreen()
+        HomeScreen(true).clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .longClickOnTitle(nameOfMovie.get(0))
+                .clickRemoveFromHistory()
+    }
+
+    @Test
+    fun checkIfTitleStillInContinueWatchingAfterKillingAppForGuest() {
+        seekToMiddle(0)
+        killApp()
+        launchApp(appPackage, false)
+        HomeScreen(true).clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .longClickOnTitle(nameOfMovie.get(0))
+                .clickRemoveFromHistory()
+    }
+
+    @Test
+    fun add5MoviesTitlesToHistoryForGuest() {
+        seekToMiddle(1)
+        BaseScreen().navigateBackToHomeScreen()
+        seekToMiddle(3)
+        BaseScreen().navigateBackToHomeScreen()
+        seekToMiddle(5)
+        BaseScreen().navigateBackToHomeScreen()
+        seekToMiddle(7)
+        BaseScreen().navigateBackToHomeScreen()
+        seekToMiddle(9)
+        BaseScreen().navigateBackToHomeScreen()
+        val subCategory = HomeScreen(true)
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+        subCategory.longClickOnTitle(nameOfMovie.get(0))
+                .clickRemoveFromHistory()
+        subCategory.longClickOnTitle(nameOfMovie.get(1))
+                .clickRemoveFromHistory()
+        subCategory.longClickOnTitle(nameOfMovie.get(2))
+                .clickRemoveFromHistory()
+        subCategory.longClickOnTitle(nameOfMovie.get(3))
+                .clickRemoveFromHistory()
+        subCategory.longClickOnTitle(nameOfMovie.get(4))
+                .clickRemoveFromHistory()
+
+    }
+
+    @Test
+    fun startPlaybackAndCheckingIfTitleAddedToHistoryForRegisterUser() {
+        val homeScreen = HomeScreen(true)
+        homeScreen.longPress()
+                .clickAddToQueueAfterLongClickWithoutReturn()
+        seekToMiddle(0)
+        BaseScreen().navigateBackToHomeScreen()
+        HomeScreen(true).clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .longClickOnTitle(nameOfMovie.get(0))
+                .clickRemoveFromHistory()
+    }
+
+    @Test
+    fun checkIfTitleStillInContinueWatchingAfterKillingAppForRegisterUser() {
+        val homeScreen = HomeScreen(true)
+        homeScreen.longPress()
+                .clickAddToQueueAfterLongClickWithoutReturn()
+        seekToMiddle(0)
+        killApp()
+        launchApp(appPackage, false)
+        HomeScreen(true).clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .longClickOnTitle(nameOfMovie.get(0))
+                .clickRemoveFromHistory()
+    }
+
+    @Test
+    fun add5MoviesTitlesToHistoryForRegisterUser() {
+        val homeScreen = HomeScreen(true)
+        homeScreen.longPress()
+                .clickAddToQueueAfterLongClickWithoutReturn()
+        seekToMiddle(1)
+        BaseScreen().navigateBackToHomeScreen()
+        seekToMiddle(3)
+        BaseScreen().navigateBackToHomeScreen()
+        seekToMiddle(5)
+        BaseScreen().navigateBackToHomeScreen()
+        seekToMiddle(7)
+        BaseScreen().navigateBackToHomeScreen()
+        seekToMiddle(9)
+        BaseScreen().navigateBackToHomeScreen()
+        val subCategory = HomeScreen(true)
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+        subCategory.longClickOnTitle(nameOfMovie.get(0))
+                .clickRemoveFromHistory()
+        subCategory.longClickOnTitle(nameOfMovie.get(1))
+                .clickRemoveFromHistory()
+        subCategory.longClickOnTitle(nameOfMovie.get(2))
+                .clickRemoveFromHistory()
+        subCategory.longClickOnTitle(nameOfMovie.get(3))
+                .clickRemoveFromHistory()
+        subCategory.longClickOnTitle(nameOfMovie.get(4))
+                .clickRemoveFromHistory()
+    }
+
+    @Test
+    fun playTillFirstQueuePointScrollToAutoplayVerifyIfTitleStartsFromBeginningForGuest() {
+        val homeScreen = HomeScreen(true)
+        val searchSreen = homeScreen.clickAndSendTextToSearch("Oldboy")
+        val gotIt = searchSreen.clickOnTitleByInstatnce(0)
+        val titleDatailScreen = gotIt.clickOnGotIt()
+        val playBackScreen = titleDatailScreen.clickOnPlay()
+        playBackScreen.waitUntilAdsfinishes()
+        Thread.sleep(550000)
+        val autoPlay = playBackScreen.seekToAutoPlay(TypeOfContent.MOVIES)
+        autoPlay.playTitleFromAutoplay()
+        playBackScreen.waitUntilAdsfinishes()
+        val timer = playBackScreen.textOfLeftTimer()
+        BaseScreen().navigateBackToHomeScreen()
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .removeAllTitles()
+
+
+        assertTrue("This test was playing title till first queue point then scroll to autoplay and then select title from autoplay, Title from autoplay starts not from beginning", timer.substring(0, 2).equals("00"))
+    }
+
+    @Test
+    fun playTillFirstQueuePointScrollToAutoplayVerifyIfTitleStartsFromBeginningForRegisterUser() {
+        val homeScreen = HomeScreen(true)
+        homeScreen.longPress()
+                .clickAddToQueueAfterLongClickWithoutReturn()
+        val searchSreen = homeScreen.clickAndSendTextToSearch("Oldboy")
+        val gotIt = searchSreen.clickOnTitleByInstatnce(0)
+        val titleDatailScreen = gotIt.clickOnGotIt()
+        val playBackScreen = titleDatailScreen.clickOnPlay()
+        playBackScreen.waitUntilAdsfinishes()
+        Thread.sleep(550000)
+        val autoPlay = playBackScreen.seekToAutoPlay(TypeOfContent.MOVIES)
+        autoPlay.playTitleFromAutoplay()
+        playBackScreen.waitUntilAdsfinishes()
+        val timer = playBackScreen.textOfLeftTimer()
+        BaseScreen().navigateBackToHomeScreen()
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .removeAllTitles()
+
+
+        assertTrue("This test was playing title till first queue point then scroll to autoplay and then select title from autoplay, Title from autoplay starts not from beginning", timer.substring(0, 2).equals("00"))
+    }
+
+    @Test
+    fun checkIfTitleRemovedFromContinueWatchingAfterAutoplayForGuest() {
+        var titleStillInContinueWatching = true
+        val homeScreen = HomeScreen(true)
+        val textOfCategory = homeScreen.getTextOfCategory(0).text
+        val textOfTitle = homeScreen.getText(textOfCategory)
+        val gotItScreen = homeScreen.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         var playBackScreen = movieDatailScreen.clickOnPlay()
-
-        Thread.sleep(4000)
-        uiDevice.pressEnter()
-        uiDevice.click(50, 40)
-        uiDevice.click(50, 40)
-        uiDevice.click(300, 400)
-        uiDevice.click(50, 40)
-        uiDevice.click(50, 40)
-        uiDevice.click(50, 40)
-        //Thread.sleep(4000)
-        uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_subtitles_ib")).click()
-        // uiDevice.findObject(UiSelector().resourceId(appPackage+":id/view_tubi_controller_loading")).click()
-        //UiObject2()
-        // Assert.assertEquals("First Category should be 'Most popular' because test should delete title form 'Continue watching' with long press", firstCategor.toLowerCase(), "most popular")
+        playBackScreen.waitUntilAdsfinishes()
+        playBackScreen.seekMiddleOfPlayback()
+        uiDevice.pressBack()
+        movieDatailScreen.clickOnPlay()
+                .seekToAutoPlay(TypeOfContent.MOVIES)
+                .playTitleFromAutoplay()
+        val subcategoryScreen = BaseScreen().navigateBackToHomeScreen()
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+        try {
+            subcategoryScreen.longClickOnTitle(textOfTitle)
+                    .clickRemoveFromHistory()
+        } catch (e: TestException) {
+            BaseScreen().navigateBackToHomeScreen()
+                    .clickOnSidecategorButton()
+                    .scrollToSpecificCategory(continueWatching)
+                    .removeAllTitles()
+            titleStillInContinueWatching = false
+        }
+        assertFalse("Title: $textOfTitle still stays in 'ContinueWatching' after autoplay pop-ups for this title, which means title should be removed from 'Continue Watching' after autoplay", titleStillInContinueWatching)
     }
+
+    @Test
+    fun checkIfTitleRemovedFromContinueWatchingAfterAutoplayForRegisterUser() {
+        var titleStillInContinueWatching = true
+        val homeScreen = HomeScreen(true)
+        homeScreen.longPress()
+                .clickAddToQueueAfterLongClickWithoutReturn()
+        val textOfCategory = homeScreen.getTextOfCategory(0).text
+        val textOfTitle = homeScreen.getText(textOfCategory)
+        Thread.sleep(2000)
+        val gotItScreen = homeScreen.clickOnTitle(0)
+        val movieDatailScreen = gotItScreen.clickOnGotIt()
+        var playBackScreen = movieDatailScreen.clickOnPlay()
+        playBackScreen.waitUntilAdsfinishes()
+        playBackScreen.seekMiddleOfPlayback()
+        uiDevice.pressBack()
+        movieDatailScreen.clickOnPlay()
+                .seekToAutoPlay(TypeOfContent.MOVIES)
+                .playTitleFromAutoplay()
+        val subcategoryScreen = BaseScreen().navigateBackToHomeScreen()
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+        try {
+            subcategoryScreen.longClickOnTitle(textOfTitle)
+                    .clickRemoveFromHistory()
+        } catch (e: TestException) {
+            BaseScreen().navigateBackToHomeScreen()
+                    .clickOnSidecategorButton()
+                    .scrollToSpecificCategory(continueWatching)
+                    .removeAllTitles()
+            titleStillInContinueWatching = false
+        }
+        assertFalse("Title: $textOfTitle still stays in 'ContinueWatching' after autoplay pop-ups for this title, which means title should be removed from 'Continue Watching' after autoplay", titleStillInContinueWatching)
+    }
+
+    @Test
+    fun playTitleNavigateBack5TimesForGuest() {
+
+        val homeScreen = HomeScreen(true)
+        val gotItScreen = homeScreen.clickOnTitle(0)
+        val movieDatailScreen = gotItScreen.clickOnGotIt()
+        var playBackScreen = movieDatailScreen.clickOnPlay()
+        for (i in 1..5) {
+            uiDevice.pressBack()
+            movieDatailScreen.clickOnPlay()
+                    .waitUntilAdsfinishes()
+        }
+        BaseScreen().navigateBackToHomeScreen()
+        homeScreen.clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .removeAllTitles()
+    }
+
+    @Test
+    fun playTitleNavigateBack5TimesForRegisterUser() {
+        val homeScreen = HomeScreen(true)
+        homeScreen.longPress()
+                .clickAddToQueueAfterLongClickWithoutReturn()
+        Thread.sleep(2000)
+        playTitleNavigateBack5TimesForGuest()
+    }
+
+    @Test
+    fun clickOnPauseAndBackButton() {
+        val homePage = HomeScreen(true)
+        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+                .scrollToSpecificCategory(category)
+                .clickOnTitleForQueue(0)
+                .clickOnGotIt()
+                .clickOnPlay()
+                .waitUntilAdsfinishes()
+                .seekMiddleOfPlayback()
+                .clickPlay()
+                .clickOnNativeBackForMovie()
+        BaseScreen().navigateBackToHomeScreen()
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .removeAllTitles()
+    }
+
+    @Test
+    fun clickOnBackButtonWhileMovieIsPlaying() {
+        val homePage = HomeScreen(true)
+        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+                .scrollToSpecificCategory(category)
+                .clickOnTitleForQueue(0)
+                .clickOnGotIt()
+                .clickOnPlay()
+                .waitUntilAdsfinishes()
+                .seekMiddleOfPlayback()
+                .clickOnNativeBackForMovie()
+        BaseScreen().navigateBackToHomeScreen()
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .removeAllTitles()
+    }
+
+    @Test
+    fun clickOnBackButtonWhileMovieIsPlayingAndThenSelectMovieAgain() {
+        val homePage = HomeScreen(true)
+        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+                .scrollToSpecificCategory(category)
+                .clickOnTitleForQueue(0)
+                .clickOnGotIt()
+                .clickOnPlay()
+                .waitUntilAdsfinishes()
+                .seekMiddleOfPlayback()
+                .clickOnNativeBackForMovie()
+                .clickOnPlay()
+                .seekToTheEnd()
+                .clickOnNativeBackForMovie()
+        BaseScreen().navigateBackToHomeScreen()
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .removeAllTitles()
+    }
+
 
 }

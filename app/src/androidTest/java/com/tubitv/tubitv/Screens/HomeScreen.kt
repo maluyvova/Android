@@ -1,16 +1,13 @@
 package com.tubitv.tubitv.Screens
 
 import android.support.test.uiautomator.*
-import com.tubitv.tubitv.appPackage
-import com.tubitv.tubitv.globalTimeout
-import com.tubitv.tubitv.moviesListTimeout
 import junit.framework.Assert
 
 import java.util.*
 import android.support.test.uiautomator.UiSelector
+import com.tubitv.tubitv.*
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Helpers.TextExceptionWithError
-import com.tubitv.tubitv.mediumWaitTime
 import junit.framework.Assert.assertTrue
 
 
@@ -30,7 +27,7 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
     private val featuredContainer = appPackage + ":id/bannerContainer"
     private val featuredTitlesText = appPackage + ":id/banner_title"
     private val counterOfTitlesInFeaturedContainer = appPackage + ":id/numIndicator"
-    private val sideCategoryMenu = "android.widget.ImageButton"
+    private val sideCategoryMenu = "Open navigation drawer"
     private val treeDotsSetingsButton = "More options"
     private val containerOfTitlesSmaller = UiSelector().resourceId(appPackage + ":id/view_content_recycler")
     private val textOfTitleInContnueWatching = appPackage + ":id/view_home_content_continue_title_tv"
@@ -55,7 +52,7 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
                 assertTrue("Expected titles is not displayed on HomeScreen", getTitleFromGrid().waitForExists(moviesListTimeout))
                 assertTrue("SearchField is not displayed on HomeScreen", findElementByDescription(searchButton, false).waitForExists(globalTimeout))
                 assertTrue("Settings button is not displayed on HomeScreen", findElementByDescription(treeDotsSetingsButton, false).waitForExists(globalTimeout))
-                assertTrue("Side category button is not displayed on HomeScreen", findObjectByClass(sideCategoryMenu, false).waitForExists(globalTimeout))
+                assertTrue("Side category button is not displayed on HomeScreen", findByContentDesc(sideCategoryMenu, false).waitForExists(globalTimeout))
             }
         }
     }
@@ -230,7 +227,7 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
 
 
     fun clickOnSidecategorButton(): SideCategoryMenuScreen {
-        findObjectByClass(sideCategoryMenu, false).click()
+        findByContentDesc(sideCategoryMenu, false).click()
         return SideCategoryMenuScreen()
     }
 
@@ -261,8 +258,8 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
 
     fun dismissCasting() {
         getTitleFromGrid().dragTo(getTitleFromGrid(), 10)
-        if (smallWindowForLongPress.exists()) {
-            uiDevice
+        if (smallWindowForLongPress.waitForExists(shortWaitTime)) {
+            uiDevice.pressBack()
         }
     }
 }
@@ -437,9 +434,9 @@ class SettingSmallWindowInRightCorner() : BaseScreen() {
         return PrivatePolicyScreen()
     }
 
-    fun clickOnHelpCenter(): SettingsScreen {
+    fun clickOnHelpCenter(): HelpCenterWebView {
         boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter, 2).click()
-        return SettingsScreen()
+        return HelpCenterWebView()
     }
 }
 

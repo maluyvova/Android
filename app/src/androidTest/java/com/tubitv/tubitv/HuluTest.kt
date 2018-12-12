@@ -1,8 +1,10 @@
 package com.tubitv.tubitv
 
 import com.tubitv.tubitv.Helpers.TestException
+import com.tubitv.tubitv.Screens.BaseScreen
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.HuluPlaybackScreen
+import junit.framework.Assert.assertEquals
 import org.junit.Assert
 import org.junit.Test
 
@@ -13,7 +15,7 @@ class HuluTest : LaunchAppWithFacebook() {
     val textWhatTestIsLookingFor = "Evil Bong 777"
 
 
-   // @Test
+    // @Test
     fun huluTitleWithYearsLimitationsErrorMessageValidation() {
         var warningMessage = ""
         var warningMeassageAfterClose = ""
@@ -71,6 +73,28 @@ class HuluTest : LaunchAppWithFacebook() {
         }
         Assert.assertTrue(huluPlaybackScreen.verifyIfPlaybackOpenened())
     }
+
+    @Test
+    fun huluTitleAddedToHistory() {
+        val homeScreen = HomeScreen(true)
+        val searchSreen = homeScreen.clickAndSendTextToSearch("Pokemon the Movie")
+        val gotIt = searchSreen.clickOnTitleByInstatnce(0)
+        val titleDatailScreen = gotIt.clickOnGotIt()
+        val titleFromSerch = titleDatailScreen.titleDatailScreen
+        val playBackScreen = titleDatailScreen.clickOnPlay()
+        Thread.sleep(80000)
+        BaseScreen().navigateBackToHomeScreen()
+        val subCategory = homeScreen.clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+        val titleFromContinueWatching = subCategory.clickOnTitle(titleFromSerch)
+                .titleDatailScreen
+        uiDevice.pressBack()
+        subCategory.longClickOnTitle(titleFromContinueWatching)
+                .clickRemoveFromHistory()
+
+        assertEquals("Hulu title is not added to continueWatching after watching ", titleFromSerch, titleFromContinueWatching)
+    }
+
 
 }
 

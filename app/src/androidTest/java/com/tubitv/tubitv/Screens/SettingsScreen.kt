@@ -17,7 +17,7 @@ class SettingsScreen : BaseScreen() {
     init {
         Assert.assertTrue("Expected Sign out Button is not displayed in settings", signOutButton.waitForExists(moviesListTimeout))
         Assert.assertTrue("Expected caption Switcher is not displayed in settings", captionsSwitcher.waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected portrait Switcher is not displayed in settings", captionsSwitcher.waitForExists(moviesListTimeout))
+       // Assert.assertTrue("Expected portrait Switcher is not displayed in settings", captionsSwitcher.waitForExists(moviesListTimeout))
 
     }
 

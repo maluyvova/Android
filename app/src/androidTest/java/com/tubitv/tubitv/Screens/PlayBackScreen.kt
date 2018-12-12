@@ -2,6 +2,7 @@ package com.tubitv.tubitv.Screens
 
 import android.support.test.uiautomator.*
 import com.tubitv.tubitv.*
+import com.tubitv.tubitv.Enomus.TypeOfContent
 import com.tubitv.tubitv.Helpers.TestException
 import junit.framework.Assert
 
@@ -14,12 +15,13 @@ class PlayBackScreen : BaseScreen() {
     private var titleText = appPackage + ":id/view_tubi_controller_title"
     private var scrollControlSeek = UiScrollable(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_seek_bar"))
     private var rightTimer = appPackage + ":id/view_tubi_controller_remaining_time"
-    private var leftTimer = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_tubi_controller_elapsed_time"))
+    private var leftTimer = appPackage + ":id/view_tubi_controller_elapsed_time"
     private var fifteenMinForwardButton = appPackage + ":id/view_tubi_controller_forward_ib"
     private var fifteenMinBackButton = appPackage + ":id/view_tubi_controller_rewind_ib"
     private val autoplay = appPackage + ":id/play_next_container"
+    private val backButton = appPackage + ":id/back_button"
 
-    public fun textOfRightTimer(): String {
+    fun textOfRightTimer(): String {
         var time = ""
         try {
             time = findElementById(rightTimer, false).text
@@ -30,18 +32,29 @@ class PlayBackScreen : BaseScreen() {
         return time
     }
 
-    public fun wakeUpScreen() {
+    fun textOfLeftTimer(): String {
+        var time = ""
+        try {
+            time = findElementById(leftTimer, false).text
+        } catch (e: UiObjectNotFoundException) {
+            wakeUpScreen()
+            time = findElementById(leftTimer, false).text
+        }
+        return time
+    }
+
+    fun wakeUpScreen() {
         uiDevice.swipe(385, 317, 1500, 483, 2)
     }
 
-    public fun scrollSeekBar() {
+    fun scrollSeekBar() {
         scrollControlSeek.setAsHorizontalList().scrollToEnd(1)
     }
 
-    public fun seekToAutoPlay(movieOrSerial: String): AutoPlay {
+    fun seekToAutoPlay(typeOfContent: TypeOfContent): AutoPlay {
         var substring = 0;
         var timeTilliSeek = 0
-        if (movieOrSerial.equals("Serial")) {
+        if (typeOfContent.equals(TypeOfContent.SERIALS)) {
             substring = 5
             timeTilliSeek = 15
         } else {
@@ -96,11 +109,49 @@ class PlayBackScreen : BaseScreen() {
             time = textOfRightTimer()
             k++
         }
-        if (movieOrSerial.equals("Serial")) {
+        if (typeOfContent.equals(TypeOfContent.SERIALS)) {
             findObjectById(fifteenMinForwardButton, false).click()
             findObjectById(fifteenMinForwardButton, false).click()
         }
         return AutoPlay()
+    }
+
+    fun seekMiddleOfPlayback(): PlayBackScreen {
+        textOfRightTimer()
+        scrollControlSeek.dragTo(findObjectById(playButton, false), 0)
+        return this
+    }
+
+    fun seekToTheEnd(): PlayBackScreen {
+        try {
+            textOfRightTimer()
+            scrollControlSeek.dragTo(findObjectById(rightTimer, false), 0)
+        } catch (e: UiObjectNotFoundException) {
+            TestException("Can't find play back elements")
+        }
+        return this
+    }
+
+    fun clickOnNativeBackForMovie():MovieDatailScreen{
+        textOfRightTimer()
+        findObjectById(backButton,true).click()
+        return MovieDatailScreen()
+    }
+
+    fun clickOnNativeBackForSerial():SerialsScreen{
+        textOfRightTimer()
+        findObjectById(backButton,true).click()
+        return SerialsScreen()
+    }
+
+    fun seekToTheBegining(): PlayBackScreen {
+        try {
+            textOfRightTimer()
+            scrollControlSeek.dragTo(findObjectById(leftTimer, false), 0)
+        } catch (e: UiObjectNotFoundException) {
+            TestException("Can't find play back elements")
+        }
+        return this
     }
 
     fun getNameOfTitleFromPlayback(): String {
@@ -114,12 +165,13 @@ class PlayBackScreen : BaseScreen() {
         return textTtitle
     }
 
-    fun waitUntilAdsfinishes() {
+    fun waitUntilAdsfinishes():PlayBackScreen {
         wakeUpScreen()
         while (!findElementById(rightTimer, false).exists()) {
             Thread.sleep(1000)
             wakeUpScreen()
         }
+        return this
     }
 
     public fun waitForPlayBack(): String {
@@ -131,8 +183,9 @@ class PlayBackScreen : BaseScreen() {
         }
     }
 
-    public fun clickPlay() {
+    public fun clickPlay():PlayBackScreen {
         findObjectById(playButton, false).click()
+        return this
     }
 
     public fun checkIfSubtitlesIsSelected(): String {
@@ -168,10 +221,11 @@ class PlayBackScreen : BaseScreen() {
         public val textFromFirstTitleAutoplay get() = findObjectById(nameOfNextTitle, false).text
         public val textFromNextTitleAutoplay get() = containerOfNextTitle.getChild(nameOfNextTitleUiSelector).text
         public val textFromAutoplayTimer get() = findObjectById(timer, false).text
-        fun playTitleFromAutoplay() {
+        fun playTitleFromAutoplay():PlayBackScreen {
             if (findElementById(playButtonForTitle, false).waitForExists(globalTimeout)) {
                 findObjectById(playButtonForTitle, false).click()
             } else throw TestException("Play button is not present on first title for autoplay")
+            return PlayBackScreen()
         }
 
         fun slideToNextTitle(jstOneTitle: Boolean) {

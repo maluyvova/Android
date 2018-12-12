@@ -4,18 +4,15 @@ package com.tubitv.tubitv
  * Created by vburian on 2/19/18.
  */
 import android.content.Intent
-import android.os.Build
 import android.support.test.InstrumentationRegistry
 import android.support.test.uiautomator.*
 import android.util.Log
-import android.support.test.uiautomator.BySelector
 import com.tubitv.tubitv.Helpers.TestException
-import com.tubitv.tubitv.Screens.BaseScreen
 import org.hamcrest.CoreMatchers
 import org.junit.Assert.assertThat
-import org.junit.Before
-import org.junit.Test
 import java.lang.Thread.sleep
+import java.net.NetworkInterface
+import java.util.*
 
 
 /**
@@ -95,6 +92,30 @@ open class BaseTest {
         } catch (e: UiObjectNotFoundException) {
             TestException("cannot get app from overview")
         }
+    }
+
+    fun getDeviceId(): ByteArray {
+        var id: ByteArray = byteArrayOf()
+        var interfaceList = Collections.list(NetworkInterface.getNetworkInterfaces())
+        for (interfaces: NetworkInterface in interfaceList) {
+            val byteArray = interfaces.hardwareAddress
+            if (byteArray.size > 4) {
+                id = byteArray
+                break
+            }
+        }
+        return id
+    }
+
+    protected fun getDeviceNameBasedOnId(id: ByteArray): String {
+        var device = ""
+        when {
+            id.contentEquals(byteArrayOf(126, 0, -1, -125, 35, 82)) -> device = "Pixel2"
+            id.isEmpty() -> throw TestException("Something wrong with getDeviceId() method, can't get id")
+
+            else -> throw TestException("Your device/emulator is not register in this framework yet, please add this id:${id.joinToString()} in this statment, Also you need to add your deviceid everywhere where we use it e.g -> NativeCamera()")
+        }
+        return device
     }
 
 

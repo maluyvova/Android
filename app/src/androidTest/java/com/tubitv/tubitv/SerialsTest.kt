@@ -15,6 +15,7 @@ class SerialsTest : LaunchAppWithFacebook() {
     val textOfEpisodesForselectSerialWithFewSeasons = mutableListOf<String>()
     val episodesForScrollToTheSide = mutableListOf<String>()
     val tvCategory = "TV Comedies"
+    val tvCategory2 = "Reality TV"
     val continueWatching = "Continue Watching"
 
 
@@ -114,9 +115,6 @@ class SerialsTest : LaunchAppWithFacebook() {
         if (mark) {
             assertEquals("Title still in Queue but test should remove it", 1, 2)
         }
-
-
-        // Assert.assertNotEquals("The first text of category is Queue", text, "Queue")
     }
 
     @Test
@@ -163,6 +161,101 @@ class SerialsTest : LaunchAppWithFacebook() {
         scrollToTheSide()
         Assert.assertNotEquals(episodesForScrollToTheSide.get(0), episodesForScrollToTheSide.get(1))
     }
+
+    @Test
+    fun selectPlaybackNavigateBackToHome5TimesSerials() {
+        var firsTime = true
+        fun selectSerial() {
+            val homePage = HomeScreen(true)
+            val sideCategoryScreen = homePage.clickOnSidecategorButton()
+            val subcategory = sideCategoryScreen.scrollToSpecificCategory(tvCategory)
+            subcategory.clickOnTitle(0)
+            if (firsTime) {
+                GotIt().clickOnGotIt()
+            }
+            val playBack = MovieDatailScreen().clickOnPlay()
+            playBack.waitUntilAdsfinishes()
+            BaseScreen().navigateBackToHomeScreen()
+            firsTime = false
+        }
+        selectSerial()
+        selectSerial()
+        selectSerial()
+        selectSerial()
+        selectSerial()
+        val homeScreen = HomeScreen(true)
+        homeScreen.clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .longClickOnTitle(0)
+                .clickRemoveFromHistory()
+
+    }
+
+    @Test
+    fun playSerialNavigateBack5TimesForGuest() {
+
+        val homeScreen = HomeScreen(true)
+        val gotItScreen = homeScreen
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(tvCategory2)
+                .clickOnTitleForQueue(0)
+
+        val serialDatailScreen = gotItScreen.clickOnGotIt()
+        var playBackScreen = serialDatailScreen.clickOnPlay()
+        for (i in 1..5) {
+            uiDevice.pressBack()
+            serialDatailScreen.clickOnPlay()
+                    .waitUntilAdsfinishes()
+        }
+        BaseScreen().navigateBackToHomeScreen()
+        homeScreen.clickOnSidecategorButton()
+                .scrollToSpecificCategory(com.tubitv.tubitv.continueWatching)
+                .removeAllTitles()
+    }
+
+    @Test
+    fun playSerialNavigateBack5TimesForRegisterUser() {
+        val homeScreen = HomeScreen(true)
+        homeScreen.longPress()
+                .clickAddToQueueAfterLongClickWithoutReturn()
+        playSerialNavigateBack5TimesForGuest()
+    }
+
+    @Test
+    fun clickOnPauseAndBackButtonSerial() {
+        val homePage = HomeScreen(true)
+        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+                .scrollToSpecificCategory(tvCategory2)
+                .clickOnTitleForQueue(0)
+                .clickOnGotIt()
+                .clickOnPlay()
+                .waitUntilAdsfinishes()
+                .seekMiddleOfPlayback()
+                .clickPlay()
+                .clickOnNativeBackForSerial()
+        BaseScreen().navigateBackToHomeScreen()
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .removeAllTitles()
+    }
+
+    @Test
+    fun clickOnBackButtonWhileSerialIsPlaying() {
+        val homePage = HomeScreen(true)
+        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+                .scrollToSpecificCategory(tvCategory)
+                .clickOnTitleForQueue(0)
+                .clickOnGotIt()
+                .clickOnPlay()
+                .waitUntilAdsfinishes()
+                .seekMiddleOfPlayback()
+                .clickOnNativeBackForSerial()
+        BaseScreen().navigateBackToHomeScreen()
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .removeAllTitles()
+    }
+
 
 }
 
