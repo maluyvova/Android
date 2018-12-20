@@ -286,6 +286,7 @@ class DeepLinksTest : BaseTest() {
         killApp()
         uiDevice.executeShellCommand(comandForDeepLink + anotherDeeplinkWithUTM )
         ifFirstTime()
+        casting()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekMiddleOfPlayback()

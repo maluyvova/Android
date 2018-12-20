@@ -1,5 +1,6 @@
 package com.tubitv.tubitv
 
+import com.tubitv.tubitv.Enomus.DirectionOfScrolling
 import com.tubitv.tubitv.Screens.*
 import org.junit.Assert
 import org.junit.Test
@@ -34,7 +35,7 @@ class PlayBackTest : LaunchAppWithFacebook() {
     fun timerForSerial() {
         val category = "Reality TV"
         val homePage = HomeScreen(true)
-        homePage.ScrollToSpecificCategory(category)
+        homePage.scrollToSpecificCategory(category, DirectionOfScrolling.DOWN)
         val serials = Serials(category)
         val moviesByCategoryScreen = serials.clickOnSerialCategory()
         val serialScreen = SerialsScreen()

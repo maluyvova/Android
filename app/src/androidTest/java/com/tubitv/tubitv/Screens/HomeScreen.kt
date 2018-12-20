@@ -6,6 +6,7 @@ import junit.framework.Assert
 import java.util.*
 import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.*
+import com.tubitv.tubitv.Enomus.DirectionOfScrolling
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Helpers.TextExceptionWithError
 import junit.framework.Assert.assertTrue
@@ -36,6 +37,7 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
     private val castButton = "Cast button. Disconnected"
     private val castMenu = appPackage + ":id/action_bar_root"
     private val smallWindowForLongPress = UiCollection(UiSelector().resourceId("android:id/select_dialog_listview"))
+    private var intForScrolling = 0;
 
 
     init {
@@ -95,7 +97,10 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
 
     public val titleInContinueWatching get() = findObjectById(textOfTitleInContnueWatching, false).text
 
-    fun ScrollToSpecificCategory(category: String): String {
+    fun scrollToSpecificCategory(category: String, directionOfScrolling: DirectionOfScrolling): String {
+        if (intForScrolling > 3) {
+            return category
+        }
         var box = ""
         var i = 0
         var ii = 0
@@ -108,7 +113,10 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
                     }
                 }
             } else if (i > getChildCount(firstListOfAllObjectsString, textOfCategoryId)) {
-                scrollableScreenById(scrollHomePage).scrollForward()
+                if (directionOfScrolling.equals(DirectionOfScrolling.DOWN))
+                    scrollableScreenById(scrollHomePage).scrollForward()
+                else
+                    scrollableScreenById(scrollHomePage).scrollBackward()
                 i = 0
             }
             i++
@@ -120,8 +128,10 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
         try {
             findElementByText(box, false).click()
         } catch (e: UiObjectNotFoundException) {
-            scrollableScreenById(scrollHomePage).scrollTextIntoView(box)
-            findElementByText(box, false).click()
+            intForScrolling++
+            scrollToSpecificCategory(category, DirectionOfScrolling.UP)
+//            scrollableScreenById(scrollHomePage).scrollTextIntoView(box)
+//            findElementByText(box, false).click()
         }
         return box
     }
@@ -375,6 +385,8 @@ class AddToQueue(checkForObjects: Boolean) : BaseScreen() {
     }
 
     inner class FacebookSignInForNonRegisterUser() {
+        val continueFacebook = uiDevice.findObject(UiSelector().resourceId("u_0_9"))
+        val continueFacebookClass = uiDevice.findObject(UiSelector().className("android.widget.Button"))
         private val headerText = appPackage + ":id/prompt_free_text"
         private val textBody = appPackage + ":id/prompt_register_text"
         private val signUpWithFacebookButton = "Sign Up with Facebook"
@@ -391,6 +403,12 @@ class AddToQueue(checkForObjects: Boolean) : BaseScreen() {
 
         fun clickOnSignUpWithFacebook() {
             findElementByText(signUpWithFacebookButton, false).click()
+            if (continueFacebook.waitForExists(globalTimeout)) {
+                continueFacebook.click()
+            }
+            if (continueFacebookClass.waitForExists(globalTimeout)) {
+                continueFacebookClass.click()
+            }
         }
 
         fun clickOnSignIn() {

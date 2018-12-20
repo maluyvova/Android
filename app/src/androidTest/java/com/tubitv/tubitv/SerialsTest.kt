@@ -1,6 +1,7 @@
 package com.tubitv.tubitv
 
 import android.support.test.uiautomator.UiObjectNotFoundException
+import com.tubitv.tubitv.Enomus.DirectionOfScrolling
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Screens.*
 import junit.framework.Assert.assertEquals
@@ -155,7 +156,7 @@ class SerialsTest : LaunchAppWithFacebook() {
     @Test
     fun checkIfTheTextInSeasonPickerIsChangedAfterScrollingSerrialsToTheSide() {
         val homePage = HomeScreen(true)
-        homePage.ScrollToSpecificCategory(tvCategory)
+        homePage.scrollToSpecificCategory(tvCategory, DirectionOfScrolling.DOWN)
         val serials = Serials(tvCategory)
         val moviesByCategoryScreen = serials.clickOnSerialCategory()
         scrollToTheSide()

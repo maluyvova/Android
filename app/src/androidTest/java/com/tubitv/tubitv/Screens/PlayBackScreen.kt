@@ -19,7 +19,11 @@ class PlayBackScreen : BaseScreen() {
     private var fifteenMinForwardButton = appPackage + ":id/view_tubi_controller_forward_ib"
     private var fifteenMinBackButton = appPackage + ":id/view_tubi_controller_rewind_ib"
     private val autoplay = appPackage + ":id/play_next_container"
+    private val tagleForAutoplay = appPackage + ":id/button_toggle"
     private val backButton = appPackage + ":id/back_button"
+    private val ratingModal = "android:id/content"
+    private val ratingText = "Loving your Tubi TV app?"
+    private val noThanksButtonForRating = "android:id/button2"
 
     fun textOfRightTimer(): String {
         var time = ""
@@ -132,15 +136,25 @@ class PlayBackScreen : BaseScreen() {
         return this
     }
 
-    fun clickOnNativeBackForMovie():MovieDatailScreen{
+    fun clickOnNativeBackForMovie(): MovieDatailScreen {
         textOfRightTimer()
-        findObjectById(backButton,true).click()
+        findObjectById(backButton, true).click()
+        if (findElementByIdMediumtTimeOut(ratingModal, true).exists()) {
+            if (findElementByText(ratingText, false).exists()) {
+                findObjectById(noThanksButtonForRating, false).click()
+            }
+        }
         return MovieDatailScreen()
     }
 
-    fun clickOnNativeBackForSerial():SerialsScreen{
+    fun clickOnNativeBackForSerial(): SerialsScreen {
         textOfRightTimer()
-        findObjectById(backButton,true).click()
+        findObjectById(backButton, true).click()
+        if (findElementByIdShortTimeOut(ratingModal, true).exists()) {
+            if (findElementByText(ratingText, false).exists()) {
+                findObjectByClass(noThanksButtonForRating, false).click()
+            }
+        }
         return SerialsScreen()
     }
 
@@ -165,7 +179,7 @@ class PlayBackScreen : BaseScreen() {
         return textTtitle
     }
 
-    fun waitUntilAdsfinishes():PlayBackScreen {
+    fun waitUntilAdsfinishes(): PlayBackScreen {
         wakeUpScreen()
         while (!findElementById(rightTimer, false).exists()) {
             Thread.sleep(1000)
@@ -183,7 +197,7 @@ class PlayBackScreen : BaseScreen() {
         }
     }
 
-    public fun clickPlay():PlayBackScreen {
+    public fun clickPlay(): PlayBackScreen {
         findObjectById(playButton, false).click()
         return this
     }
@@ -193,6 +207,7 @@ class PlayBackScreen : BaseScreen() {
     }
 
     class AutoPlay() : BaseScreen() {
+        private var titleText = appPackage + ":id/view_tubi_controller_title"
         private val autoplayScrollable = UiScrollable(UiSelector().resourceId(appPackage + ":id/play_next_container"))
         private val autoplay = appPackage + ":id/play_next_container"
         private val autoplayUiSelector = UiSelector().resourceId(appPackage + ":id/play_next_container")
@@ -221,7 +236,7 @@ class PlayBackScreen : BaseScreen() {
         public val textFromFirstTitleAutoplay get() = findObjectById(nameOfNextTitle, false).text
         public val textFromNextTitleAutoplay get() = containerOfNextTitle.getChild(nameOfNextTitleUiSelector).text
         public val textFromAutoplayTimer get() = findObjectById(timer, false).text
-        fun playTitleFromAutoplay():PlayBackScreen {
+        fun playTitleFromAutoplay(): PlayBackScreen {
             if (findElementById(playButtonForTitle, false).waitForExists(globalTimeout)) {
                 findObjectById(playButtonForTitle, false).click()
             } else throw TestException("Play button is not present on first title for autoplay")

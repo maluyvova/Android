@@ -19,7 +19,7 @@ class SideCategoryMenuScreen : BaseScreen() {
     private val userEmail = appPackage + ":id/nav_menu_header_user_email_address"
 
     init {
-        scrollableScreen.flingToBeginning(2)
+        scrollableScreen.flingToBeginning(3)
         Assert.assertTrue("Expected Category name in TOP is not displayed", wrapperBoxWithListOfCategories.waitForExists(globalTimeout))
         Assert.assertTrue("Expected picture of user account is not displayed", findElementById(userAcountPicture, false).waitForExists(globalTimeout))
         Assert.assertTrue("Expected name of user account is not displayed", findElementById(userAcountName, false).waitForExists(globalTimeout))

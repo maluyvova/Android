@@ -4,11 +4,8 @@ import android.provider.Contacts
 import android.support.test.InstrumentationRegistry
 import android.support.test.uiautomator.*
 import android.support.v7.app.AppCompatActivity
-import com.tubitv.tubitv.BaseTest
+import com.tubitv.tubitv.*
 import com.tubitv.tubitv.Helpers.TextExceptionWithError
-import com.tubitv.tubitv.appPackage
-import com.tubitv.tubitv.globalTimeout
-import com.tubitv.tubitv.shortWaitTime
 
 /**
  * Created by vburian on 2/20/18.
@@ -60,6 +57,13 @@ open class BaseScreen {
         }
         return objectt
     }
+    protected fun findObjectByClassShortTime(classs: String, waitFoObject: Boolean): UiObject {
+        val objectt = uiDevice.findObject(UiSelector().className(classs))
+        if (waitFoObject) {
+            objectt.waitForExists(shortWaitTime)
+        }
+        return objectt
+    }
 
     protected fun findByContentDesc(description: String, waitFoObject: Boolean): UiObject {
         val obbject = uiDevice.findObject(UiSelector().description(description))
@@ -81,6 +85,13 @@ open class BaseScreen {
         val objectt = uiDevice.findObject(UiSelector().resourceId(id))
         if (waitFoObject) {
             objectt.waitForExists(shortWaitTime)
+        }
+        return objectt
+    }
+    protected fun findElementByIdMediumtTimeOut(id: String, waitFoObject: Boolean): UiObject {
+        val objectt = uiDevice.findObject(UiSelector().resourceId(id))
+        if (waitFoObject) {
+            objectt.waitForExists(mediumWaitTime)
         }
         return objectt
     }

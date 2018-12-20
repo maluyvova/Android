@@ -1,6 +1,7 @@
 package com.tubitv.tubitv
 
 import android.support.test.uiautomator.*
+import com.tubitv.tubitv.Enomus.DirectionOfScrolling
 import com.tubitv.tubitv.Enomus.TypeOfContent
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Screens.*
@@ -14,7 +15,7 @@ import java.util.*
  */
 
 class MoviesTest : LaunchAppWithFacebook() {
-
+    val tvCategory = "TV Comedies"
     private val category = "Horror"
     private val nameOfMovie = LinkedList<String>()
     private var selectFirstTime = true
@@ -186,7 +187,7 @@ class MoviesTest : LaunchAppWithFacebook() {
     fun scrollToSideAndVerifyIfTitleMissmatches() {
         val category = "Action"
         val homescreen = HomeScreen(true)
-        homescreen.ScrollToSpecificCategory(category)
+        homescreen.scrollToSpecificCategory(category, DirectionOfScrolling.DOWN)
         val textOfTitle = homescreen.getTextOfTitleWithIndex(category)
         uiDevice.pressBack()
         homescreen.horisontalScrollTitles(2, category)
@@ -570,6 +571,36 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .clickOnSidecategorButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
+    }
+
+    @Test
+    fun selectSerialThenMovieGuest() {
+        val homePage = HomeScreen(true)
+        val movieDetailPage = homePage.clickOnSidecategorButton()
+                .scrollToSpecificCategory(category)
+                .clickOnTitleForQueue(0)
+                .clickOnGotIt()
+        val nameOfMovie = movieDetailPage.titleDatailScreen
+        movieDetailPage.clickOnPlay()
+                .waitUntilAdsfinishes()
+                .seekMiddleOfPlayback()
+        Thread.sleep(10000)
+        BaseScreen().navigateBackToHomeScreen()
+
+        val serialDetailPage = homePage.clickOnSidecategorButton()
+                .scrollToSpecificCategory(tvCategory)
+                .clickOnTitle(0)
+        val nameOfSerial = MovieDatailScreen().titleDatailScreen
+
+        MovieDatailScreen().clickOnPlay()
+                .waitUntilAdsfinishes()
+                .seekMiddleOfPlayback()
+        Thread.sleep(10000)
+        BaseScreen().navigateBackToHomeScreen().clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching).
+                verifyIfTitlesAddedToContinueWatching(nameOfMovie,nameOfSerial)
+
+
     }
 
 

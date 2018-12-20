@@ -52,7 +52,7 @@ class SubCategoryScreen : BaseScreen() {
         try {
 
             var i = 0
-            if(countOfMovies()==0){
+            if (countOfMovies() == 0) {
                 return
             }
             while (countOfMovies() >= i) {
@@ -66,6 +66,27 @@ class SubCategoryScreen : BaseScreen() {
         }
     }
 
+    fun verifyIfTitlesAddedToContinueWatching(vararg titles: String) {
+        val results: ArrayList<Boolean> = ArrayList()
+        var i = 0
+        for (nameOfTitle in titles) {
+            var i = 0
+            while (countOfMovies() > i) {
+                val title = screen.getChildByInstance(title, i).getChild(UiSelector().resourceId(textOfTitle)).text
+                if (title.equals(nameOfTitle)) {
+                    results.add(true)
+                    break
+                }
+                i++
+                if(countOfMovies()<i){
+                    results.add(false)
+                    break
+                }
+
+            }
+        }
+    }
+
     fun clickOnTitleForQueueNoGotIt(number: Int): MovieDatailScreen {
         screen.getChildByInstance(title, number).click()
         return MovieDatailScreen()
@@ -73,17 +94,19 @@ class SubCategoryScreen : BaseScreen() {
 
     fun longClickOnTitle(nameOfMovie: String): AddToQueue {
         try {
+            var countOfMovies = 0
             var i = 0
-            while (countOfMovies() >= i) {
+            while (countOfMovies() * 2 >= i) {
                 val titleObj = screen.getChildByInstance(title, i).getChild(UiSelector().resourceId(textOfTitle))
                 val text = titleObj.text
                 if (text.contentEquals(nameOfMovie)) {
+                    countOfMovies = countOfMovies()
                     titleObj.dragTo(titleObj, 2)
                     break
                 }
                 i++
             }
-            if (i > countOfMovies()) {
+            if (i > countOfMovies * 2) {
                 throw TestException("Can't find this movie: $nameOfMovie in 'Continue watching'")
             }
         } catch (e: UiObjectNotFoundException) {

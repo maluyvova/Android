@@ -99,9 +99,11 @@ open class BaseTest {
         var interfaceList = Collections.list(NetworkInterface.getNetworkInterfaces())
         for (interfaces: NetworkInterface in interfaceList) {
             val byteArray = interfaces.hardwareAddress
-            if (byteArray.size > 4) {
-                id = byteArray
-                break
+            if (byteArray != null) {
+                if (byteArray.size > 4) {
+                    id = byteArray
+                    break
+                }
             }
         }
         return id
@@ -111,6 +113,14 @@ open class BaseTest {
         var device = ""
         when {
             id.contentEquals(byteArrayOf(126, 0, -1, -125, 35, 82)) -> device = "Pixel2"
+            id.contentEquals(byteArrayOf(-10, -124, 8, -36, 98, 105)) -> device = "GalaxyS8"
+            id.contentEquals(byteArrayOf(-118, -14, -82, 27, 50, -25)) -> device = "GalaxyS8"
+            id.contentEquals(byteArrayOf(-50, 100, -52, 64, -78, -47)) -> device = "Note4"
+            id.contentEquals(byteArrayOf(-38, 103, -50, -68, -5, -31)) -> device = "AsusTablet"
+            id.contentEquals(byteArrayOf(-7, 14, 99, 9, -121)) -> device = "SumsungTablet"
+            id.contentEquals(byteArrayOf(124, -7, 14, 99, 9, -121)) -> device = "SumsungTablet"
+            id.contentEquals(byteArrayOf(-106, 8, 119, -125, 64, -43)) -> device = "G6"
+            id.contentEquals(byteArrayOf(-110, -66, -2, 76, -109, -90)) -> device = "SunsungGalaxyTablet"
             id.isEmpty() -> throw TestException("Something wrong with getDeviceId() method, can't get id")
 
             else -> throw TestException("Your device/emulator is not register in this framework yet, please add this id:${id.joinToString()} in this statment, Also you need to add your deviceid everywhere where we use it e.g -> NativeCamera()")
@@ -119,10 +129,11 @@ open class BaseTest {
     }
 
 
-    protected fun SignIn(): String {
+    protected fun signIn(): String {
 
         var textFromButton = ""
         val continueFacebook = uiDevice.findObject(UiSelector().resourceId("u_0_9"))
+        val continueFacebookClass = uiDevice.findObject(UiSelector().className("android.widget.Button"))
         val titleBox = UiCollection(UiSelector().resourceId(appPackage + ":id/empty_holder"))
         val castPopUp = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/cast_featurehighlight_help_text_header_view"))
         try {
@@ -135,9 +146,9 @@ open class BaseTest {
             textFromButton = continueFacebook.text
             continueFacebook.click()
         }
-        if (continueFacebook.waitForExists(globalTimeout)) {
+        if (continueFacebookClass.waitForExists(globalTimeout)) {
             textFromButton = continueFacebook.text
-            continueFacebook.click()
+            continueFacebookClass.click()
         }
         return textFromButton
 
@@ -148,6 +159,11 @@ open class BaseTest {
 
 
     protected fun casting() {
+        val castMessage = appPackage + ":id/cast_featurehighlight_help_text_header_view"
+
+        if (uiDevice.findObject(UiSelector().resourceId(castMessage)).waitForExists(globalTimeout)) {
+            uiDevice.click(712, 2018)
+        }
 
 //        val custButton = uiDevice.findObject(UiSelector().description("Cast button. Disconnected"))
 //        val castButton = uiDevice.findObject(UiSelector().description("Cast button. Connected"))

@@ -1,11 +1,15 @@
 package com.tubitv.tubitv
 
+import com.tubitv.tubitv.Enomus.DirectionOfScrolling
 import com.tubitv.tubitv.Enomus.TypeOfContent
 import com.tubitv.tubitv.Screens.*
 import junit.framework.Assert.*
 import org.junit.Assert
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
+import java.util.regex.Pattern
+
+
 
 /**
  * Created by vburian on 7/4/18.
@@ -16,6 +20,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
     val tvCategory = "TV"
     val categoryForSideMenu = "Horror"
     var fistTime = true
+    var p = Pattern.compile("-?\\d+")
 
     @Test
     fun selectNextTitleForAutoplayMovies() {
@@ -230,11 +235,12 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         playBackScreen.waitUntilAdsfinishes()
         val selectedTitle = playBackScreen.getNameOfTitleFromPlayback()
         val autoplayScreen = playBackScreen.seekToAutoPlay(TypeOfContent.MOVIES)
-        val timer = autoplayScreen.textFromAutoplayTimer.substring(12, 14).toInt()
+        val timer = autoplayScreen.textFromAutoplayTimer.replace("[^-?0-9]+".toRegex(), "").toInt()
+        //val timer = autoplayScreen.textFromAutoplayTimer.substring(12, 14).toInt()
         autoplayScreen.hideAutoplay()
         Thread.sleep(15000)
         autoplayScreen.hideAutoplay()
-        val timerAfterWiat = autoplayScreen.textFromAutoplayTimer.substring(12, 14).toInt()
+        val timerAfterWiat = autoplayScreen.textFromAutoplayTimer.replace("[^-?0-9]+".toRegex(), "").toInt()
         Assert.assertTrue("", timerAfterWiat - timer <= 4)
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnSidecategorButton()
@@ -255,7 +261,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         playBackScreen.waitUntilAdsfinishes()
         val selectedTitle = playBackScreen.getNameOfTitleFromPlayback()
         val autoplayScreen = playBackScreen.seekToAutoPlay(TypeOfContent.MOVIES)
-        val timer = autoplayScreen.textFromAutoplayTimer.substring(12, 14).toInt()
+        val timer = autoplayScreen.textFromAutoplayTimer.replace("[^-?0-9]+".toRegex(), "").toInt()
         minimizeAndOpenAppFromSameScreen()
         PlayBackScreen.AutoPlay()
         BaseScreen().navigateBackToHomeScreen()
@@ -268,7 +274,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
     @Test
     fun selectNextEpisodeForSerial() {
         val homePage = HomeScreen(true)
-        val category = homePage.ScrollToSpecificCategory(tvCategory)
+        val category = homePage.scrollToSpecificCategory(tvCategory, DirectionOfScrolling.DOWN)
         val serials = Serials(category)
         val moviesByCategoryScreen = serials.clickOnSerialCategory()
         val serialScreen = SerialsScreen()
@@ -291,7 +297,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
     @Test
     fun hideAutoplayAndSelectTitleFromLowerLeftCornerForSerials() {
         val homePage = HomeScreen(true)
-        val category = homePage.ScrollToSpecificCategory(tvCategory)
+        val category = homePage.scrollToSpecificCategory(tvCategory, DirectionOfScrolling.DOWN)
         val serials = Serials(category)
         val moviesByCategoryScreen = serials.clickOnSerialCategory()
         val serialScreen = SerialsScreen()
@@ -315,7 +321,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
     @Test
     fun hideAutoplayAndCheckIfTimerIsStoppedWhenAutoplayIsHiddenForSerial() {
         val homePage = HomeScreen(true)
-        val category = homePage.ScrollToSpecificCategory(tvCategory)
+        val category = homePage.scrollToSpecificCategory(tvCategory, DirectionOfScrolling.DOWN)
         val serials = Serials(category)
         val moviesByCategoryScreen = serials.clickOnSerialCategory()
         val serialScreen = SerialsScreen()
@@ -324,11 +330,11 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         playBackScreen.waitUntilAdsfinishes()
         val selectedTitle = playBackScreen.getNameOfTitleFromPlayback()
         val autoplayScreen = playBackScreen.seekToAutoPlay(TypeOfContent.SERIALS)
-        val timer = autoplayScreen.textFromAutoplayTimer.substring(12, 14).toInt()
+        val timer = autoplayScreen.textFromAutoplayTimer.replace("[^-?0-9]+".toRegex(), "").toInt()
         autoplayScreen.hideAutoplay()
         Thread.sleep(15000)
         autoplayScreen.hideAutoplay()
-        val timerAfterWiat = autoplayScreen.textFromAutoplayTimer.substring(12, 14).toInt()
+        val timerAfterWiat = autoplayScreen.textFromAutoplayTimer.replace("[^-?0-9]+".toRegex(), "").toInt()
         Assert.assertTrue("", timerAfterWiat - timer <= 4)
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnSidecategorButton()

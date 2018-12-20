@@ -22,7 +22,7 @@ open class LaunchAppWithFacebook : BaseTest() {
         killApp()
         clearAppData()
         launchApp(appPackage, false)
-        textFromFacebookButton = SignIn()
+        //textFromFacebookButton = signIn()
         UpdateScreen().clickOnMaybeLatter()
         //casting()
         HomeScreen(false).dismissCasting()
