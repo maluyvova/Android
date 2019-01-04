@@ -117,7 +117,7 @@ fork {
     testPackage = "com.tubitv.tubitv"
     fallbackToScreenshots = true
     totalAllowedRetryQuota = 2
-    testClassRegex="VladTest"
+    testClassRegex="BlackScreenTest"
     retryPerTestCaseQuota = 1
     testOutputTimeout = 650000
     poolingStrategy {
