@@ -1,6 +1,5 @@
 #!/bin/sh -e
 TEST="$1"
-cd ..
 sed -i -e 's|VladTest|'"${TEST}"'|g' build.gradle
 echo "Running ${TEST} test "
 rm -R build.gradle-e
