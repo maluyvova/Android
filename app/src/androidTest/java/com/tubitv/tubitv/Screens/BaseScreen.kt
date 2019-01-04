@@ -12,9 +12,9 @@ import com.tubitv.tubitv.Helpers.TextExceptionWithError
  */
 open class BaseScreen {
 
+    protected val deviceName = BaseTest().deviceName
     protected val facebookSignIn = appPackage + ":id/prompt_image_background"
     private val homeScreen = appPackage + ":id/fragment_home_list_category_recycler"
-
     protected val uiDevice: UiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
     protected fun findObjectById(id: String, waitFoObject: Boolean): UiObject {

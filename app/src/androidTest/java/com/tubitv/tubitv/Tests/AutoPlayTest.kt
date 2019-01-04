@@ -1,8 +1,11 @@
-package com.tubitv.tubitv
+package com.tubitv.tubitv.Tests
 
 import com.tubitv.tubitv.Enomus.DirectionOfScrolling
 import com.tubitv.tubitv.Enomus.TypeOfContent
+import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.Screens.*
+import com.tubitv.tubitv.continueWatching
+import com.tubitv.tubitv.globalTimeout
 import junit.framework.Assert.*
 import org.junit.Assert
 import org.junit.Assert.assertNotEquals

@@ -1,12 +1,11 @@
-package com.tubitv.tubitv
+package com.tubitv.tubitv.Tests
 
 import com.tubitv.tubitv.Helpers.NativeCamera
+import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.Screens.HomeScreen
 import junit.framework.Assert.assertFalse
-import junit.framework.Assert.assertTrue
 import org.junit.Assert
 import org.junit.Test
-import java.lang.Thread.sleep
 
 /**
  * Created by vburian on 5/30/18.

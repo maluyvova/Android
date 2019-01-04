@@ -1,5 +1,6 @@
-package com.tubitv.tubitv
+package com.tubitv.tubitv.Tests
 
+import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.LaunchScreen
 import com.tubitv.tubitv.Screens.MoviesByCategoryScreen

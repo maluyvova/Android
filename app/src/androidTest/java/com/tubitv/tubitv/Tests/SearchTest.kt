@@ -1,5 +1,6 @@
-package com.tubitv.tubitv
+package com.tubitv.tubitv.Tests
 
+import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.Screens.HomeScreen
 import org.junit.Assert
 import org.junit.Test
@@ -7,7 +8,7 @@ import org.junit.Test
 /**
  * Created by vburian on 4/4/18.
  */
-class SearchTest:LaunchAppWithFacebook() {
+class SearchTest: LaunchAppWithFacebook() {
 
   @Test
     fun verifyIfTitleAfterSearchContainText(){

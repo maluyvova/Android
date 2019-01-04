@@ -1,10 +1,11 @@
-package com.tubitv.tubitv
+package com.tubitv.tubitv.Tests
 
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Networking.ServerManager
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.LaunchScreen
 import com.tubitv.tubitv.Screens.MoviesByCategoryScreen
+import com.tubitv.tubitv.SimpleLaunchApp
 import junit.framework.Assert
 import org.junit.Test
 

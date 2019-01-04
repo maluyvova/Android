@@ -1,10 +1,13 @@
-package com.tubitv.tubitv
+package com.tubitv.tubitv.Tests
 
 import android.support.test.uiautomator.*
 import com.tubitv.tubitv.Enomus.DirectionOfScrolling
 import com.tubitv.tubitv.Enomus.TypeOfContent
 import com.tubitv.tubitv.Helpers.TestException
+import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.Screens.*
+import com.tubitv.tubitv.appPackage
+import com.tubitv.tubitv.continueWatching
 import junit.framework.Assert.*
 import org.junit.Test
 import org.junit.Assert

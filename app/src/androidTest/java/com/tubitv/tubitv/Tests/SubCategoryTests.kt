@@ -1,9 +1,11 @@
-package com.tubitv.tubitv
+package com.tubitv.tubitv.Tests
 
 import com.tubitv.tubitv.Helpers.TestException
+import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.Screens.GotIt
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.MovieDatailScreen
+import com.tubitv.tubitv.appPackage
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 import java.util.*

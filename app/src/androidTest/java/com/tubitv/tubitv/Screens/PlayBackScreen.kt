@@ -24,6 +24,7 @@ class PlayBackScreen : BaseScreen() {
     private val ratingModal = "android:id/content"
     private val ratingText = "Loving your Tubi TV app?"
     private val noThanksButtonForRating = "android:id/button2"
+    private val togleButton = appPackage + ":id/button_toggle"
 
     fun textOfRightTimer(): String {
         var time = ""
@@ -53,6 +54,14 @@ class PlayBackScreen : BaseScreen() {
 
     fun scrollSeekBar() {
         scrollControlSeek.setAsHorizontalList().scrollToEnd(1)
+    }
+
+    fun checkIfAutoplayExists(): Boolean {
+        return findElementById(autoplay, false).waitForExists(waitForAutoplay) && findElementById(tagleForAutoplay,false).waitForExists(globalTimeout)
+    }
+
+    fun checkIfTitleFinished(time: String): Boolean {
+        return (time.equals("00:00") && time.equals("-00:00"))
     }
 
     fun seekToAutoPlay(typeOfContent: TypeOfContent): AutoPlay {

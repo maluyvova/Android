@@ -12,7 +12,6 @@ import com.tubitv.tubitv.Screens.HomeScreen
  * Created by vburian on 4/3/18.
  */
 open class LaunchAppWithFacebook : BaseTest() {
-    val deviceName =getDeviceNameBasedOnId(getDeviceId())
     var textFromFacebookButton = ""
     private val updateAppButton = appPackage + ":id/update_button"
     @Before

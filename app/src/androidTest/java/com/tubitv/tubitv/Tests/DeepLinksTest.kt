@@ -1,6 +1,7 @@
-package com.tubitv.tubitv
+package com.tubitv.tubitv.Tests
 
 import android.support.test.uiautomator.UiSelector
+import com.tubitv.tubitv.*
 import com.tubitv.tubitv.Enomus.TypeOfContent
 import com.tubitv.tubitv.Screens.*
 import junit.framework.Assert.assertEquals

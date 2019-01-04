@@ -9,7 +9,7 @@ import org.junit.Before
  * Created by vburian on 4/3/18.
  */
 open class SimpleLaunchApp : BaseTest() {
-    val deviceName =getDeviceNameBasedOnId(getDeviceId())
+
 
     fun castings() {
         getInstrum()

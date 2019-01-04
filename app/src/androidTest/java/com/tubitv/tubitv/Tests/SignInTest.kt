@@ -1,7 +1,8 @@
-package com.tubitv.tubitv
+package com.tubitv.tubitv.Tests
 
 import com.tubitv.tubitv.Helpers.RandomEmail
 import com.tubitv.tubitv.Screens.LaunchScreen
+import com.tubitv.tubitv.SimpleLaunchApp
 import org.junit.Assert
 import org.junit.Test
 

@@ -1,8 +1,9 @@
-package com.tubitv.tubitv
+package com.tubitv.tubitv.Tests
 
 import com.tubitv.tubitv.Screens.EmailSigUpScreen
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.LaunchScreen
+import com.tubitv.tubitv.SimpleLaunchApp
 import org.junit.Assert
 import org.junit.Test
 import java.util.*
