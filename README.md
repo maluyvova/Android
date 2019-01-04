@@ -14,7 +14,6 @@
 
 ## [Fork](https://github.com/shazam/fork)
 
-## [JenkinsJob](https://j.metromile.com/view/QA-mobile/job/AndroidUiAutomator/configure)
 
 # Description:
 
