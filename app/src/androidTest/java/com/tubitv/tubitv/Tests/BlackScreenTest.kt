@@ -35,10 +35,10 @@ class BlackScreenTest : LaunchAppWithFacebook() {
         while (!player.checkIfAutoplayExists() && !player.checkIfTitleFinished(time)) {
             time = player.waitUntilAdsfinishes()
                     .textOfRightTimer()
-           // assertTrue("Video is stopped and Black screen is showed",ScreenComparing(nameOfMovie, time, ScreensForComparing.BLACK_SCREEN).getDifferencePercent()>0.5)
             assertTrue("Video is not playing, because 1 and 2 screenshots are same",screenComparing.getDifferencePercent(time)>0.5)
             firstTime = false
         }
+        screenComparing.deleteFolderForTitle()
     }
 //    @After
 //    fun deleteScreens(){

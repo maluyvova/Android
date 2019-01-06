@@ -83,7 +83,7 @@ class ScreenComparing(titleName: String, whichScreen: ScreensForComparing) : Bas
     }
 
     private fun createFolderForScreenShoots(time: String): Pair<File, File> {
-        if(this.folderIsCreated){
+        if (this.folderIsCreated) {
             secondScreenShoot = this.firstScreenShoot
             this.firstScreenShoot.delete()
             if (this.firstScreenShoot.exists()) {
@@ -122,12 +122,13 @@ class ScreenComparing(titleName: String, whichScreen: ScreensForComparing) : Bas
         return Pair(firstScreenShoot, this.secondScreenShoot)
     }
 
-    fun deleteScreenShoots() {
-        val files = this.folderForScreenShoots.listFiles()
-        for (i in 0..files.size - 1) {
-            if (files.get(i).name.contains("ScreenShot")) {
-                files.get(i).delete()
-            }
+    fun deleteFolderForTitle() {
+        if (folderIsCreated) {
+            folderForTitle.delete()
+        }
+        if (folderForTitle.exists()) {
+            throw TestException("Can't delete folder with screenshots")
+
         }
     }
 
