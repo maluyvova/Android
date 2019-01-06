@@ -6,8 +6,7 @@ import com.tubitv.tubitv.Helpers.ScreenRecording
 import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.Screens.HomeScreen
 import junit.framework.Assert.assertTrue
-import org.junit.After
-import org.junit.Before
+
 import org.junit.Test
 
 /**
