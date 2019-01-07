@@ -124,7 +124,7 @@ class ScreenComparing(titleName: String, whichScreen: ScreensForComparing) : Bas
 
     fun deleteFolderForTitle() {
         if (folderIsCreated) {
-            folderForTitle.delete()
+          folderForTitle.deleteRecursively()
         }
         if (folderForTitle.exists()) {
             throw TestException("Can't delete folder with screenshots")

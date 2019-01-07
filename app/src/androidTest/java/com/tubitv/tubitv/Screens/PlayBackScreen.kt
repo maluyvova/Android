@@ -57,7 +57,7 @@ class PlayBackScreen : BaseScreen() {
     }
 
     fun checkIfAutoplayExists(): Boolean {
-        return findElementById(autoplay, false).waitForExists(waitForAutoplay) && findElementById(tagleForAutoplay,false).waitForExists(globalTimeout)
+        return  findElementById(tagleForAutoplay,false).waitForExists(globalTimeout)
     }
 
     fun checkIfTitleFinished(time: String): Boolean {
