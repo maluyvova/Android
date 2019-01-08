@@ -136,7 +136,7 @@ open class BaseTest {
         when {
             id.contentEquals(byteArrayOf(126, 0, -1, -125, 35, 82)) -> device = "Pixel2"
             id.contentEquals(byteArrayOf(-10, -124, 8, -36, 98, 105)) -> device = "GalaxyS8"
-            id.contentEquals(byteArrayOf(-118, -14, -82, 27, 50, -25)) -> device = "GalaxyS8"
+            id.contentEquals(byteArrayOf(-102, -59, -117, -104, -54, -50)) -> device = "GalaxyS8"
             id.contentEquals(byteArrayOf(-50, 100, -52, 64, -78, -47)) -> device = "Note4"
             id.contentEquals(byteArrayOf(-38, 103, -50, -68, -5, -31)) -> device = "AsusTablet"
             id.contentEquals(byteArrayOf(-7, 14, 99, 9, -121)) -> device = "SumsungTablet"

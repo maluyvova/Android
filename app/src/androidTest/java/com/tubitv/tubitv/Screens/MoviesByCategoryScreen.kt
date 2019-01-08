@@ -5,6 +5,7 @@ import android.support.test.uiautomator.UiObject
 import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
+import com.tubitv.tubitv.shortWaitTime
 import junit.framework.Assert
 import junit.framework.Assert.assertTrue
 import java.util.*
@@ -18,12 +19,19 @@ class MoviesByCategoryScreen : BaseScreen() {
     private val title = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_category_content_iv"))
     private val title2 = UiSelector().resourceId(appPackage + ":id/view_category_content_iv")
     private val textOfTitle = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_category_content_tv_title"))
+    private val screen = appPackage + ":id/view_category_recycler"
     public val categoryText get() = categoryName.text
     public val titleText get() = textOfTitle.text
 
-    init {
 
-   assertTrue("Expected Category name in TOP is not displayed", categoryName.waitForExists(globalTimeout))
+    init {
+        if (!categoryName.waitForExists(shortWaitTime)) {
+            scrollableScreenById(screen).scrollBackward()
+        }
+        if (!categoryName.waitForExists(shortWaitTime)) {
+            scrollableScreenById(screen).scrollForward()
+        }
+        assertTrue("Expected Category name in TOP is not displayed", categoryName.waitForExists(globalTimeout))
 
     }
 
@@ -32,7 +40,7 @@ class MoviesByCategoryScreen : BaseScreen() {
         return GotIt()
     }
 
-    public fun clickOnTitleNoGotIt():MovieDatailScreen {
+    public fun clickOnTitleNoGotIt(): MovieDatailScreen {
         title.click()
         return MovieDatailScreen()
     }

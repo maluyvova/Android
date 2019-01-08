@@ -104,7 +104,7 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
         var box = ""
         var i = 0
         var ii = 0
-        while (i < 10) {
+        while (ii < 70) {
             if (getGrid(i).getChild(textOFCategory).waitForExists(if (i < 3) globalTimeout else 5)) {
                 box = getGrid(i).getChild(textOFCategory).text
                 if (box.contains("$category")) {
@@ -121,7 +121,7 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
             }
             i++
             ii++
-            if (ii > 70) {
+            if (i > 70) {
                 TestException("Can't catch $category on home screen while scrolling down")
             }
         }
