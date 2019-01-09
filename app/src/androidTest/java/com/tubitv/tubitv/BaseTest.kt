@@ -145,7 +145,7 @@ open class BaseTest {
             id.contentEquals(byteArrayOf(-110, -66, -2, 76, -109, -90)) -> device = "SunsungGalaxyTablet"
             id.contentEquals(byteArrayOf(2, 0, 0, 0, 0, 0)) -> device = "Vlad's emulator"
             id.contentEquals(byteArrayOf(-62, -121, -87, -49, -128, 71)) -> device = "AsusTablet"
-            id.contentEquals(byteArrayOf(18, 124, -18, -108, -72, -50)) -> device = "AsusTablet"
+            id.contentEquals(byteArrayOf(58, -92, -103, -116, -127, 62)) -> device = "AsusTablet"
             id.isEmpty() -> throw TestException("Something wrong with getDeviceId() method, can't get id")
 
             else -> throw TestException("Your device/emulator is not register in this framework yet, please add this id:${id.joinToString()} in this statment, Also you need to add your deviceid everywhere where we use it e.g -> NativeCamera()")
