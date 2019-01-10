@@ -46,16 +46,13 @@ open class BaseTest {
     fun givePermission(app: String) {
         executeShellCommand("pm revoke " + app + " android.permission.WRITE_EXTERNAL_STORAGE")
         executeShellCommand("pm revoke " + app + " android.permission.READ_EXTERNAL_STORAGE")
-        executeShellCommand("pm revoke " + testPackage + " android.permission.WRITE_EXTERNAL_STORAGE")
-        executeShellCommand("pm revoke " + testPackage + " android.permission.READ_EXTERNAL_STORAGE")
-        executeShellCommand("pm revoke " + testsPackage + " android.permission.WRITE_EXTERNAL_STORAGE")
-        executeShellCommand("pm revoke " + testsPackage + " android.permission.READ_EXTERNAL_STORAGE")
+ //       executeShellCommand("pm revoke " + testPackage + " android.permission.WRITE_EXTERNAL_STORAGE")
+//        sleep(3000)
+       // executeShellCommand("pm revoke " + testPackage + " android.permission.READ_EXTERNAL_STORAGE")
         executeShellCommand("pm grant " + app + " android.permission.WRITE_EXTERNAL_STORAGE")
         executeShellCommand("pm grant " + app + " android.permission.READ_EXTERNAL_STORAGE")
         executeShellCommand("pm grant " + testPackage + " android.permission.WRITE_EXTERNAL_STORAGE")
         executeShellCommand("pm grant " + testPackage + " android.permission.READ_EXTERNAL_STORAGE")
-        executeShellCommand("pm grant " + testsPackage + " android.permission.WRITE_EXTERNAL_STORAGE")
-        executeShellCommand("pm grant " + testsPackage + " android.permission.READ_EXTERNAL_STORAGE")
     }
 
 

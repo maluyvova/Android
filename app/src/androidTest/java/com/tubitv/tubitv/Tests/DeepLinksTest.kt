@@ -6,6 +6,7 @@ import com.tubitv.tubitv.Enomus.TypeOfContent
 import com.tubitv.tubitv.Screens.*
 import junit.framework.Assert.assertEquals
 import org.junit.Assert
+import org.junit.Test
 
 /**
  * Created by vburian on 6/12/18.
@@ -14,23 +15,26 @@ class DeepLinksTest : BaseTest() {
 
     val requirements = "https://tubitv.atlassian.net/wiki/spaces/EC/pages/770113559/Testing+deep+link+on+mobile"
     val comandForDeepLink = "am start -W -a android.intent.action.VIEW -d "
-    val deepLinkForActionCategory = "http://tubitv.com/category/action?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
-    val deepLinkForSerial = "https://tubitv.com/series/2076?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
-    val deepLinkForComedy = "https://tubitv.com/category/comedy?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
-    val deepLinkForMovie = "http://tubitv.com/movies/294111?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
-    val anotherDeepLinkForMovie = "https://tubitv.com/video/294111?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
-    val deeplinkForMovieIgor = "https://link.tubi.tv/t1XXhN28RR"
-    val deeplinkForSerialDeadLikeMe = "https://link.tubi.tv/kCXwWs68RR"
-    val deeplinkForMovieWar = "https://link.tubi.tv/XuWf4pbvpS"
-    val deeplinkForTheHollow = "http://tubitv.com/movies/435625?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
-    val deeplinkForOldBoyUTM = "https://tubitv.com/video/294111?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
-    val deeplinkForWildAtHeartUTMSerial = "http://tubitv.com/tv-shows/203?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
-    val deeplinkForMcLeodsDaughtersUTMSerial = "http://tubitv.com/series/337?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
-    val deepLinkDogTheBountyHunterUTMSErial = "https://tubitv.com/series/2076?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val ActionCategory = "http://tubitv.com/category/action?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val ForSerial = "https://tubitv.com/series/2076?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val ForComedy = "https://tubitv.com/category/comedy?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val ForDrama = "tubitv://media-browse?categoryId=1291\\&utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val ForMovieOldBoy = "http://tubitv.com/movies/294111?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val LinkForMovieOldBoy = "https://tubitv.com/video/294111?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val MovieIgor = "https://link.tubi.tv/t1XXhN28RR"
+    val SerialDeadLikeMe = "https://link.tubi.tv/kCXwWs68RR"
+    val Movie127Hours = "https://link.tubi.tv/XuWf4pbvpS"
+    val TheHollow = "http://tubitv.com/movies/435625?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val OldBoyUTM = "https://tubitv.com/video/294111?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val WildAtHeartUTMSerial = "http://tubitv.com/tv-shows/203?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val McLeodsDaughtersUTMSerial = "https://link.tubi.tv/vInFMDv8hT"
+    val McLeodsDaughters = "http://tubitv.com/series/337?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val DogTheBountyHunterUTMSErial = "https://tubitv.com/series/2076?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
     val deeplinkToCategoryUTMAnime = " tubitv://media-browse?categoryId=anime\\&utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
     val deeplinkToCategoryUTMAnime2 = "https://tubitv.com/category/anime?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
-    val deeplinkToPlayBackUTM="tubitv://media-playback?contentId=294111\\&contentType=video\\&campaign=holloween\\&utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content "
-    val anotherDeeplinkWithUTM ="http://tubitv.com/movies/435625?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val deeplinkToPlayBackUTM = "tubitv://media-playback?contentId=294111\\&contentType=video\\&campaign=holloween\\&utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content "
+    val anotherDeeplinkWithUTM = "http://tubitv.com/movies/435625?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
+    val deeplinkForMovieWomanThouArtLoosed = "http://tubitv.com/movies/456403?utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content"
     //val deepLinkForPlayback="tubitv://media-playback?contentId=294111\\&contentType=movie\\&campaign=holloween\\&utm_campaign=cam\\&utm_source=sour\\&utm_medium=med\\&utm_content=content "
 
 
@@ -63,41 +67,51 @@ class DeepLinksTest : BaseTest() {
         }
     }
 
-    //@Test
+    @Test
     fun deepLinkForAction() {
         getInstrum()
         // ifNotRegistred()
-        uiDevice.executeShellCommand(comandForDeepLink + deepLinkForActionCategory + appPackage)
+        uiDevice.executeShellCommand(comandForDeepLink + ActionCategory + appPackage)
         ifFirstTime()
         Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen().categoryText, "Action")
     }
 
-    //@Test
+    @Test
     fun deepLinkForSerial() {
         val expectedTitleOfSerial = "Dog the Bounty Hunter"
         getInstrum()
         ifNotRegistred()
-        uiDevice.executeShellCommand(comandForDeepLink + deepLinkForSerial + appPackage)
+        uiDevice.executeShellCommand(comandForDeepLink + ForSerial + appPackage)
         ifFirstTime()
         Assert.assertEquals("Expected serial $expectedTitleOfSerial didn't show up probably expired  ", MovieDatailScreen().titleDatailScreen, "$expectedTitleOfSerial")
     }
 
-    //@Test
+    @Test
     fun deepLinkForComedy() {
         val expectedCategory = "Comedy"
         getInstrum()
         ifNotRegistred()
-        uiDevice.executeShellCommand(comandForDeepLink + deepLinkForComedy + appPackage)
+        uiDevice.executeShellCommand(comandForDeepLink + ForComedy + appPackage)
         ifFirstTime()
         Assert.assertEquals("Expected category: $expectedCategory didn't show up after deep link", MoviesByCategoryScreen().categoryText, "$expectedCategory")
     }
 
-    //@Test
-    fun deepLinkForMovie() {
+    @Test
+    fun deepLinkForDrama() {
+        val expectedCategory = "Drama"
+        getInstrum()
+        ifNotRegistred()
+        uiDevice.executeShellCommand(comandForDeepLink + ForDrama + appPackage)
+        ifFirstTime()
+        Assert.assertEquals("Expected category: $expectedCategory didn't show up after deep link", MoviesByCategoryScreen().categoryText, "$expectedCategory")
+    }
+
+    @Test
+    fun deepLinkForMovieOldBoy() {
         val expectedMovie = "Oldboy"
         getInstrum()
         ifNotRegistred()
-        uiDevice.executeShellCommand(comandForDeepLink + deepLinkForMovie + appPackage)
+        uiDevice.executeShellCommand(comandForDeepLink + ForMovieOldBoy + appPackage)
         ifFirstTime()
         Assert.assertEquals("Expected movie:$expectedMovie didn't show up after deep link ", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
@@ -108,12 +122,12 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    ///@Test
-    fun deepLinkForVideo() {
+    @Test
+    fun deepLinkForVideoOldBoy() {
         val expectedMovie = "Oldboy"
         getInstrum()
         ifNotRegistred()
-        uiDevice.executeShellCommand(comandForDeepLink + anotherDeepLinkForMovie + appPackage)
+        uiDevice.executeShellCommand(comandForDeepLink + LinkForMovieOldBoy + appPackage)
         ifFirstTime()
         Assert.assertEquals("Expected movie:$expectedMovie didn't show up after deep link ", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
@@ -124,12 +138,12 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    //@Test
+    @Test
     fun deepLinkForMovieIgor() {
         val expectedMovie = "Igor"
         getInstrum()
         killApp()
-        uiDevice.executeShellCommand(comandForDeepLink + deeplinkForMovieIgor)
+        uiDevice.executeShellCommand(comandForDeepLink + MovieIgor)
         ifFirstTime()
         Assert.assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
@@ -140,28 +154,13 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    //@Test
-    fun deepLinkForSerialDeadLikeMe() {
-        val expectedMovie = "Dead Like Me"
-        getInstrum()
-        killApp()
-        uiDevice.executeShellCommand(comandForDeepLink + deeplinkForSerialDeadLikeMe)
-        ifFirstTime()
-        Assert.assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
-        MovieDatailScreen().clickOnPlay()
-                .seekToMiddleOfPlayback()
-        BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
-                .scrollToSpecificCategory(continueWatching)
-                .removeAllTitles()
-    }
 
     //@Test
-    fun deepLinkForMoveWar() {
+    fun deepLinkForMove127Hours() {
         val expectedMovie = "127 Hours"
         getInstrum()
         killApp()
-        uiDevice.executeShellCommand(comandForDeepLink + deeplinkForMovieWar)
+        uiDevice.executeShellCommand(comandForDeepLink + Movie127Hours)
         ifFirstTime()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
@@ -172,12 +171,12 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    //@Test
+    @Test
     fun deeplinkWithUTMtheHollow() {
         val expectedMovie = "The Hollow"
         getInstrum()
         killApp()
-        uiDevice.executeShellCommand(comandForDeepLink + deeplinkForTheHollow)
+        uiDevice.executeShellCommand(comandForDeepLink + TheHollow)
         ifFirstTime()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
@@ -188,12 +187,12 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    //@Test
+    @Test
     fun deeplinkWithUTMOldboy() {
         val expectedMovie = "Oldboy"
         getInstrum()
         killApp()
-        uiDevice.executeShellCommand(comandForDeepLink + deeplinkForOldBoyUTM)
+        uiDevice.executeShellCommand(comandForDeepLink + OldBoyUTM)
         ifFirstTime()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
@@ -204,12 +203,12 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    //@Test
+    @Test
     fun deeplinkWithUTMWildAtHeartSerial() {
         val expectedMovie = "Wild at Heart"
         getInstrum()
         killApp()
-        uiDevice.executeShellCommand(comandForDeepLink + deeplinkForWildAtHeartUTMSerial)
+        uiDevice.executeShellCommand(comandForDeepLink + WildAtHeartUTMSerial)
         ifFirstTime()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         SerialsScreen().clickOnPlayButton()
@@ -222,12 +221,12 @@ class DeepLinksTest : BaseTest() {
     }
 
 
-    //@Test
+    @Test
     fun deeplinkWithUTMMcLeodsDaughtersSerial() {
         val expectedMovie = "McLeod's Daughters"
         getInstrum()
         killApp()
-        uiDevice.executeShellCommand(comandForDeepLink + deeplinkForMcLeodsDaughtersUTMSerial)
+        uiDevice.executeShellCommand(comandForDeepLink + McLeodsDaughtersUTMSerial)
         ifFirstTime()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         SerialsScreen().clickOnPlayButton()
@@ -239,12 +238,29 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    //@Test
+    @Test
+    fun deeplinkWithMcLeodsDaughtersSerial() {
+        val expectedMovie = "McLeod's Daughters"
+        getInstrum()
+        killApp()
+        uiDevice.executeShellCommand(comandForDeepLink + McLeodsDaughters)
+        ifFirstTime()
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        SerialsScreen().clickOnPlayButton()
+                .seekToMiddleOfPlayback()
+                .seekToTheBegining()
+        BaseScreen().navigateBackToHomeScreen()
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .removeAllTitles()
+    }
+
+    @Test
     fun deeplinkWithUTMDogTheBountyHunterSerial() {
         val expectedMovie = "Dog the Bounty Hunter"
         getInstrum()
         killApp()
-        uiDevice.executeShellCommand(comandForDeepLink + deepLinkDogTheBountyHunterUTMSErial)
+        uiDevice.executeShellCommand(comandForDeepLink + DogTheBountyHunterUTMSErial)
         ifFirstTime()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         SerialsScreen().clickOnPlayButton()
@@ -259,7 +275,7 @@ class DeepLinksTest : BaseTest() {
     }
 
 
-    //@Test
+    @Test
     fun deepLinkForAnimeUTM() {
         getInstrum()
         killApp()
@@ -269,7 +285,7 @@ class DeepLinksTest : BaseTest() {
         Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen().categoryText, "Anime")
     }
 
-    //@Test
+    @Test
     fun deepLinkForAnime2UTM() {
         getInstrum()
         killApp()
@@ -279,12 +295,32 @@ class DeepLinksTest : BaseTest() {
         Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen().categoryText, "Anime")
     }
 
-    //@Test
+    @Test
     fun deepLinkUML() {
         val expectedMovie = "The Hollow"
         getInstrum()
         killApp()
-        uiDevice.executeShellCommand(comandForDeepLink + anotherDeeplinkWithUTM )
+        uiDevice.executeShellCommand(comandForDeepLink + anotherDeeplinkWithUTM)
+        ifFirstTime()
+        casting()
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        MovieDatailScreen().clickOnPlay()
+                .seekToMiddleOfPlayback()
+                .seekToAutoPlay(TypeOfContent.MOVIES)
+                .playTitleFromAutoplay()
+                .seekToMiddleOfPlayback()
+        BaseScreen().navigateBackToHomeScreen()
+                .clickOnSidecategorButton()
+                .scrollToSpecificCategory(continueWatching)
+                .removeAllTitles()
+    }
+
+    @Test
+    fun deepLinkUMWomanThouArtLoosed() {
+        val expectedMovie = "Woman Thou Art Loosed"
+        getInstrum()
+        killApp()
+        uiDevice.executeShellCommand(comandForDeepLink + deeplinkForMovieWomanThouArtLoosed)
         ifFirstTime()
         casting()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")

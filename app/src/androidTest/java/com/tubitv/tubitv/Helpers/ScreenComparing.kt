@@ -116,7 +116,7 @@ class ScreenComparing(titleName: String, whichScreen: ScreensForComparing) : Bas
             uiDevice.takeScreenshot(firstScreenShoot)
         }
         this.secondScreenShoot = File(this.folderForScreenShoots.path + File.separator + "SecondScreenShotOf${this.titleName}" + "${time.replace("\\s".toRegex(), "")}" + ".jpg")
-        sleep(10000)
+        sleep(8000)
         wakeUpScreen()
         uiDevice.takeScreenshot(this.secondScreenShoot)
         return Pair(firstScreenShoot, this.secondScreenShoot)

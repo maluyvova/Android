@@ -25,7 +25,7 @@ class MoviesByCategoryScreen : BaseScreen() {
 
 
     init {
-        if (!categoryName.waitForExists(shortWaitTime)) {
+        if (!categoryName.waitForExists(globalTimeout)) {
             scrollableScreenById(screen).scrollBackward()
         }
         if (!categoryName.waitForExists(shortWaitTime)) {
