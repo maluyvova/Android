@@ -129,7 +129,7 @@ class PlayBackScreen : BaseScreen() {
         return AutoPlay()
     }
 
-    fun seekMiddleOfPlayback(): PlayBackScreen {
+    fun seekToMiddleOfPlayback(): PlayBackScreen {
         textOfRightTimer()
         scrollControlSeek.dragTo(findObjectById(playButton, false), 0)
         return this

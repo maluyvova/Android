@@ -273,7 +273,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         movieDatailScreen.dontSelectHuluTitle()
         nameOfMovie.add(movieDatailScreen.titleDatailScreen)
         var playBackScreen = movieDatailScreen.clickOnPlay()
-        playBackScreen.seekMiddleOfPlayback()
+        playBackScreen.seekToMiddleOfPlayback()
     }
 
 
@@ -439,7 +439,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         var playBackScreen = movieDatailScreen.clickOnPlay()
         playBackScreen.waitUntilAdsfinishes()
-        playBackScreen.seekMiddleOfPlayback()
+        playBackScreen.seekToMiddleOfPlayback()
         uiDevice.pressBack()
         movieDatailScreen.clickOnPlay()
                 .seekToAutoPlay(TypeOfContent.MOVIES)
@@ -473,7 +473,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         var playBackScreen = movieDatailScreen.clickOnPlay()
         playBackScreen.waitUntilAdsfinishes()
-        playBackScreen.seekMiddleOfPlayback()
+        playBackScreen.seekToMiddleOfPlayback()
         uiDevice.pressBack()
         movieDatailScreen.clickOnPlay()
                 .seekToAutoPlay(TypeOfContent.MOVIES)
@@ -530,7 +530,7 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .clickOnGotIt()
                 .clickOnPlay()
                 .waitUntilAdsfinishes()
-                .seekMiddleOfPlayback()
+                .seekToMiddleOfPlayback()
                 .clickPlay()
                 .clickOnNativeBackForMovie()
         BaseScreen().navigateBackToHomeScreen()
@@ -548,7 +548,7 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .clickOnGotIt()
                 .clickOnPlay()
                 .waitUntilAdsfinishes()
-                .seekMiddleOfPlayback()
+                .seekToMiddleOfPlayback()
                 .clickOnNativeBackForMovie()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnSidecategorButton()
@@ -565,7 +565,7 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .clickOnGotIt()
                 .clickOnPlay()
                 .waitUntilAdsfinishes()
-                .seekMiddleOfPlayback()
+                .seekToMiddleOfPlayback()
                 .clickOnNativeBackForMovie()
                 .clickOnPlay()
                 .seekToTheEnd()
@@ -586,7 +586,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         val nameOfMovie = movieDetailPage.titleDatailScreen
         movieDetailPage.clickOnPlay()
                 .waitUntilAdsfinishes()
-                .seekMiddleOfPlayback()
+                .seekToMiddleOfPlayback()
         Thread.sleep(10000)
         BaseScreen().navigateBackToHomeScreen()
 
@@ -597,7 +597,7 @@ class MoviesTest : LaunchAppWithFacebook() {
 
         MovieDatailScreen().clickOnPlay()
                 .waitUntilAdsfinishes()
-                .seekMiddleOfPlayback()
+                .seekToMiddleOfPlayback()
         Thread.sleep(10000)
         BaseScreen().navigateBackToHomeScreen().clickOnSidecategorButton()
                 .scrollToSpecificCategory(continueWatching).
