@@ -134,14 +134,14 @@ open class BaseTest {
     protected fun getDeviceNameBasedOnId(id: ByteArray): String {
         var device = ""
         when {
-            id.contentEquals(byteArrayOf(126, 0, -1, -125, 35, 82)) -> device = "Pixel2"
+            id.contentEquals(byteArrayOf(-106, -107, 77, 35, -20, 52)) -> device = "Pixel2"
             id.contentEquals(byteArrayOf(-10, -124, 8, -36, 98, 105)) -> device = "GalaxyS8"
             id.contentEquals(byteArrayOf(-102, -59, -117, -104, -54, -50)) -> device = "GalaxyS8"
             id.contentEquals(byteArrayOf(-50, 100, -52, 64, -78, -47)) -> device = "Note4"
             id.contentEquals(byteArrayOf(-38, 103, -50, -68, -5, -31)) -> device = "AsusTablet"
             id.contentEquals(byteArrayOf(-7, 14, 99, 9, -121)) -> device = "SumsungTablet"
             id.contentEquals(byteArrayOf(124, -7, 14, 99, 9, -121)) -> device = "SumsungTablet"
-            id.contentEquals(byteArrayOf(-106, 8, 119, -125, 64, -43)) -> device = "G6"
+            id.contentEquals(byteArrayOf(10, -112, -17, -81, -96, 79)) -> device = "G6"
             id.contentEquals(byteArrayOf(-110, -66, -2, 76, -109, -90)) -> device = "SunsungGalaxyTablet"
             id.contentEquals(byteArrayOf(2, 0, 0, 0, 0, 0)) -> device = "Vlad's emulator"
             id.contentEquals(byteArrayOf(-62, -121, -87, -49, -128, 71)) -> device = "AsusTablet"
