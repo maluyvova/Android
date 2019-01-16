@@ -53,6 +53,7 @@ open class BaseTest {
         executeShellCommand("pm grant " + app + " android.permission.READ_EXTERNAL_STORAGE")
         executeShellCommand("pm grant " + testPackage + " android.permission.WRITE_EXTERNAL_STORAGE")
         executeShellCommand("pm grant " + testPackage + " android.permission.READ_EXTERNAL_STORAGE")
+
     }
 
 
