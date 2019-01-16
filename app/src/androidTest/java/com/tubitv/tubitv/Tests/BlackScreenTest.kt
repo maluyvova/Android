@@ -24,7 +24,7 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
         @JvmStatic
         @Parameterized.Parameters
         fun data(): Array<Array<Any>> {
-            return Array(4) { arrayOf(4, "") }
+            return Array(2) { arrayOf(2, "") }
         }
     }
 
