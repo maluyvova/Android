@@ -9,6 +9,7 @@ package com.tubitv.tubitv
 val appPackage = "com.tubitv"
 val testPackage = "com.tubitv.tubitv"
 val testsPackage = "com.tubitv.tubitv.test"
+val screenCamPackage = "com.orpheusdroid.screenrecorder"
 val globalTimeout = 7000L
 val shortWaitTime = 2000L
 val mediumWaitTime = 4000L

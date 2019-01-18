@@ -8,6 +8,7 @@ import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.PlayBackScreen
 import com.tubitv.tubitv.Screens.SubCategoryScreen
 import junit.framework.Assert.assertTrue
+import org.junit.After
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -44,7 +45,7 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
         val player = movieDetailPage.clickOnPlay()
         time = player.waitUntilAdsfinishes()
                 .textOfLeftTimer()
-        ScreenRecording().statrtRecording()
+        //ScreenRecording().statrtRecording()
         val screenComparing = ScreenComparing(nameOfMovie, ScreensForComparing.SECOND_SCREENSHOOT)
         while (!player.checkIfAutoplayExists() && !player.checkIfTitleFinished(time)) {
             time = player.waitUntilAdsfinishes()
@@ -56,6 +57,8 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
 
     @Test
     fun playbackTestForMovieWithAutoplay2Times() {
+        ScreenRecording().stopRecording()
+        var screenRecordingStarted = false
         var autoplayPopped = 0
         var time = ""
         val homePage = HomeScreen(true)
@@ -68,7 +71,6 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
         var nameOfMovie = player.getNameOfTitleFromPlayback()
         time = player.waitUntilAdsfinishes()
                 .textOfLeftTimer()
-        ScreenRecording().statrtRecording()
         var screenComparing = ScreenComparing(nameOfMovie, ScreensForComparing.SECOND_SCREENSHOOT)
         while (autoplayPopped < 2) {
 
@@ -91,7 +93,14 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
             }
             time = player.waitUntilAdsfinishes()
                     .textOfLeftTimer()
+
             assertTrue(" this test with autoplay Video is not playing For Movie: $nameOfMovie, because 1 and 2 screenshots are same on minute:$time", screenComparing.getDifferencePercent(time) > 0.5)
+            val nameOfFolderForRecords = screenComparing.getFolderForRecords()
+            if (!screenRecordingStarted) {
+                ScreenRecording().statrtRecording(nameOfFolderForRecords)
+                movieDetailPage.clickOnPlay()
+                screenRecordingStarted = true
+            }
         }
         screenComparing.deleteFolderForTitle()
     }
@@ -109,7 +118,7 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
         val player = serialDetailsScreen.clickOnPlay()
         time = player.waitUntilAdsfinishes()
                 .textOfLeftTimer()
-        ScreenRecording().statrtRecording()
+        //ScreenRecording().statrtRecording()
         val screenComparing = ScreenComparing(nameOfSerial, ScreensForComparing.SECOND_SCREENSHOOT)
         while (!player.checkIfAutoplayExists() && !player.checkIfTitleFinished(time)) {
             time = player.waitUntilAdsfinishes()
@@ -119,9 +128,9 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
         screenComparing.deleteFolderForTitle()
     }
 
-//    @After
-//    fun deleteScreens(){
-//        ScreenComparing("","",ScreensForComparing.BLACK_SCREEN).deleteScreenShoots()
-//    }
+    @After
+    fun stopRecording() {
+        ScreenRecording().stopRecording()
+    }
 
 }

@@ -85,7 +85,7 @@ class SettingTest : LaunchAppWithFacebook() {
 //        Assert.assertEquals(beforeKill, afterKill)
 //    }
 
-    @Test
+    //@Test
     fun privacy() {
         val originalText = "Escape the claws of subscription fees! Tubi TV, the free Internet TV network," +
                 " is working on your behalf to unlock Hollywood so entertainment is free, without the burden of credit cards. Check out the largest collection of premium and unique movies and TV shows. For free, forever, since advertisers pay so you never have to.\n" +
@@ -99,7 +99,7 @@ class SettingTest : LaunchAppWithFacebook() {
         Assert.assertEquals(originalText, text)
     }
 
-    @Test
+    //@Test
     fun checkATextOnSupportWebView() {
         val homePage = HomeScreen(true)
         val settingMenu = homePage.clickOnThreeDotsSetings()
@@ -108,7 +108,7 @@ class SettingTest : LaunchAppWithFacebook() {
         helpCenterScreen.clcikOnFirstLinkOnGeneral() //check inside method it's trying to find elements by Text, so if text doesn't match it will trow exception
     }
 
-    @Test
+    //@Test
     fun navigateBackToHomeScreenFromSendMesageScreen() {
         val homePage = HomeScreen(true)
         val settingMenu = homePage.clickOnThreeDotsSetings()
@@ -124,7 +124,7 @@ class SettingTest : LaunchAppWithFacebook() {
 
     }
 
-    @Test
+    //@Test
     fun sendLongTextToHelpCenter() {
         val homePage = HomeScreen(true)
         val settingMenu = homePage.clickOnThreeDotsSetings()
@@ -139,7 +139,7 @@ class SettingTest : LaunchAppWithFacebook() {
         HomeScreen(true)
     }
 
-    @Test
+    //@Test
     fun sendJustOneCharToHelpCenter() {
         val homePage = HomeScreen(true)
         val settingMenu = homePage.clickOnThreeDotsSetings()
@@ -155,7 +155,7 @@ class SettingTest : LaunchAppWithFacebook() {
     }
 
 
-    @Test
+    //@Test
     fun provideMessageAndClearItToHelpCenter() {
         val homePage = HomeScreen(true)
         val settingMenu = homePage.clickOnThreeDotsSetings()
@@ -168,7 +168,7 @@ class SettingTest : LaunchAppWithFacebook() {
         assertFalse("Send button still enabled even when text field is cleared", isButtonDisabled)
     }
 
-    @Test
+    //@Test
     fun sendMessageWithAtachedPhotoFromCamera() {
         val homePage = HomeScreen(true)
         val settingMenu = homePage.clickOnThreeDotsSetings()
@@ -184,7 +184,7 @@ class SettingTest : LaunchAppWithFacebook() {
 
 
     //fix it
-    @Test
+    //@Test
     fun sendMessageWithDeletedPhotoFromCamera() {
         val homePage = HomeScreen(true)
         val settingMenu = homePage.clickOnThreeDotsSetings()

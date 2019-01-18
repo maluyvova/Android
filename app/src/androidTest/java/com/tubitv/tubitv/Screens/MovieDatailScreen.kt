@@ -40,7 +40,7 @@ class MovieDatailScreen() : BaseScreen() {
 
     public val youMightaAlsoLike = this.youMightAlsoLike
 
-    fun clickOnAddToQueue(){
+    fun clickOnAddToQueue() {
         findObjectById(addToQueue, false).click()
         if (findElementById(facebookSignIn, false).exists()) {
             AddToQueue(false).FacebookSignInForNonRegisterUser().clickOnSignUpWithFacebook()
@@ -68,7 +68,7 @@ class MovieDatailScreen() : BaseScreen() {
     }
 
     fun checkIfStillOnThisPage(): Boolean {
-        if(findElementById(categoryNameOnTopBar, false).waitForExists(shortWaitTime)||findElementById(addToQueue,false).exists()){
+        if (findElementById(categoryNameOnTopBar, false).waitForExists(shortWaitTime) || findElementById(addToQueue, false).exists()) {
             return true
         }
         return false
@@ -144,6 +144,9 @@ class ShareWithScreen() : BaseScreen() {
 
         if (facebookIcon.waitForExists(globalTimeout)) {
             facebookIcon.click()
+            if (facebookIcon.exists()) {
+                facebookIcon.click()
+            }
         } else {
             slide.setAsHorizontalList().scrollToEnd(1)
             facebookIcon.click()
@@ -160,6 +163,9 @@ class FacebookPageShareScreen() : BaseScreen() {
     fun clickOnFacebookPostButton(): MovieDatailScreen {
         if (facebookPostButton.waitForExists(globalTimeout)) {
             facebookPostButton.click()
+            if(facebookPostButton.exists()){
+                facebookPostButton.click()
+            }
         } else if (facebookPostButtonForTablets.exists()) {
             facebookPostButtonForTablets.click()
         } else

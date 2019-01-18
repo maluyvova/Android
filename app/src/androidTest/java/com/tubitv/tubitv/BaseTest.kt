@@ -46,9 +46,6 @@ open class BaseTest {
     fun givePermission(app: String) {
         executeShellCommand("pm revoke " + app + " android.permission.WRITE_EXTERNAL_STORAGE")
         executeShellCommand("pm revoke " + app + " android.permission.READ_EXTERNAL_STORAGE")
- //       executeShellCommand("pm revoke " + testPackage + " android.permission.WRITE_EXTERNAL_STORAGE")
-//        sleep(3000)
-       // executeShellCommand("pm revoke " + testPackage + " android.permission.READ_EXTERNAL_STORAGE")
         executeShellCommand("pm grant " + app + " android.permission.WRITE_EXTERNAL_STORAGE")
         executeShellCommand("pm grant " + app + " android.permission.READ_EXTERNAL_STORAGE")
         executeShellCommand("pm grant " + testPackage + " android.permission.WRITE_EXTERNAL_STORAGE")
@@ -63,7 +60,7 @@ open class BaseTest {
         return uiDevice
     }
 
-    protected fun launchApp(appPackage: String, luanchAppFromSameScreen: Boolean) {
+     fun launchApp(appPackage: String, luanchAppFromSameScreen: Boolean) {
         givePermission(appPackage)
         GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)
         uiDevice.pressHome()

@@ -25,6 +25,28 @@ open class BaseScreen {
         return objectt
     }
 
+    protected fun findObjectByIdAndIndex(id: String, index: Int, waitFoObject: Boolean): UiObject {
+        val objectt = uiDevice.findObject(UiSelector().resourceId(id).index(index))
+        if (waitFoObject) {
+            objectt.waitForExists(globalTimeout)
+        }
+        return objectt
+    }
+
+    protected fun findElementParentIdChildIndex(id: String, waitForObject: Boolean, vararg level: Int): UiObject {
+        var i = 0
+        var uiSelector = (UiSelector().resourceId(id))
+        while (i <= level.size - 1) {
+            uiSelector = uiSelector.childSelector(UiSelector().index(level[i]))
+            i++
+        }
+        val uiObject = uiDevice.findObject(uiSelector)
+        if (waitForObject) {
+            uiObject.waitForExists(globalTimeout)
+        }
+        return uiObject
+    }
+
     protected fun getChildCount(parentId: String, childId: String): Int {
         return UiCollection(UiSelector().resourceId(parentId)).getChildCount(UiSelector().resourceId(childId))
     }
@@ -57,6 +79,7 @@ open class BaseScreen {
         }
         return objectt
     }
+
     protected fun findObjectByClassShortTime(classs: String, waitFoObject: Boolean): UiObject {
         val objectt = uiDevice.findObject(UiSelector().className(classs))
         if (waitFoObject) {
@@ -88,6 +111,7 @@ open class BaseScreen {
         }
         return objectt
     }
+
     protected fun findElementByIdMediumtTimeOut(id: String, waitFoObject: Boolean): UiObject {
         val objectt = uiDevice.findObject(UiSelector().resourceId(id))
         if (waitFoObject) {

@@ -25,6 +25,11 @@ class ScreenComparing(titleName: String, whichScreen: ScreensForComparing) : Bas
     private var folderIsCreated = false
 
 
+
+    fun getFolderForRecords():String{
+        return folderForTitle.name
+    }
+
     fun getDifferencePercent(time: String): Double {
         val firstScreenShoot = createFolderForScreenShoots(time).first
 //        if (whichScreen.equals(ScreensForComparing.BLACK_SCREEN)) {
