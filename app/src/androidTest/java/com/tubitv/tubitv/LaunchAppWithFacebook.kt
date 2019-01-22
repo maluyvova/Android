@@ -1,6 +1,7 @@
 package com.tubitv.tubitv
 
 import com.tubitv.tubitv.Helpers.InsuranceBeforeTests
+import com.tubitv.tubitv.Helpers.ScreenRecording
 import org.junit.Before
 import com.tubitv.tubitv.Screens.UpdateScreen
 import java.net.NetworkInterface

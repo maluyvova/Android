@@ -1,6 +1,7 @@
 package com.tubitv.tubitv.Helpers
 
 import android.os.Environment
+import android.support.test.uiautomator.UiObjectNotFoundException
 import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.BaseTest
 import com.tubitv.tubitv.Screens.BaseScreen
@@ -33,7 +34,13 @@ class ScreenRecording : BaseScreen() {
         findElementParentIdChildIndex(container, true, 0, 0, 3, 0).click()
         clickOnRadioButton(2)
         findElementParentIdChildIndex(container, true, 0, 0, 8, 0).click()
+        if (!findElementByText("Pictures", true).exists()) {
+            scrollableScreenById("com.orpheusdroid.screenrecorder:id/rv").scrollForward()
+        }
         findElementByText("Pictures", true).click()
+        while (!findElementByText(nameOfMovie, true).exists()) {
+            scrollableScreenById("com.orpheusdroid.screenrecorder:id/rv").scrollForward()
+        }
         findElementByText(nameOfMovie, true).click()
         findElementByText("app_screenRecords", true).click()
         findObjectById(okButton, true).click()
@@ -55,9 +62,23 @@ class ScreenRecording : BaseScreen() {
             findElementByText("Stop", true).click()
         } else {
             when {
-                deviceName.equals("Pixel2") -> findElementById("com.android.systemui:id/qs_carrier_text", false).dragTo(findObjectById("com.android.systemui:id/status_bar_contents", false), 2)
+                deviceName.equals("Pixel2") -> findElementById("com.android.systemui:id/qs_carrier_text", false).dragTo(findObjectById("com.android.systemui:id/status_bar_contents", false), 10)
+                deviceName.equals("G6") -> {
+                    findElementById("com.android.systemui:id/page_decor", false).dragTo(findObjectById("com.android.systemui:id/statusbar_gradient_view", false), 10)
+                    findElementByIdParentChildByPackageName("android:id/status_bar_latest_event_content", "com.orpheusdroid.screenrecorder", true, "android:id/expand_button").click()
+                }
+                deviceName.equals("GalaxyS8")->{
+                    findObjectById("com.android.systemui:id/handler_image_view",true).dragTo(findObjectById("com.android.systemui:id/status_bar_contents",false),10)
+                    findElementByIdParentChildByPackageName("android:id/status_bar_latest_event_content", "com.orpheusdroid.screenrecorder", true, "android:id/expand_button").click()
+
+
+                }
             }
-            findElementByText("Stop", true).click()
+            try {
+                findElementByText("Stop", true).click()
+            } catch (e: UiObjectNotFoundException) {
+                findElementByText("STOP", true).click()
+            }
         }
     }
 

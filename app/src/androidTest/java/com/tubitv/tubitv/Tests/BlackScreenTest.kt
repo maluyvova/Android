@@ -57,7 +57,6 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
 
     @Test
     fun playbackTestForMovieWithAutoplay2Times() {
-        ScreenRecording().stopRecording()
         var screenRecordingStarted = false
         var autoplayPopped = 0
         var time = ""
