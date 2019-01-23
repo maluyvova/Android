@@ -139,7 +139,7 @@ open class BaseTest {
             id.contentEquals(byteArrayOf(10, -112, -17, -81, -96, 79)) -> device = "G6"
             id.contentEquals(byteArrayOf(-110, -66, -2, 76, -109, -90)) -> device = "SunsungGalaxyTablet"
             id.contentEquals(byteArrayOf(2, 0, 0, 0, 0, 0)) -> device = "Vlad's emulator"
-            id.contentEquals(byteArrayOf(-62, -121, -87, -49, -128, 71)) -> device = "AsusTablet"
+            id.contentEquals(byteArrayOf(118, -43, 26, -94, 102, -99)) -> device = "AsusTablet"
             id.contentEquals(byteArrayOf(94, 72, -44, 51, -106, -40)) -> device = "AsusTablet"
             id.isEmpty() -> throw TestException("Something wrong with getDeviceId() method, can't get id")
 
