@@ -112,7 +112,7 @@ class SubCategoryScreen : BaseScreen() {
         } catch (e: UiObjectNotFoundException) {
             TestException("Can't find this movie: $nameOfMovie in 'Continue watching'")
         }
-        return AddToQueue(true)
+        return AddToQueue(false)
     }
 
     fun clickOnTitle(nameOfMovie: String): MovieDatailScreen {

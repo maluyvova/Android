@@ -21,6 +21,7 @@ import java.util.*
 @RunWith(Parameterized::class)
 public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAppWithFacebook() {
 
+    var screenRecordingStarted = false
     companion object {
         @JvmStatic
         @Parameterized.Parameters
@@ -51,13 +52,18 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
             time = player.waitUntilAdsfinishes()
                     .textOfLeftTimer()
             assertTrue("Video is not playing For Movie: $nameOfMovie, because 1 and 2 screenshots are same on minute:$time", screenComparing.getDifferencePercent(time) > 0.5)
+            val nameOfFolderForRecords = screenComparing.getFolderForRecords()
+            if (!screenRecordingStarted) {
+                ScreenRecording().statrtRecording(nameOfFolderForRecords)
+                movieDetailPage.clickOnPlay()
+                screenRecordingStarted = true
+            }
         }
         screenComparing.deleteFolderForTitle()
     }
 
     @Test
     fun playbackTestForMovieWithAutoplay2Times() {
-        var screenRecordingStarted = false
         var autoplayPopped = 0
         var time = ""
         val homePage = HomeScreen(true)
@@ -123,6 +129,12 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
             time = player.waitUntilAdsfinishes()
                     .textOfLeftTimer()
             assertTrue("Video is not playing For serial: $nameOfSerial, because 1 and 2 screenshots are same on minute:$time", screenComparing.getDifferencePercent(time) > 0.5)
+            val nameOfFolderForRecords = screenComparing.getFolderForRecords()
+            if (!screenRecordingStarted) {
+                ScreenRecording().statrtRecording(nameOfFolderForRecords)
+                serialDetailsScreen.clickOnPlay()
+                screenRecordingStarted = true
+            }
         }
         screenComparing.deleteFolderForTitle()
     }

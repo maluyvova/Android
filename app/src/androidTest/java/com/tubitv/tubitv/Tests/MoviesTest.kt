@@ -449,7 +449,6 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .scrollToSpecificCategory(continueWatching)
         try {
             subcategoryScreen.longClickOnTitle(textOfTitle)
-                    .clickRemoveFromHistory()
         } catch (e: TestException) {
             BaseScreen().navigateBackToHomeScreen()
                     .clickOnSidecategorButton()
