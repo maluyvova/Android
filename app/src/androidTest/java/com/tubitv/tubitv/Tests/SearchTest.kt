@@ -280,9 +280,19 @@ class SearchTest : LaunchAppWithFacebook() {
     }
 
     @Test
-    fun navigateToSearchFromAccountMenu(){
+    fun navigateToSearchFromAccountMenu() {
         val homeScreen = HomeScreen(true)
         homeScreen.clickOnAccountButton()
+                .clickOnSearch()
+                .clickOnProposition(1)
+                .clickOnFirstTitleFirstTime()
+                .clickOnGotIt()
+                .clickOnPlay()
+        BaseScreen().navigateBackToHomeScreen()
+        homeScreen.clickOnBrowseButton()
+                .scrollToSpecificCategory(continueWatching)
+                .longClickOnTitle(0)
+                .clickRemoveFromHistory()
     }
 
 

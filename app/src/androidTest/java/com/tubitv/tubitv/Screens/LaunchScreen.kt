@@ -33,9 +33,9 @@ class LaunchScreen : BaseScreen() {
         Assert.assertTrue("Expected Sign In buttom is not displayed", signInButton.waitForExists(globalTimeout))
     }
 
-    fun clickOnSignIn(): AccountScreen {
+    fun clickOnSignIn(): SignInScreen {
         signInButton.click()
-        return AccountScreen()
+        return SignInScreen()
     }
 
 

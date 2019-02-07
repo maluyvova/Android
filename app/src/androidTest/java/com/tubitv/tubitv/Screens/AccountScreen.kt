@@ -17,7 +17,7 @@ class AccountScreen : BaseScreen() {
     protected val captionsSwitcher = appPackage + ":id/captions_switch"
     private val captionText = appPackage + ":id/caption_text_view"
     protected val landscapeSwithcer = appPackage + ":id/lock_landscape_switch"
-    private val landscapeText = appPackage + ":id/caption_text_view"
+    private val landscapeText = appPackage + ":id/lock_landscape_text_view"
     protected val areYouSureOk = "android:id/button1"
     private val signedAsObj = appPackage + ":id/signed_in_as_text_view"
     private val aboutButton = appPackage + ":id/about_setting_layout"
@@ -61,6 +61,15 @@ class AccountScreen : BaseScreen() {
         catch (e: UiObjectNotFoundException) {
             throw    TestExceptionWithError("Can't find 'Caption' switcher on Account Screen", e)
         }
+    }
+
+    public fun clickOnSearch(): SearchScreen {
+        try {
+            findElementParentIdChildIndex(tabs, true, 2, 0).click()
+        } catch (e: UiObjectNotFoundException) {
+            TestExceptionWithError("Can't find search button", e)
+        }
+        return SearchScreen()
     }
 
 }
