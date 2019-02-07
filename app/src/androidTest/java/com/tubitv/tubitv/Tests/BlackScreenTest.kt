@@ -37,10 +37,10 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
     fun playbackTestForMovieOneTime() {
         var time = ""
         val homePage = HomeScreen(true)
-        val countOfMovies = homePage.clickOnSidecategorButton()
+        val countOfMovies = homePage.clickOnBrowseButton()
                 .scrollToSpecificCategory(category)
                 .countOfMovies()
-        val movieDetailPage = SubCategoryScreen().clickOnTitleForQueue(Random().nextInt(countOfMovies))
+        val movieDetailPage = SubCategoryScreen(category).clickOnTitleForQueue(Random().nextInt(countOfMovies))
                 .clickOnGotIt()
         val nameOfMovie = movieDetailPage.titleDatailScreen
         val player = movieDetailPage.clickOnPlay()
@@ -67,10 +67,10 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
         var autoplayPopped = 0
         var time = ""
         val homePage = HomeScreen(true)
-        val countOfMovies = homePage.clickOnSidecategorButton()
+        val countOfMovies = homePage.clickOnBrowseButton()
                 .scrollToSpecificCategory(category)
                 .countOfMovies()
-        val movieDetailPage = SubCategoryScreen().clickOnTitleForQueue(Random().nextInt(countOfMovies))
+        val movieDetailPage = SubCategoryScreen(category).clickOnTitleForQueue(Random().nextInt(countOfMovies))
                 .clickOnGotIt()
         val player = movieDetailPage.clickOnPlay()
         var nameOfMovie = player.getNameOfTitleFromPlayback()
@@ -114,10 +114,10 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
     fun playbackTestForSerialOneEpisode() {
         var time = ""
         val homePage = HomeScreen(true)
-        val countOfMovies = homePage.clickOnSidecategorButton()
+        val countOfMovies = homePage.clickOnBrowseButton()
                 .scrollToSpecificCategory(tvCategory2)
                 .countOfMovies()
-        val serialDetailsScreen = SubCategoryScreen().clickOnTitleForQueue(Random().nextInt(countOfMovies))
+        val serialDetailsScreen = SubCategoryScreen(category).clickOnTitleForQueue(Random().nextInt(countOfMovies))
                 .clickOnGotIt()
         val nameOfSerial = serialDetailsScreen.titleDatailScreen
         val player = serialDetailsScreen.clickOnPlay()

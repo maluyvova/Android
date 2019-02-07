@@ -3,7 +3,7 @@ package com.tubitv.tubitv.Screens
 import android.support.test.uiautomator.UiObjectNotFoundException
 import android.support.test.uiautomator.UiScrollable
 import android.support.test.uiautomator.UiSelector
-import com.tubitv.tubitv.Helpers.TextExceptionWithError
+import com.tubitv.tubitv.Helpers.TestExceptionWithError
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import com.tubitv.tubitv.shortWaitTime
@@ -25,6 +25,7 @@ class MovieDatailScreen() : BaseScreen() {
     private val huluIcon = appPackage + ":id/vaudTextView_present_hulu"
     private val categoryNameOnTopBar = appPackage + ":id/nav_app_bar_main_title"
     private val signInPopUp = appPackage + ":id/prompt_image_background"
+    private val backButton = appPackage + ":id/titlebar_back_image_view"
 
     init {
         if (findElementById(signInPopUp, false).waitForExists(shortWaitTime)) {
@@ -62,6 +63,16 @@ class MovieDatailScreen() : BaseScreen() {
         }
     }
 
+    fun checkIfThisHuluTitle(): Boolean {
+        var hulu = false
+        try {
+            hulu = findElementById(huluIcon, false).exists()
+        } catch (e: UiObjectNotFoundException) {
+            TestExceptionWithError("Can't find Hulu icon on title detail page", e)
+        }
+        return hulu
+    }
+
     fun clickOnRemoveFromQueue(): HomeScreen {
         findObjectById(addToQueue, false).click()
         return HomeScreen(true)
@@ -72,6 +83,14 @@ class MovieDatailScreen() : BaseScreen() {
             return true
         }
         return false
+    }
+
+    fun clickOnBackButton() {
+        try {
+            findElementById(backButton, true).click()
+        } catch (e: UiObjectNotFoundException) {
+            TestExceptionWithError("Can't back button on Title Details page", e)
+        }
     }
 
     fun simpleClickOnAddToQueue() {
@@ -87,6 +106,9 @@ class MovieDatailScreen() : BaseScreen() {
 
     fun clickOnPlay(): PlayBackScreen {
         findObjectById(playButton, false).click()
+        if (findElementById(playButton, true).exists()) {
+            findElementById(playButton, false).click()
+        }
         return PlayBackScreen()
     }
 
@@ -118,7 +140,7 @@ class MovieDatailScreen() : BaseScreen() {
             youMightAlsoLike.setAsHorizontalList().scrollToEnd(2)
             findObjectById(titleFromYouMightAlsoLike, false).click()
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Probably 'You might also like' container is not present", e)
+            TestExceptionWithError("Probably 'You might also like' container is not present", e)
         }
         return MovieDatailScreen()
     }
@@ -163,7 +185,7 @@ class FacebookPageShareScreen() : BaseScreen() {
     fun clickOnFacebookPostButton(): MovieDatailScreen {
         if (facebookPostButton.waitForExists(globalTimeout)) {
             facebookPostButton.click()
-            if(facebookPostButton.exists()){
+            if (facebookPostButton.exists()) {
                 facebookPostButton.click()
             }
         } else if (facebookPostButtonForTablets.exists()) {

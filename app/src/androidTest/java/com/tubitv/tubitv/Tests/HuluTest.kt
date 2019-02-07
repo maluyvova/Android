@@ -22,8 +22,9 @@ class HuluTest : LaunchAppWithFacebook() {
         var warningMessage = ""
         var warningMeassageAfterClose = ""
         val homeScreen = HomeScreen(true)
-        val searchSreen = homeScreen.clickAndSendTextToSearch(textWhatTestIsLookingFor)
-        val gotIt = searchSreen.clickOnTitleByInstatnce(0)
+        val searchSreen = homeScreen.clickOnSearch()
+        val gotIt = searchSreen.provideTextToSearch(textWhatTestIsLookingFor)
+                .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
         val textOfTitle = titleDatailScreen.titleDatailScreen.toLowerCase()
         if (textOfTitle.equals(textWhatTestIsLookingFor.toLowerCase())) {
@@ -54,8 +55,9 @@ class HuluTest : LaunchAppWithFacebook() {
     fun huluTitleWithYearsLimitations() {
         val huluPlaybackScreen = HuluPlaybackScreen()
         val homeScreen = HomeScreen(true)
-        val searchSreen = homeScreen.clickAndSendTextToSearch(textWhatTestIsLookingFor)
-        val gotIt = searchSreen.clickOnTitleByInstatnce(0)
+        val searchSreen = homeScreen.clickOnSearch()
+        val gotIt = searchSreen.provideTextToSearch(textWhatTestIsLookingFor)
+                .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
         val textOfTitle = titleDatailScreen.titleDatailScreen.toLowerCase()
         if (textOfTitle.equals(textWhatTestIsLookingFor.toLowerCase())) {
@@ -79,14 +81,15 @@ class HuluTest : LaunchAppWithFacebook() {
     @Test
     fun huluTitleAddedToHistory() {
         val homeScreen = HomeScreen(true)
-        val searchSreen = homeScreen.clickAndSendTextToSearch("Pokemon the Movie")
-        val gotIt = searchSreen.clickOnTitleByInstatnce(0)
+        val searchSreen = homeScreen.clickOnSearch()
+        val gotIt = searchSreen.provideTextToSearch(textWhatTestIsLookingFor)
+                .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
         val titleFromSerch = titleDatailScreen.titleDatailScreen
         val playBackScreen = titleDatailScreen.clickOnPlay()
         Thread.sleep(80000)
         BaseScreen().navigateBackToHomeScreen()
-        val subCategory = homeScreen.clickOnSidecategorButton()
+        val subCategory = homeScreen.clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
         val titleFromContinueWatching = subCategory.clickOnTitle(titleFromSerch)
                 .titleDatailScreen

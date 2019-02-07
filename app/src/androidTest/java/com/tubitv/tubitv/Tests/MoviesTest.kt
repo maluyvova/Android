@@ -22,6 +22,8 @@ class MoviesTest : LaunchAppWithFacebook() {
     private val category = "Horror"
     private val nameOfMovie = LinkedList<String>()
     private var selectFirstTime = true
+    private val longTermTitle = "Oldboy"
+
     @Test
     fun selectTitleFromMostPopular() {
         val homePage = HomeScreen(true) //at this moment it's checking if test in coorect screen
@@ -67,7 +69,7 @@ class MoviesTest : LaunchAppWithFacebook() {
                 titleInHomeScreen.clickAddToQueueAfterLongClick()
             }
         }
-        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+        val sideCategoryScreen = homePage.clickOnBrowseButton()
         val subCategoryScreen = sideCategoryScreen.scrollToSpecificCategory("Queue")
         val gotItScreen = subCategoryScreen.clickOnTitleForQueue(0)
         val movieDatailsScreen = gotItScreen.clickOnGotIt()
@@ -88,8 +90,10 @@ class MoviesTest : LaunchAppWithFacebook() {
     fun clickOnCategory() {
         val homePage = HomeScreen(true)
         val textOfCategory = homePage.textCategory()
-        homePage.getTextOfCategory(0).click()
-        val moviesByCategoryScreen = MoviesByCategoryScreen()
+        val caregory =homePage.getTextOfCategory(0)
+        val categoryText=caregory.text
+        caregory.click()
+        val moviesByCategoryScreen = MoviesByCategoryScreen(categoryText)
         val movieText = moviesByCategoryScreen.titleText
         val textOfCategoryInCategoryScreen = moviesByCategoryScreen.categoryText
         val gotItScreen = moviesByCategoryScreen.clickOnTitle()
@@ -111,7 +115,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         val movieDatailScreen = gotItScreen.clickOnGotIt()
         val textOfTitleInMovieDatailScreen = movieDatailScreen.titleDatailScreen
         movieDatailScreen.clickOnAddToQueue()
-        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+        val sideCategoryScreen = homePage.clickOnBrowseButton()
         val subCategoryScreen = sideCategoryScreen.scrollToSpecificCategory("Queue")
         val movieDatailScreen2 = subCategoryScreen.clickOnTitleForQueueNoGotIt(0)
         movieDatailScreen2.simpleClickOnRemoveFromQueue()
@@ -119,7 +123,7 @@ class MoviesTest : LaunchAppWithFacebook() {
             uiDevice.pressBack() //check this conditions
         }
         val homePage3 = HomeScreen(true)
-        val sideCategory = homePage3.clickOnSidecategorButton()
+        val sideCategory = homePage3.clickOnBrowseButton()
         try {
             sideCategory.scrollToSpecificCategoryWithoutReturn("Queue")   //Check this
         } catch (e: TestException) {
@@ -141,7 +145,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         movieDatailScreen.clickOnAddToQueue()
         movieDatailScreen.waitUntillSelected()
         val homePage2 = movieDatailScreen.simpleClickOnRemoveFromQueue()
-        val sideCategory = homePage2.clickOnSidecategorButton()
+        val sideCategory = homePage2.clickOnBrowseButton()
         try {
             sideCategory.scrollToSpecificCategoryWithoutReturn("Queue")
         } catch (e: TestException) {
@@ -167,7 +171,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         uiDevice.pressBack()
         killApp()
         launchApp(appPackage, false)
-        val sideCategoryScreen = HomeScreen(true).clickOnSidecategorButton()
+        val sideCategoryScreen = HomeScreen(true).clickOnBrowseButton()
         val subCategoryScreen = sideCategoryScreen.scrollToSpecificCategory("Continue Watching")
         val titleInHistory = subCategoryScreen.textOFTitle
         val smallWindowAddToQueueOrHistory = subCategoryScreen.longClickOnTitle(0)
@@ -181,7 +185,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         val homePage = HomeScreen(true)
         val textOfCategorInHomePage = homePage.textCategory()
         homePage.clickOnThreeDots()
-        val moviesbycategoryscreen = MoviesByCategoryScreen()
+        val moviesbycategoryscreen = MoviesByCategoryScreen(textOfCategorInHomePage)
         val textOfCategoriInCaategotScreen = moviesbycategoryscreen.categoryText
         Assert.assertEquals("This test clicking on three dots,and test fail because  category text mismatch in HomePage and CategoryScreen", textOfCategorInHomePage.toLowerCase(), textOfCategoriInCaategotScreen.toLowerCase())
     }
@@ -235,7 +239,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         var firsTime = true
         fun selectMovie() {
             val homePage = HomeScreen(true)
-            val sideCategoryScreen = homePage.clickOnSidecategorButton()
+            val sideCategoryScreen = homePage.clickOnBrowseButton()
             val subcategory = sideCategoryScreen.scrollToSpecificCategory(category)
             subcategory.clickOnTitle(0)
             if (firsTime) {
@@ -252,7 +256,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         selectMovie()
         selectMovie()
         val homeScreen = HomeScreen(true)
-        homeScreen.clickOnSidecategorButton()
+        homeScreen.clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .longClickOnTitle(0)
                 .clickRemoveFromHistory()
@@ -262,7 +266,7 @@ class MoviesTest : LaunchAppWithFacebook() {
     fun seekToMiddle(numberOfTitle: Int) {
 
         val homePage = HomeScreen(true)
-        homePage.clickOnSidecategorButton()
+        homePage.clickOnBrowseButton()
                 .scrollToSpecificCategory(category)
                 .clickOnTitle(numberOfTitle)
         if (selectFirstTime) {
@@ -281,7 +285,7 @@ class MoviesTest : LaunchAppWithFacebook() {
     fun startPlaybackAndCheckingIfTitleAddedToHistoryForGuest() {
         seekToMiddle(0)
         BaseScreen().navigateBackToHomeScreen()
-        HomeScreen(true).clickOnSidecategorButton()
+        HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .longClickOnTitle(nameOfMovie.get(0))
                 .clickRemoveFromHistory()
@@ -292,7 +296,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         seekToMiddle(0)
         killApp()
         launchApp(appPackage, false)
-        HomeScreen(true).clickOnSidecategorButton()
+        HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .longClickOnTitle(nameOfMovie.get(0))
                 .clickRemoveFromHistory()
@@ -311,7 +315,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         seekToMiddle(9)
         BaseScreen().navigateBackToHomeScreen()
         val subCategory = HomeScreen(true)
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
         subCategory.longClickOnTitle(nameOfMovie.get(0))
                 .clickRemoveFromHistory()
@@ -333,7 +337,7 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .clickAddToQueueAfterLongClickWithoutReturn()
         seekToMiddle(0)
         BaseScreen().navigateBackToHomeScreen()
-        HomeScreen(true).clickOnSidecategorButton()
+        HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .longClickOnTitle(nameOfMovie.get(0))
                 .clickRemoveFromHistory()
@@ -347,7 +351,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         seekToMiddle(0)
         killApp()
         launchApp(appPackage, false)
-        HomeScreen(true).clickOnSidecategorButton()
+        HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .longClickOnTitle(nameOfMovie.get(0))
                 .clickRemoveFromHistory()
@@ -369,7 +373,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         seekToMiddle(9)
         BaseScreen().navigateBackToHomeScreen()
         val subCategory = HomeScreen(true)
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
         subCategory.longClickOnTitle(nameOfMovie.get(0))
                 .clickRemoveFromHistory()
@@ -386,8 +390,9 @@ class MoviesTest : LaunchAppWithFacebook() {
     @Test
     fun playTillFirstQueuePointScrollToAutoplayVerifyIfTitleStartsFromBeginningForGuest() {
         val homeScreen = HomeScreen(true)
-        val searchSreen = homeScreen.clickAndSendTextToSearch("Oldboy")
-        val gotIt = searchSreen.clickOnTitleByInstatnce(0)
+        val searchSreen = homeScreen.clickOnSearch()
+        val gotIt = searchSreen.provideTextToSearch("Oldboy")
+                .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
         val playBackScreen = titleDatailScreen.clickOnPlay()
         playBackScreen.waitUntilAdsfinishes()
@@ -397,7 +402,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         playBackScreen.waitUntilAdsfinishes()
         val timer = playBackScreen.textOfLeftTimer()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
 
@@ -410,8 +415,9 @@ class MoviesTest : LaunchAppWithFacebook() {
         val homeScreen = HomeScreen(true)
         homeScreen.longPress()
                 .clickAddToQueueAfterLongClickWithoutReturn()
-        val searchSreen = homeScreen.clickAndSendTextToSearch("Oldboy")
-        val gotIt = searchSreen.clickOnTitleByInstatnce(0)
+        val searchSreen = homeScreen.clickOnSearch()
+        val gotIt = searchSreen.provideTextToSearch(longTermTitle)
+                .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
         val playBackScreen = titleDatailScreen.clickOnPlay()
         playBackScreen.waitUntilAdsfinishes()
@@ -421,7 +427,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         playBackScreen.waitUntilAdsfinishes()
         val timer = playBackScreen.textOfLeftTimer()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
 
@@ -445,13 +451,13 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .seekToAutoPlay(TypeOfContent.MOVIES)
                 .playTitleFromAutoplay()
         val subcategoryScreen = BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
         try {
             subcategoryScreen.longClickOnTitle(textOfTitle)
         } catch (e: TestException) {
             BaseScreen().navigateBackToHomeScreen()
-                    .clickOnSidecategorButton()
+                    .clickOnBrowseButton()
                     .scrollToSpecificCategory(continueWatching)
                     .removeAllTitles()
             titleStillInContinueWatching = false
@@ -478,14 +484,14 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .seekToAutoPlay(TypeOfContent.MOVIES)
                 .playTitleFromAutoplay()
         val subcategoryScreen = BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
         try {
             subcategoryScreen.longClickOnTitle(textOfTitle)
                     .clickRemoveFromHistory()
         } catch (e: TestException) {
             BaseScreen().navigateBackToHomeScreen()
-                    .clickOnSidecategorButton()
+                    .clickOnBrowseButton()
                     .scrollToSpecificCategory(continueWatching)
                     .removeAllTitles()
             titleStillInContinueWatching = false
@@ -506,7 +512,7 @@ class MoviesTest : LaunchAppWithFacebook() {
                     .waitUntilAdsfinishes()
         }
         BaseScreen().navigateBackToHomeScreen()
-        homeScreen.clickOnSidecategorButton()
+        homeScreen.clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -523,7 +529,7 @@ class MoviesTest : LaunchAppWithFacebook() {
     @Test
     fun clickOnPauseAndBackButton() {
         val homePage = HomeScreen(true)
-        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+        val sideCategoryScreen = homePage.clickOnBrowseButton()
                 .scrollToSpecificCategory(category)
                 .clickOnTitleForQueue(0)
                 .clickOnGotIt()
@@ -533,7 +539,7 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .clickPlay()
                 .clickOnNativeBackForMovie()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -541,7 +547,7 @@ class MoviesTest : LaunchAppWithFacebook() {
     @Test
     fun clickOnBackButtonWhileMovieIsPlaying() {
         val homePage = HomeScreen(true)
-        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+        val sideCategoryScreen = homePage.clickOnBrowseButton()
                 .scrollToSpecificCategory(category)
                 .clickOnTitleForQueue(0)
                 .clickOnGotIt()
@@ -550,7 +556,7 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .seekToMiddleOfPlayback()
                 .clickOnNativeBackForMovie()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -558,7 +564,7 @@ class MoviesTest : LaunchAppWithFacebook() {
     @Test
     fun clickOnBackButtonWhileMovieIsPlayingAndThenSelectMovieAgain() {
         val homePage = HomeScreen(true)
-        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+        val sideCategoryScreen = homePage.clickOnBrowseButton()
                 .scrollToSpecificCategory(category)
                 .clickOnTitleForQueue(0)
                 .clickOnGotIt()
@@ -570,7 +576,7 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .seekToTheEnd()
                 .clickOnNativeBackForMovie()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -578,7 +584,7 @@ class MoviesTest : LaunchAppWithFacebook() {
     @Test
     fun selectSerialThenMovieGuest() {
         val homePage = HomeScreen(true)
-        val movieDetailPage = homePage.clickOnSidecategorButton()
+        val movieDetailPage = homePage.clickOnBrowseButton()
                 .scrollToSpecificCategory(category)
                 .clickOnTitleForQueue(0)
                 .clickOnGotIt()
@@ -589,7 +595,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         Thread.sleep(10000)
         BaseScreen().navigateBackToHomeScreen()
 
-        val serialDetailPage = homePage.clickOnSidecategorButton()
+        val serialDetailPage = homePage.clickOnBrowseButton()
                 .scrollToSpecificCategory(tvCategory)
                 .clickOnTitle(0)
         val nameOfSerial = MovieDatailScreen().titleDatailScreen
@@ -598,7 +604,7 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .waitUntilAdsfinishes()
                 .seekToMiddleOfPlayback()
         Thread.sleep(10000)
-        BaseScreen().navigateBackToHomeScreen().clickOnSidecategorButton()
+        BaseScreen().navigateBackToHomeScreen().clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching).
                 verifyIfTitlesAddedToContinueWatching(nameOfMovie,nameOfSerial)
 

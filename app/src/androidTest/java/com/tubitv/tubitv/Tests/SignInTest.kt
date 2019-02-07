@@ -22,12 +22,13 @@ class SignInTest() : SimpleLaunchApp() {
     @Test
     fun signInWithIncorrectEmail() {
         val signInScreen = LaunchScreen().clickOnSignIn()
-        signInScreen.sendTextToEmailField("vladb" + RandomEmail.randomemail() + RandomEmail.randomemail() + "@gmail.com")
+        val email = "vladb" + RandomEmail.randomemail() + RandomEmail.randomemail() + "@gmail.com"
+        signInScreen.sendTextToEmailField(email)
         signInScreen.sendTextToPasswordField("tubitv")
         signInScreen.simpleClickOnSignInButton()
         val textFromAgainPopUp = signInScreen.textFromTryAgain()
         signInScreen.clickOnOkPleaseTryAgain()
-        Assert.assertEquals("This test provided not exists email in Sign In page,and text is not equal to", textFromAgainPopUp.toLowerCase(), "Please try again.".toLowerCase())
+        Assert.assertEquals("This test provided not exists email in Sign In page,and text is not equal to", textFromAgainPopUp.toLowerCase(), "Cannot find user match email $email".toLowerCase())
     }
 
     @Test

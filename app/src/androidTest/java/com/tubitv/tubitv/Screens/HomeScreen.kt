@@ -8,7 +8,7 @@ import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.*
 import com.tubitv.tubitv.Enomus.DirectionOfScrolling
 import com.tubitv.tubitv.Helpers.TestException
-import com.tubitv.tubitv.Helpers.TextExceptionWithError
+import com.tubitv.tubitv.Helpers.TestExceptionWithError
 import junit.framework.Assert.assertTrue
 
 
@@ -52,9 +52,9 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
                 assertTrue("Counter for Featured titles is not displayed on HomeScreen", findElementById(counterOfTitlesInFeaturedContainer, false).waitForExists(globalTimeout))
                 assertTrue("Expected first List of All Objects is not displayed on HomeScreen", firstListOfAllObjects.waitForExists(moviesListTimeout))
                 assertTrue("Expected titles is not displayed on HomeScreen", getTitleFromGrid().waitForExists(moviesListTimeout))
-                assertTrue("SearchField is not displayed on HomeScreen", findElementByDescription(searchButton, false).waitForExists(globalTimeout))
-                assertTrue("Settings button is not displayed on HomeScreen", findElementByDescription(treeDotsSetingsButton, false).waitForExists(globalTimeout))
-                assertTrue("Side category button is not displayed on HomeScreen", findByContentDesc(sideCategoryMenu, false).waitForExists(globalTimeout))
+                assertTrue("Search button is not displayed on HomeScreen", findElementParentIdChildIndex(tabs, true, 2, 0).exists())
+                assertTrue("Account button is not displayed on HomeScreen", findElementParentIdChildIndex(tabs, true, 3, 0).exists())
+                assertTrue("Browse button is not displayed on HomeScreen", findElementParentIdChildIndex(tabs, true, 1, 0).exists())
             }
         }
     }
@@ -63,18 +63,12 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
             firstListOfAllObjects.getChildByInstance(categoryList, number) // it's object of all category moivies in homepage
 
 
-    public fun clickAndSendTextToSearch(text: String): SearchScreen {
+    public fun clickOnSearch(): SearchScreen {
         try {
-            findElementByDescription(searchButton, false).click()
+            findElementParentIdChildIndex(tabs, true, 2, 0).click()
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't find search button", e)
+            TestExceptionWithError("Can't find search button", e)
         }
-        try {
-            findObjectById(searchField, false).setText(text)
-        } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't find search field", e)
-        }
-
         return SearchScreen()
     }
 
@@ -236,9 +230,14 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
     }
 
 
-    fun clickOnSidecategorButton(): SideCategoryMenuScreen {
-        findByContentDesc(sideCategoryMenu, false).click()
-        return SideCategoryMenuScreen()
+    fun clickOnBrowseButton(): BrowseMenuScreen {
+        findElementParentIdChildIndex(tabs, true, 1, 1).click()
+        return BrowseMenuScreen()
+    }
+
+    fun clickOnAccountButton(): AccountScreen {
+        findElementParentIdChildIndex(tabs, true, 3, 0).click()
+        return AccountScreen()
     }
 
 
@@ -424,11 +423,12 @@ class AddToQueue(checkForObjects: Boolean) : BaseScreen() {
 
 
 class Serials(category: String) : BaseScreen() {
+    private val category = category
     private val titleWithSerial = findElementByText(category, false)
 
     public fun clickOnSerialCategory(): MoviesByCategoryScreen {
         titleWithSerial.click()
-        return MoviesByCategoryScreen()
+        return MoviesByCategoryScreen(this.category)
     }
 }
 
@@ -442,9 +442,9 @@ class SettingSmallWindowInRightCorner() : BaseScreen() {
 
     }
 
-    fun clickOnSettings(): SettingsScreen {
+    fun clickOnSettings(): AccountScreen {
         boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter, 0).click()
-        return SettingsScreen()
+        return AccountScreen()
     }
 
     fun clickOnAbout(): PrivatePolicyScreen {

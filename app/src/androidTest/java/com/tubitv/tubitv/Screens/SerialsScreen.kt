@@ -54,19 +54,22 @@ class SerialsScreen() : BaseScreen() {
 
     fun clickOnPlayButton(): PlayBackScreen {
         findObjectById(playButton, true).click()
+        if(findObjectById(playButton, true).exists()){
+            findObjectById(playButton, false).click()
+        }
         return PlayBackScreen()
     }
 
-    fun selectRundomSerialTitle() {
-        val numbersOfTitles = MoviesByCategoryScreen().getCountOfTitles()
+    fun selectRundomSerialTitle(category:String) {
+        val numbersOfTitles = MoviesByCategoryScreen(category).getCountOfTitles()
         val randomNumber = Random().nextInt(numbersOfTitles)
-        val title = MoviesByCategoryScreen().gotkRandomTite(randomNumber) //randomNumber
+        val title = MoviesByCategoryScreen(category).gotkRandomTite(randomNumber) //randomNumber
         title.click()
         if (GotIt().gotitButton.waitForExists(globalTimeout))
             GotIt().clickOnGotIt()
         if (SerialsScreen().presentByHulu.exists()) {
             uiDevice.pressBack()
-            selectRundomSerialTitle()
+            selectRundomSerialTitle(category)
         }
         val serialScreen = SerialsScreen()
     }

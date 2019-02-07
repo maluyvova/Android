@@ -29,7 +29,7 @@ class UiPlussAPITests : SimpleLaunchApp() {
         if (homescreen.textCategory().equals("Queue")) {
 
             homescreen.clickOnThreeDots()
-            val countOftitles = MoviesByCategoryScreen().getCountOfTitles()
+            val countOftitles = MoviesByCategoryScreen("Queue").getCountOfTitles()
             Assert.assertTrue(countOftitles > 6)
         } else throw TestException("Queue didn't show up")
     }

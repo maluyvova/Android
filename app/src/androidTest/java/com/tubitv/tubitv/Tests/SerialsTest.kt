@@ -24,9 +24,9 @@ class SerialsTest : LaunchAppWithFacebook() {
 
 
     fun selectSerialWithFewSeasons() {
-        val numbersOfTitles = MoviesByCategoryScreen().getCountOfTitles()
+        val numbersOfTitles = MoviesByCategoryScreen(tvCategory).getCountOfTitles()
         val randomNumber = Random().nextInt(numbersOfTitles)
-        val title = MoviesByCategoryScreen().gotkRandomTite(randomNumber) //randomNumber
+        val title = MoviesByCategoryScreen(tvCategory).gotkRandomTite(randomNumber) //randomNumber
         title.click()
         if (GotIt().gotitButton.waitForExists(globalTimeout))
             GotIt().clickOnGotIt()
@@ -51,11 +51,11 @@ class SerialsTest : LaunchAppWithFacebook() {
         }
     }
 
-    fun scrollToTheSide() {
+    fun scrollToTheSide(category: String) {
         var i = 1;
-        val numbersOfTitles = MoviesByCategoryScreen().getCountOfTitles()
+        val numbersOfTitles = MoviesByCategoryScreen(category).getCountOfTitles()
         val randomNumber = Random().nextInt(numbersOfTitles)
-        val title = MoviesByCategoryScreen().gotkRandomTite(randomNumber) //randomNumber
+        val title = MoviesByCategoryScreen(category).gotkRandomTite(randomNumber) //randomNumber
         title.click()
         if (GotIt().gotitButton.waitForExists(globalTimeout))
             GotIt().clickOnGotIt()
@@ -77,7 +77,7 @@ class SerialsTest : LaunchAppWithFacebook() {
             } else {
                 uiDevice.pressBack()
                 uiDevice.pressBack()
-                scrollToTheSide()
+                scrollToTheSide(category)
             }
         }
 
@@ -88,9 +88,9 @@ class SerialsTest : LaunchAppWithFacebook() {
     fun longClickOnSerial() {
         var mark = true
         val homePage = HomeScreen(true)
-        val sideCategory = homePage.clickOnSidecategorButton()
+        val sideCategory = homePage.clickOnBrowseButton()
         sideCategory.scrollToSpecificCategory(tvCategory)
-        val title = MoviesByCategoryScreen().gotkRandomTite(Random().nextInt(5))
+        val title = MoviesByCategoryScreen(tvCategory).gotkRandomTite(Random().nextInt(5))
         title.dragTo(title, 3)
         val queScreen = AddToQueue(true)
         if (!queScreen.clickAddToQueueAfterLongClickWithoutReturn()) {
@@ -103,13 +103,13 @@ class SerialsTest : LaunchAppWithFacebook() {
             }
         }
         uiDevice.pressBack()
-        val sideCategory2 = homePage.clickOnSidecategorButton()
+        val sideCategory2 = homePage.clickOnBrowseButton()
         val subCategoryScreen = sideCategory2.scrollToSpecificCategory("Queue")
         val gotit = subCategoryScreen.clickOnTitleForQueue(0)
         val moviedatailScreen = gotit.clickOnGotIt()
         moviedatailScreen.simpleClickOnAddToQueue()
         uiDevice.pressBack()
-        val sideCategory3 = homePage.clickOnSidecategorButton()
+        val sideCategory3 = homePage.clickOnBrowseButton()
         try {
             sideCategory3.scrollToSpecificCategory("Queue")
         } catch (e: TestException) {
@@ -124,10 +124,10 @@ class SerialsTest : LaunchAppWithFacebook() {
     @Test
     fun serialSelectNextEpisode() {
         val homePage = HomeScreen(true)
-        val sideCategory = homePage.clickOnSidecategorButton()
+        val sideCategory = homePage.clickOnBrowseButton()
         sideCategory.scrollToSpecificCategory(tvCategory)
         val serialScreen = SerialsScreen()
-        serialScreen.selectRundomSerialTitle()
+        serialScreen.selectRundomSerialTitle(tvCategory)
         serialScreen.scrollScreen(4)
         serialScreen.scrollEpisdoesList(4)
         val firstTextOfNumber = serialScreen.getTextOfEpisode()
@@ -136,7 +136,7 @@ class SerialsTest : LaunchAppWithFacebook() {
         killApp()
         launchApp(appPackage, false)
         val homePage2 = HomeScreen(true)
-        val sideCategory2 = homePage2.clickOnSidecategorButton()
+        val sideCategory2 = homePage2.clickOnBrowseButton()
         val subCategoryScreen = sideCategory2.scrollToSpecificCategory(continueWatching)
         subCategoryScreen.clickOnTitleForQueueNoGotIt(0)
         val serialScreen2 = SerialsScreen()
@@ -150,7 +150,7 @@ class SerialsTest : LaunchAppWithFacebook() {
     @Test
     fun selectSeasonOfSerials() {
         val homePage = HomeScreen(true)
-        val sideCategory = homePage.clickOnSidecategorButton()
+        val sideCategory = homePage.clickOnBrowseButton()
         val subCategoryScreen = sideCategory.scrollToSpecificCategory(tvCategory)
         selectSerialWithFewSeasons()
         Assert.assertNotEquals("This test is selecting season2 from drop down ", textOfEpisodesForselectSerialWithFewSeasons.get(0), textOfEpisodesForselectSerialWithFewSeasons.get(1))
@@ -162,7 +162,7 @@ class SerialsTest : LaunchAppWithFacebook() {
         homePage.scrollToSpecificCategory(tvCategory, DirectionOfScrolling.DOWN)
         val serials = Serials(tvCategory)
         val moviesByCategoryScreen = serials.clickOnSerialCategory()
-        scrollToTheSide()
+        scrollToTheSide(tvCategory)
         Assert.assertNotEquals(episodesForScrollToTheSide.get(0), episodesForScrollToTheSide.get(1))
     }
 
@@ -171,7 +171,7 @@ class SerialsTest : LaunchAppWithFacebook() {
         var firsTime = true
         fun selectSerial() {
             val homePage = HomeScreen(true)
-            val sideCategoryScreen = homePage.clickOnSidecategorButton()
+            val sideCategoryScreen = homePage.clickOnBrowseButton()
             val subcategory = sideCategoryScreen.scrollToSpecificCategory(tvCategory)
             subcategory.clickOnTitle(0)
             if (firsTime) {
@@ -182,13 +182,11 @@ class SerialsTest : LaunchAppWithFacebook() {
             BaseScreen().navigateBackToHomeScreen()
             firsTime = false
         }
-        selectSerial()
-        selectSerial()
-        selectSerial()
-        selectSerial()
-        selectSerial()
+        for (i in 1..5) {
+            selectSerial()
+        }
         val homeScreen = HomeScreen(true)
-        homeScreen.clickOnSidecategorButton()
+        homeScreen.clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .longClickOnTitle(0)
                 .clickRemoveFromHistory()
@@ -200,7 +198,7 @@ class SerialsTest : LaunchAppWithFacebook() {
 
         val homeScreen = HomeScreen(true)
         val gotItScreen = homeScreen
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(tvCategory2)
                 .clickOnTitleForQueue(0)
 
@@ -212,7 +210,7 @@ class SerialsTest : LaunchAppWithFacebook() {
                     .waitUntilAdsfinishes()
         }
         BaseScreen().navigateBackToHomeScreen()
-        homeScreen.clickOnSidecategorButton()
+        homeScreen.clickOnBrowseButton()
                 .scrollToSpecificCategory(com.tubitv.tubitv.continueWatching)
                 .removeAllTitles()
     }
@@ -228,7 +226,7 @@ class SerialsTest : LaunchAppWithFacebook() {
     @Test
     fun clickOnPauseAndBackButtonSerial() {
         val homePage = HomeScreen(true)
-        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+        val sideCategoryScreen = homePage.clickOnBrowseButton()
                 .scrollToSpecificCategory(tvCategory2)
                 .clickOnTitleForQueue(0)
                 .clickOnGotIt()
@@ -238,7 +236,7 @@ class SerialsTest : LaunchAppWithFacebook() {
                 .clickPlay()
                 .clickOnNativeBackForSerial()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -246,7 +244,7 @@ class SerialsTest : LaunchAppWithFacebook() {
     @Test
     fun clickOnBackButtonWhileSerialIsPlaying() {
         val homePage = HomeScreen(true)
-        val sideCategoryScreen = homePage.clickOnSidecategorButton()
+        val sideCategoryScreen = homePage.clickOnBrowseButton()
                 .scrollToSpecificCategory(tvCategory)
                 .clickOnTitleForQueue(0)
                 .clickOnGotIt()
@@ -255,7 +253,7 @@ class SerialsTest : LaunchAppWithFacebook() {
                 .seekToMiddleOfPlayback()
                 .clickOnNativeBackForSerial()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }

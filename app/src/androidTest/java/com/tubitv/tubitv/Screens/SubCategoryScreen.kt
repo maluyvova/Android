@@ -7,20 +7,26 @@ import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
-import junit.framework.Assert
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 
 /**
  * Created by vburian on 4/2/18.
  */
-class SubCategoryScreen : BaseScreen() {
-    private val screen = UiScrollable(UiSelector().resourceId(appPackage + ":id/view_grid_category_recycler"))
-    private val boxWithTitles = UiCollection(UiSelector().resourceId(appPackage + ":id/fragment_category_recycler"))
+class SubCategoryScreen(categoryName: String) : BaseScreen() {
+    private val clickedCategory = categoryName
+    private val screen = UiScrollable(UiSelector().resourceId(appPackage + ":id/container_videos_recycler_view"))
+    private val boxWithTitles = UiCollection(UiSelector().resourceId(appPackage + ":id/container_videos_recycler_view"))
     private val title = UiSelector().className("android.widget.LinearLayout")
-    private val titleId = appPackage + ":id/view_category_content_iv"
-    private val textOfTitle = appPackage + ":id/view_category_content_tv_title"
+    private val titleImageId = appPackage + ":id/video_poster_image_view"
+    private val textOfTitle = appPackage + ":id/video_title_text_view"
+    private val categoryNameId = appPackage + ":id/titlebar_title_text_view"
+    private val backButton = appPackage + ":id/titlebar_back_image_view"
 
     init {
-        Assert.assertTrue("Expected screen with subtitles is not displayed ", screen.waitForExists(globalTimeout))
+        assertThat("Looks like wrong category is displayed", findObjectById(categoryNameId, true).text, equalTo(clickedCategory))
+        assertThat("back button doesn't exist on Sub Category screen", findObjectById(backButton, true).exists(), equalTo(true))
+
     }
 
 
@@ -36,7 +42,7 @@ class SubCategoryScreen : BaseScreen() {
     }
 
     fun countOfMovies(): Int {
-        return boxWithTitles.getChildCount(UiSelector().resourceId(titleId))
+        return boxWithTitles.getChildCount(UiSelector().resourceId(titleImageId))
     }
 
     fun clickOnTitle(number: Int) {
@@ -78,7 +84,7 @@ class SubCategoryScreen : BaseScreen() {
                     break
                 }
                 i++
-                if(countOfMovies()<i){
+                if (countOfMovies() < i) {
                     results.add(false)
                     break
                 }

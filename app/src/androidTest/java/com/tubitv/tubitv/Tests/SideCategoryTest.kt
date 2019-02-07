@@ -20,7 +20,7 @@ class SideCategoryTest : LaunchAppWithFacebook() {
     @Test
     fun selectSideCategory() {
         val homeScreen = HomeScreen(true)
-        val sideCategory = homeScreen.clickOnSidecategorButton()
+        val sideCategory = homeScreen.clickOnBrowseButton()
         val numberOfCategories = sideCategory.numberOftitles()
         print("Number of categories is $numberOfCategories")
         val randomNumber = Random().nextInt(numberOfCategories)
@@ -28,7 +28,7 @@ class SideCategoryTest : LaunchAppWithFacebook() {
         val textOfRandomCategory = sideCategory.textOfRandomCategory(randomNumber)
         print("Text of Random number is $textOfRandomCategory")
         val randomCategory = sideCategory.selectRandomcategory(randomNumber)
-        val movieDatailScreen = MoviesByCategoryScreen()
+        val movieDatailScreen = MoviesByCategoryScreen(textOfRandomCategory)
         val textOfCategory = movieDatailScreen.categoryText
         assertEquals("This text select random category from the categoryList and checking if text from the list equals to Text in category Screen", textOfRandomCategory.toLowerCase(), textOfCategory.toLowerCase())
     }
@@ -38,7 +38,7 @@ class SideCategoryTest : LaunchAppWithFacebook() {
         val homeScreen = HomeScreen(true)
         val titleInHomeScreen =homeScreen.longPress()
         titleInHomeScreen.clickAddToQueueAfterLongClickWithoutReturn()
-        val sideCategory = homeScreen.clickOnSidecategorButton()
+        val sideCategory = homeScreen.clickOnBrowseButton()
         val email = sideCategory.getUserEmail()
         Assert.assertTrue(email.contains("@"))
     }
@@ -54,7 +54,7 @@ class SideCategoryTest : LaunchAppWithFacebook() {
         LogInTest().SignOut()
         setUps()
         val homeScreen = HomeScreen(true)
-        val sideCategory = homeScreen.clickOnSidecategorButton()
+        val sideCategory = homeScreen.clickOnBrowseButton()
         val userName = sideCategory.getUserName().split(" ").get(0)
         val some = textFromFacebookButton
         assertThat(textFromFacebookButton, CoreMatchers.containsString(userName))

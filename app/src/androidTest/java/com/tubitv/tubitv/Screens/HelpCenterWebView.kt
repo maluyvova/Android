@@ -2,11 +2,8 @@ package com.tubitv.tubitv.Screens
 
 import android.support.test.uiautomator.UiObjectNotFoundException
 import android.support.test.uiautomator.UiSelector
-import com.tubitv.tubitv.Helpers.TestException
-import com.tubitv.tubitv.Helpers.TextExceptionWithError
+import com.tubitv.tubitv.Helpers.TestExceptionWithError
 import com.tubitv.tubitv.appPackage
-import com.tubitv.tubitv.globalTimeout
-import junit.framework.Assert
 import junit.framework.Assert.assertTrue
 
 /**
@@ -30,7 +27,7 @@ class HelpCenterWebView : BaseScreen() {
         try {
             findElementByIdAnd1LevelDeeper(tableWithIcons, i, true).click()
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't click on icon on webview Help Center", e)
+            TestExceptionWithError("Can't click on icon on webview Help Center", e)
         }
     }
 
@@ -38,7 +35,7 @@ class HelpCenterWebView : BaseScreen() {
         try {
             findElementById(sendMessageIccon, true).click()
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't click on send message Icon", e)
+            TestExceptionWithError("Can't click on send message Icon", e)
         }
         return SendMessageView()
     }
@@ -53,10 +50,10 @@ class HelpCenterWebView : BaseScreen() {
                 findElementByText(expectedText3, false)
                 findElementByText(expectedText4, false)
             } catch (e: UiObjectNotFoundException) {
-                TextExceptionWithError("Can't find elements by text", e)
+                TestExceptionWithError("Can't find elements by text", e)
             }
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't click on first link for General", e)
+            TestExceptionWithError("Can't click on first link for General", e)
         }
     }
 }
@@ -82,7 +79,7 @@ class SendMessageView() : BaseScreen() {
         try {
             findElementById(descriptionField, false).setText(text)
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't find Description field", e)
+            TestExceptionWithError("Can't find Description field", e)
         }
         return this
     }
@@ -91,7 +88,7 @@ class SendMessageView() : BaseScreen() {
         try {
             findElementById(descriptionField, false).clearTextField()
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't find Description field", e)
+            TestExceptionWithError("Can't find Description field", e)
         }
         return SendMessageView()
     }
@@ -101,7 +98,7 @@ class SendMessageView() : BaseScreen() {
         try {
             enabled = findElementById(sendButton, false).isEnabled
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't find send button", e)
+            TestExceptionWithError("Can't find send button", e)
         }
         return enabled
     }
@@ -110,7 +107,7 @@ class SendMessageView() : BaseScreen() {
         try {
             findElementById(deleteAttachment, true).click()
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't delete attachment", e)
+            TestExceptionWithError("Can't delete attachment", e)
         }
         return this
     }
@@ -120,7 +117,7 @@ class SendMessageView() : BaseScreen() {
         try {
             attachmentStillExists = findElementById(attachedPhoto, true).exists()
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Something wrong with Attachment", e)
+            TestExceptionWithError("Something wrong with Attachment", e)
         }
         return attachmentStillExists
     }
@@ -142,7 +139,7 @@ class SendMessageView() : BaseScreen() {
 
             findElementById(sendButton, false).click()
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't find Send button", e)
+            TestExceptionWithError("Can't find Send button", e)
         }
         return HelpCenterWebView()
     }
@@ -151,7 +148,7 @@ class SendMessageView() : BaseScreen() {
         try {
             findElementById(attachButton, false).click()
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't find Attach Button button", e)
+            TestExceptionWithError("Can't find Attach Button button", e)
         }
         return this
     }
@@ -160,7 +157,7 @@ class SendMessageView() : BaseScreen() {
         try {
             uiDevice.findObject(UiSelector().description(backButton)).click()
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't find Back button", e)
+            TestExceptionWithError("Can't find Back button", e)
         }
         return HelpCenterWebView()
     }
@@ -169,7 +166,7 @@ class SendMessageView() : BaseScreen() {
         try {
             findElementById(cameraButton, true).click()
         } catch (e: UiObjectNotFoundException) {
-            TextExceptionWithError("Can't find Back button", e)
+            TestExceptionWithError("Can't find Back button", e)
         }
     }
 

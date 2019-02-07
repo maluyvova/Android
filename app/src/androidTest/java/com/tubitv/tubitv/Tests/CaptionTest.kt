@@ -18,7 +18,7 @@ class CaptionTest : LaunchAppWithFacebook() {
         settingsScreen.clickOnCaption()
         uiDevice.pressBack()
         homepage.clickOnThreeDots()
-        val moviByCategoryScreen = MoviesByCategoryScreen()
+        val moviByCategoryScreen = MoviesByCategoryScreen("")
         val countOftitles = moviByCategoryScreen.getCountOfTitles()
         val randomTitle = moviByCategoryScreen.gotkRandomTite(6)
         randomTitle.click()

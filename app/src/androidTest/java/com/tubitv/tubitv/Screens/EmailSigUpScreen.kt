@@ -6,7 +6,7 @@ import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.Helpers.RandomEmail
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.moviesListTimeout
-import junit.framework.Assert
+import junit.framework.Assert.assertTrue
 
 /**
  * Created by vburian on 3/26/18.
@@ -27,15 +27,15 @@ class EmailSigUpScreen : BaseScreen() {
 
 
     init {
-        Assert.assertTrue("Expected first name field not showed up", findElementById(firstNameField, false).waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected email field not showed up", findElementById(emailField, false).waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected password field not showed up", findElementById(passwordField, false).waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected register button not showed up", findElementById(registerButton, false).waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected termOfUse button not showed up", findElementById(termOfUseButton, false).waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected privacy police not showed up", findElementById(privacyPolice, false).waitForExists(moviesListTimeout))
+        assertTrue("Expected first name field not showed up", findElementById(firstNameField, false).waitForExists(moviesListTimeout))
+        assertTrue("Expected email field not showed up", findElementById(emailField, false).waitForExists(moviesListTimeout))
+        assertTrue("Expected password field not showed up", findElementById(passwordField, false).waitForExists(moviesListTimeout))
+        assertTrue("Expected register button not showed up", findElementById(registerButton, false).waitForExists(moviesListTimeout))
+        assertTrue("Expected termOfUse button not showed up", findElementById(termOfUseButton, false).waitForExists(moviesListTimeout))
+        assertTrue("Expected privacy police not showed up", findElementById(privacyPolice, false).waitForExists(moviesListTimeout))
         //Assert.assertTrue("Expected signIn button not showed up", signInButton.waitForExists (moviesListTimeout))
-        Assert.assertTrue("Expected birthday button not showed up", findElementById(birthdayButton, false).waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected gender button not showed up", findElementById(genderButton, false).waitForExists(moviesListTimeout))
+        assertTrue("Expected birthday button not showed up", findElementById(birthdayButton, false).waitForExists(moviesListTimeout))
+        assertTrue("Expected gender button not showed up", findElementById(genderButton, false).waitForExists(moviesListTimeout))
     }
 
 
@@ -62,9 +62,9 @@ class EmailSigUpScreen : BaseScreen() {
         findObjectById(androidButton, false).click()
     }
 
-    fun clickOnSignIn(): SignInScreen {
+    fun clickOnSignIn(): AccountScreen {
         findElementByText(signInButtonInRegisterScreen, true).click()
-        return SignInScreen()
+        return AccountScreen()
     }
 
     fun selectGender(nums: Int) {

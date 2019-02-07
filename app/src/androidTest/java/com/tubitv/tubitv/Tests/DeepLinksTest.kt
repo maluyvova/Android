@@ -70,16 +70,18 @@ class DeepLinksTest : BaseTest() {
     @Test
     fun deepLinkForAction() {
         getInstrum()
+        clearAppData()
         // ifNotRegistred()
         uiDevice.executeShellCommand(comandForDeepLink + ActionCategory + appPackage)
         ifFirstTime()
-        Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen().categoryText, "Action")
+        Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen("Action").categoryText, "Action")
     }
 
     @Test
     fun deepLinkForSerial() {
         val expectedTitleOfSerial = "Dog the Bounty Hunter"
         getInstrum()
+        clearAppData()
         ifNotRegistred()
         uiDevice.executeShellCommand(comandForDeepLink + ForSerial + appPackage)
         ifFirstTime()
@@ -90,26 +92,29 @@ class DeepLinksTest : BaseTest() {
     fun deepLinkForComedy() {
         val expectedCategory = "Comedy"
         getInstrum()
+        clearAppData()
         ifNotRegistred()
         uiDevice.executeShellCommand(comandForDeepLink + ForComedy + appPackage)
         ifFirstTime()
-        Assert.assertEquals("Expected category: $expectedCategory didn't show up after deep link", MoviesByCategoryScreen().categoryText, "$expectedCategory")
+        Assert.assertEquals("Expected category: $expectedCategory didn't show up after deep link", MoviesByCategoryScreen("Comedy").categoryText, "$expectedCategory")
     }
 
     @Test
     fun deepLinkForDrama() {
         val expectedCategory = "Drama"
         getInstrum()
+        clearAppData()
         ifNotRegistred()
         uiDevice.executeShellCommand(comandForDeepLink + ForDrama + appPackage)
         ifFirstTime()
-        Assert.assertEquals("Expected category: $expectedCategory didn't show up after deep link", MoviesByCategoryScreen().categoryText, "$expectedCategory")
+        Assert.assertEquals("Expected category: $expectedCategory didn't show up after deep link", MoviesByCategoryScreen("Drama").categoryText, "$expectedCategory")
     }
 
     @Test
     fun deepLinkForMovieOldBoy() {
         val expectedMovie = "Oldboy"
         getInstrum()
+        clearAppData()
         ifNotRegistred()
         uiDevice.executeShellCommand(comandForDeepLink + ForMovieOldBoy + appPackage)
         ifFirstTime()
@@ -117,7 +122,7 @@ class DeepLinksTest : BaseTest() {
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -126,6 +131,7 @@ class DeepLinksTest : BaseTest() {
     fun deepLinkForVideoOldBoy() {
         val expectedMovie = "Oldboy"
         getInstrum()
+        clearAppData()
         ifNotRegistred()
         uiDevice.executeShellCommand(comandForDeepLink + LinkForMovieOldBoy + appPackage)
         ifFirstTime()
@@ -133,7 +139,7 @@ class DeepLinksTest : BaseTest() {
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -143,13 +149,14 @@ class DeepLinksTest : BaseTest() {
         val expectedMovie = "Igor"
         getInstrum()
         killApp()
+        clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + MovieIgor)
         ifFirstTime()
         Assert.assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -160,13 +167,14 @@ class DeepLinksTest : BaseTest() {
         val expectedMovie = "127 Hours"
         getInstrum()
         killApp()
+        clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + Movie127Hours)
         ifFirstTime()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -176,13 +184,14 @@ class DeepLinksTest : BaseTest() {
         val expectedMovie = "The Hollow"
         getInstrum()
         killApp()
+        clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + TheHollow)
         ifFirstTime()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -192,13 +201,14 @@ class DeepLinksTest : BaseTest() {
         val expectedMovie = "Oldboy"
         getInstrum()
         killApp()
+        clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + OldBoyUTM)
         ifFirstTime()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -208,6 +218,7 @@ class DeepLinksTest : BaseTest() {
         val expectedMovie = "Wild at Heart"
         getInstrum()
         killApp()
+        clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + WildAtHeartUTMSerial)
         ifFirstTime()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
@@ -215,7 +226,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
                 .seekToTheEnd()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -225,6 +236,8 @@ class DeepLinksTest : BaseTest() {
     fun deeplinkWithUTMMcLeodsDaughtersSerial() {
         val expectedMovie = "McLeod's Daughters"
         getInstrum()
+        clearAppData()
+        launchApp(appPackage, false)
         killApp()
         uiDevice.executeShellCommand(comandForDeepLink + McLeodsDaughtersUTMSerial)
         ifFirstTime()
@@ -233,7 +246,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
                 .seekToTheBegining()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -243,6 +256,7 @@ class DeepLinksTest : BaseTest() {
         val expectedMovie = "McLeod's Daughters"
         getInstrum()
         killApp()
+        clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + McLeodsDaughters)
         ifFirstTime()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
@@ -250,7 +264,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
                 .seekToTheBegining()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -260,6 +274,7 @@ class DeepLinksTest : BaseTest() {
         val expectedMovie = "Dog the Bounty Hunter"
         getInstrum()
         killApp()
+        clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + DogTheBountyHunterUTMSErial)
         ifFirstTime()
         assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
@@ -269,7 +284,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToTheBegining()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -279,26 +294,56 @@ class DeepLinksTest : BaseTest() {
     fun deepLinkForAnimeUTM() {
         getInstrum()
         killApp()
+        clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + deeplinkToCategoryUTMAnime + appPackage)
         ifFirstTime()
-        val category = MoviesByCategoryScreen().categoryText
-        Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen().categoryText, "Anime")
+        val category = MoviesByCategoryScreen("Anime").categoryText
+        Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen("Anime").categoryText, "Anime")
     }
 
     @Test
     fun deepLinkForAnime2UTM() {
         getInstrum()
         killApp()
+        clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + deeplinkToCategoryUTMAnime2 + appPackage)
         ifFirstTime()
-        val category = MoviesByCategoryScreen().categoryText
-        Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen().categoryText, "Anime")
+        val category = MoviesByCategoryScreen("Anime").categoryText
+        Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen("Anime").categoryText, "Anime")
     }
 
     @Test
-    fun deepLinkUML() {
+    fun deepLinkUMLTheHollow() {
         val expectedMovie = "The Hollow"
         getInstrum()
+        killApp()
+        clearAppData()
+        uiDevice.executeShellCommand(comandForDeepLink + anotherDeeplinkWithUTM)
+        ifFirstTime()
+        casting()
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        MovieDatailScreen().clickOnPlay()
+                .seekToMiddleOfPlayback()
+                .seekToAutoPlay(TypeOfContent.MOVIES)
+                .playTitleFromAutoplay()
+                .seekToMiddleOfPlayback()
+        BaseScreen().navigateBackToHomeScreen()
+                .clickOnBrowseButton()
+                .scrollToSpecificCategory(continueWatching)
+                .removeAllTitles()
+    }
+
+    @Test
+    fun deepLinkUMLTheHollowRegisterUser() {
+        val expectedMovie = "The Hollow"
+        getInstrum()
+        killApp()
+        clearAppData()
+        launchApp(appPackage, false)
+        val homeScreen = HomeScreen(true)
+        homeScreen.dismissCasting()
+        homeScreen.longPress()
+                .clickAddToQueueAfterLongClickWithoutReturn()
         killApp()
         uiDevice.executeShellCommand(comandForDeepLink + anotherDeeplinkWithUTM)
         ifFirstTime()
@@ -310,7 +355,7 @@ class DeepLinksTest : BaseTest() {
                 .playTitleFromAutoplay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }
@@ -319,6 +364,34 @@ class DeepLinksTest : BaseTest() {
     fun deepLinkUMWomanThouArtLoosed() {
         val expectedMovie = "Woman Thou Art Loosed"
         getInstrum()
+        killApp()
+        clearAppData()
+        uiDevice.executeShellCommand(comandForDeepLink + deeplinkForMovieWomanThouArtLoosed)
+        ifFirstTime()
+        casting()
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        MovieDatailScreen().clickOnPlay()
+                .seekToMiddleOfPlayback()
+                .seekToAutoPlay(TypeOfContent.MOVIES)
+                .playTitleFromAutoplay()
+                .seekToMiddleOfPlayback()
+        BaseScreen().navigateBackToHomeScreen()
+                .clickOnBrowseButton()
+                .scrollToSpecificCategory(continueWatching)
+                .removeAllTitles()
+    }
+
+    @Test
+    fun deepLinkUMWomanThouArtLoosedForRegisterUser() {
+        val expectedMovie = "Woman Thou Art Loosed"
+        getInstrum()
+        killApp()
+        clearAppData()
+        launchApp(appPackage, false)
+        val homeScreen = HomeScreen(true)
+        homeScreen.dismissCasting()
+        homeScreen.longPress()
+                .clickAddToQueueAfterLongClickWithoutReturn()
         killApp()
         uiDevice.executeShellCommand(comandForDeepLink + deeplinkForMovieWomanThouArtLoosed)
         ifFirstTime()
@@ -330,7 +403,7 @@ class DeepLinksTest : BaseTest() {
                 .playTitleFromAutoplay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
-                .clickOnSidecategorButton()
+                .clickOnBrowseButton()
                 .scrollToSpecificCategory(continueWatching)
                 .removeAllTitles()
     }

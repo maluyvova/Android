@@ -21,7 +21,7 @@ class SubCategoryTests : LaunchAppWithFacebook() {
         var mark = true
         val category = "Queue"
         val homeScreen = HomeScreen(true)
-        val sideCategoryScreen = homeScreen.clickOnSidecategorButton()
+        val sideCategoryScreen = homeScreen.clickOnBrowseButton()
         val subCategoryScreen = sideCategoryScreen.scrollToSpecificCategory("Special Interest")
         val randomNumber = Random().nextInt(subCategoryScreen.countOfMovies())
         subCategoryScreen.clickOnTitle(randomNumber)
@@ -30,14 +30,14 @@ class SubCategoryTests : LaunchAppWithFacebook() {
         val first = MovieDatailScreen().titleDatailScreen
         killApp()
         launchApp(appPackage, false)
-        val sideCategoryScreen2 = homeScreen.clickOnSidecategorButton()
+        val sideCategoryScreen2 = homeScreen.clickOnBrowseButton()
         val subCategoryScreen2 = sideCategoryScreen2.scrollToSpecificCategory(category)
         val movieDatailScreen = subCategoryScreen2.clickOnTitleForQueueNoGotIt(0)
         val titleInQueue = movieDatailScreen.titleDatailScreen
         movieDatailScreen.simpleClickOnAddToQueue()
         killApp()
         launchApp(appPackage, false)
-        val sideCategoryScreen3 = homeScreen.clickOnSidecategorButton()
+        val sideCategoryScreen3 = homeScreen.clickOnBrowseButton()
         try {
             sideCategoryScreen3.scrollToSpecificCategoryWithoutReturn("Queue")
         } catch (e: TestException) {

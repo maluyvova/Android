@@ -129,9 +129,9 @@ open class BaseTest {
     protected fun getDeviceNameBasedOnId(id: ByteArray): String {
         var device = ""
         when {
-            id.contentEquals(byteArrayOf(2, -39, 54, 52, 43, 23)) -> device = "Pixel2"
-            id.contentEquals(byteArrayOf(-10, -124, 8, -36, 98, 105)) -> device = "GalaxyS8"
-            id.contentEquals(byteArrayOf(-102, -59, -117, -104, -54, -50)) -> device = "GalaxyS8"
+            id.contentEquals(byteArrayOf(114, -125, 84, -48, -96, 13)) -> device = "Pixel2"
+            id.contentEquals(byteArrayOf(82, 86, -67, 107, -70, -96)) -> device = "GalaxyS8"
+            id.contentEquals(byteArrayOf(74, 9, 77, -119, -48, 9)) -> device = "GalaxyS8"
             id.contentEquals(byteArrayOf(-50, 100, -52, 64, -78, -47)) -> device = "Note4"
             id.contentEquals(byteArrayOf(-38, 103, -50, -68, -5, -31)) -> device = "AsusTablet"
             id.contentEquals(byteArrayOf(-7, 14, 99, 9, -121)) -> device = "SumsungTablet"
@@ -140,7 +140,7 @@ open class BaseTest {
             id.contentEquals(byteArrayOf(-110, -66, -2, 76, -109, -90)) -> device = "SunsungGalaxyTablet"
             id.contentEquals(byteArrayOf(2, 0, 0, 0, 0, 0)) -> device = "Vlad's emulator"
             id.contentEquals(byteArrayOf(118, -43, 26, -94, 102, -99)) -> device = "AsusTablet"
-            id.contentEquals(byteArrayOf(94, 72, -44, 51, -106, -40)) -> device = "AsusTablet"
+            id.contentEquals(byteArrayOf(0, 4, 75, 114, 104, 39)) -> device = "AsusTablet"
             id.isEmpty() -> throw TestException("Something wrong with getDeviceId() method, can't get id")
 
             else -> throw TestException("Your device/emulator is not register in this framework yet, please add this id:${id.joinToString()} in this statment, Also you need to add your deviceid everywhere where we use it e.g -> NativeCamera()")

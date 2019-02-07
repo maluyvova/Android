@@ -17,6 +17,7 @@ public class SignInScreen : BaseScreen() {
     private val pleaseTryAgainText = "android:id/message"
 
 
+
     init {
         Assert.assertTrue("Expected Email field is not displayed in Sign in Page", findElementById(emailField,false).waitForExists(globalTimeout))
         Assert.assertTrue("Expected Password field is not displayed in Sign In Page", findElementById(passwordField,false).waitForExists(globalTimeout))
@@ -41,7 +42,7 @@ public class SignInScreen : BaseScreen() {
         findObjectById(signInButton,false).click()
     }
 
-    fun emptyFieldsClickOnSignInButton(): SignInScreen {
+    fun emptyFieldsClickOnSignInButton():SignInScreen {
         findObjectById(signInButton,false).click()
         return SignInScreen()
     }
