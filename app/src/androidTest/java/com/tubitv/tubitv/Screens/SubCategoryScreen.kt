@@ -1,9 +1,6 @@
 package com.tubitv.tubitv.Screens
 
-import android.support.test.uiautomator.UiCollection
-import android.support.test.uiautomator.UiObjectNotFoundException
-import android.support.test.uiautomator.UiScrollable
-import android.support.test.uiautomator.UiSelector
+import android.support.test.uiautomator.*
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
@@ -24,13 +21,25 @@ class SubCategoryScreen(categoryName: String) : BaseScreen() {
     private val backButton = appPackage + ":id/titlebar_back_image_view"
 
     init {
-        assertThat("Looks like wrong category is displayed", findObjectById(categoryNameId, true).text, equalTo(clickedCategory))
         assertThat("back button doesn't exist on Sub Category screen", findObjectById(backButton, true).exists(), equalTo(true))
-
+        assertThat("Looks like wrong category is displayed", waitUntilTextMeetsConditions(findObjectById(categoryNameId, true), clickedCategory).text, equalTo(clickedCategory))
     }
 
 
-    public val textOFTitle get() = findObjectById(textOfTitle, false).text
+    val textOFTitle get() = findObjectById(textOfTitle, false).text
+
+    fun textOfAllTitles(): MutableList<String> {
+        val titles = mutableListOf<String>()
+        var i = 0
+        while (countOfMovies() > i) {
+            titles.add(screen.getChildByInstance(title, i).getChild(UiSelector().resourceId(textOfTitle)).text)
+            i++
+            if (i > 30) {
+                throw TestException("Can't get text of all titles")
+            }
+        }
+        return titles
+    }
 
     fun swipeScreen(number: Int) {
         screen.setAsHorizontalList().scrollToEnd(number)
@@ -43,6 +52,16 @@ class SubCategoryScreen(categoryName: String) : BaseScreen() {
 
     fun countOfMovies(): Int {
         return boxWithTitles.getChildCount(UiSelector().resourceId(titleImageId))
+    }
+
+    fun waitUntilTextMeetsConditions(obj: UiObject, text: String): UiObject {
+        var i = 0
+        val some = obj.text
+        while (!obj.text.equals(text) && i < 70) {
+            val r = "sfsdf"
+            i++
+        }
+        return obj
     }
 
     fun clickOnTitle(number: Int) {
@@ -68,7 +87,7 @@ class SubCategoryScreen(categoryName: String) : BaseScreen() {
                 i++
             }
         } catch (e: UiObjectNotFoundException) {
-            TestException("Can't delete all titles from 'Continue watching'")
+            throw   TestException("Can't delete all titles from 'Continue watching'")
         }
     }
 
@@ -116,7 +135,7 @@ class SubCategoryScreen(categoryName: String) : BaseScreen() {
                 throw TestException("Can't find this movie: $nameOfMovie in 'Continue watching'")
             }
         } catch (e: UiObjectNotFoundException) {
-            TestException("Can't find this movie: $nameOfMovie in 'Continue watching'")
+            throw   TestException("Can't find this movie: $nameOfMovie in 'Continue watching'")
         }
         return AddToQueue(false)
     }
@@ -132,7 +151,7 @@ class SubCategoryScreen(categoryName: String) : BaseScreen() {
                 }
             }
         } catch (e: UiObjectNotFoundException) {
-            TestException("Can't find this movie: $nameOfMovie in 'Continue watching'")
+            throw     TestException("Can't find this movie: $nameOfMovie in 'Continue watching'")
         }
         return MovieDatailScreen()
     }

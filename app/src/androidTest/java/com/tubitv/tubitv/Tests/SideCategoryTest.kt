@@ -43,7 +43,7 @@ class SideCategoryTest : LaunchAppWithFacebook() {
         Assert.assertTrue(email.contains("@"))
     }
 
-    //@Test
+    @Test
     fun checkIfWeShowCorrectUserId() {
         LogInTest().SignOut()
         val signInScreen = LaunchScreen().clickOnSignIn()

@@ -361,11 +361,16 @@ class AddToQueue(checkForObjects: Boolean) : BaseScreen() {
     }
 
     public fun clickRemoveFromHistory() {
-        smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0).dragTo(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0), 3)
-        if (findElementById(facebookSignIn, false).exists()) {
-            FacebookSignInForNonRegisterUser().clickOnSignUpWithFacebook()
+        try {
             smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0).dragTo(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0), 3)
+            if (findElementById(facebookSignIn, false).exists()) {
+                FacebookSignInForNonRegisterUser().clickOnSignUpWithFacebook()
+                smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0).dragTo(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0), 3)
+            }
+        } catch (e: UiObjectNotFoundException) {
+            TestExceptionWithError("Looks like long click doesn't work, because remove from history is not present",e)
         }
+
     }
 
 

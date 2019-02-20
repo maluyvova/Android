@@ -17,4 +17,3 @@ val moviesListTimeout = 9000L
 val facebookLogin = 17000L
 val waitForAutoplay = 20000L
 val appPackageFacebook = "com.facebook.katana"
-val continueWatching = "Continue Watching"

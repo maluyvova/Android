@@ -1,10 +1,10 @@
 package com.tubitv.tubitv.Tests
 
+import com.tubitv.tubitv.Enomus.Categories
 import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.Screens.BaseScreen
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.TitlesForSearchScreen
-import com.tubitv.tubitv.continueWatching
 import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Test
@@ -80,7 +80,7 @@ class SearchTest : LaunchAppWithFacebook() {
         assertTrue("Title name is not contain text which test has provided provided in search field, text of suggestion: $textOfProposition text from title details page: $textOfTitle", textOfTitle.contains(textOfProposition))
     }
 
-    @Test
+//    @Test
     fun clickOnFirstSuggestionAndNavigateBackCheckIfSearchedViewIsSaved() {
         val homeScreen = HomeScreen(true)
         val searchScreen = homeScreen.clickOnSearch()
@@ -97,7 +97,7 @@ class SearchTest : LaunchAppWithFacebook() {
                 .clickOnNativeBackForMovie()
         BaseScreen().navigateBackToHomeScreen()
         homeScreen.clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .longClickOnTitle(textOfTitle)
                 .clickRemoveFromHistory()
         assertTrue("Title name is not contain text which test has provided provided in search field, text of suggestion: $textOfProposition text from title details page: $textOfTitle", textOfTitle.toLowerCase().contains(textOfProposition.toLowerCase()))
@@ -257,7 +257,7 @@ class SearchTest : LaunchAppWithFacebook() {
                 .clickOnPlay()
                 .seekToMiddleOfPlayback()
         homeScreen.clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .longClickOnTitle(0)
                 .clickRemoveFromHistory()
     }
@@ -274,7 +274,7 @@ class SearchTest : LaunchAppWithFacebook() {
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
         homeScreen.clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .longClickOnTitle(0)
                 .clickRemoveFromHistory()
     }
@@ -290,7 +290,7 @@ class SearchTest : LaunchAppWithFacebook() {
                 .clickOnPlay()
         BaseScreen().navigateBackToHomeScreen()
         homeScreen.clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .longClickOnTitle(0)
                 .clickRemoveFromHistory()
     }

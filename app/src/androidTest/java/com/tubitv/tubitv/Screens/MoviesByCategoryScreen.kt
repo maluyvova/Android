@@ -20,9 +20,9 @@ import java.util.*
 class MoviesByCategoryScreen(category:String) : BaseScreen() {
     private val boxOfTitles = UiCollection(UiSelector().resourceId(appPackage + ":id/container_videos_recycler_view"))
     private val categoryName = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/titlebar_title_text_view"))
-    private val title = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_category_content_iv"))
+    private val title = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/video_poster_image_view"))
     private val title2 = UiSelector().resourceId(appPackage + ":id/video_poster_image_view")
-    private val textOfTitle = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/view_category_content_tv_title"))
+    private val textOfTitle = uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/video_title_text_view"))
     private val screen = appPackage + ":id/view_category_recycler"
     public val categoryText get() = categoryName.text
     public val titleText get() = textOfTitle.text

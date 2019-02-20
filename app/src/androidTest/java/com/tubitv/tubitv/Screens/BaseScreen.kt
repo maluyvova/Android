@@ -3,6 +3,7 @@ package com.tubitv.tubitv.Screens
 import android.support.test.InstrumentationRegistry
 import android.support.test.uiautomator.*
 import com.tubitv.tubitv.*
+import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Helpers.TestExceptionWithError
 
 /**
@@ -229,6 +230,9 @@ open class BaseScreen {
         while (!waitForObjectShortTime(homeScreen) && i < 7) {
             uiDevice.pressBack()
             i++
+            if(i>30){
+                throw TestException("Something wrong with navigating back to home screen")
+            }
         }
         return HomeScreen(true)
     }

@@ -2,6 +2,7 @@ package com.tubitv.tubitv.Tests
 
 import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.*
+import com.tubitv.tubitv.Enomus.Categories
 import com.tubitv.tubitv.Enomus.TypeOfContent
 import com.tubitv.tubitv.Screens.*
 import junit.framework.Assert.assertEquals
@@ -123,7 +124,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -140,7 +141,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -157,7 +158,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -175,7 +176,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -192,7 +193,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -209,7 +210,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -227,7 +228,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToTheEnd()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -247,7 +248,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToTheBegining()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -265,7 +266,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToTheBegining()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -285,7 +286,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -329,7 +330,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -356,7 +357,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -377,7 +378,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 
@@ -404,7 +405,7 @@ class DeepLinksTest : BaseTest() {
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitles()
     }
 

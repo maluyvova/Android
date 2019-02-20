@@ -1,11 +1,11 @@
 package com.tubitv.tubitv.Tests
 
+import com.tubitv.tubitv.Enomus.Categories
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.Screens.BaseScreen
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.HuluPlaybackScreen
-import com.tubitv.tubitv.continueWatching
 import junit.framework.Assert.assertEquals
 import org.junit.Assert
 import org.junit.Test
@@ -90,7 +90,7 @@ class HuluTest : LaunchAppWithFacebook() {
         Thread.sleep(80000)
         BaseScreen().navigateBackToHomeScreen()
         val subCategory = homeScreen.clickOnBrowseButton()
-                .scrollToSpecificCategory(continueWatching)
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
         val titleFromContinueWatching = subCategory.clickOnTitle(titleFromSerch)
                 .titleDatailScreen
         uiDevice.pressBack()

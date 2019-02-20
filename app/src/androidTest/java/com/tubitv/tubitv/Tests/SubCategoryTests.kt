@@ -1,5 +1,6 @@
 package com.tubitv.tubitv.Tests
 
+import com.tubitv.tubitv.Enomus.Categories
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.Screens.GotIt
@@ -19,10 +20,11 @@ class SubCategoryTests : LaunchAppWithFacebook() {
     @Test
     fun addToQueueSubCategory() {
         var mark = true
-        val category = "Queue"
         val homeScreen = HomeScreen(true)
+        homeScreen.longPress()
+                .clickAddToQueueAfterLongClickWithoutReturn()
         val sideCategoryScreen = homeScreen.clickOnBrowseButton()
-        val subCategoryScreen = sideCategoryScreen.scrollToSpecificCategory("Special Interest")
+        val subCategoryScreen = sideCategoryScreen.scrollToSpecificCategory(Categories.CON_TV.value)
         val randomNumber = Random().nextInt(subCategoryScreen.countOfMovies())
         subCategoryScreen.clickOnTitle(randomNumber)
         GotIt().clickOnGotIt()
@@ -31,7 +33,7 @@ class SubCategoryTests : LaunchAppWithFacebook() {
         killApp()
         launchApp(appPackage, false)
         val sideCategoryScreen2 = homeScreen.clickOnBrowseButton()
-        val subCategoryScreen2 = sideCategoryScreen2.scrollToSpecificCategory(category)
+        val subCategoryScreen2 = sideCategoryScreen2.scrollToSpecificCategory(Categories.QUEUE.value)
         val movieDatailScreen = subCategoryScreen2.clickOnTitleForQueueNoGotIt(0)
         val titleInQueue = movieDatailScreen.titleDatailScreen
         movieDatailScreen.simpleClickOnAddToQueue()

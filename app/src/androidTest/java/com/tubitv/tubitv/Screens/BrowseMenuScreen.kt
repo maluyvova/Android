@@ -2,6 +2,7 @@ package com.tubitv.tubitv.Screens
 
 import android.app.UiAutomation
 import android.support.test.uiautomator.*
+import com.tubitv.tubitv.Enomus.Categories
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Helpers.TestExceptionWithError
 import com.tubitv.tubitv.appPackage
@@ -58,11 +59,20 @@ class BrowseMenuScreen : BaseScreen() {
         if (rowScreen) {
             return SubCategoryScreen(clickOnSpecificCategoryRowScreen(category))
         } else {
-            if (category == "Continue Watching") {
-                return SubCategoryScreen(clickOnContinueWatchingContainerScreen(category))
+            when {
+                category == Categories.CONTINUE_WATCHING.value -> {
+                    return SubCategoryScreen(clickOnContinueWatchingContainerScreen(category))
+                }
+                category == Categories.QUEUE.value -> {
+                }
+
+//            if (category == Categories.CONTINUE_WATCHING.value) {
+//                return SubCategoryScreen(clickOnContinueWatchingContainerScreen(category))
+//            }
+                //return SubCategoryScreen(clickOnSpecificCategoryContainerScreen(category))
             }
-            return SubCategoryScreen(clickOnSpecificCategoryContainerScreen(category))
         }
+        return return SubCategoryScreen(clickOnSpecificCategoryContainerScreen(category))
     }
 
     fun clickOnSpecificCategoryRowScreen(category: String): String {
@@ -143,6 +153,9 @@ class BrowseMenuScreen : BaseScreen() {
         var x = 0
         var i = 0
         while (bigContainerText != "For You") {
+            if (x > 40) {
+                throw TestException("can't find this $category on Container screen")
+            }
             if (uiDevice.findObject(UiSelector().resourceId(boxWithListOfCategories)).getChild(UiSelector().index(x)).getChild(UiSelector().resourceId(nameOfBigContainer)).exists()) {
                 bigContainer = uiDevice.findObject(UiSelector().resourceId(boxWithListOfCategories)).getChild(UiSelector().index(x))
                 bigContainerText = bigContainer.getChild(UiSelector().resourceId(nameOfBigContainer)).text
@@ -174,6 +187,7 @@ class BrowseMenuScreen : BaseScreen() {
                     val name = findElmentByidAnd2LevelsDeeper(boxWithListOfCategories, i, 0, false).text
                     if (name.equals(category)) {
                         foundCategory = findElmentByidAnd2LevelsDeeper(boxWithListOfCategories, i, 0, false)
+                        foundCategory.click()
                         break
                     }
                 } else if (ii > 60) {

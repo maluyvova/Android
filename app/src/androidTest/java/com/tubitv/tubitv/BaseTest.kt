@@ -130,8 +130,8 @@ open class BaseTest {
         var device = ""
         when {
             id.contentEquals(byteArrayOf(114, -125, 84, -48, -96, 13)) -> device = "Pixel2"
-            id.contentEquals(byteArrayOf(82, 86, -67, 107, -70, -96)) -> device = "GalaxyS8"
-            id.contentEquals(byteArrayOf(74, 9, 77, -119, -48, 9)) -> device = "GalaxyS8"
+            id.contentEquals(byteArrayOf(82, -118, -125, 33, -118, 70)) -> device = "GalaxyS8"
+            id.contentEquals(byteArrayOf(-110, -105, -9, 58, -103, 11)) -> device = "GalaxyS8"
             id.contentEquals(byteArrayOf(-50, 100, -52, 64, -78, -47)) -> device = "Note4"
             id.contentEquals(byteArrayOf(-38, 103, -50, -68, -5, -31)) -> device = "AsusTablet"
             id.contentEquals(byteArrayOf(-7, 14, 99, 9, -121)) -> device = "SumsungTablet"
