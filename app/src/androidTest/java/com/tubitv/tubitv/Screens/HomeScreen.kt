@@ -81,6 +81,13 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
     public val textOfTitleInFeaturedCategor get() = findObjectById(featuredTitlesText, false).text
 
     public fun getCountOfMovies(i: Int): Int {
+        if (!getGrid(i).getChild(containerOfTitlesSmaller).exists()) {
+            UiScrollable(UiSelector().resourceId(firstListOfAllObjectsString)).scrollIntoView(getGrid(i).getChild(containerOfTitlesSmaller))
+            if (!getGrid(i).getChild(containerOfTitlesSmaller).exists()) {
+                UiScrollable(UiSelector().resourceId(firstListOfAllObjectsString)).scrollForward()
+            }
+            UiScrollable(UiSelector().resourceId(firstListOfAllObjectsString)). ensureFullyVisible(getGrid(i).getChild(containerOfTitlesSmaller))
+        }
         return getGrid(i).getChild(containerOfTitlesSmaller).childCount
     }
 
@@ -211,12 +218,6 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
     fun text(number: Int): Objects {
         val text = getTextOfCategory(number)
         return text(number)
-    }
-
-
-    public fun clickOnThreeDotsSetings(): SettingSmallWindowInRightCorner {
-        findElementByDescription(treeDotsSetingsButton, false).click()
-        return SettingSmallWindowInRightCorner()
     }
 
 
@@ -368,7 +369,7 @@ class AddToQueue(checkForObjects: Boolean) : BaseScreen() {
                 smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0).dragTo(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0), 3)
             }
         } catch (e: UiObjectNotFoundException) {
-            TestExceptionWithError("Looks like long click doesn't work, because remove from history is not present",e)
+            TestExceptionWithError("Looks like long click doesn't work, because remove from history is not present", e)
         }
 
     }
@@ -437,39 +438,39 @@ class Serials(category: String) : BaseScreen() {
     }
 }
 
-class SettingSmallWindowInRightCorner() : BaseScreen() {
-    private val boxWithSettingsItems = UiCollection(UiSelector().className("android.widget.ListView"))
-    private val boxWithSettingsForInit = "android.widget.FrameLayout"
-    private val SettingsAboutHelpCenter = UiSelector().resourceId(appPackage + ":id/title")
-
-    init {
-        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", findObjectByClass(boxWithSettingsForInit, false).waitForExists(moviesListTimeout))
-
-    }
-
-    fun clickOnSettings(): AccountScreen {
-        boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter, 0).click()
-        return AccountScreen()
-    }
-
-    fun clickOnAbout(): PrivatePolicyScreen {
-        boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter, 1).click()
-        return PrivatePolicyScreen()
-    }
-
-    fun clickOnHelpCenter(): HelpCenterWebView {
-        boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter, 2).click()
-        return HelpCenterWebView()
-    }
-}
+//class SettingSmallWindowInRightCorner() : BaseScreen() {
+//    private val boxWithSettingsItems = UiCollection(UiSelector().className("android.widget.ListView"))
+//    private val boxWithSettingsForInit = "android.widget.FrameLayout"
+//    private val SettingsAboutHelpCenter = UiSelector().resourceId(appPackage + ":id/title")
+//
+//    init {
+//        Assert.assertTrue("Expected small pop-up with Seting,AboutScreen,Help Center not showed up", findObjectByClass(boxWithSettingsForInit, false).waitForExists(moviesListTimeout))
+//
+//    }
+//
+//    fun clickOnSettings(): AccountScreen {
+//        boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter, 0).click()
+//        return AccountScreen()
+//    }
+//
+//    fun clickOnAbout(): PrivatePolicyScreen {
+//        boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter, 1).click()
+//        return PrivatePolicyScreen()
+//    }
+//
+//    fun clickOnHelpCenter(): HelpCenterWebView {
+//        boxWithSettingsItems.getChildByInstance(SettingsAboutHelpCenter, 2).click()
+//        return HelpCenterWebView()
+//    }
+//}
 
 class History() : BaseScreen() {
     private val removeFromHistory = "Remove from history"
     private val addToQueue = uiDevice.findObject(UiSelector().text("Add to queue"))
 
     init {
-        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", findElementById(removeFromHistory, false).waitForExists(moviesListTimeout))
-        Assert.assertTrue("Expected small pop-up with Seting,About,Help Center not showed up", addToQueue.waitForExists(moviesListTimeout))
+        Assert.assertTrue("Expected small pop-up with Seting,AboutScreen,Help Center not showed up", findElementById(removeFromHistory, false).waitForExists(moviesListTimeout))
+        Assert.assertTrue("Expected small pop-up with Seting,AboutScreen,Help Center not showed up", addToQueue.waitForExists(moviesListTimeout))
 
     }
 

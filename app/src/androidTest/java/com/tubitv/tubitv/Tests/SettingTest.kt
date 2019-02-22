@@ -6,6 +6,7 @@ import com.tubitv.tubitv.Screens.HomeScreen
 import junit.framework.Assert.assertFalse
 import org.junit.Assert
 import org.junit.Test
+import java.lang.Thread.sleep
 
 /**
  * Created by vburian on 5/30/18.
@@ -38,41 +39,39 @@ class SettingTest : LaunchAppWithFacebook() {
             "I no longer love her, that's certain, but how I loved her. \n" +
             "My voice tried to find the wind to touch her hearing.   "
 
-//    @Test
-//    fun lockInLandscapeMode() {
-//        val homePage = HomeScreen(true)
-//        homePage.scrolDownLittleBit()
-//        var portraitModeContOfMovies = homePage.getCountOfMovies(1)
-//        if (portraitModeContOfMovies > 6) {
-//            uiDevice.setOrientationLeft()
-//            portraitModeContOfMovies = homePage.getCountOfMovies(1)
-//        }
-//        val smallSettingsScreen = homePage.clickOnThreeDotsSetings()
-//        val settingsScreen = smallSettingsScreen.clickOnSettings()
-//         settingsScreen.clickOnLockInLandscapeMode()
-//        sleep(1000)
-//        uiDevice.pressBack()
-//        val homeScreen = HomeScreen(true)
-//        val landscapeModeCountOfMovies = homeScreen.getCountOfMovies(1)
-//        Assert.assertNotEquals("This test rotates device to landscape mode and checking if amount of movies for landscape mode different than portrait mode", portraitModeContOfMovies, landscapeModeCountOfMovies)
-//    }
+    @Test
+    fun lockInLandscapeMode() {
+        val homePage = HomeScreen(true)
+        homePage.scrolDownLittleBit()
+        var portraitModeContOfMovies = homePage.getCountOfMovies(1)
+        if (portraitModeContOfMovies > 6) {
+            uiDevice.setOrientationLeft()
+            portraitModeContOfMovies = homePage.getCountOfMovies(1)
+        }
 
-//    @Test
-//    fun uncheckLandscapeMode() {
-//        val homePage = HomeScreen(true)
-//        var portraitModeContOfMovies = homePage.getCountOfMovies(1)
-//        if (portraitModeContOfMovies > 6) {
-//            uiDevice.setOrientationLeft()
-//            portraitModeContOfMovies = homePage.getCountOfMovies(1)
-//        }
-//        lockInLandscapeMode()
-//        val smallSettingsScreen = homePage.clickOnThreeDotsSetings()
-//        val settingsScreen = smallSettingsScreen.clickOnSettings()
-//        settingsScreen.simpleClickOnLockInLandscapeMode()
-//        uiDevice.pressBack()
-//        val portraitModeCountOfmoviesAfterRotationBack = homePage.getCountOfMovies(0)
-//        Assert.assertEquals("This test rotates device to landscape mode and then rotates device back to portrait mode checking if amount of movies after rotation back is the same", portraitModeContOfMovies, portraitModeCountOfmoviesAfterRotationBack)
-//    }
+        val settingsScreen = homePage.clickOnAccountButton()
+        settingsScreen.clickOnLockInLandscapeMode()
+        uiDevice.pressBack()
+        val homeScreen = HomeScreen(true)
+        val landscapeModeCountOfMovies = homeScreen.getCountOfMovies(1)
+        Assert.assertNotEquals("This test rotates device to landscape mode and checking if amount of movies for landscape mode different than portrait mode", portraitModeContOfMovies, landscapeModeCountOfMovies)
+    }
+
+    @Test
+    fun uncheckLandscapeMode() {
+        val homePage = HomeScreen(true)
+        var portraitModeContOfMovies = homePage.getCountOfMovies(1)
+        if (portraitModeContOfMovies > 6) {
+            uiDevice.setOrientationLeft()
+            portraitModeContOfMovies = homePage.getCountOfMovies(1)
+        }
+        lockInLandscapeMode()
+        val settingsScreen = homePage.clickOnAccountButton()
+        settingsScreen.clickOnLockInLandscapeMode()
+        uiDevice.pressBack()
+        val portraitModeCountOfmoviesAfterRotationBack = homePage.getCountOfMovies(0)
+        Assert.assertEquals("This test rotates device to landscape mode and then rotates device back to portrait mode checking if amount of movies after rotation back is the same", portraitModeContOfMovies, portraitModeCountOfmoviesAfterRotationBack)
+    }
 
 //    @Test
 //    fun checkLandscapeModeAfterKillingApp() {
@@ -85,80 +84,82 @@ class SettingTest : LaunchAppWithFacebook() {
 //        Assert.assertEquals(beforeKill, afterKill)
 //    }
 
-    //@Test
+    @Test
     fun privacy() {
-        val originalText = "Escape the claws of subscription fees! Tubi TV, the free Internet TV network," +
-                " is working on your behalf to unlock Hollywood so entertainment is free, without the burden of credit cards. Check out the largest collection of premium and unique movies and TV shows. For free, forever, since advertisers pay so you never have to.\n" +
-                "\n" +
-                " Updated weekly; find out more at tubitv.com.\n" +
-                "\n"
         val homePage = HomeScreen(true)
-        val settingMenu = homePage.clickOnThreeDotsSetings()
-        val privatePolicyScreen = settingMenu.clickOnAbout()
-        val text = privatePolicyScreen.textOfPriVatePolicy
-        Assert.assertEquals(originalText, text)
+        val settingMenu = homePage.clickOnAccountButton()
+        settingMenu.clickOnAbout()
+                .clickOnPrivacyPolicy()
     }
 
-    //@Test
+    @Test
+    fun termOfUse() {
+        val homePage = HomeScreen(true)
+        val settingMenu = homePage.clickOnAccountButton()
+        settingMenu.clickOnAbout()
+                .clickOnTermsOfUse()
+                .scrollToTheButton()
+    }
+
+    @Test
     fun checkATextOnSupportWebView() {
         val homePage = HomeScreen(true)
-        val settingMenu = homePage.clickOnThreeDotsSetings()
-        val helpCenterScreen = settingMenu.clickOnHelpCenter()
+        val accountScreen = homePage.clickOnAccountButton()
+        val helpCenterScreen = accountScreen.clickOnHelpCenter()
         helpCenterScreen.clickOnIcon(1)
         helpCenterScreen.clcikOnFirstLinkOnGeneral() //check inside method it's trying to find elements by Text, so if text doesn't match it will trow exception
     }
 
-    //@Test
+    @Test
     fun navigateBackToHomeScreenFromSendMesageScreen() {
         val homePage = HomeScreen(true)
-        val settingMenu = homePage.clickOnThreeDotsSetings()
+        val settingMenu = homePage.clickOnAccountButton()
         val helpCenterScreen = settingMenu.clickOnHelpCenter()
         helpCenterScreen.clickOnIcon(1)
         helpCenterScreen.clickOnSendMessage()
-                .provideMessageToDescription("Hello Tubi")
+                .provideMessageToDescription("Hello Tubi, Vlad's automation tests, don't pay attention")
                 .clickOnBackButton()
-        for (i in 0..1) {
+        for (i in 0..2) {
             uiDevice.pressBack()
         }
         HomeScreen(true)
-
     }
 
-    //@Test
+    @Test
     fun sendLongTextToHelpCenter() {
         val homePage = HomeScreen(true)
-        val settingMenu = homePage.clickOnThreeDotsSetings()
+        val settingMenu = homePage.clickOnAccountButton()
         val helpCenterScreen = settingMenu.clickOnHelpCenter()
         helpCenterScreen.clickOnIcon(1)
         helpCenterScreen.clickOnSendMessage()
                 .provideMessageToDescription(longText)
                 .clickOnSendButton(false)
-        for (i in 0..1) {
+        for (i in 0..2) {
             uiDevice.pressBack()
         }
         HomeScreen(true)
     }
 
-    //@Test
+    @Test
     fun sendJustOneCharToHelpCenter() {
         val homePage = HomeScreen(true)
-        val settingMenu = homePage.clickOnThreeDotsSetings()
+        val settingMenu = homePage.clickOnAccountButton()
         val helpCenterScreen = settingMenu.clickOnHelpCenter()
         helpCenterScreen.clickOnIcon(1)
         helpCenterScreen.clickOnSendMessage()
                 .provideMessageToDescription("a")
                 .clickOnSendButton(false)
-        for (i in 0..1) {
+        for (i in 0..2) {
             uiDevice.pressBack()
         }
         HomeScreen(true)
     }
 
 
-    //@Test
+    @Test
     fun provideMessageAndClearItToHelpCenter() {
         val homePage = HomeScreen(true)
-        val settingMenu = homePage.clickOnThreeDotsSetings()
+        val settingMenu = homePage.clickOnAccountButton()
         val helpCenterScreen = settingMenu.clickOnHelpCenter()
         helpCenterScreen.clickOnIcon(1)
         val isButtonDisabled = helpCenterScreen.clickOnSendMessage()
@@ -168,10 +169,10 @@ class SettingTest : LaunchAppWithFacebook() {
         assertFalse("Send button still enabled even when text field is cleared", isButtonDisabled)
     }
 
-    //@Test
+    @Test
     fun sendMessageWithAtachedPhotoFromCamera() {
         val homePage = HomeScreen(true)
-        val settingMenu = homePage.clickOnThreeDotsSetings()
+        val settingMenu = homePage.clickOnAccountButton()
         val helpCenterScreen = settingMenu.clickOnHelpCenter()
         helpCenterScreen.clickOnIcon(1)
         helpCenterScreen.clickOnSendMessage()
@@ -182,12 +183,10 @@ class SettingTest : LaunchAppWithFacebook() {
                 .clickOnSendButton(true)
     }
 
-
-    //fix it
-    //@Test
+    @Test
     fun sendMessageWithDeletedPhotoFromCamera() {
         val homePage = HomeScreen(true)
-        val settingMenu = homePage.clickOnThreeDotsSetings()
+        val settingMenu = homePage.clickOnAccountButton()
         val helpCenterScreen = settingMenu.clickOnHelpCenter()
         helpCenterScreen.clickOnIcon(1)
         helpCenterScreen.clickOnSendMessage()

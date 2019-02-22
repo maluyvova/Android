@@ -24,28 +24,33 @@ class AccountScreen : BaseScreen() {
     private val aboutText = appPackage + ":id/about_text_view"
     private val helpCenterText = appPackage + ":id/help_text_view"
     private val helpCenter = appPackage + ":id/help_setting_layout"
+    private val screenContainer = appPackage + ":id/child_fragment_container"
 
 
     init {
         assertTrue("Expected Sign out Button is not displayed in settings", findElementById(signedAsObj, true).exists())
         assertEquals("Text on caption switcher doesn't correspond requirements", findObjectById(captionText, true).text, "Captions")
         assertEquals("Text on 'Lock in Landscape Mode' switcher doesn't correspond requirements", findObjectById(landscapeText, true).text, "Lock in Landscape Mode")
-        assertEquals("Text on 'About' switcher doesn't correspond requirements", findObjectById(aboutText, true).text, "About")
+        assertEquals("Text on 'AboutScreen' switcher doesn't correspond requirements", findObjectById(aboutText, true).text, "About")
+        if (!findObjectById(helpCenterText, false).exists()) {
+           scrollableScreenById(screenContainer).scrollForward()
+        }
         assertEquals("Text on 'Help Ceter' switcher doesn't correspond requirements", findObjectById(helpCenterText, true).text, "Help Center")
         assertEquals("Text on 'Sign in/Register' button doesn't correspond requirements", findObjectById(signOutButton, true).text, "Sign in/Register")
     }
 
-    public fun clickOnSignOut(): LaunchScreen {
+    fun clickOnSignOut(): LaunchScreen {
 
         try {
-            findObjectById(signOutButton,false).click()}
-        catch (e: UiObjectNotFoundException) {
+            findObjectById(signOutButton, false).click()
+        } catch (e: UiObjectNotFoundException) {
             throw    TestExceptionWithError("Can't find signIn/Register button on Account Screen", e)
         }
         return LaunchScreen()
     }
 
-    public fun clickOnLockInLandscapeMode() {
+    fun clickOnLockInLandscapeMode() {
+        scrollableScreenById(screenContainer).flingBackward()
         try {
             findObjectById(landscapeSwithcer, false).click()
         } catch (e: UiObjectNotFoundException) {
@@ -54,16 +59,15 @@ class AccountScreen : BaseScreen() {
 
     }
 
-    public fun clickOnCaption() {
+    fun clickOnCaption() {
         try {
-            findObjectById(captionsSwitcher,false).click()
-        }
-        catch (e: UiObjectNotFoundException) {
+            findObjectById(captionsSwitcher, false).click()
+        } catch (e: UiObjectNotFoundException) {
             throw    TestExceptionWithError("Can't find 'Caption' switcher on Account Screen", e)
         }
     }
 
-    public fun clickOnSearch(): SearchScreen {
+    fun clickOnSearch(): SearchScreen {
         try {
             findElementParentIdChildIndex(tabs, true, 2, 0).click()
         } catch (e: UiObjectNotFoundException) {
@@ -71,5 +75,24 @@ class AccountScreen : BaseScreen() {
         }
         return SearchScreen()
     }
+
+    fun clickOnAbout(): AboutScreen {
+        try {
+            findObjectById(aboutButton, false).click()
+        } catch (e: UiObjectNotFoundException) {
+            TestExceptionWithError("Can't find about button", e)
+        }
+        return AboutScreen()
+    }
+
+    fun clickOnHelpCenter(): HelpCenterWebView {
+        try {
+            findObjectById(helpCenter, false).click()
+        } catch (e: UiObjectNotFoundException) {
+            TestExceptionWithError("Can't find 'Help Center' button", e)
+        }
+        return HelpCenterWebView()
+    }
+
 
 }

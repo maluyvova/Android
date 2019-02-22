@@ -158,7 +158,7 @@ class SerialsTest : LaunchAppWithFacebook() {
         Assert.assertNotEquals(episodesForScrollToTheSide.get(0), episodesForScrollToTheSide.get(1))
     }
 
-    //@Test
+    @Test
     fun selectPlaybackNavigateBackToHome5TimesSerials() {
         var firsTime = true
         fun selectSerial() {

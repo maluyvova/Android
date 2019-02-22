@@ -129,18 +129,21 @@ open class BaseTest {
     protected fun getDeviceNameBasedOnId(id: ByteArray): String {
         var device = ""
         when {
-            id.contentEquals(byteArrayOf(114, -125, 84, -48, -96, 13)) -> device = "Pixel2"
+            id.contentEquals(byteArrayOf(-2, 108, -39, 68, -70, -83)) -> device = "Pixel2"
             id.contentEquals(byteArrayOf(82, -118, -125, 33, -118, 70)) -> device = "GalaxyS8"
             id.contentEquals(byteArrayOf(-110, -105, -9, 58, -103, 11)) -> device = "GalaxyS8"
             id.contentEquals(byteArrayOf(-50, 100, -52, 64, -78, -47)) -> device = "Note4"
             id.contentEquals(byteArrayOf(-38, 103, -50, -68, -5, -31)) -> device = "AsusTablet"
             id.contentEquals(byteArrayOf(-7, 14, 99, 9, -121)) -> device = "SumsungTablet"
             id.contentEquals(byteArrayOf(124, -7, 14, 99, 9, -121)) -> device = "SumsungTablet"
-            id.contentEquals(byteArrayOf(10, -112, -17, -81, -96, 79)) -> device = "G6"
+            id.contentEquals(byteArrayOf(46, 110, 19, 45, 108, -82)) -> device = "G6"
             id.contentEquals(byteArrayOf(-110, -66, -2, 76, -109, -90)) -> device = "SunsungGalaxyTablet"
             id.contentEquals(byteArrayOf(2, 0, 0, 0, 0, 0)) -> device = "Vlad's emulator"
             id.contentEquals(byteArrayOf(118, -43, 26, -94, 102, -99)) -> device = "AsusTablet"
             id.contentEquals(byteArrayOf(0, 4, 75, 114, 104, 39)) -> device = "AsusTablet"
+            id.contentEquals(byteArrayOf(-74, -9, -95, -20, -72, -68)) -> device = "LG K20"
+            id.contentEquals(byteArrayOf(-118, -10, 78, -101, -110, -114)) -> device = "TabA"
+            id.contentEquals(byteArrayOf(62, -57, -122, 111, -108, -107)) -> device = "LGNexus"
             id.isEmpty() -> throw TestException("Something wrong with getDeviceId() method, can't get id")
 
             else -> throw TestException("Your device/emulator is not register in this framework yet, please add this id:${id.joinToString()} in this statment, Also you need to add your deviceid everywhere where we use it e.g -> NativeCamera()")

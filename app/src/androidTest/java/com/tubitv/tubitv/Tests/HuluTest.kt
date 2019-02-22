@@ -14,20 +14,20 @@ import org.junit.Test
  * Created by vburian on 6/6/18.
  */
 class HuluTest : LaunchAppWithFacebook() {
-    val textWhatTestIsLookingFor = "Evil Bong 777"
+    val textWhatTestIsLookingFor = "Beverly Hills 90210"
 
 
-    // @Test
+     @Test
     fun huluTitleWithYearsLimitationsErrorMessageValidation() {
         var warningMessage = ""
         var warningMeassageAfterClose = ""
         val homeScreen = HomeScreen(true)
         val searchSreen = homeScreen.clickOnSearch()
-        val gotIt = searchSreen.provideTextToSearch(textWhatTestIsLookingFor)
+        val gotIt = searchSreen.provideTextToSearch("Evil Bong 777")
                 .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
         val textOfTitle = titleDatailScreen.titleDatailScreen.toLowerCase()
-        if (textOfTitle.equals(textWhatTestIsLookingFor.toLowerCase())) {
+        if (textOfTitle.equals("Evil Bong 777".toLowerCase())) {
             titleDatailScreen.clickOnPlay()
             val huluPlaybackScreen = HuluPlaybackScreen()
             if (huluPlaybackScreen.waitForAgeLimitation()) {
@@ -51,16 +51,16 @@ class HuluTest : LaunchAppWithFacebook() {
     }
 
 
-    //@Test
+    @Test
     fun huluTitleWithYearsLimitations() {
         val huluPlaybackScreen = HuluPlaybackScreen()
         val homeScreen = HomeScreen(true)
         val searchSreen = homeScreen.clickOnSearch()
-        val gotIt = searchSreen.provideTextToSearch(textWhatTestIsLookingFor)
+        val gotIt = searchSreen.provideTextToSearch("Evil Bong 777")
                 .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
         val textOfTitle = titleDatailScreen.titleDatailScreen.toLowerCase()
-        if (textOfTitle.equals(textWhatTestIsLookingFor.toLowerCase())) {
+        if (textOfTitle.equals("Evil Bong 777".toLowerCase())) {
             titleDatailScreen.clickOnPlay()
             if (huluPlaybackScreen.waitForAgeLimitation()) {
                 huluPlaybackScreen.clickOnMonth()
@@ -97,6 +97,28 @@ class HuluTest : LaunchAppWithFacebook() {
         subCategory.longClickOnTitle(titleFromContinueWatching)
                 .clickRemoveFromHistory()
 
+        assertEquals("Hulu title is not added to continueWatching after watching ", titleFromSerch, titleFromContinueWatching)
+    }
+
+    @Test
+    fun huluTitleAddedToQueue() {
+        val homeScreen = HomeScreen(true)
+        homeScreen.longPress()
+                .clickAddToQueueAfterLongClickWithoutReturn()
+        val searchSreen = homeScreen.clickOnSearch()
+        val gotIt = searchSreen.provideTextToSearch(textWhatTestIsLookingFor)
+                .clickOnFirstTitleFirstTime()
+        val titleDatailScreen = gotIt.clickOnGotIt()
+        val titleFromSerch = titleDatailScreen.titleDatailScreen
+        val playBackScreen = titleDatailScreen.clickOnAddToQueue()
+        BaseScreen().navigateBackToHomeScreen()
+        val subCategory = homeScreen.clickOnBrowseButton()
+                .scrollToSpecificCategory(Categories.QUEUE.value)
+        val titleFromContinueWatching = subCategory.clickOnTitle(titleFromSerch)
+                .titleDatailScreen
+        uiDevice.pressBack()
+        subCategory.longClickOnTitle(titleFromContinueWatching)
+                .clickAddToQueueAfterLongClickWithoutReturn()
         assertEquals("Hulu title is not added to continueWatching after watching ", titleFromSerch, titleFromContinueWatching)
     }
 

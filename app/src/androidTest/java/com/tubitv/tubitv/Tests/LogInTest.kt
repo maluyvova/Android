@@ -22,9 +22,9 @@ class LogInTest : SimpleLaunchApp() {
 
     fun SignOut(): LaunchScreen {
         val homepage = HomeScreen(true)
-        val smallWindowWithSetings = homepage.clickOnThreeDotsSetings()
-        val settingsScreen = smallWindowWithSetings.clickOnSettings()
-        val launchScreen = settingsScreen.clickOnSignOut()
+        //val smallWindowWithSetings = homepage.clickOnThreeDotsSetings()
+        //val settingsScreen = smallWindowWithSetings.clickOnSettings()
+        //val launchScreen = settingsScreen.clickOnSignOut()
         return LaunchScreen()
 
     }
@@ -154,7 +154,7 @@ class LogInTest : SimpleLaunchApp() {
         emailSignUpScreen.pasteEmail(nameForEmail, gmail)
         emailSignUpScreen.pastePassword(password)
         val termOfUseScreen=emailSignUpScreen.clickOnTermOfUse()
-        termOfUseScreen.scrollToTheButtom()
+        termOfUseScreen.scrollToTheButton()
         uiDevice.pressBack()
         emailSignUpScreen.makeUnvisablePassword()
         val textFromField: List<String> = EmailSigUpScreen().getTextFromFields()

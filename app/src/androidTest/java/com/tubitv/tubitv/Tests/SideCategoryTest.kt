@@ -17,7 +17,7 @@ import java.util.*
 class SideCategoryTest : LaunchAppWithFacebook() {
 
 
-    @Test
+    //@Test
     fun selectSideCategory() {
         val homeScreen = HomeScreen(true)
         val sideCategory = homeScreen.clickOnBrowseButton()
@@ -33,7 +33,7 @@ class SideCategoryTest : LaunchAppWithFacebook() {
         assertEquals("This text select random category from the categoryList and checking if text from the list equals to Text in category Screen", textOfRandomCategory.toLowerCase(), textOfCategory.toLowerCase())
     }
 
-    @Test
+    //@Test
     fun checkIfEmailIsIncluddedInHamburgerMenu() {
         val homeScreen = HomeScreen(true)
         val titleInHomeScreen =homeScreen.longPress()
@@ -43,7 +43,7 @@ class SideCategoryTest : LaunchAppWithFacebook() {
         Assert.assertTrue(email.contains("@"))
     }
 
-    @Test
+    //@Test
     fun checkIfWeShowCorrectUserId() {
         LogInTest().SignOut()
         val signInScreen = LaunchScreen().clickOnSignIn()

@@ -181,6 +181,7 @@ class FacebookPageShareScreen() : BaseScreen() {
     private val facebookPostButton = uiDevice.findObject(UiSelector().text("POST"))
     private val facebookPostButtonForTablets = uiDevice.findObject(UiSelector().text("Post"))
     private val facebookShareButton = uiDevice.findObject(UiSelector().text("SHARE"))
+    private val shareNow = uiDevice.findObject(UiSelector().descriptionContains("SHARE NOW"))
 
     fun clickOnFacebookPostButton(): MovieDatailScreen {
         if (facebookPostButton.waitForExists(globalTimeout)) {
@@ -192,6 +193,9 @@ class FacebookPageShareScreen() : BaseScreen() {
             facebookPostButtonForTablets.click()
         } else
             facebookShareButton.click()
+        if(shareNow.exists()){
+            shareNow.click()
+        }
 
         return MovieDatailScreen()
     }

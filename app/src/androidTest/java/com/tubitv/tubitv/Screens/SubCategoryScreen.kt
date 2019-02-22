@@ -57,7 +57,7 @@ class SubCategoryScreen(categoryName: String) : BaseScreen() {
     fun waitUntilTextMeetsConditions(obj: UiObject, text: String): UiObject {
         var i = 0
         val some = obj.text
-        while (!obj.text.equals(text) && i < 70) {
+        while (!obj.text.equals(text) && i < 90) {
             val r = "sfsdf"
             i++
         }

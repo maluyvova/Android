@@ -80,7 +80,7 @@ class SearchTest : LaunchAppWithFacebook() {
         assertTrue("Title name is not contain text which test has provided provided in search field, text of suggestion: $textOfProposition text from title details page: $textOfTitle", textOfTitle.contains(textOfProposition))
     }
 
-//    @Test
+    @Test
     fun clickOnFirstSuggestionAndNavigateBackCheckIfSearchedViewIsSaved() {
         val homeScreen = HomeScreen(true)
         val searchScreen = homeScreen.clickOnSearch()
@@ -256,6 +256,7 @@ class SearchTest : LaunchAppWithFacebook() {
                 .clickOnGotIt()
                 .clickOnPlay()
                 .seekToMiddleOfPlayback()
+        BaseScreen().navigateBackToHomeScreen()
         homeScreen.clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .longClickOnTitle(0)
