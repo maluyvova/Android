@@ -119,7 +119,7 @@ fork {
     totalAllowedRetryQuota = 2
     testClassRegex="VladTest"
     retryPerTestCaseQuota = 1
-    testOutputTimeout = 650000
+    testOutputTimeout = 65000
     poolingStrategy {
         computed {
             characteristic = "sw"

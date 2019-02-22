@@ -130,7 +130,7 @@ open class BaseTest {
         var device = ""
         when {
             id.contentEquals(byteArrayOf(-2, 108, -39, 68, -70, -83)) -> device = "Pixel2"
-            id.contentEquals(byteArrayOf(82, -118, -125, 33, -118, 70)) -> device = "GalaxyS8"
+            id.contentEquals(byteArrayOf(54, -82, -108, 116, 82, 35)) -> device = "GalaxyS8"
             id.contentEquals(byteArrayOf(-42, 42, -67, -51, -27, 100)) -> device = "GalaxyS8"
             id.contentEquals(byteArrayOf(-50, 100, -52, 64, -78, -47)) -> device = "Note4"
             id.contentEquals(byteArrayOf(-38, 103, -50, -68, -5, -31)) -> device = "AsusTablet"
@@ -139,7 +139,7 @@ open class BaseTest {
             id.contentEquals(byteArrayOf(46, 110, 19, 45, 108, -82)) -> device = "G6"
             id.contentEquals(byteArrayOf(-110, -66, -2, 76, -109, -90)) -> device = "SunsungGalaxyTablet"
             id.contentEquals(byteArrayOf(2, 0, 0, 0, 0, 0)) -> device = "Vlad's emulator"
-            id.contentEquals(byteArrayOf(118, -43, 26, -94, 102, -99)) -> device = "AsusTablet"
+            id.contentEquals(byteArrayOf(-54, -75, -4, 38, 50, 40)) -> device = "AsusTablet"
             id.contentEquals(byteArrayOf(0, 4, 75, 114, 104, 39)) -> device = "AsusTablet"
             id.contentEquals(byteArrayOf(-74, -9, -95, -20, -72, -68)) -> device = "LG K20"
             id.contentEquals(byteArrayOf(-118, -10, 78, -101, -110, -114)) -> device = "TabA"

@@ -78,7 +78,7 @@ class DeepLinksTest : BaseTest() {
         Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen("Action").categoryText, "Action")
     }
 
-    @Test
+    //@Test
     fun deepLinkForSerial() {
         val expectedTitleOfSerial = "Dog the Bounty Hunter"
         getInstrum()
@@ -89,7 +89,7 @@ class DeepLinksTest : BaseTest() {
         Assert.assertEquals("Expected serial $expectedTitleOfSerial didn't show up probably expired  ", MovieDatailScreen().titleDatailScreen, "$expectedTitleOfSerial")
     }
 
-    @Test
+    //@Test
     fun deepLinkForComedy() {
         val expectedCategory = "Comedy"
         getInstrum()
@@ -100,7 +100,7 @@ class DeepLinksTest : BaseTest() {
         Assert.assertEquals("Expected category: $expectedCategory didn't show up after deep link", MoviesByCategoryScreen("Comedy").categoryText, "$expectedCategory")
     }
 
-    @Test
+    //@Test
     fun deepLinkForDrama() {
         val expectedCategory = "Drama"
         getInstrum()
@@ -111,7 +111,7 @@ class DeepLinksTest : BaseTest() {
         Assert.assertEquals("Expected category: $expectedCategory didn't show up after deep link", MoviesByCategoryScreen("Drama").categoryText, "$expectedCategory")
     }
 
-    @Test
+    //@Test
     fun deepLinkForMovieOldBoy() {
         val expectedMovie = "Oldboy"
         getInstrum()
@@ -128,7 +128,7 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    @Test
+    //@Test
     fun deepLinkForVideoOldBoy() {
         val expectedMovie = "Oldboy"
         getInstrum()
@@ -145,7 +145,7 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    @Test
+    //@Test
     fun deepLinkForMovieIgor() {
         val expectedMovie = "Igor"
         getInstrum()
@@ -180,7 +180,7 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    @Test
+    //@Test
     fun deeplinkWithUTMtheHollow() {
         val expectedMovie = "The Hollow"
         getInstrum()
@@ -197,7 +197,7 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    @Test
+    //@Test
     fun deeplinkWithUTMOldboy() {
         val expectedMovie = "Oldboy"
         getInstrum()
@@ -214,7 +214,7 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    @Test
+    //@Test
     fun deeplinkWithUTMWildAtHeartSerial() {
         val expectedMovie = "Wild at Heart"
         getInstrum()
@@ -233,7 +233,7 @@ class DeepLinksTest : BaseTest() {
     }
 
 
-    @Test
+    //@Test
     fun deeplinkWithUTMMcLeodsDaughtersSerial() {
         val expectedMovie = "McLeod's Daughters"
         getInstrum()
@@ -252,7 +252,7 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    @Test
+    //@Test
     fun deeplinkWithMcLeodsDaughtersSerial() {
         val expectedMovie = "McLeod's Daughters"
         getInstrum()
@@ -270,7 +270,7 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    @Test
+    //@Test
     fun deeplinkWithUTMDogTheBountyHunterSerial() {
         val expectedMovie = "Dog the Bounty Hunter"
         getInstrum()
@@ -291,7 +291,7 @@ class DeepLinksTest : BaseTest() {
     }
 
 
-    @Test
+    //@Test
     fun deepLinkForAnimeUTM() {
         getInstrum()
         killApp()
@@ -302,7 +302,7 @@ class DeepLinksTest : BaseTest() {
         Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen("Anime").categoryText, "Anime")
     }
 
-    @Test
+    //@Test
     fun deepLinkForAnime2UTM() {
         getInstrum()
         killApp()
@@ -313,7 +313,7 @@ class DeepLinksTest : BaseTest() {
         Assert.assertEquals("Expected category Action didn't show up after deep link", MoviesByCategoryScreen("Anime").categoryText, "Anime")
     }
 
-    @Test
+    //@Test
     fun deepLinkUMLTheHollow() {
         val expectedMovie = "The Hollow"
         getInstrum()
@@ -334,7 +334,7 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    @Test
+    //@Test
     fun deepLinkUMLTheHollowRegisterUser() {
         val expectedMovie = "The Hollow"
         getInstrum()
@@ -361,7 +361,7 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    @Test
+    //@Test
     fun deepLinkUMWomanThouArtLoosed() {
         val expectedMovie = "Woman Thou Art Loosed"
         getInstrum()
@@ -382,7 +382,7 @@ class DeepLinksTest : BaseTest() {
                 .removeAllTitles()
     }
 
-    @Test
+    //@Test
     fun deepLinkUMWomanThouArtLoosedForRegisterUser() {
         val expectedMovie = "Woman Thou Art Loosed"
         getInstrum()

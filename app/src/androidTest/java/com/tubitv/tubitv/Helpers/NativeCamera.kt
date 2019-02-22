@@ -13,6 +13,7 @@ class NativeCamera : BaseScreen() {
     private val pixel2PhotoButton = "com.google.android.GoogleCamera:id/shutter_button"
     private val galaxyS8Button = "com.sec.android.app.camera:id/okay"
     private val okButton = "OK"
+    private val assusTablet = "com.android.camera2:id/done_button"
 
 
     fun makeAPhoto(deviceName: String): SendMessageView {
@@ -27,6 +28,7 @@ class NativeCamera : BaseScreen() {
             "G6" -> findElementByText(okButton, true).click()
             "LGNexus" -> findElementById(pixel2PhotoButton, true).click()
             "SumsungTablet" -> findElementById(galaxyS8Button, true).click()
+            "AsusTablet" -> findElementById(assusTablet,true).click()
             else -> throw TestException("Device id is not added to this framework , please find method getDeviceNameBasedOnId() and add your device id (read exception for that method)")
         }
         if (findElementById(pixel2PhotoButton, false).exists()) {
