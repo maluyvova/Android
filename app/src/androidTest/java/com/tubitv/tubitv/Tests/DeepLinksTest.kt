@@ -86,7 +86,7 @@ class DeepLinksTest : BaseTest() {
         ifNotRegistred()
         uiDevice.executeShellCommand(comandForDeepLink + ForSerial + appPackage)
         ifFirstTime()
-        Assert.assertEquals("Expected serial $expectedTitleOfSerial didn't show up probably expired  ", MovieDatailScreen().titleDatailScreen, "$expectedTitleOfSerial")
+        Assert.assertEquals("Expected serial $expectedTitleOfSerial didn't show up probably expired  ", MovieDatailScreen().titleName, "$expectedTitleOfSerial")
     }
 
     //@Test
@@ -119,13 +119,13 @@ class DeepLinksTest : BaseTest() {
         ifNotRegistred()
         uiDevice.executeShellCommand(comandForDeepLink + ForMovieOldBoy + appPackage)
         ifFirstTime()
-        Assert.assertEquals("Expected movie:$expectedMovie didn't show up after deep link ", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        Assert.assertEquals("Expected movie:$expectedMovie didn't show up after deep link ", MovieDatailScreen().titleName, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     //@Test
@@ -136,13 +136,13 @@ class DeepLinksTest : BaseTest() {
         ifNotRegistred()
         uiDevice.executeShellCommand(comandForDeepLink + LinkForMovieOldBoy + appPackage)
         ifFirstTime()
-        Assert.assertEquals("Expected movie:$expectedMovie didn't show up after deep link ", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        Assert.assertEquals("Expected movie:$expectedMovie didn't show up after deep link ", MovieDatailScreen().titleName, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     //@Test
@@ -153,13 +153,13 @@ class DeepLinksTest : BaseTest() {
         clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + MovieIgor)
         ifFirstTime()
-        Assert.assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        Assert.assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleName, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
 
@@ -171,13 +171,13 @@ class DeepLinksTest : BaseTest() {
         clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + Movie127Hours)
         ifFirstTime()
-        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleName, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     //@Test
@@ -188,13 +188,13 @@ class DeepLinksTest : BaseTest() {
         clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + TheHollow)
         ifFirstTime()
-        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleName, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     //@Test
@@ -205,13 +205,13 @@ class DeepLinksTest : BaseTest() {
         clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + OldBoyUTM)
         ifFirstTime()
-        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleName, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     //@Test
@@ -222,14 +222,14 @@ class DeepLinksTest : BaseTest() {
         clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + WildAtHeartUTMSerial)
         ifFirstTime()
-        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleName, "$expectedMovie")
         SerialsScreen().clickOnPlayButton()
                 .seekToMiddleOfPlayback()
                 .seekToTheEnd()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
 
@@ -242,14 +242,14 @@ class DeepLinksTest : BaseTest() {
         killApp()
         uiDevice.executeShellCommand(comandForDeepLink + McLeodsDaughtersUTMSerial)
         ifFirstTime()
-        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleName, "$expectedMovie")
         SerialsScreen().clickOnPlayButton()
                 .seekToMiddleOfPlayback()
                 .seekToTheBegining()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     //@Test
@@ -260,14 +260,14 @@ class DeepLinksTest : BaseTest() {
         clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + McLeodsDaughters)
         ifFirstTime()
-        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleName, "$expectedMovie")
         SerialsScreen().clickOnPlayButton()
                 .seekToMiddleOfPlayback()
                 .seekToTheBegining()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     //@Test
@@ -278,7 +278,7 @@ class DeepLinksTest : BaseTest() {
         clearAppData()
         uiDevice.executeShellCommand(comandForDeepLink + DogTheBountyHunterUTMSErial)
         ifFirstTime()
-        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleName, "$expectedMovie")
         SerialsScreen().clickOnPlayButton()
                 .seekToMiddleOfPlayback()
                 .seekToTheEnd()
@@ -287,7 +287,7 @@ class DeepLinksTest : BaseTest() {
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
 
@@ -322,7 +322,7 @@ class DeepLinksTest : BaseTest() {
         uiDevice.executeShellCommand(comandForDeepLink + anotherDeeplinkWithUTM)
         ifFirstTime()
         casting()
-        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleName, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
                 .seekToAutoPlay(TypeOfContent.MOVIES)
@@ -331,7 +331,7 @@ class DeepLinksTest : BaseTest() {
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     //@Test
@@ -349,7 +349,7 @@ class DeepLinksTest : BaseTest() {
         uiDevice.executeShellCommand(comandForDeepLink + anotherDeeplinkWithUTM)
         ifFirstTime()
         casting()
-        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleName, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
                 .seekToAutoPlay(TypeOfContent.MOVIES)
@@ -358,7 +358,7 @@ class DeepLinksTest : BaseTest() {
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     //@Test
@@ -370,7 +370,7 @@ class DeepLinksTest : BaseTest() {
         uiDevice.executeShellCommand(comandForDeepLink + deeplinkForMovieWomanThouArtLoosed)
         ifFirstTime()
         casting()
-        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleName, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
                 .seekToAutoPlay(TypeOfContent.MOVIES)
@@ -379,7 +379,7 @@ class DeepLinksTest : BaseTest() {
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     //@Test
@@ -397,7 +397,7 @@ class DeepLinksTest : BaseTest() {
         uiDevice.executeShellCommand(comandForDeepLink + deeplinkForMovieWomanThouArtLoosed)
         ifFirstTime()
         casting()
-        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleDatailScreen, "$expectedMovie")
+        assertEquals("Expected movie:$expectedMovie didn't show up after deep link -> requirements :$requirements", MovieDatailScreen().titleName, "$expectedMovie")
         MovieDatailScreen().clickOnPlay()
                 .seekToMiddleOfPlayback()
                 .seekToAutoPlay(TypeOfContent.MOVIES)
@@ -406,7 +406,7 @@ class DeepLinksTest : BaseTest() {
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
 

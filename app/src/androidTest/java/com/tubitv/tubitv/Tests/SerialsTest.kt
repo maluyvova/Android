@@ -1,6 +1,5 @@
 package com.tubitv.tubitv.Tests
 
-import android.support.test.uiautomator.UiObjectNotFoundException
 import com.tubitv.tubitv.Enomus.Categories
 import com.tubitv.tubitv.Enomus.DirectionOfScrolling
 import com.tubitv.tubitv.Helpers.TestException
@@ -9,7 +8,11 @@ import com.tubitv.tubitv.Screens.*
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import junit.framework.Assert.assertEquals
+import org.hamcrest.CoreMatchers.hasItem
+import org.hamcrest.CoreMatchers.not
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert
+import org.junit.Assert.assertNotEquals
 import org.junit.Test
 import java.util.*
 
@@ -99,9 +102,18 @@ class SerialsTest : LaunchAppWithFacebook() {
         val subCategoryScreen = sideCategory2.scrollToSpecificCategory(Categories.QUEUE.value)
         val gotit = subCategoryScreen.clickOnTitleForQueue(0)
         val moviedatailScreen = gotit.clickOnGotIt()
+        val textOfTitle = moviedatailScreen.titleName
         moviedatailScreen.simpleClickOnAddToQueue()
         BaseScreen().navigateBackToHomeScreen()
         val sideCategory3 = homePage.clickOnBrowseButton()
+        val queueScreen = sideCategory3.scrollToSpecificCategory(Categories.QUEUE.value)
+        val allTitlesinQueue = queueScreen.textOfAllTitles()
+        queueScreen.removeAllTitlesFromQueue()
+        assertThat("Title: $textOfTitle still stays in 'ContinueWatching' after autoplay pop-ups for this title, which means title should be removed from 'Continue Watching' after autoplay",allTitlesinQueue , not(hasItem(textOfTitle)))
+
+
+
+
         try {
             sideCategory3.scrollToSpecificCategory(Categories.QUEUE.value)
         } catch (e: TestException) {
@@ -136,7 +148,7 @@ class SerialsTest : LaunchAppWithFacebook() {
         uiDevice.pressBack()
         val smallWindow = subCategoryScreen.longClickOnTitle(0)
         smallWindow.clickRemoveFromHistory()
-        Assert.assertEquals("This test is selecting TVshow, then selects another episode,then starts playback,theb killing app,and then checking if correct episode in the History", firstTextOfNumber.substring(1, 5), title.substring(1, 5))
+        assertEquals("This test is selecting TVshow, then selects another episode,then starts playback,theb killing app,and then checking if correct episode in the History", firstTextOfNumber.substring(1, 5), title.substring(1, 5))
     }
 
     @Test
@@ -145,7 +157,7 @@ class SerialsTest : LaunchAppWithFacebook() {
         val sideCategory = homePage.clickOnBrowseButton()
         val subCategoryScreen = sideCategory.scrollToSpecificCategory(Categories.TV_COMEDIES.value)
         selectSerialWithFewSeasons()
-        Assert.assertNotEquals("This test is selecting season2 from drop down ", textOfEpisodesForselectSerialWithFewSeasons.get(0), textOfEpisodesForselectSerialWithFewSeasons.get(1))
+        assertNotEquals("This test is selecting season2 from drop down ", textOfEpisodesForselectSerialWithFewSeasons.get(0), textOfEpisodesForselectSerialWithFewSeasons.get(1))
     }
 
     @Test
@@ -204,7 +216,7 @@ class SerialsTest : LaunchAppWithFacebook() {
         BaseScreen().navigateBackToHomeScreen()
         homeScreen.clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     @Test
@@ -230,7 +242,7 @@ class SerialsTest : LaunchAppWithFacebook() {
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     @Test
@@ -247,7 +259,7 @@ class SerialsTest : LaunchAppWithFacebook() {
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
 

@@ -18,7 +18,7 @@ class MovieDatailScreen() : BaseScreen() {
     private val addToQueue = appPackage + ":id/imageView_add_from_queue"
     private val youMightAlsoLike = UiScrollable(UiSelector().resourceId(appPackage + ":id/view_content_recycler_ll"))
     private val playButton = appPackage + ":id/imageView_play"
-    private val scrollbleScreen = UiScrollable(UiSelector().resourceId(appPackage + ":id/empty_holder"))
+    private val scrollbleScreen = UiScrollable(UiSelector().resourceId(appPackage + ":id/main_container"))
     private val titleFromYouMightAlsoLike = appPackage + ":id/view_home_content_iv"
     private val shareWithButton = appPackage + ":id/imageView_share"
     private val captionIcon = appPackage + ":id/imageView_caption"
@@ -36,7 +36,7 @@ class MovieDatailScreen() : BaseScreen() {
         Assert.assertTrue("Expected share button is not displayed", findElementById(shareWithButton, false).waitForExists(globalTimeout))
     }
 
-    public val titleDatailScreen get() = findObjectById(titleText, false).text //get text from the datail page
+    public val titleName get() = findObjectById(titleText, false).text //get text from the datail page
     public val scrollableScreen = this.scrollbleScreen
 
     public val youMightaAlsoLike = this.youMightAlsoLike
@@ -136,11 +136,12 @@ class MovieDatailScreen() : BaseScreen() {
 
     fun selectTitleFromMightAlsoLike(): MovieDatailScreen {
         try {
-            scrollbleScreen.setAsVerticalList().scrollToEnd(2)
+            for (i in 0..3){
+            scrollbleScreen.setAsVerticalList().flingForward()}
             youMightAlsoLike.setAsHorizontalList().scrollToEnd(2)
             findObjectById(titleFromYouMightAlsoLike, false).click()
         } catch (e: UiObjectNotFoundException) {
-            TestExceptionWithError("Probably 'You might also like' container is not present", e)
+          throw  TestExceptionWithError("Probably 'You might also like' container is not present", e)
         }
         return MovieDatailScreen()
     }

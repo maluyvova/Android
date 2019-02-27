@@ -86,7 +86,7 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
             if (!getGrid(i).getChild(containerOfTitlesSmaller).exists()) {
                 UiScrollable(UiSelector().resourceId(firstListOfAllObjectsString)).scrollForward()
             }
-            UiScrollable(UiSelector().resourceId(firstListOfAllObjectsString)). ensureFullyVisible(getGrid(i).getChild(containerOfTitlesSmaller))
+            UiScrollable(UiSelector().resourceId(firstListOfAllObjectsString)).ensureFullyVisible(getGrid(i).getChild(containerOfTitlesSmaller))
         }
         return getGrid(i).getChild(containerOfTitlesSmaller).childCount
     }
@@ -141,6 +141,10 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
         scrollableScreenById(scrollHomePage).setAsVerticalList().scrollToEnd(1)
     }
 
+    fun scrolUpLittleBit() {
+        scrollableScreenById(scrollHomePage).setAsVerticalList().scrollToBeginning(1)
+    }
+
     fun horisontalScrollTitles(swipes: Int, category: String) {
         for (i in 1..6) {
             val box = getGrid(i).getChild(textOFCategory)
@@ -160,10 +164,14 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
     fun getText(category: String): String {
         var textOfMovies = ""
         var i = 0
+        var ii = 0
         while (i < 10) {
             if (getGrid(i).getChild(textOFCategory).waitForExists(if (i < 3) globalTimeout else 5)) {
                 val box = getGrid(i).getChild(textOFCategory).text
                 if (box.equals("$category")) {
+                    if(!getGrid(i).getChild(containerOfTitlesSmaller).getChild(textOfMovie).exists()){
+                        scrollableScreenById(firstListOfAllObjectsString).scrollIntoView(getTextOFMovie(0))
+                    }
                     if (getGrid(i).getChild(containerOfTitlesSmaller).getChild(textOfMovie).exists()) {
                         textOfMovies = getGrid(i).getChild(containerOfTitlesSmaller).getChild(textOfMovie).text
                         break
@@ -174,6 +182,10 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
                 i = 0
             }
             i++
+            ii++
+            if (ii > 60) {
+                throw TestException("Can't find $category category on home screen")
+            }
         }
         return textOfMovies
     }
@@ -246,9 +258,19 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
         return getTextOfCategory(0).text
     }
 
+    fun getTextOfTitle(): String {
+        if (!getTextOFMovie(0).exists()) {
+            scrolDownLittleBit()
+        }
+        return getTextOFMovie(0).text
+    }
+
     public val title get() = getTextOFMovie(0).text //get text title form the home page
 
     public fun clickOnTitle(num: Int): GotIt {
+        if (!getTextOFMovie(num).exists()) {
+            scrolDownLittleBit()
+        }
         getTextOFMovie(num).click()
         return GotIt()
     }

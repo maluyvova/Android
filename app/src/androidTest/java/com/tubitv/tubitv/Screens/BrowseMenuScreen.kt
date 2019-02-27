@@ -69,7 +69,7 @@ class BrowseMenuScreen : BaseScreen() {
 //            if (category == Categories.CONTINUE_WATCHING.value) {
 //                return SubCategoryScreen(clickOnContinueWatchingContainerScreen(category))
 //            }
-                //return SubCategoryScreen(clickOnSpecificCategoryContainerScreen(category))
+            //return SubCategoryScreen(clickOnSpecificCategoryContainerScreen(category))
             }
         }
         return return SubCategoryScreen(clickOnSpecificCategoryContainerScreen(category))
@@ -111,7 +111,15 @@ class BrowseMenuScreen : BaseScreen() {
         var bigContainer = ""
         var textOfFoundedCategory = ""
         var x = 0
-        while (bigContainer != "Genres") {
+        if (category == Categories.QUEUE.value) {
+            while (bigContainer != "For You") {
+                if (uiDevice.findObject(UiSelector().resourceId(boxWithListOfCategories)).getChild(UiSelector().index(x)).getChild(UiSelector().resourceId(nameOfBigContainer)).exists()) {
+                    bigContainer = uiDevice.findObject(UiSelector().resourceId(boxWithListOfCategories)).getChild(UiSelector().index(x)).getChild(UiSelector().resourceId(nameOfBigContainer)).text
+                    threeDots = uiDevice.findObject(UiSelector().resourceId(boxWithListOfCategories)).getChild(UiSelector().index(x)).getChild(UiSelector().resourceId(this.threeDots))
+                    x++
+                }
+            }
+        } else while (bigContainer != "Genres") {
             if (uiDevice.findObject(UiSelector().resourceId(boxWithListOfCategories)).getChild(UiSelector().index(x)).getChild(UiSelector().resourceId(nameOfBigContainer)).exists()) {
                 bigContainer = uiDevice.findObject(UiSelector().resourceId(boxWithListOfCategories)).getChild(UiSelector().index(x)).getChild(UiSelector().resourceId(nameOfBigContainer)).text
                 threeDots = uiDevice.findObject(UiSelector().resourceId(boxWithListOfCategories)).getChild(UiSelector().index(x)).getChild(UiSelector().resourceId(this.threeDots))

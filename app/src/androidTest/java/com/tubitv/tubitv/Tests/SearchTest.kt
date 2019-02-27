@@ -5,7 +5,6 @@ import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.Screens.BaseScreen
 import com.tubitv.tubitv.Screens.HomeScreen
 import com.tubitv.tubitv.Screens.TitlesForSearchScreen
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -23,7 +22,7 @@ class SearchTest : LaunchAppWithFacebook() {
                 .provideTextToSearch(textWhatTestIsLookingFor)
                 .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
-        val textOfTitle = titleDatailScreen.titleDatailScreen.toLowerCase()
+        val textOfTitle = titleDatailScreen.titleName.toLowerCase()
         assertTrue("Title name is not contain text which test has provided provided in search field", textOfTitle.contains(textWhatTestIsLookingFor))
     }
 
@@ -35,11 +34,11 @@ class SearchTest : LaunchAppWithFacebook() {
                 .provideTextToSearch(textWhatTestIsLookingFor)
                 .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
-        val titleText = titleDatailScreen.titleDatailScreen
+        val titleText = titleDatailScreen.titleName
         titleDatailScreen.rightscrollScreenOnSide(3)
-        val titleTextAfterSlides = titleDatailScreen.titleDatailScreen
+        val titleTextAfterSlides = titleDatailScreen.titleName
         titleDatailScreen.leftscrllScreenOnSide(3)
-        val titleorig = titleDatailScreen.titleDatailScreen
+        val titleorig = titleDatailScreen.titleName
         assertEquals("Scroll on the side doesn't wrok", titleText, titleorig)
         assertNotEquals("Scroll on the side doesn't work", titleText, titleTextAfterSlides)
     }
@@ -52,7 +51,7 @@ class SearchTest : LaunchAppWithFacebook() {
         val gotIt = searchScreen.clickOnProposition(1)
                 .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
-        val textOfTitle = titleDatailScreen.titleDatailScreen.toLowerCase()
+        val textOfTitle = titleDatailScreen.titleName.toLowerCase()
         assertTrue("Title name is not contain text which test has provided provided in search field, text of suggestion: $textOfProposition text from title details page: $textOfTitle", textOfTitle.contains(textOfProposition))
     }
 
@@ -64,7 +63,7 @@ class SearchTest : LaunchAppWithFacebook() {
         val gotIt = searchScreen.clickOnProposition(2)
                 .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
-        val textOfTitle = titleDatailScreen.titleDatailScreen.toLowerCase()
+        val textOfTitle = titleDatailScreen.titleName.toLowerCase()
         assertTrue("Title name is not contain text which test has provided provided in search field, text of suggestion: $textOfProposition text from title details page: $textOfTitle", textOfTitle.contains(textOfProposition))
     }
 
@@ -76,7 +75,7 @@ class SearchTest : LaunchAppWithFacebook() {
         val gotIt = searchScreen.clickOnProposition(3)
                 .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
-        val textOfTitle = titleDatailScreen.titleDatailScreen.toLowerCase()
+        val textOfTitle = titleDatailScreen.titleName.toLowerCase()
         assertTrue("Title name is not contain text which test has provided provided in search field, text of suggestion: $textOfProposition text from title details page: $textOfTitle", textOfTitle.contains(textOfProposition))
     }
 
@@ -88,7 +87,7 @@ class SearchTest : LaunchAppWithFacebook() {
         val gotIt = searchScreen.clickOnProposition(1)
                 .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
-        val textOfTitle = titleDatailScreen.titleDatailScreen
+        val textOfTitle = titleDatailScreen.titleName
         titleDatailScreen.clickOnBackButton()
         TitlesForSearchScreen(textOfProposition).clickOnTitle(0)
                 .clickOnPlay()

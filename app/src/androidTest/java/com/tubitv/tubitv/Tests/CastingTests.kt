@@ -12,7 +12,7 @@ class CastingTests : LaunchAppWithFacebook() {
     fun castingPlaybackBar() {
         val homeScreen = HomeScreen(true)
         homeScreen.clickOnCustButton("SHIELD2")
-        val titleInHomeScreen = homeScreen.title
+        val titleInHomeScreen = homeScreen.getTextOfTitle()
         val gotitPage = homeScreen.clickOnTitle(0)
         val datailPage = gotitPage.clickOnGotIt()
         datailPage.clickOnPlay()

@@ -26,7 +26,7 @@ class HuluTest : LaunchAppWithFacebook() {
         val gotIt = searchSreen.provideTextToSearch("Evil Bong 777")
                 .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
-        val textOfTitle = titleDatailScreen.titleDatailScreen.toLowerCase()
+        val textOfTitle = titleDatailScreen.titleName.toLowerCase()
         if (textOfTitle.equals("Evil Bong 777".toLowerCase())) {
             titleDatailScreen.clickOnPlay()
             val huluPlaybackScreen = HuluPlaybackScreen()
@@ -59,7 +59,7 @@ class HuluTest : LaunchAppWithFacebook() {
         val gotIt = searchSreen.provideTextToSearch("Evil Bong 777")
                 .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
-        val textOfTitle = titleDatailScreen.titleDatailScreen.toLowerCase()
+        val textOfTitle = titleDatailScreen.titleName.toLowerCase()
         if (textOfTitle.equals("Evil Bong 777".toLowerCase())) {
             titleDatailScreen.clickOnPlay()
             if (huluPlaybackScreen.waitForAgeLimitation()) {
@@ -85,14 +85,14 @@ class HuluTest : LaunchAppWithFacebook() {
         val gotIt = searchSreen.provideTextToSearch(textWhatTestIsLookingFor)
                 .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
-        val titleFromSerch = titleDatailScreen.titleDatailScreen
+        val titleFromSerch = titleDatailScreen.titleName
         val playBackScreen = titleDatailScreen.clickOnPlay()
         Thread.sleep(80000)
         BaseScreen().navigateBackToHomeScreen()
         val subCategory = homeScreen.clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
         val titleFromContinueWatching = subCategory.clickOnTitle(titleFromSerch)
-                .titleDatailScreen
+                .titleName
         uiDevice.pressBack()
         subCategory.longClickOnTitle(titleFromContinueWatching)
                 .clickRemoveFromHistory()
@@ -109,13 +109,13 @@ class HuluTest : LaunchAppWithFacebook() {
         val gotIt = searchSreen.provideTextToSearch(textWhatTestIsLookingFor)
                 .clickOnFirstTitleFirstTime()
         val titleDatailScreen = gotIt.clickOnGotIt()
-        val titleFromSerch = titleDatailScreen.titleDatailScreen
+        val titleFromSerch = titleDatailScreen.titleName
         val playBackScreen = titleDatailScreen.clickOnAddToQueue()
         BaseScreen().navigateBackToHomeScreen()
         val subCategory = homeScreen.clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.QUEUE.value)
         val titleFromContinueWatching = subCategory.clickOnTitle(titleFromSerch)
-                .titleDatailScreen
+                .titleName
         uiDevice.pressBack()
         subCategory.longClickOnTitle(titleFromContinueWatching)
                 .clickAddToQueueAfterLongClickWithoutReturn()

@@ -42,7 +42,7 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
                 .countOfMovies()
         val movieDetailPage = SubCategoryScreen(category).clickOnTitleForQueue(Random().nextInt(countOfMovies))
                 .clickOnGotIt()
-        val nameOfMovie = movieDetailPage.titleDatailScreen
+        val nameOfMovie = movieDetailPage.titleName
         val player = movieDetailPage.clickOnPlay()
         time = player.waitUntilAdsfinishes()
                 .textOfLeftTimer()
@@ -119,7 +119,7 @@ public class BlackScreenTest(val paramOne: Int, val paramTwo: String) : LaunchAp
                 .countOfMovies()
         val serialDetailsScreen = SubCategoryScreen(category).clickOnTitleForQueue(Random().nextInt(countOfMovies))
                 .clickOnGotIt()
-        val nameOfSerial = serialDetailsScreen.titleDatailScreen
+        val nameOfSerial = serialDetailsScreen.titleName
         val player = serialDetailsScreen.clickOnPlay()
         time = player.waitUntilAdsfinishes()
                 .textOfLeftTimer()

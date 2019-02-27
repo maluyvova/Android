@@ -42,7 +42,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()}
+                .removeAllTitlesFromHistory()}
         assertEquals("Text between title on autoplay and text from playback is different", nameOfTitleFromAutoplay, nextTitle)
         assertNotEquals("Same title is playing after autoplay", selectedTitle, nextTitle)
     }
@@ -69,7 +69,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
         assertEquals("Text between title on autoplay and text from playback is different", nameOfTitleFromAutoplay, nextTitle)
         assertNotEquals("Same title is playing after autoplay", selectedTitle, nextTitle)
     }
@@ -93,7 +93,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
         assertNotEquals("Next tile in Autoplay same like a first one", nameOfTitleFromAutoplay, textOfNextTitleInAutoplay)
         assertEquals("Incorrect title is playing after autoplay", nextTitle, textOfNextTitleInAutoplay)
     }
@@ -114,7 +114,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
         assertTrue("I click on tagle in Autoplay but title in left corner didn't appear",titleFromLeftCorner)
     }
 
@@ -137,7 +137,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
         assertEquals("I hide autoplay, then select title from hidden autoplay", nameOfTitle, nameOfTitleFromAutoplay)
     }
 
@@ -160,7 +160,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     @Test
@@ -180,7 +180,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     @Test
@@ -198,7 +198,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     @Test
@@ -220,7 +220,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
 
@@ -246,7 +246,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
 
@@ -268,7 +268,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
 
@@ -292,7 +292,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     @Test
@@ -316,7 +316,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
     @Test
@@ -340,7 +340,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitles()
+                .removeAllTitlesFromHistory()
     }
 
 

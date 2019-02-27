@@ -29,13 +29,13 @@ class SubCategoryTests : LaunchAppWithFacebook() {
         subCategoryScreen.clickOnTitle(randomNumber)
         GotIt().clickOnGotIt()
         MovieDatailScreen().simpleClickOnAddToQueue()
-        val first = MovieDatailScreen().titleDatailScreen
+        val first = MovieDatailScreen().titleName
         killApp()
         launchApp(appPackage, false)
         val sideCategoryScreen2 = homeScreen.clickOnBrowseButton()
         val subCategoryScreen2 = sideCategoryScreen2.scrollToSpecificCategory(Categories.QUEUE.value)
         val movieDatailScreen = subCategoryScreen2.clickOnTitleForQueueNoGotIt(0)
-        val titleInQueue = movieDatailScreen.titleDatailScreen
+        val titleInQueue = movieDatailScreen.titleName
         movieDatailScreen.simpleClickOnAddToQueue()
         killApp()
         launchApp(appPackage, false)

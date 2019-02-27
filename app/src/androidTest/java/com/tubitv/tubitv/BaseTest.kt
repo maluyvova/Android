@@ -100,14 +100,19 @@ open class BaseTest {
 
     protected fun minimizeAndOpenAppFromSameScreen() {
         try {
+            var i =0
             uiDevice.pressRecentApps()
             sleep(2000)
             uiDevice.pressRecentApps()
             while (!uiDevice.currentPackageName.equals(appPackage)) {
+                if(i>20){
+                 throw TestException("Something wrong with minimize app method")
+                }
                 uiDevice.pressRecentApps()
+                i++
             }
         } catch (e: UiObjectNotFoundException) {
-            TestException("cannot get app from overview")
+         throw   TestException("cannot get app from overview")
         }
     }
 

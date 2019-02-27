@@ -73,7 +73,7 @@ class SubCategoryScreen(categoryName: String) : BaseScreen() {
         return GotIt()
     }
 
-    fun removeAllTitles() {
+    fun removeAllTitlesFromHistory() {
         try {
 
             var i = 0
@@ -83,6 +83,24 @@ class SubCategoryScreen(categoryName: String) : BaseScreen() {
             while (countOfMovies() >= i) {
                 longClickOnTitle(0)
                         .clickRemoveFromHistory()
+                screen.getChildByInstance(title, 0).waitUntilGone(globalTimeout)
+                i++
+            }
+        } catch (e: UiObjectNotFoundException) {
+            throw   TestException("Can't delete all titles from 'Continue watching'")
+        }
+    }
+
+    fun removeAllTitlesFromQueue() {
+        try {
+
+            var i = 0
+            if (countOfMovies() == 0) {
+                return
+            }
+            while (countOfMovies() >= i) {
+                longClickOnTitle(0)
+                        .clickAddToQueueAfterLongClickWithoutReturn()
                 screen.getChildByInstance(title, 0).waitUntilGone(globalTimeout)
                 i++
             }

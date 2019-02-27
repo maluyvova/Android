@@ -91,7 +91,7 @@ class PlayBackTest : LaunchAppWithFacebook() {
                 .scrollToSpecificCategory(tvCategory)
                 .clickOnTitleForQueue(0)
                 .clickOnGotIt()
-        val textOfTitle = movieDatailScreen.titleDatailScreen
+        val textOfTitle = movieDatailScreen.titleName
         var playBackScreen = movieDatailScreen.clickOnPlay()
         playBackScreen.waitUntilAdsfinishes()
         playBackScreen.seekToMiddleOfPlayback()

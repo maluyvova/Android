@@ -62,9 +62,9 @@ class EmailSigUpScreen : BaseScreen() {
         findObjectById(androidButton, false).click()
     }
 
-    fun clickOnSignIn(): AccountScreen {
+    fun clickOnSignIn(): SignInScreen {
         findElementByText(signInButtonInRegisterScreen, true).click()
-        return AccountScreen()
+        return SignInScreen()
     }
 
     fun selectGender(nums: Int) {
