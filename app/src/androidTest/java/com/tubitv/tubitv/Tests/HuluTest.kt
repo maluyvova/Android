@@ -87,7 +87,7 @@ class HuluTest : LaunchAppWithFacebook() {
         val titleDatailScreen = gotIt.clickOnGotIt()
         val titleFromSerch = titleDatailScreen.titleName
         val playBackScreen = titleDatailScreen.clickOnPlay()
-        Thread.sleep(80000)
+        Thread.sleep(100000)
         BaseScreen().navigateBackToHomeScreen()
         val subCategory = homeScreen.clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)

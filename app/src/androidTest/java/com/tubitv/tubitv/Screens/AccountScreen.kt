@@ -31,10 +31,10 @@ class AccountScreen : BaseScreen() {
         assertTrue("Expected Sign out Button is not displayed in settings", findElementById(signedAsObj, true).exists())
         assertEquals("Text on caption switcher doesn't correspond requirements", findObjectById(captionText, true).text, "Captions")
         assertEquals("Text on 'Lock in Landscape Mode' switcher doesn't correspond requirements", findObjectById(landscapeText, true).text, "Lock in Landscape Mode")
-        assertEquals("Text on 'AboutScreen' switcher doesn't correspond requirements", findObjectById(aboutText, true).text, "About")
         if (!findObjectById(helpCenterText, false).exists()) {
-           scrollableScreenById(screenContainer).scrollForward()
+            scrollableScreenById(screenContainer).scrollForward()
         }
+        assertEquals("Text on 'AboutScreen' switcher doesn't correspond requirements", findObjectById(aboutText, true).text, "About")
         assertEquals("Text on 'Help Ceter' switcher doesn't correspond requirements", findObjectById(helpCenterText, true).text, "Help Center")
         assertEquals("Text on 'Sign in/Register' button doesn't correspond requirements", findObjectById(signOutButton, true).text, "Sign in/Register")
     }
