@@ -27,6 +27,7 @@ class BrowseMenuScreen : BaseScreen() {
     private val containerForSecondScreen = appPackage + ":id/container_content_recycler_view"
     private val smallContainerForSecondScreen = appPackage + ":id/item_root_view"
     private val categoryScreenForSecondScreen = appPackage + ":id/container_title_text_view"
+    private var stopLoop = 0
 
     init {
         if (findElementById(threeDots, true).exists()) {
@@ -145,7 +146,13 @@ class BrowseMenuScreen : BaseScreen() {
                 i++
             }
         } catch (e: UiObjectNotFoundException) {
-            throw   TestException("This $category not found on new browse screen ")
+            if (stopLoop == 0) {
+                UiScrollable(UiSelector().resourceId(containerForSecondScreen)).setAsVerticalList().scrollForward()
+                clickOnSpecificCategoryContainerScreen(category)
+                stopLoop++
+            } else {
+                throw   TestException("This $category not found on new browse screen ")
+            }
         }
 
         return textOfFoundedCategory

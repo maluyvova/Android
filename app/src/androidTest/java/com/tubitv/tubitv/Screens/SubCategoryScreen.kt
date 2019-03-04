@@ -32,6 +32,12 @@ class SubCategoryScreen(categoryName: String) : BaseScreen() {
         val titles = mutableListOf<String>()
         var i = 0
         while (countOfMovies() > i) {
+            if (!screen.getChildByInstance(title, i).getChild(UiSelector().resourceId(textOfTitle)).exists()) {
+                screen.flingBackward()
+            }
+            if (!screen.getChildByInstance(title, i).getChild(UiSelector().resourceId(textOfTitle)).exists()) {
+                screen.flingForward()
+            }
             titles.add(screen.getChildByInstance(title, i).getChild(UiSelector().resourceId(textOfTitle)).text)
             i++
             if (i > 30) {
