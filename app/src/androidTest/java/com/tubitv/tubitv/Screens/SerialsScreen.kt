@@ -1,6 +1,8 @@
 package com.tubitv.tubitv.Screens
 
 import android.support.test.uiautomator.*
+import com.tubitv.tubitv.Helpers.TestException
+import com.tubitv.tubitv.Helpers.TestExceptionWithError
 import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import java.util.*
@@ -15,7 +17,8 @@ class SerialsScreen() : BaseScreen() {
     private val scrollableScreen = UiScrollable(UiSelector().resourceId(appPackage + ":id/scrollView_main"))
     private val playButton = appPackage + ":id/imageView_play"
     private val scrollableNextEpisodes = UiScrollable(UiSelector().resourceId(appPackage + ":id/episode_list_recyclerview"))
-    private val titleOfEpsideInTheButton = appPackage + ":id/title"
+    private val containerForEpisodes = appPackage + ":id/episode_list_recyclerview"
+    private val seasonAndEpisodeText = appPackage + ":id/title"
     private val playButtonForNextEpisode = appPackage + ":id/play_button"
     private val episodeNumber = appPackage + ":id/vaudTextView_episode_title"//:id/vaudTextView_episdoe_title
     private val presentedByHulu = appPackage + ":id/vaudTextView_present_hulu"
@@ -35,10 +38,23 @@ class SerialsScreen() : BaseScreen() {
     public val scrlbleScreen get() = this.scrollableScreen
     public val textofSeason get() = this.findObjectById(textOfSeason, false)
     fun getTextOfEpisode(): String {
-        return findElementById(titleOfEpsideInTheButton, false).text
+        var text = ""
+        try {
+            for (i in 0..3) {
+                val episodeObject = findElementParentIdChildIndex(containerForEpisodes, true, i)
+                if (episodeObject.getChild(UiSelector().resourceId(playButtonForNextEpisode)).exists()) {
+                    text = episodeObject.getChild(UiSelector().resourceId(seasonAndEpisodeText)).text
+                    break
+                }
+            }
+        } catch (e: UiObjectNotFoundException) {
+            throw TestExceptionWithError("Can't find playButton on episode or episode text", e)
+        }
+
+        return text
     }
 
-    fun getNumberOfEpisode(): String {
+    fun getEpisodeNumberUnderSerialName(): String {
         return findElementById(episodeNumber, false).text
     }
 
@@ -54,13 +70,13 @@ class SerialsScreen() : BaseScreen() {
 
     fun clickOnPlayButton(): PlayBackScreen {
         findObjectById(playButton, true).click()
-        if(findObjectById(playButton, true).exists()){
+        if (findObjectById(playButton, true).exists()) {
             findObjectById(playButton, false).click()
         }
         return PlayBackScreen()
     }
 
-    fun selectRundomSerialTitle(category:String) {
+    fun selectRundomSerialTitle(category: String) {
         val numbersOfTitles = MoviesByCategoryScreen(category).getCountOfTitles()
         val randomNumber = Random().nextInt(numbersOfTitles)
         val title = MoviesByCategoryScreen(category).gotkRandomTite(randomNumber) //randomNumber
@@ -72,6 +88,40 @@ class SerialsScreen() : BaseScreen() {
             selectRundomSerialTitle(category)
         }
         val serialScreen = SerialsScreen()
+    }
+
+    fun clickOnPlayForEpisode(): PlayBackScreen {
+        var i = 0
+        val playButton = uiDevice.findObject(UiSelector().resourceId(playButtonForNextEpisode))
+        while (!playButton.exists()) {
+            val serialScreen = SerialsScreen()
+            serialScreen.scrollEpisdoesList(i)
+            i++
+            if (i > 30) {
+                throw TestException("Can't get play button on episode for serial ")
+            }
+        }
+        playButton.click()
+        return PlayBackScreen()
+
+    }
+
+    fun clickOnPlayForEpisode(episode: String): PlayBackScreen {
+        try {
+            for (i in 0..3) {
+                val episodeObject = findElementParentIdChildIndex(containerForEpisodes, true, i)
+                if (episodeObject.getChild(UiSelector().resourceId(playButtonForNextEpisode)).exists()) {
+                    if (episodeObject.getChild(UiSelector().resourceId(seasonAndEpisodeText)).text.toLowerCase().equals(episode.toLowerCase())) {
+                        scrollableNextEpisodes.setAsVerticalList().scrollTextIntoView(episode)
+                        episodeObject.getChild(UiSelector().resourceId(playButtonForNextEpisode)).click()
+                        break
+                    }
+                }
+            }
+        } catch (e: UiObjectNotFoundException) {
+            throw TestExceptionWithError("Can't find playButton on episode or episode text", e)
+        }
+        return PlayBackScreen()
     }
 
 

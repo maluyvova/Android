@@ -6,6 +6,7 @@ import junit.framework.Assert
 import java.util.*
 import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.*
+import com.tubitv.tubitv.Enomus.Categories
 import com.tubitv.tubitv.Enomus.DirectionOfScrolling
 import com.tubitv.tubitv.Helpers.TestException
 import com.tubitv.tubitv.Helpers.TestExceptionWithError
@@ -18,6 +19,7 @@ import junit.framework.Assert.assertTrue
 open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
 
     private val firstListOfAllObjectsString = appPackage + ":id/view_category_recycler"
+    private val tubiLogo = appPackage + ":id/titlebar_title_text_view"
     val firstListOfAllObjects = UiCollection(UiSelector().resourceId(firstListOfAllObjectsString))
     private val scrollHomePage = appPackage + ":id/view_category_recycler"
     private val categoryList = UiSelector().resourceId(appPackage + ":id/view_content_recycler_ll")
@@ -31,7 +33,7 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
     private val sideCategoryMenu = "Open navigation drawer"
     private val treeDotsSetingsButton = "More options"
     private val containerOfTitlesSmaller = UiSelector().resourceId(appPackage + ":id/view_content_recycler")
-    private val textOfTitleInContnueWatching = appPackage + ":id/view_home_content_continue_title_tv"
+    private val textOfTitleInContinueWatching = appPackage + ":id/view_home_content_continue_title_tv"
     private val searchButton = "Search"
     private val searchField = appPackage + ":id/nav_app_bar_main_search"
     private val castButton = "Cast button. Disconnected"
@@ -46,9 +48,11 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
                 for (i in 0..2) {
                     scrollableScreenById(scrollHomePage).setAsVerticalList().scrollToBeginning(i)
                     scrollableScreenById(scrollHomePage).setAsVerticalList().flingBackward()
+                    scrollableScreenById(scrollHomePage).setAsVerticalList().flingBackward()
                 }
             }
             if (uiDevice.findObject(UiSelector().resourceId(counterOfTitlesInFeaturedContainer)).exists()) {
+                assertTrue("Tubi logo is not displayed", findElementById(tubiLogo, true).exists())
                 assertTrue("Counter for Featured titles is not displayed on HomeScreen", findElementById(counterOfTitlesInFeaturedContainer, false).waitForExists(globalTimeout))
                 assertTrue("Expected first List of All Objects is not displayed on HomeScreen", firstListOfAllObjects.waitForExists(moviesListTimeout))
                 assertTrue("Expected titles is not displayed on HomeScreen", getTitleFromGrid().waitForExists(moviesListTimeout))
@@ -96,7 +100,7 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
         return GotIt()
     }
 
-    public val titleInContinueWatching get() = findObjectById(textOfTitleInContnueWatching, false).text
+    public val titleInContinueWatching get() = findObjectById(textOfTitleInContinueWatching, false).text
 
     fun scrollToSpecificCategory(category: String, directionOfScrolling: DirectionOfScrolling): String {
         if (intForScrolling > 3) {
@@ -169,7 +173,16 @@ open class HomeScreen(checkForObject: Boolean) : BaseScreen() {
             if (getGrid(i).getChild(textOFCategory).waitForExists(if (i < 3) globalTimeout else 5)) {
                 val box = getGrid(i).getChild(textOFCategory).text
                 if (box.equals("$category")) {
-                    if(!getGrid(i).getChild(containerOfTitlesSmaller).getChild(textOfMovie).exists()){
+                    if (category.equals(Categories.CONTINUE_WATCHING.value)) {
+                        if (!getGrid(i).getChild(containerOfTitlesSmaller).getChild(UiSelector().resourceId(textOfTitleInContinueWatching)).exists()) {
+                            scrollableScreenById(firstListOfAllObjectsString).scrollIntoView(getTextOFMovie(0))
+                        }
+                        if (getGrid(i).getChild(containerOfTitlesSmaller).getChild(UiSelector().resourceId(textOfTitleInContinueWatching)).exists()) {
+                            textOfMovies = getGrid(i).getChild(containerOfTitlesSmaller).getChild(UiSelector().resourceId(textOfTitleInContinueWatching)).text
+                            break
+                        }
+                    }
+                    if (!getGrid(i).getChild(containerOfTitlesSmaller).getChild(textOfMovie).exists()) {
                         scrollableScreenById(firstListOfAllObjectsString).scrollIntoView(getTextOFMovie(0))
                     }
                     if (getGrid(i).getChild(containerOfTitlesSmaller).getChild(textOfMovie).exists()) {

@@ -22,7 +22,7 @@ import java.util.*
 class SerialsTest : LaunchAppWithFacebook() {
     val textOfEpisodesForselectSerialWithFewSeasons = mutableListOf<String>()
     val episodesForScrollToTheSide = mutableListOf<String>()
-
+    val currentEpisode = mutableListOf<String>()
 
     fun selectSerialWithFewSeasons() {
         val numbersOfTitles = MoviesByCategoryScreen(Categories.TV_COMEDIES.value).getCountOfTitles()
@@ -75,6 +75,8 @@ class SerialsTest : LaunchAppWithFacebook() {
                     i++
                 }
                 episodesForScrollToTheSide.add(textFoSeason.text)
+                currentEpisode.add(SerialsScreen().getTextOfEpisode())
+
             } else {
                 uiDevice.pressBack()
                 uiDevice.pressBack()
@@ -106,14 +108,10 @@ class SerialsTest : LaunchAppWithFacebook() {
         moviedatailScreen.simpleClickOnAddToQueue()
         BaseScreen().navigateBackToHomeScreen()
         val sideCategory3 = homePage.clickOnBrowseButton()
-        val queueScreen = sideCategory3.scrollToSpecificCategory(Categories.QUEUE.value)
-        val allTitlesinQueue = queueScreen.textOfAllTitles()
-        queueScreen.removeAllTitlesFromQueue()
-        assertThat("Title: $textOfTitle still stays in 'ContinueWatching' after autoplay pop-ups for this title, which means title should be removed from 'Continue Watching' after autoplay",allTitlesinQueue , not(hasItem(textOfTitle)))
-
-
-
-
+        //val queueScreen = sideCategory3.scrollToSpecificCategory(Categories.QUEUE.value)
+        //val allTitlesinQueue = queueScreen.textOfAllTitles()
+        //queueScreen.removeAllTitlesFromQueue()
+        //assertThat("Title: $textOfTitle still stays in 'ContinueWatching' after autoplay pop-ups for this title, which means title should be removed from 'Continue Watching' after autoplay", allTitlesinQueue, not(hasItem(textOfTitle)))
         try {
             sideCategory3.scrollToSpecificCategory(Categories.QUEUE.value)
         } catch (e: TestException) {
@@ -144,7 +142,7 @@ class SerialsTest : LaunchAppWithFacebook() {
         val subCategoryScreen = sideCategory2.scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
         subCategoryScreen.clickOnTitleForQueueNoGotIt(0)
         val serialScreen2 = SerialsScreen()
-        val title = serialScreen2.getNumberOfEpisode()
+        val title = serialScreen2.getEpisodeNumberUnderSerialName()
         uiDevice.pressBack()
         val smallWindow = subCategoryScreen.longClickOnTitle(0)
         smallWindow.clickRemoveFromHistory()
@@ -260,6 +258,42 @@ class SerialsTest : LaunchAppWithFacebook() {
                 .clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
                 .removeAllTitlesFromHistory()
+    }
+
+    @Test
+    fun checkIfWeShowEpisodeNameOnHomeScreen() {
+        val homePage = HomeScreen(true)
+        homePage.scrollToSpecificCategory(Categories.TV_COMEDIES.value, DirectionOfScrolling.DOWN)
+        val serials = Serials(Categories.TV_COMEDIES.value)
+        val moviesByCategoryScreen = serials.clickOnSerialCategory()
+        scrollEpisodesToTheSide(Categories.TV_COMEDIES.value)
+        val episodeNameFromPlayBack=SerialsScreen().clickOnPlayForEpisode(currentEpisode.get(0))
+                .seekToMiddleOfPlayback()
+                .getNameOfTitleFromPlayback()
+        BaseScreen().navigateBackToHomeScreen()
+        val episodeNameFromContWatching = homePage.getText(Categories.CONTINUE_WATCHING.value)
+        assertEquals("Looks like we don't show episode name when serial was edded to 'Continue watching' on home page, we should show something like: S01:E05- The Wilson ",episodeNameFromPlayBack,episodeNameFromContWatching)
+    }
+
+    @Test
+    fun checkIfWeShowEpisodeInTitleDetailPageUnderTitleName(){
+        val homePage = HomeScreen(true)
+        homePage.scrollToSpecificCategory(Categories.TV_COMEDIES.value, DirectionOfScrolling.DOWN)
+        val serials = Serials(Categories.TV_COMEDIES.value)
+        val moviesByCategoryScreen = serials.clickOnSerialCategory()
+        scrollEpisodesToTheSide(Categories.TV_COMEDIES.value)
+        val episodeNameFromPlayBack=SerialsScreen().clickOnPlayForEpisode(currentEpisode.get(0))
+                .seekToMiddleOfPlayback()
+                .getNameOfTitleFromPlayback()
+        BaseScreen().navigateBackToHomeScreen()
+                .clickOnBrowseButton()
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
+                .clickOnTitle(0)
+        val episdeNameFromContWatch=SerialsScreen().getEpisodeNumberUnderSerialName()
+        assertEquals("Looks like we don't show correct episode name on Title Detail Page (text that under Title name)",episodeNameFromPlayBack,episdeNameFromContWatch)
+
+
+
     }
 
 

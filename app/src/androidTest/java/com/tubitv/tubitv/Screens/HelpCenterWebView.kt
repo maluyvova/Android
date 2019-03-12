@@ -27,7 +27,7 @@ class HelpCenterWebView : BaseScreen() {
         try {
             findElementByIdAnd1LevelDeeper(tableWithIcons, i, true).click()
         } catch (e: UiObjectNotFoundException) {
-            TestExceptionWithError("Can't click on icon on webview Help Center", e)
+           throw TestExceptionWithError("Can't click on icon on webview Help Center", e)
         }
     }
 

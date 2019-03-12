@@ -37,7 +37,7 @@ class PlayBackTest : LaunchAppWithFacebook() {
 
     @Test
     fun timerForSerial() {
-        val category = "Reality TV"
+        val category = Categories.REALITY_TV.value
         val homePage = HomeScreen(true)
         homePage.scrollToSpecificCategory(category, DirectionOfScrolling.DOWN)
         val serials = Serials(category)

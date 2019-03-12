@@ -104,12 +104,16 @@ open class BaseTest {
             uiDevice.pressRecentApps()
             sleep(2000)
             uiDevice.pressRecentApps()
+            sleep(2000)
             while (!uiDevice.currentPackageName.equals(appPackage)) {
                 if(i>20){
                  throw TestException("Something wrong with minimize app method")
                 }
                 uiDevice.pressRecentApps()
                 i++
+            }
+            if(!uiDevice.currentPackageName.equals(appPackage)){
+                uiDevice.pressRecentApps()
             }
         } catch (e: UiObjectNotFoundException) {
          throw   TestException("cannot get app from overview")

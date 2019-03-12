@@ -76,7 +76,7 @@ class BrowseMenuScreen : BaseScreen() {
         return return SubCategoryScreen(clickOnSpecificCategoryContainerScreen(category))
     }
 
-    fun clickOnSpecificCategoryRowScreen(category: String): String {
+    private fun clickOnSpecificCategoryRowScreen(category: String): String {
         var foundCategory = UiObject(UiSelector())
         var foundCategoryName = ""
         var i = 0
@@ -129,6 +129,7 @@ class BrowseMenuScreen : BaseScreen() {
         }
         threeDots.click()
         var i = 0
+        var ii = 0
         try {
             while (i in 0..UiCollection(UiSelector().resourceId(containerForSecondScreen)).childCount) {
                 if (findObjectByIdAndIndex(smallContainerForSecondScreen, i, false).exists()) {
@@ -142,8 +143,20 @@ class BrowseMenuScreen : BaseScreen() {
                 } else {
                     UiScrollable(UiSelector().resourceId(containerForSecondScreen)).setAsVerticalList().scrollForward()
                     i = 0
+                    ii++
                 }
                 i++
+                i++
+                if (ii > 30) {
+                    if (stopLoop == 0) {
+                        BaseScreen().navigateBackToHomeScreen()
+                                .clickOnBrowseButton()
+                        stopLoop++
+                        clickOnSpecificCategoryContainerScreen(category)
+                    } else {
+                        throw   TestException("This $category not found on new browse screen ")
+                    }
+                }
             }
         } catch (e: UiObjectNotFoundException) {
             if (stopLoop == 0) {
@@ -159,7 +172,7 @@ class BrowseMenuScreen : BaseScreen() {
     }
 
 
-    fun clickOnContinueWatchingContainerScreen(category: String): String {
+    private fun clickOnContinueWatchingContainerScreen(category: String): String {
         var foundCategory = UiObject(UiSelector())
         var threeDots = UiObject(UiSelector())
         var bigContainer = UiObject(UiSelector())
