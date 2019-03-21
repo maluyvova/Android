@@ -378,7 +378,7 @@ class AddToQueue(checkForObjects: Boolean) : BaseScreen() {
     private val addToQueueLongClick = "android:id/text1"
     private val addToQueueLongClickUiSlector = UiSelector().resourceId("android:id/text1")
     private val smallWindow = UiCollection(UiSelector().resourceId("android:id/select_dialog_listview"))
-
+    private val continer = "android:id/parentPanel"
 
     init {
         if (checkForObjects)
@@ -386,9 +386,37 @@ class AddToQueue(checkForObjects: Boolean) : BaseScreen() {
 
     }
 
-    public fun clickAddToQueueAfterLongClickWithoutReturn(): Boolean {
+    fun clickAddToQueueAfterLongClickWithoutReturn(): Boolean {
         val facebook = false
-        findObjectById(addToQueueLongClick, false).click()
+        if (smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0).text.equals("Add to queue")) {
+            smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0).dragTo(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0), 3)
+        }
+        else if(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 1).text.equals("Add to queue")){
+            smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 1).dragTo(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 1), 3)
+
+        }
+        else{
+            throw TestException("Can't find 'Add to Queue' button after long click on title")
+        }
+        if (findElementById(facebookSignIn, false).exists()) {
+            FacebookSignInForNonRegisterUser().clickOnSignUpWithFacebook()
+            return facebook
+        }
+        return true
+    }
+
+    fun clickRemoveFromQueueAfterLongClickWithoutReturn(): Boolean {
+        val facebook = false
+        if (smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0).text.equals("Remove from queue")) {
+            smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0).dragTo(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 0), 3)
+        }
+        else if(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 1).text.equals("Remove from queue")){
+            smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 1).dragTo(smallWindow.getChildByInstance(addToQueueLongClickUiSlector, 1), 3)
+
+        }
+        else{
+            throw TestException("Can't find 'Remove from queue' button after long click on title")
+        }
         if (findElementById(facebookSignIn, false).exists()) {
             FacebookSignInForNonRegisterUser().clickOnSignUpWithFacebook()
             return facebook

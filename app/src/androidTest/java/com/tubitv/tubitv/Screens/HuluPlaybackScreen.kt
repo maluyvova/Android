@@ -102,7 +102,7 @@ class HuluPlaybackScreen : BaseScreen() {
     fun waitUntilAddsGone() {
         if (adscounter.waitForExists(facebookLogin)) {
             adscounter.waitUntilGone(347000L)
-        } else throw TestException("No ads")
+        }
     }
 
     fun verifyIfPlaybackOpenened(): Boolean {

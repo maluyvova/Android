@@ -165,55 +165,9 @@ open class BaseScreen {
         return objects
     }
 
-    protected fun findElmentByidAnd3LevelsDeeper(id: String, level: Int, levell: Int, levelll: Int, waitFoObject: Boolean): UiObject {
-        val objects = uiDevice.findObject(UiSelector().resourceId(id)
-                .childSelector(UiSelector().index(level))
-                .childSelector(UiSelector().index(levell))
-                .childSelector(UiSelector().index(levelll)))
-        if (waitFoObject) {
-            objects.waitForExists(globalTimeout)
-        }
-        return objects
-    }
 
-    protected fun findElmentByClassAnd3LevelsDeeper(classs: String, level: Int, levell: Int, levelll: Int, waitFoObject: Boolean): UiObject {
-        val objects = uiDevice.findObject(UiSelector().className(classs)
-                .childSelector(UiSelector().index(level))
-                .childSelector(UiSelector().index(levell))
-                .childSelector(UiSelector().index(levelll)))
-        if (waitFoObject) {
-            objects.waitForExists(globalTimeout)
-        }
-        return objects
-    }
 
-    protected fun findElmentByidAnd5LevelsDeeper(id: String, level: Int, levell: Int, levelll: Int, levellll: Int, levelllll: Int, waitFoObject: Boolean): UiObject {
-        val objects = uiDevice.findObject(UiSelector().resourceId(id)
-                .childSelector(UiSelector().index(level))
-                .childSelector(UiSelector().index(levell))
-                .childSelector(UiSelector().index(levelll))
-                .childSelector(UiSelector().index(levellll))
-                .childSelector(UiSelector().index(levelllll)))
-        if (waitFoObject) {
-            objects.waitForExists(globalTimeout)
-        }
-        return objects
-    }
 
-    protected fun findElmentByidAnd7LevelsDeeper(id: String, level: Int, levell: Int, levelll: Int, levellll: Int, levelllll: Int, levellllll: Int, levelllllll: Int, waitFoObject: Boolean): UiObject {
-        val objects = uiDevice.findObject(UiSelector().resourceId(id)
-                .childSelector(UiSelector().index(level))
-                .childSelector(UiSelector().index(levell))
-                .childSelector(UiSelector().index(levelll))
-                .childSelector(UiSelector().index(levellll))
-                .childSelector(UiSelector().index(levelllll))
-                .childSelector(UiSelector().index(levellllll))
-                .childSelector(UiSelector().index(levelllllll)))
-        if (waitFoObject) {
-            objects.waitForExists(globalTimeout)
-        }
-        return objects
-    }
 
     protected fun waitForObjectShortTime(id: String): Boolean {
         var bool = false

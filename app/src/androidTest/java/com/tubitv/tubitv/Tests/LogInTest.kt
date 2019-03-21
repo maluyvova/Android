@@ -100,7 +100,7 @@ class LogInTest : SimpleLaunchApp() {
     }
 
     @Test
-    fun orlradyExistsEmail() {
+    fun arlradyExistsEmail() {
         val launchScreen = LaunchScreen()
         val signInWithFacebookOrEmail = launchScreen.clickOnCreateAccount()
         val emailSignUpScreen = signInWithFacebookOrEmail.clickOnSighUpWithEmail()

@@ -291,8 +291,31 @@ class SerialsTest : LaunchAppWithFacebook() {
                 .clickOnTitle(0)
         val episdeNameFromContWatch=SerialsScreen().getEpisodeNumberUnderSerialName()
         assertEquals("Looks like we don't show correct episode name on Title Detail Page (text that under Title name)",episodeNameFromPlayBack,episdeNameFromContWatch)
-
-
+    }
+    @Test
+    fun selectPlaybackNavigateBackToHome5dTimesSerials() {
+        var firsTime = true
+        fun selectMovie() {
+            val homePage = HomeScreen(true)
+            val sideCategoryScreen = homePage.clickOnBrowseButton()
+            val subcategory = sideCategoryScreen.scrollToSpecificCategory(Categories.HORROR.value)
+            subcategory.clickOnTitle(0)
+            if (firsTime) {
+                GotIt().clickOnGotIt()
+            }
+            val playBack = MovieDatailScreen().clickOnPlay()
+            playBack.waitUntilAdsfinishes()
+            BaseScreen().navigateBackToHomeScreen()
+            firsTime = false
+        }
+        for (i in 1..5) {
+            selectMovie()
+        }
+        val homeScreen = HomeScreen(true)
+        homeScreen.clickOnBrowseButton()
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
+                .longClickOnTitle(0)
+                .clickRemoveFromHistory()
 
     }
 

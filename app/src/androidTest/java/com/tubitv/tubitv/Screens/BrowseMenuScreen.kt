@@ -91,7 +91,7 @@ class BrowseMenuScreen : BaseScreen() {
                         break
                     }
                 } else if (ii > 60) {
-                    throw TestException("This $category not found on side menu")
+                    throw TestException("This $category not found on 'Browse' menu")
                 } else {
                     UiScrollable(UiSelector().resourceId(boxWithListOfCategories)).setAsVerticalList().scrollForward()
                     i = 0

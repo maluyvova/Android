@@ -22,6 +22,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
 
     var fistTime = true
     var p = Pattern.compile("-?\\d+")
+    val description = ""
 
     @Test
     fun selectNextTitleForAutoplayMovies() {
@@ -110,7 +111,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         playBackScreen.waitUntilAdsfinishes()
         val autoplayScreen = playBackScreen.seekToAutoPlay(TypeOfContent.MOVIES)
         autoplayScreen.hideAutoplay()
-        val titleFromLeftCorner=autoplayScreen.titleOnLefSideWhenAutoplayIsHodens.waitForExists(globalTimeout)
+        val titleFromLeftCorner=autoplayScreen.titleOnLefSideWhenAutoplayIsHidden.waitForExists(globalTimeout)
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
@@ -275,7 +276,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
     @Test
     fun selectNextEpisodeForSerial() {
         val homePage = HomeScreen(true)
-        val category = homePage.scrollToSpecificCategory(Categories.DRAMA.value, DirectionOfScrolling.DOWN)
+        val category = homePage.scrollToSpecificCategory(Categories.TV_COMEDIES.value, DirectionOfScrolling.DOWN)
         val serials = Serials(category)
         val moviesByCategoryScreen = serials.clickOnSerialCategory()
         val serialScreen = SerialsScreen()
@@ -298,7 +299,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
     @Test
     fun hideAutoplayAndSelectTitleFromLowerLeftCornerForSerials() {
         val homePage = HomeScreen(true)
-        val category = homePage.scrollToSpecificCategory(Categories.DRAMA.value, DirectionOfScrolling.DOWN)
+        val category = homePage.scrollToSpecificCategory(Categories.TV_COMEDIES.value, DirectionOfScrolling.DOWN)
         val serials = Serials(category)
         val moviesByCategoryScreen = serials.clickOnSerialCategory()
         val serialScreen = SerialsScreen()
@@ -322,11 +323,11 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
     @Test
     fun hideAutoplayAndCheckIfTimerIsStoppedWhenAutoplayIsHiddenForSerial() {
         val homePage = HomeScreen(true)
-        val category = homePage.scrollToSpecificCategory(Categories.DRAMA.value, DirectionOfScrolling.DOWN)
+        val category = homePage.scrollToSpecificCategory(Categories.TV_COMEDIES.value, DirectionOfScrolling.DOWN)
         val serials = Serials(category)
         val moviesByCategoryScreen = serials.clickOnSerialCategory()
         val serialScreen = SerialsScreen()
-        serialScreen.selectRundomSerialTitle(Categories.DRAMA.value)
+        serialScreen.selectRundomSerialTitle(Categories.TV_COMEDIES.value)
         var playBackScreen = SerialsScreen().clickOnPlayButton()
         playBackScreen.waitUntilAdsfinishes()
         val selectedTitle = playBackScreen.getNameOfTitleFromPlayback()
@@ -337,6 +338,27 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         autoplayScreen.hideAutoplay()
         val timerAfterWiat = autoplayScreen.textFromAutoplayTimer.replace("[^-?0-9]+".toRegex(), "").toInt()
         Assert.assertTrue("", timerAfterWiat - timer <= 4)
+        BaseScreen().navigateBackToHomeScreen()
+        HomeScreen(true).clickOnBrowseButton()
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
+                .removeAllTitlesFromHistory()
+    }
+
+    @Test
+    fun seekToAutoplayAndThenClickOnOverviewAndThenNavigateBackToAppSerials() {
+        val homePage = HomeScreen(true)
+        val sideCategory = homePage.clickOnBrowseButton()
+        val subCaregoryScreen = sideCategory.scrollToSpecificCategory(Categories.TV_COMEDIES.value)
+        val gotItScreen = subCaregoryScreen.clickOnTitleForQueue(1)
+        val movieDatailScreen = gotItScreen.clickOnGotIt()
+        movieDatailScreen.dontSelectHuluTitle()
+        var playBackScreen = SerialsScreen().clickOnPlayButton()
+        playBackScreen.waitUntilAdsfinishes()
+        val selectedTitle = playBackScreen.getNameOfTitleFromPlayback()
+        val autoplayScreen = playBackScreen.seekToAutoPlay(TypeOfContent.SERIALS)
+        val timer = autoplayScreen.textFromAutoplayTimer.replace("[^-?0-9]+".toRegex(), "").toInt()
+        minimizeAndOpenAppFromSameScreen()
+        PlayBackScreen.AutoPlay()
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)

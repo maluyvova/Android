@@ -17,7 +17,7 @@ class HuluTest : LaunchAppWithFacebook() {
     val textWhatTestIsLookingFor = "Beverly Hills 90210"
 
 
-     @Test
+    @Test
     fun huluTitleWithYearsLimitationsErrorMessageValidation() {
         var warningMessage = ""
         var warningMeassageAfterClose = ""
@@ -98,6 +98,46 @@ class HuluTest : LaunchAppWithFacebook() {
                 .clickRemoveFromHistory()
 
         assertEquals("Hulu title is not added to continueWatching after watching ", titleFromSerch, titleFromContinueWatching)
+    }
+
+    @Test
+    fun huluTitleAddedToHistoryPickerDidntPopUp() {
+        val huluPlaybackScreen = HuluPlaybackScreen()
+        val homeScreen = HomeScreen(true)
+        val searchSreen = homeScreen.clickOnSearch()
+        val gotIt = searchSreen.provideTextToSearch("Evil Bong 777")
+                .clickOnFirstTitleFirstTime()
+        val titleDatailScreen = gotIt.clickOnGotIt()
+        val textOfTitle = titleDatailScreen.titleName.toLowerCase()
+        if (textOfTitle.equals("Evil Bong 777".toLowerCase())) {
+            titleDatailScreen.clickOnPlay()
+            if (huluPlaybackScreen.waitForAgeLimitation()) {
+                huluPlaybackScreen.clickOnMonth()
+                huluPlaybackScreen.selectMonth()
+                huluPlaybackScreen.clickOnDay()
+                huluPlaybackScreen.selectDay()
+                huluPlaybackScreen.clickOnYear()
+                huluPlaybackScreen.scrollYaers()
+                huluPlaybackScreen.selectYear()
+                huluPlaybackScreen.clickOnSubmit()
+                huluPlaybackScreen.waitUntilAddsGone()
+                uiDevice.click(97, 1030)
+            }
+        }
+        Thread.sleep(100000)
+        BaseScreen().navigateBackToHomeScreen()
+        val subCategory = homeScreen.clickOnBrowseButton()
+                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
+        val movieDetailsScreen = subCategory.clickOnTitle(textOfTitle)
+        val titleFromContinueWatching = movieDetailsScreen.titleName
+        movieDetailsScreen.clickOnPlay()
+        val agePicker=huluPlaybackScreen.waitForAgeLimitation()
+        uiDevice.pressBack()
+        uiDevice.pressBack()
+        subCategory.longClickOnTitle(titleFromContinueWatching)
+                .clickRemoveFromHistory()
+        assertEquals("Age picker pop-ups for Hulu title even when title already is added to 'Continue watching' ", agePicker, false)
+        assertEquals("Hulu title is not added to continueWatching after watching ", textOfTitle, titleFromContinueWatching)
     }
 
     @Test

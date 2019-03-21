@@ -241,7 +241,7 @@ class PlayBackScreen : BaseScreen() {
             } else Assert.assertEquals("Autoplay didn't pop-up, possible something wrong with seekToAutoplay ", 2, 5)
         }
 
-        public val titleOnLefSideWhenAutoplayIsHodens get() = this.findObjectById(titleOnLefSideWhenAutoplayIsHoden, false)
+        public val titleOnLefSideWhenAutoplayIsHidden get() = this.findObjectById(titleOnLefSideWhenAutoplayIsHoden, false)
         public val textFromFirstTitleAutoplay get() = findObjectById(nameOfNextTitle, false).text
         public val textFromNextTitleAutoplay get() = containerOfNextTitle.getChild(nameOfNextTitleUiSelector).text
         public val textFromAutoplayTimer get() = findObjectById(timer, false).text
