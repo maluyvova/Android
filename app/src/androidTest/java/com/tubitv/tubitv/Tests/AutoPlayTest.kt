@@ -197,6 +197,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         playBackScreen.waitUntilAdsfinishes()
         val autoplayScreen = playBackScreen.seekToAutoPlay(TypeOfContent.MOVIES)
         autoplayScreen.slideToNextTitle(false)
+        PlayBackScreen.AutoPlay().playTitleFromAutoplay()
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
@@ -268,9 +269,9 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         minimizeAndOpenAppFromSameScreen()
         PlayBackScreen.AutoPlay()
         BaseScreen().navigateBackToHomeScreen()
-        HomeScreen(true).clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
+        val isContinueWatchingStillPresent=HomeScreen(true).clickOnBrowseButton()
+                .verifyIfCategoryIsNotPresentOnScreen(Categories.CONTINUE_WATCHING.value)
+        assertEquals("This test scrolled to Autoplay -> clicked on Android Overview -> Navigate back to App -> if Autopaly triggered title should be removed from History, but it still present", isContinueWatchingStillPresent, false)
     }
 
 

@@ -66,11 +66,6 @@ class BrowseMenuScreen : BaseScreen() {
                 }
                 category == Categories.QUEUE.value -> {
                 }
-
-//            if (category == Categories.CONTINUE_WATCHING.value) {
-//                return SubCategoryScreen(clickOnContinueWatchingContainerScreen(category))
-//            }
-            //return SubCategoryScreen(clickOnSpecificCategoryContainerScreen(category))
             }
         }
         return return SubCategoryScreen(clickOnSpecificCategoryContainerScreen(category))
@@ -103,6 +98,16 @@ class BrowseMenuScreen : BaseScreen() {
         } catch (e: UiObjectNotFoundException) {
             throw   TestException("This $category not found on side menu")
         }
+    }
+
+    fun verifyIfCategoryIsNotPresentOnScreen(category: String): Boolean {   //true still present
+        var stillPresent = true
+        try {
+            clickOnSpecificCategoryRowScreen(category)
+        } catch (e: TestException) {
+            stillPresent = false
+        }
+        return stillPresent
     }
 
 

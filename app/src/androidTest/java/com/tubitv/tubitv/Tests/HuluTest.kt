@@ -159,7 +159,7 @@ class HuluTest : LaunchAppWithFacebook() {
         uiDevice.pressBack()
         subCategory.longClickOnTitle(titleFromContinueWatching)
                 .clickAddToQueueAfterLongClickWithoutReturn()
-        assertEquals("Hulu title is not added to continueWatching after watching ", titleFromSerch, titleFromContinueWatching)
+        assertEquals("Hulu title is not added to Queeu ", titleFromSerch, titleFromContinueWatching)
     }
 
 

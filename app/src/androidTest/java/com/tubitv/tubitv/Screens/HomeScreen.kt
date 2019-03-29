@@ -398,7 +398,7 @@ class AddToQueue(checkForObjects: Boolean) : BaseScreen() {
         else{
             throw TestException("Can't find 'Add to Queue' button after long click on title")
         }
-        if (findElementById(facebookSignIn, false).exists()) {
+        if (findElementById(facebookSignIn, false).waitForExists(shortWaitTime)) {
             FacebookSignInForNonRegisterUser().clickOnSignUpWithFacebook()
             return facebook
         }
