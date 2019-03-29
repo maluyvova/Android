@@ -5,6 +5,7 @@ package com.tubitv.tubitv
  */
 import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.support.test.InstrumentationRegistry
 import android.support.test.rule.GrantPermissionRule
 import android.support.test.uiautomator.*
@@ -17,7 +18,6 @@ import java.net.NetworkInterface
 import java.util.*
 
 
-
 /**
  * Instrumented test, which will execute on an Android device.
  *
@@ -25,7 +25,7 @@ import java.util.*
  */
 open class BaseTest {
 
-    val deviceName:String =getDeviceNameBasedOnId(getDeviceId())
+    val deviceName: String = getDeviceNameBasedOnId(getDeviceId())
 
     protected lateinit var uiDevice: UiDevice
 
@@ -60,9 +60,9 @@ open class BaseTest {
         return uiDevice
     }
 
-     fun launchApp(appPackage: String, luanchAppFromSameScreen: Boolean) {
+    fun launchApp(appPackage: String, luanchAppFromSameScreen: Boolean) {
         givePermission(appPackage)
-        GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)
+        GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
         uiDevice.pressHome()
         val launcherPackage = uiDevice.launcherPackageName
         assertThat(launcherPackage, CoreMatchers.notNullValue())
@@ -100,27 +100,27 @@ open class BaseTest {
 
     protected fun minimizeAndOpenAppFromSameScreen() {
         try {
-            var i =0
+            var i = 0
             uiDevice.pressRecentApps()
             sleep(2000)
             uiDevice.pressRecentApps()
             sleep(2000)
             while (!uiDevice.currentPackageName.equals(appPackage)) {
-                if(i>20){
-                 throw TestException("Something wrong with minimize app method")
+                if (i > 20) {
+                    throw TestException("Something wrong with minimize app method")
                 }
                 uiDevice.pressRecentApps()
                 i++
             }
-            if(!uiDevice.currentPackageName.equals(appPackage)){
+            if (!uiDevice.currentPackageName.equals(appPackage)) {
                 uiDevice.pressRecentApps()
             }
         } catch (e: UiObjectNotFoundException) {
-         throw   TestException("cannot get app from overview")
+            throw   TestException("cannot get app from overview")
         }
     }
 
-   protected fun getDeviceId(): ByteArray {
+    protected fun getNetworkDeviceId(): ByteArray {
         var id: ByteArray = byteArrayOf()
         var interfaceList = Collections.list(NetworkInterface.getNetworkInterfaces())
         for (interfaces: NetworkInterface in interfaceList) {
@@ -135,28 +135,35 @@ open class BaseTest {
         return id
     }
 
-    protected fun getDeviceNameBasedOnId(id: ByteArray): String {
+    protected fun getDeviceId(): String {
+        val info = Build.FINGERPRINT
+        val id = info.split("/").get(4)
+        return id
+    }
+
+    protected fun getDeviceNameBasedOnId(id: String): String {
+
         var device = ""
         when {
-            id.contentEquals(byteArrayOf(-2, 108, -39, 68, -70, -83)) -> device = "Pixel2"
-            id.contentEquals(byteArrayOf(30, -6, -49, 29, -85, -2)) -> device = "GalaxyS10"
-            id.contentEquals(byteArrayOf(-38, -75, 84, -59, 99, 109)) -> device = "GalaxyS8"
-            id.contentEquals(byteArrayOf(-2, -6, 100, -2, 67, 75)) -> device = "GalaxyS8"
-            id.contentEquals(byteArrayOf(10, -70, -22, 127, 97, -47)) -> device = "Note4"
-            id.contentEquals(byteArrayOf(-38, 103, -50, -68, -5, -31)) -> device = "AsusTablet"
-            id.contentEquals(byteArrayOf(34, -61, 57, -66, -100, -124)) -> device = "SumsungTablet"
-            id.contentEquals(byteArrayOf(124, -7, 14, 99, 9, -121)) -> device = "SumsungTablet"
-            id.contentEquals(byteArrayOf(18, -31, -14, -47, -35, -67)) -> device = "G6"
-            id.contentEquals(byteArrayOf(34, -61, 57, -66, -100, -124)) -> device = "SunsungGalaxyTablet"
-            id.contentEquals(byteArrayOf(2, 0, 0, 0, 0, 0)) -> device = "Vlad's emulator"
-            id.contentEquals(byteArrayOf(-54, -75, -4, 38, 50, 40)) -> device = "AsusTablet"
-            id.contentEquals(byteArrayOf(-42, -61, 83, -123, -62, 92)) -> device = "AsusTablet"
-            id.contentEquals(byteArrayOf(-74, -9, -95, -20, -72, -68)) -> device = "LG K20"
-            id.contentEquals(byteArrayOf(70, 19, 12, 62, -54, -24)) -> device = "TabA"
-            id.contentEquals(byteArrayOf(-106, -24, 124, 54, -61, 72   )) -> device = "LGNexus"
-            id.isEmpty() -> throw TestException("Something wrong with getDeviceId() method, can't get id")
+            id.contentEquals("5164942:user") -> device = "Pixel2"
+            id.contentEquals("G975U1UEU1ASAU:user") -> device = "GalaxyS10"
+            id.contentEquals("G950USQS2BRB1:user") -> device = "GalaxyS8"
+//            id.contentEquals(byteArrayOf(-2, -6, 100, -2, 67, 75)) -> device = "GalaxyS8"
+            id.contentEquals("N910VVRU2BPA1:user") -> device = "Note4"
+//            id.contentEquals(byteArrayOf(-38, 103, -50, -68, -5, -31)) -> device = "AsusTablet"
+            id.contentEquals("T700XXS1CRI2:user") -> device = "SumsungTablet"
+            id.contentEquals("T530NUUES1BPL1:user") -> device = "SumsungTablet"
+            id.contentEquals("180041045dcf7:user") -> device = "G6"
+//            id.contentEquals(byteArrayOf(34, -61, 57, -66, -100, -124)) -> device = "SunsungGalaxyTablet"
+//            id.contentEquals(byteArrayOf(2, 0, 0, 0, 0, 0)) -> device = "Vlad's emulator"
+//            id.contentEquals(byteArrayOf(-54, -75, -4, 38, 50, 40)) -> device = "AsusTablet"
+            id.contentEquals("2074855:user") -> device = "AsusTablet"
+//            id.contentEquals(byteArrayOf(-74, -9, -95, -20, -72, -68)) -> device = "LG K20"
+            id.contentEquals("T380DXU2BRK2:user") -> device = "TabA"
+            id.contentEquals("4657601:user") -> device = "LGNexus"
+            id.isEmpty() -> throw TestException("Something wrong with getNetworkDeviceId() method, can't get id")
 
-            else -> throw TestException("Your device/emulator is not register in this framework yet, please add this id:${id.joinToString()} in this statment, Also you need to add your deviceid everywhere where we use it e.g -> NativeCamera()")
+            else -> throw TestException("Your device/emulator is not register in this framework yet, please add this id:${id} in this statment, Also you need to add your deviceid everywhere where we use it e.g -> NativeCamera()")
         }
         return device
     }
