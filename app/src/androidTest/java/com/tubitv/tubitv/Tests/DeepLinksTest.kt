@@ -43,7 +43,7 @@ class DeepLinksTest : BaseTest() {
     }
 
     fun ifFirstTime() {
-        var app = "Tubi TV Staging"
+        var app = "Dev Tubi TV"
         if (appPackage.equals("com.tubitv.fire") || appPackage.equals("com.tubitv")) {
             app = "Tubi TV"
         }
