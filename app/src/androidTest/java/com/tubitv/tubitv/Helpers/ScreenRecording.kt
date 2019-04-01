@@ -6,6 +6,7 @@ import android.support.test.uiautomator.UiSelector
 import com.tubitv.tubitv.BaseTest
 import com.tubitv.tubitv.Screens.BaseScreen
 import com.tubitv.tubitv.appPackage
+import com.tubitv.tubitv.deviceName
 import com.tubitv.tubitv.screenCamPackage
 import java.io.File
 import java.text.FieldPosition

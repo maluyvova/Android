@@ -3,6 +3,7 @@ package com.tubitv.tubitv.Tests
 import com.tubitv.tubitv.Helpers.NativeCamera
 import com.tubitv.tubitv.LaunchAppWithFacebook
 import com.tubitv.tubitv.Screens.HomeScreen
+import com.tubitv.tubitv.deviceName
 import junit.framework.Assert.assertFalse
 import org.junit.Assert
 import org.junit.Test
@@ -179,7 +180,7 @@ class SettingTest : LaunchAppWithFacebook() {
                 .provideMessageToDescription("Hello just want to type something, Test automation adnroid")
                 .clickOnAttachButton()
                 .clickOnCamera()
-        NativeCamera().makeAPhoto(super.deviceName)
+        NativeCamera().makeAPhoto(deviceName)
                 .clickOnSendButton(true)
     }
 
@@ -193,7 +194,7 @@ class SettingTest : LaunchAppWithFacebook() {
                 .provideMessageToDescription("Hello just want to type something, Test automation adnroid")
                 .clickOnAttachButton()
                 .clickOnCamera()
-        val attachmentStillExists = NativeCamera().makeAPhoto(super.deviceName)
+        val attachmentStillExists = NativeCamera().makeAPhoto(deviceName)
                 .clickOnDeletePhoto()
                 .checkIfAttachmentDeleted()
 

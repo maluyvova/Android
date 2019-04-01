@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory
 import android.os.Environment
 import com.tubitv.tubitv.Enomus.ScreensForComparing
 import com.tubitv.tubitv.Screens.BaseScreen
+import com.tubitv.tubitv.deviceName
 import java.io.File
 import java.lang.Math.abs
 import java.lang.Thread.sleep
