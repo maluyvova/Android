@@ -6,8 +6,8 @@ package com.tubitv.tubitv
 
 //val appPackage="com.tubitv.fire"
 //val appPackage="com.tubitv.debug"
-val appPackage ="com.tubitv.dev"
-//val appPackage = "com.tubitv"
+//val appPackage ="com.tubitv.dev"
+val appPackage = "com.tubitv"
 //val appPackage="com.tubitv.dev"
 //val appPackage = "com.tubitv.staging"
 val testPackage = "com.tubitv.tubitv"

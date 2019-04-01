@@ -72,7 +72,7 @@ open class BaseTest {
         val context = InstrumentationRegistry.getContext()
         val intent = context.packageManager
                 .getLaunchIntentForPackage(appPackage)
-        assertThat("Application is not installed or disabled (Package not found or cannot be launched)", intent, CoreMatchers.notNullValue())
+        assertThat("Application is not installed or disabled (Package not found or cannot be launched), change app id in Configuration.kt", intent, CoreMatchers.notNullValue())
         // Clear out any previous instances
         if (luanchAppFromSameScreen == false) {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
