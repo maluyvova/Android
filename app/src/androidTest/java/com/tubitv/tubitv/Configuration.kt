@@ -19,4 +19,5 @@ val mediumWaitTime = 4000L
 val moviesListTimeout = 9000L
 val facebookLogin = 17000L
 val waitForAutoplay = 20000L
+var deviceName =""
 val appPackageFacebook = "com.facebook.katana"

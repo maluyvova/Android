@@ -18,6 +18,7 @@ open class LaunchAppWithFacebook : BaseTest() {
     @Before
     fun setUps() {
         getInstrum()
+        setDeviceId()
         putInPortraitMode()
         killApp()
         clearAppData()

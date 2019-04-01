@@ -34,6 +34,7 @@ open class SimpleLaunchApp : BaseTest() {
     @Before
     fun luanchApp() {
         getInstrum()
+        setDeviceId()
         killApp()
         clearAppData()
         putInPortraitMode()

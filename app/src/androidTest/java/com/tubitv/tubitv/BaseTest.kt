@@ -25,7 +25,6 @@ import java.util.*
  */
 open class BaseTest {
 
-    val deviceName: String = getDeviceNameBasedOnId(getDeviceId())
 
     protected lateinit var uiDevice: UiDevice
 
@@ -195,6 +194,10 @@ open class BaseTest {
         assertThat(uiDevice.findObject(UiSelector().resourceId(appPackage + ":id/nav_app_bar_main_logo"))
                 .waitForExists(facebookLogin), CoreMatchers.`is`(true))
 
+    }
+
+    protected fun setDeviceId(){
+        deviceName = getDeviceNameBasedOnId(getDeviceId())
     }
 
 
