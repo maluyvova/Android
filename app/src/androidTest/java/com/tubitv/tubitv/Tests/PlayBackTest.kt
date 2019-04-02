@@ -20,7 +20,6 @@ class PlayBackTest : LaunchAppWithFacebook() {
         val homePage = HomeScreen(true)
         val gotItScreen = homePage.clickOnTitle(0)
         val movieDatailScreen = gotItScreen.clickOnGotIt()
-        movieDatailScreen.dontSelectHuluTitle()
         var playBackScreen = movieDatailScreen.clickOnPlay()
         playBackScreen.waitUntilAdsfinishes()
         val beforeScrolling = playBackScreen.textOfRightTimer()

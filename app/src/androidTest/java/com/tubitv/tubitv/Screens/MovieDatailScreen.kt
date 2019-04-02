@@ -54,14 +54,7 @@ class MovieDatailScreen() : BaseScreen() {
             break
     }
 
-    fun dontSelectHuluTitle() {
-        val i = 1;
-        while (findElementById(huluIcon, false).exists()) {
-            uiDevice.pressBack()
-            HomeScreen(true).clickOnTitle(i)
-            i + 1
-        }
-    }
+
 
     fun checkIfThisHuluTitle(): Boolean {
         var hulu = false

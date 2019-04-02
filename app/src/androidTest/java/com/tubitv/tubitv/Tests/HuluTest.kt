@@ -17,7 +17,7 @@ class HuluTest : LaunchAppWithFacebook() {
     val textWhatTestIsLookingFor = "Beverly Hills 90210"
 
 
-    @Test
+    //@Test
     fun huluTitleWithYearsLimitationsErrorMessageValidation() {
         var warningMessage = ""
         var warningMeassageAfterClose = ""
@@ -51,7 +51,7 @@ class HuluTest : LaunchAppWithFacebook() {
     }
 
 
-    @Test
+    //@Test
     fun huluTitleWithYearsLimitations() {
         val huluPlaybackScreen = HuluPlaybackScreen()
         val homeScreen = HomeScreen(true)
@@ -78,7 +78,7 @@ class HuluTest : LaunchAppWithFacebook() {
         Assert.assertTrue(huluPlaybackScreen.verifyIfPlaybackOpenened())
     }
 
-    @Test
+    //@Test
     fun huluTitleAddedToHistory() {
         val homeScreen = HomeScreen(true)
         val searchSreen = homeScreen.clickOnSearch()
@@ -100,7 +100,7 @@ class HuluTest : LaunchAppWithFacebook() {
         assertEquals("Hulu title is not added to continueWatching after watching ", titleFromSerch, titleFromContinueWatching)
     }
 
-    @Test
+    //@Test
     fun huluTitleAddedToHistoryPickerDidntPopUp() {
         val huluPlaybackScreen = HuluPlaybackScreen()
         val homeScreen = HomeScreen(true)
@@ -140,7 +140,7 @@ class HuluTest : LaunchAppWithFacebook() {
         assertEquals("Hulu title is not added to continueWatching after watching ", textOfTitle, titleFromContinueWatching)
     }
 
-    @Test
+    //@Test
     fun huluTitleAddedToQueue() {
         val homeScreen = HomeScreen(true)
         homeScreen.longPress()

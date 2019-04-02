@@ -248,7 +248,6 @@ class MoviesTest : LaunchAppWithFacebook() {
         }
         selectFirstTime = false
         val movieDatailScreen = MovieDatailScreen()
-        movieDatailScreen.dontSelectHuluTitle()
         nameOfMovie.add(movieDatailScreen.titleName)
         var playBackScreen = movieDatailScreen.clickOnPlay()
         playBackScreen.seekToMiddleOfPlayback()
