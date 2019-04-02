@@ -290,9 +290,8 @@ class SearchTest : LaunchAppWithFacebook() {
                 .clickOnPlay()
         BaseScreen().navigateBackToHomeScreen()
         homeScreen.clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .longClickOnTitle(0)
-                .clickRemoveFromHistory()
+                .verifyIfCategoryIsNotPresentOnScreen(Categories.CONTINUE_WATCHING.value)
+
     }
 
 

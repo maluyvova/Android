@@ -213,8 +213,8 @@ class SerialsTest : LaunchAppWithFacebook() {
         }
         BaseScreen().navigateBackToHomeScreen()
         homeScreen.clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
+                .verifyIfCategoryIsNotPresentOnScreen(Categories.CONTINUE_WATCHING.value)
+
     }
 
     @Test
@@ -256,8 +256,8 @@ class SerialsTest : LaunchAppWithFacebook() {
                 .clickOnNativeBackForSerial()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
+                .verifyIfCategoryIsNotPresentOnScreen(Categories.CONTINUE_WATCHING.value)
+
     }
 
     @Test

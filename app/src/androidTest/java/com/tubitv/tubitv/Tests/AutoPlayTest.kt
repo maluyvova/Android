@@ -191,7 +191,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         val autoplayScreen = playBackScreen.seekToAutoPlay(TypeOfContent.MOVIES)
         autoplayScreen.slideToNextTitle(false)
         PlayBackScreen.AutoPlay().playTitleFromAutoplay()
-        sleep(1000)
+        sleep(40000)
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)

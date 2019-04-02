@@ -108,9 +108,8 @@ class PlayBackTest : LaunchAppWithFacebook() {
         playBackScreen.seekToMiddleOfPlayback()
         BaseScreen().navigateBackToHomeScreen()
         homeScreen.clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .longClickOnTitle(textOfTitle)
-                .clickRemoveFromHistory()
+                .verifyIfCategoryIsNotPresentOnScreen(Categories.CONTINUE_WATCHING.value)
+
     }
 
 }
