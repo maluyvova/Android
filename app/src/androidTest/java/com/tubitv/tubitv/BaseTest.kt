@@ -147,7 +147,7 @@ open class BaseTest {
             id.contentEquals("5164942:user") -> device = "Pixel2"
             id.contentEquals("G975U1UEU1ASAU:user") -> device = "GalaxyS10"
             id.contentEquals("G950USQS2BRB1:user") -> device = "GalaxyS8"
-//            id.contentEquals(byteArrayOf(-2, -6, 100, -2, 67, 75)) -> device = "GalaxyS8"
+            id.contentEquals("G975U1UEU1ASBA:user") -> device = "GalaxyS8"
             id.contentEquals("N910VVRU2BPA1:user") -> device = "Note4"
 //            id.contentEquals(byteArrayOf(-38, 103, -50, -68, -5, -31)) -> device = "AsusTablet"
             id.contentEquals("T700XXS1CRI2:user") -> device = "SumsungTablet"
@@ -196,7 +196,7 @@ open class BaseTest {
 
     }
 
-    protected fun setDeviceId(){
+    protected fun setDeviceId() {
         deviceName = getDeviceNameBasedOnId(getDeviceId())
     }
 
