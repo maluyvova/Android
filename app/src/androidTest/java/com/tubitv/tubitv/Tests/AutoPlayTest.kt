@@ -11,6 +11,7 @@ import junit.framework.Assert.*
 import org.junit.Assert
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
+import java.lang.Thread.sleep
 import java.util.regex.Pattern
 
 
@@ -115,8 +116,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         val titleFromLeftCorner=autoplayScreen.titleOnLefSideWhenAutoplayIsHidden.waitForExists(globalTimeout)
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
+                .verifyIfCategoryIsNotPresentOnScreen(Categories.CONTINUE_WATCHING.value)
         assertTrue("I click on tagle in Autoplay but title in left corner didn't appear",titleFromLeftCorner)
     }
 
@@ -181,8 +181,8 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         assertFalse("I scroll to the side and 20 sec timer still exists ", autoplayScreen.verifyThatTheTimerIsNotExists())
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
+                .verifyIfCategoryIsNotPresentOnScreen(Categories.CONTINUE_WATCHING.value)
+
     }
 
     @Test
@@ -198,6 +198,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         val autoplayScreen = playBackScreen.seekToAutoPlay(TypeOfContent.MOVIES)
         autoplayScreen.slideToNextTitle(false)
         PlayBackScreen.AutoPlay().playTitleFromAutoplay()
+        sleep(1000)
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
                 .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
@@ -248,8 +249,7 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         Assert.assertTrue("", timerAfterWiat - timer <= 4)
         BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true).clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
+                .verifyIfCategoryIsNotPresentOnScreen(Categories.CONTINUE_WATCHING.value)
     }
 
 
