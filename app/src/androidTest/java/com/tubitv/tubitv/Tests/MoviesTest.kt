@@ -361,6 +361,7 @@ class MoviesTest : LaunchAppWithFacebook() {
         val autoPlay = playBackScreen.seekToAutoPlay(TypeOfContent.MOVIES)
         autoPlay.playTitleFromAutoplay()
         playBackScreen.waitUntilAdsfinishes()
+        Thread.sleep(100000)
         val timer = playBackScreen.textOfLeftTimer()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()
@@ -387,12 +388,6 @@ class MoviesTest : LaunchAppWithFacebook() {
         autoPlay.playTitleFromAutoplay()
         playBackScreen.waitUntilAdsfinishes()
         val timer = playBackScreen.textOfLeftTimer()
-        BaseScreen().navigateBackToHomeScreen()
-                .clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
-
-
         assertTrue("This test was playing title till first queue point then scroll to autoplay and then select title from autoplay, Title from autoplay starts not from beginning", timer.substring(0, 2).equals("00"))
     }
 
@@ -490,10 +485,6 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .seekToMiddleOfPlayback()
                 .clickPlay()
                 .clickOnNativeBackForMovie()
-        BaseScreen().navigateBackToHomeScreen()
-                .clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
     }
 
     @Test
@@ -525,7 +516,8 @@ class MoviesTest : LaunchAppWithFacebook() {
                 .seekToMiddleOfPlayback()
                 .clickOnNativeBackForMovie()
                 .clickOnPlay()
-                .seekToTheEnd()
+                .seekToTheBegining()
+                .seekToMiddleOfPlayback()
                 .clickOnNativeBackForMovie()
         BaseScreen().navigateBackToHomeScreen()
                 .clickOnBrowseButton()

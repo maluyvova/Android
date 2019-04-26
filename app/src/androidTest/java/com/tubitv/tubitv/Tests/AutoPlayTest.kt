@@ -41,13 +41,9 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         autoplayScreen.playTitleFromAutoplay()
         val nextTitle = playBackScreen.getNameOfTitleFromPlayback()
         if(fistTime){
-        BaseScreen().navigateBackToHomeScreen()
-        HomeScreen(true).clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()}
         assertEquals("Text between title on autoplay and text from playback is different", nameOfTitleFromAutoplay, nextTitle)
         assertNotEquals("Same title is playing after autoplay", selectedTitle, nextTitle)
-    }
+    }}
 
     @Test
     fun selectNextTitleThreeTimesMovies() {
@@ -68,10 +64,6 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         var nameOfTitleFromAutoplays = autoplayScreen.textFromFirstTitleAutoplay
         autoplayScreen.playTitleFromAutoplay()
         val nextTitles = playBackScreen.getNameOfTitleFromPlayback()
-        BaseScreen().navigateBackToHomeScreen()
-        HomeScreen(true).clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
         assertEquals("Text between title on autoplay and text from playback is different", nameOfTitleFromAutoplay, nextTitle)
         assertNotEquals("Same title is playing after autoplay", selectedTitle, nextTitle)
     }
@@ -91,10 +83,6 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         autoplayScreen.slideToNextTitle(true)
         autoplayScreen.playTitleFromAutoplay()
         val nextTitle = playBackScreen.getNameOfTitleFromPlayback()
-        BaseScreen().navigateBackToHomeScreen()
-        HomeScreen(true).clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
         assertNotEquals("Next tile in Autoplay same like a first one", nameOfTitleFromAutoplay, textOfNextTitleInAutoplay)
         assertEquals("Incorrect title is playing after autoplay", nextTitle, textOfNextTitleInAutoplay)
     }
@@ -132,10 +120,6 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         autoplayScreen.selectTitleNextTitleFromHiddenAutoplay()
         playBackScreen.waitUntilAdsfinishes()
         var nameOfTitle = playBackScreen.getNameOfTitleFromPlayback()
-        BaseScreen().navigateBackToHomeScreen()
-        HomeScreen(true).clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
         assertEquals("I hide autoplay, then select title from hidden autoplay", nameOfTitle, nameOfTitleFromAutoplay)
     }
 
@@ -154,10 +138,6 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
             playBackScreen.waitUntilAdsfinishes()
             Assert.assertEquals("After 20 sec waiting for next title from autoplay, for some reason titles don't match", titleShouldPlay, playBackScreen.getNameOfTitleFromPlayback())
         } else Assert.assertEquals("Next title didn't play after 20 sec waiting for next title", 2, 5)
-        BaseScreen().navigateBackToHomeScreen()
-        HomeScreen(true).clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
     }
 
     @Test
@@ -191,11 +171,8 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         val autoplayScreen = playBackScreen.seekToAutoPlay(TypeOfContent.MOVIES)
         autoplayScreen.slideToNextTitle(false)
         PlayBackScreen.AutoPlay().playTitleFromAutoplay()
-        sleep(40000)
-        BaseScreen().navigateBackToHomeScreen()
-        HomeScreen(true).clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
+
+
     }
 
     @Test
@@ -210,13 +187,9 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         val autoplayScreen = playBackScreen.seekToAutoPlay(TypeOfContent.MOVIES)
         autoplayScreen.hideAutoplay()
         val firstTime = playBackScreen.textOfRightTimer()
-        playBackScreen.scrollSeekBar()
+        playBackScreen.seekToMiddleOfPlayback()
         val secondTime = playBackScreen.textOfRightTimer()
         Assert.assertNotEquals("I hide autoplay and seek to another moment with scroll bar", firstTime, secondTime)
-        BaseScreen().navigateBackToHomeScreen()
-        HomeScreen(true).clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
     }
 
 
@@ -350,10 +323,6 @@ class AutoPlayTest : LaunchAppWithFacebook() {//SimpleLaunchApp() {
         val timer = autoplayScreen.textFromAutoplayTimer.replace("[^-?0-9]+".toRegex(), "").toInt()
         minimizeAndOpenAppFromSameScreen()
         PlayBackScreen.AutoPlay()
-        BaseScreen().navigateBackToHomeScreen()
-        HomeScreen(true).clickOnBrowseButton()
-                .scrollToSpecificCategory(Categories.CONTINUE_WATCHING.value)
-                .removeAllTitlesFromHistory()
     }
 
 

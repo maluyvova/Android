@@ -145,7 +145,8 @@ open class BaseTest {
         var device = ""
         when {
             id.contentEquals("5164942:user") -> device = "Pixel2"
-            id.contentEquals("G975U1UEU1ASAU:user") -> device = "GalaxyS10"
+            id.contentEquals("5163636:user") -> device = "Pixel3"
+            id.contentEquals("G975U1UEU1ASBA:user") -> device = "GalaxyS10"
             id.contentEquals("G950USQS2BRB1:user") -> device = "GalaxyS8"
             id.contentEquals("G975U1UEU1ASBA:user") -> device = "GalaxyS8"
             id.contentEquals("N910VVRU2BPA1:user") -> device = "Note4"

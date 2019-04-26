@@ -30,13 +30,8 @@ class BrowseMenuScreen : BaseScreen() {
     private var stopLoop = 0
 
     init {
-        if (findElementById(threeDots, true).exists()) {
-            assertTrue("Name of big container doesn't exists,e.g-> 'For you', 'Genres' ", findElementById(nameOfBigContainer, true).exists())
-
-        } else {
             rowScreen = true
             scrollableScreen.flingToBeginning(3)
-        }
     }
 
     fun numberOftitles(): Int {

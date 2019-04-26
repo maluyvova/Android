@@ -2,7 +2,9 @@ package com.tubitv.tubitv.Tests
 
 import com.tubitv.tubitv.Helpers.NativeCamera
 import com.tubitv.tubitv.LaunchAppWithFacebook
+import com.tubitv.tubitv.Screens.BaseScreen
 import com.tubitv.tubitv.Screens.HomeScreen
+import com.tubitv.tubitv.Screens.SendMessageView
 import com.tubitv.tubitv.deviceName
 import junit.framework.Assert.assertFalse
 import org.junit.Assert
@@ -117,12 +119,12 @@ class SettingTest : LaunchAppWithFacebook() {
         val settingMenu = homePage.clickOnAccountButton()
         val helpCenterScreen = settingMenu.clickOnHelpCenter()
         helpCenterScreen.clickOnIcon(1)
-        helpCenterScreen.clickOnSendMessage()
-                .provideMessageToDescription("Hello Tubi, Vlad's automation tests, don't pay attention")
+        val messageNotSent=helpCenterScreen.clickOnSendMessage()
+                .provideMessageToDescription("Hello Tubi,Android automation tests, don't pay attention")
                 .clickOnBackButton()
-        for (i in 0..2) {
-            uiDevice.pressBack()
-        }
+        messageNotSent as SendMessageView.MessageNotSentDialog
+        messageNotSent.clickOnDelete()
+        BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true)
     }
 
@@ -134,10 +136,9 @@ class SettingTest : LaunchAppWithFacebook() {
         helpCenterScreen.clickOnIcon(1)
         helpCenterScreen.clickOnSendMessage()
                 .provideMessageToDescription(longText)
-                .clickOnSendButton(false)
-        for (i in 0..2) {
-            uiDevice.pressBack()
-        }
+                .clickOnSendButton()
+                .checkIfMessageWasSent(false)
+        BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true)
     }
 
@@ -149,10 +150,8 @@ class SettingTest : LaunchAppWithFacebook() {
         helpCenterScreen.clickOnIcon(1)
         helpCenterScreen.clickOnSendMessage()
                 .provideMessageToDescription("a")
-                .clickOnSendButton(false)
-        for (i in 0..2) {
-            uiDevice.pressBack()
-        }
+                .clickOnSendButton()
+        BaseScreen().navigateBackToHomeScreen()
         HomeScreen(true)
     }
 
@@ -179,9 +178,9 @@ class SettingTest : LaunchAppWithFacebook() {
         helpCenterScreen.clickOnSendMessage()
                 .provideMessageToDescription("Hello just want to type something, Test automation adnroid")
                 .clickOnAttachButton()
-                .clickOnCamera()
-        NativeCamera().makeAPhoto(deviceName)
-                .clickOnSendButton(true)
+                .addFile()
+    SendMessageView().clickOnSendButton()
+            .checkIfMessageWasSent(true)
     }
 
     @Test
@@ -193,7 +192,7 @@ class SettingTest : LaunchAppWithFacebook() {
         helpCenterScreen.clickOnSendMessage()
                 .provideMessageToDescription("Hello just want to type something, Test automation adnroid")
                 .clickOnAttachButton()
-                .clickOnCamera()
+
         val attachmentStillExists = NativeCamera().makeAPhoto(deviceName)
                 .clickOnDeletePhoto()
                 .checkIfAttachmentDeleted()

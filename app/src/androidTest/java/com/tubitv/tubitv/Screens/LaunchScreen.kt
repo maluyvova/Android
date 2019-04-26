@@ -5,6 +5,7 @@ import com.tubitv.tubitv.appPackage
 import com.tubitv.tubitv.globalTimeout
 import com.tubitv.tubitv.shortWaitTime
 import junit.framework.Assert
+import org.junit.Assert.assertTrue
 
 /**
  * Created by vburian on 3/23/18.
@@ -28,9 +29,9 @@ class LaunchScreen : BaseScreen() {
             signInScreen.clickOnSignIn()
             LaunchScreen()
         }
-        Assert.assertTrue("Expected text animation is not displayed in Launch Screen", textAnimation.waitForExists(globalTimeout))
-        Assert.assertTrue("Expected create new account button is not displayed in Launch Screen", createNewAcountButton.waitForExists(globalTimeout))
-        Assert.assertTrue("Expected Sign In buttom is not displayed", signInButton.waitForExists(globalTimeout))
+        assertTrue("Expected text animation is not displayed in Launch Screen", textAnimation.waitForExists(globalTimeout))
+        assertTrue("Expected create new account button is not displayed in Launch Screen", createNewAcountButton.waitForExists(globalTimeout))
+        assertTrue("Expected Sign In buttom is not displayed", signInButton.waitForExists(globalTimeout))
     }
 
     fun clickOnSignIn(): SignInScreen {
