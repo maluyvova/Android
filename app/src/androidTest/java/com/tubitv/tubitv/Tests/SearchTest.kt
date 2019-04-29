@@ -222,16 +222,6 @@ class SearchTest : LaunchAppWithFacebook() {
                 " please try again.")
     }
 
-    @Test
-    fun searchForHuluTitles() {
-        val homeScreen = HomeScreen(true)
-        val searchScreen = homeScreen.clickOnSearch()
-        val huluTitle = searchScreen.provideTextToSearch("777")
-                .clickOnFirstTitleFirstTime()
-                .clickOnGotIt()
-                .checkIfThisHuluTitle()
-        assertTrue("I provided hulu title in search but I can't find it, maybe title already expired ", huluTitle)
-    }
 
     @Test
     fun checkSearchScreenDoesntSaveInstanceAfterClear() {

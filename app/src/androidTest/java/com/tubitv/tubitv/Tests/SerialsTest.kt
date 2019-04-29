@@ -260,20 +260,20 @@ class SerialsTest : LaunchAppWithFacebook() {
 
     }
 
-    @Test
-    fun checkIfWeShowEpisodeNameOnHomeScreen() {
-        val homePage = HomeScreen(true)
-        homePage.scrollToSpecificCategory(Categories.TV_COMEDIES.value, DirectionOfScrolling.DOWN)
-        val serials = Serials(Categories.TV_COMEDIES.value)
-        val moviesByCategoryScreen = serials.clickOnSerialCategory()
-        scrollEpisodesToTheSide(Categories.TV_COMEDIES.value)
-        val episodeNameFromPlayBack=SerialsScreen().clickOnPlayForEpisode(currentEpisode.get(0))
-                .seekToMiddleOfPlayback()
-                .getNameOfTitleFromPlayback()
-        BaseScreen().navigateBackToHomeScreen()
-        val episodeNameFromContWatching = homePage.getText(Categories.CONTINUE_WATCHING.value)
-        assertEquals("Looks like we don't show episode name when serial was edded to 'Continue watching' on home page, we should show something like: S01:E05- The Wilson ",episodeNameFromPlayBack,episodeNameFromContWatching)
-    }
+//    @Test
+//    fun checkIfWeShowEpisodeNameOnHomeScreen() {
+//        val homePage = HomeScreen(true)
+//        homePage.scrollToSpecificCategory(Categories.TV_COMEDIES.value, DirectionOfScrolling.DOWN)
+//        val serials = Serials(Categories.TV_COMEDIES.value)
+//        val moviesByCategoryScreen = serials.clickOnSerialCategory()
+//        scrollEpisodesToTheSide(Categories.TV_COMEDIES.value)
+//        val episodeNameFromPlayBack=SerialsScreen().clickOnPlayForEpisode(currentEpisode.get(0))
+//                .seekToMiddleOfPlayback()
+//                .getNameOfTitleFromPlayback()
+//        BaseScreen().navigateBackToHomeScreen()
+//        val episodeNameFromContWatching = homePage.getText(Categories.CONTINUE_WATCHING.value)
+//        assertEquals("Looks like we don't show episode name when serial was edded to 'Continue watching' on home page, we should show something like: S01:E05- The Wilson ",episodeNameFromPlayBack,episodeNameFromContWatching)
+//    }
 
     @Test
     fun checkIfWeShowEpisodeInTitleDetailPageUnderTitleName(){
